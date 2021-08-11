@@ -1,0 +1,233 @@
+---
+title: "STA302H1 -- Final Project Descriptive Statistics"
+author: "Danny Chen"
+date: "August 10, 2021"
+output:
+  pdf_document: default
+---
+
+```{r setup, include = FALSE, message = FALSE, warning = FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(dplyr)
+```
+
+# Import STA302H1 Study Time and COVID Contemplation Time vs. Quiz Performance Dataset
+
+```{r echo = FALSE, message = FALSE}
+setwd("~/Desktop/sta302h1/STA302H1 -- Projects/final report")
+sta302_performance_data = read.csv("./data.csv", header = TRUE)
+attach(sta302_performance_data)
+```
+
+```{R}
+country_factors = as.factor(c("canada", "china", "india", "japan", 
+                              "mongolia", "pakistan", "singapore", 
+                              "south korea", "taiwan", "usa", "uae", "na"))
+```
+
+# Data Cleaning
+
+First, I'll clean my data.
+
+```{r}
+cleaned_sta302_performance_data <- sta302_performance_data %>%
+    # Remove the "X" column: it's simply the row number, which isn't very useful.
+    select(-X) %>%
+    
+    # Group student overall quiz 4 scores from highest to lowest.
+    arrange(desc(Quiz_4_score)) %>%
+    
+    # Rearrange similar columns side-by-side.
+    relocate(Country,
+             COVID.hours..W1., COVID.hours..W2., 
+             COVID.hours..W3., COVID.hours..W4.,
+             STA302.hours..W1., STA302.hours..W2., 
+             STA302.hours..W3., STA302.hours..W4.,
+             Quiz_1_score, Quiz_2_score, 
+             Quiz_3_score, Quiz_4_score)
+    
+    # TODO: Make sure all country names are lowercase.
+    # e.g. "Canada" and "canada" are the same country.
+    # 1. Consider running a for loop that makes all rows in column "Country" lowercase,
+    # 2. Consider string replacement on "Canada" -> "canada"?
+
+    # TODO: Make sure all STA302H1 hours and COVID contemplation hours are
+    # all in numeric form.
+    # 1. use as.numeric()?
+    
+    # Identify rows with no quiz 4. 
+    # These indicate students who have dropped STA302H1, and who 
+    # should be excluded from the final data.
+
+head(cleaned_sta302_performance_data, n = 15)
+```
+
+\break
+
+# Identifying Anomalous Data
+
+Let's identify rows with at least one NA.
+Although some of the rows might only have 1 - 2 NAs and are therefore salvageable, other rows may contain 3 or more NAs, and might indicate students who have dropped STA302H1.
+
+```{r}
+rows_with_some_NAs = cleaned_sta302_performance_data[
+  rowSums(is.na(cleaned_sta302_performance_data)) >= 1,
+]
+head(rows_with_some_NAs, n = 10)
+```
+
+\break
+
+...and rows whose columns are mis-typed and in need of correcting.
+
+# Rows with Mistyped Columns
+
+```{R}
+rows_with_mistyped_columms = cleaned_sta302_performance_data[c(38, 83, 84, 117),]
+rows_with_mistyped_columms
+# row 83: Country -> "canada"
+# row 84: Country -> "canada"
+
+# row 117: COVID.hours..W4. -> 0.5 hours
+
+# row 38:  STA302.hours..W3. -> 5.5<U+00A0>
+# row 117: STA302.hours..W4. -> 7.5 hours
+```
+
+
+\break
+
+# Select Predictor Variables, Find Their Significance
+
+```{r}
+# use week 5b slides -- choose criterion to pick predictor variables.
+
+
+# use lm() on a bunch of predictor variables to determine significant
+# predictor variables.
+
+
+```
+
+\break
+
+# Histograms
+
+```{r}
+# TODO: See Demo 1 to figure out how to add histograms in a matrix format.
+```
+
+\break
+
+# Boxplots
+
+```{r}
+# TODO: See STA248H1 notes to figure out how to create boxplots by class.
+```
+
+\break
+
+# Scatterplots
+
+```{r}
+# pairwise scatterplot
+pairs(~COVID.hours..W1. + COVID.hours..W2. +
+      # COVID.hours..W3. + COVID.hours..W4. +  # TODO: Clean columns.
+      STA302.hours..W1. + STA302.hours..W2. +
+      # STA302.hours..W3. + STA302.hours..W4. +  # TODO: Clean columns.
+      Quiz_1_score + Quiz_2_score,
+      # Quiz_3_score + Quiz_4_score,  # TODO: Clean columns.
+      data = cleaned_sta302_performance_data)
+```
+
+\break
+
+# Correlation Matrix
+
+```{r}
+# TODO: Find correlation matrix to determine candidate significant 
+# TODO: predictor values.
+# cor(cleaned_sta302_performance_data)  # TODO: How to make numeric?
+```
+
+\break
+
+# Summary Statistics
+
+## Mean STA302H1 study time
+
+```{r}
+mean_STA302H1_study_times <- data.frame(
+  week1 = mean(sta302_performance_data$STA302.hours..W1., na.rm = TRUE),
+  week2 = mean(sta302_performance_data$STA302.hours..W2., na.rm = TRUE),
+  week3 = mean(sta302_performance_data$STA302.hours..W3., na.rm = TRUE), # TODO: Clean column.
+  week4 = mean(sta302_performance_data$STA302.hours..W4., na.rm = TRUE)  # TODO: Clean column.
+)
+mean_STA302H1_study_times
+```
+
+## Mean COVID contemplation time
+
+```{R}
+mean_COVID_contemplation_times <- data.frame(
+  week1 = mean(sta302_performance_data$COVID.hours..W1., na.rm = TRUE),
+  week2 = mean(sta302_performance_data$COVID.hours..W2., na.rm = TRUE),
+  week3 = mean(sta302_performance_data$STA302.hours..W3., na.rm = TRUE),  # TODO: Clean column.
+  week4 = mean(sta302_performance_data$STA302.hours..W4., na.rm = TRUE)   # TODO: Clean column.
+)
+mean_COVID_contemplation_times
+```
+
+\break
+
+## Median STA302H1 study time
+
+```{r}
+median_STA302H1_study_times <- data.frame(
+  week1 = median(sta302_performance_data$STA302.hours..W1., na.rm = TRUE),
+  week2 = median(sta302_performance_data$STA302.hours..W2., na.rm = TRUE),
+  week3 = as.double(median(sta302_performance_data$STA302.hours..W3., na.rm = TRUE)),
+  week4 = as.double(median(sta302_performance_data$STA302.hours..W4., na.rm = TRUE))
+)
+median_STA302H1_study_times
+```
+
+## Median COVID contemplation time
+
+```{r}
+median_COVID_contemplation_times <- data.frame(
+  week1 = median(sta302_performance_data$COVID.hours..W1., na.rm = TRUE),
+  week2 = median(sta302_performance_data$COVID.hours..W2., na.rm = TRUE),
+  week3 = median(sta302_performance_data$COVID.hours..W3., na.rm = TRUE),
+  week4 = as.double(median(sta302_performance_data$COVID.hours..W4., na.rm = TRUE))
+)
+median_COVID_contemplation_times
+```
+
+\break
+
+## Country summary statistics
+
+```{r}
+length(which(cleaned_sta302_performance_data$Country == "Canada")) + 2
+length(which(is.na(cleaned_sta302_performance_data$Country)))
+```
+
+## Study hours summary statistics
+
+```{r}
+summary(sta302_performance_data$STA302.hours..W1.)
+summary(sta302_performance_data$STA302.hours..W2.)
+summary(sta302_performance_data$STA302.hours..W3.)
+summary(sta302_performance_data$STA302.hours..W4.)
+```
+
+## COVID hours summary statistics
+
+```{r}
+summary(sta302_performance_data$COVID.hours..W1.)
+summary(sta302_performance_data$COVID.hours..W2.)
+summary(sta302_performance_data$COVID.hours..W3.)
+summary(sta302_performance_data$COVID.hours..W4.)
+```
