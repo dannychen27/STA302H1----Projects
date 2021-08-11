@@ -101,7 +101,7 @@ rows_with_mistyped_columms
 # Select Predictor Variables, Find Their Significance
 
 ```{r}
-# use week 5b slides -- choose criterion to pick predictor variables.
+# use week 5b slides -- choose model selection criterion to pick predictor variables.
 
 
 # use lm() on a bunch of predictor variables to determine significant
@@ -116,6 +116,8 @@ rows_with_mistyped_columms
 
 ```{r}
 # TODO: See Demo 1 to figure out how to add histograms in a matrix format.
+
+# TODO: create histograms with ggplot, and then grid.arrange them together.
 ```
 
 \break
@@ -124,6 +126,8 @@ rows_with_mistyped_columms
 
 ```{r}
 # TODO: See STA248H1 notes to figure out how to create boxplots by class.
+
+# TODO: create factors for each class, so you can color them.
 ```
 
 \break
