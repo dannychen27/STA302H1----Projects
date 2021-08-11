@@ -173,8 +173,8 @@ mean_STA302H1_study_times
 mean_COVID_contemplation_times <- data.frame(
   week1 = mean(sta302_performance_data$COVID.hours..W1., na.rm = TRUE),
   week2 = mean(sta302_performance_data$COVID.hours..W2., na.rm = TRUE),
-  week3 = mean(sta302_performance_data$STA302.hours..W3., na.rm = TRUE),  # TODO: Clean column.
-  week4 = mean(sta302_performance_data$STA302.hours..W4., na.rm = TRUE)   # TODO: Clean column.
+  week3 = mean(sta302_performance_data$COVID.hours..W3., na.rm = TRUE),  # TODO: Clean column.
+  week4 = mean(sta302_performance_data$COVID.hours..W4., na.rm = TRUE)   # TODO: Clean column.
 )
 mean_COVID_contemplation_times
 ```
