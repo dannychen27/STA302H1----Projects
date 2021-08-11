@@ -1,0 +1,11 @@
+Q1: What's with the NA country entries? Maybe this could be under the "undetermined" country.
+A1: Some students may have left this entry blank on the survey. Perhaps either students forgot to answer the question about country of origin, or they were embarrassed to include their country of origin.
+
+
+Q2: Can I simply ignore the missing COVID hours entries, STA302H1 study times, and missing quiz marks -- since students can opt not to write certain quizzes or complete the weekly surveys...
+A2: Yes. That's totally fine.
+
+
+Begin compiling a list of questions about the final project.
+
+- These questions are about how to handle rows that contain one or more NAs.
