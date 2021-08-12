@@ -94,6 +94,11 @@ rows_with_mistyped_columms
 
 # row 38:  STA302.hours..W3. -> 5.5<U+00A0>
 # row 117: STA302.hours..W4. -> 7.5 hours
+
+# library(janitor)
+# use it to clean up data.
+
+# TODO: You're allowed to change entries manually though.
 ```
 
 
