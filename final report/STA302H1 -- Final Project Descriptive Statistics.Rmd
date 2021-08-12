@@ -21,6 +21,7 @@ attach(sta302_performance_data)
 ```
 
 ```{R}
+# TODO: Convert these to factors.
 country_factors = as.factor(c("canada", "china", "india", "japan", 
                               "mongolia", "pakistan", "singapore", 
                               "south korea", "taiwan", "usa", "uae", "na"))
