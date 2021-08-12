@@ -156,9 +156,20 @@ pairs(~COVID.hours..W1. + COVID.hours..W2. +
 # Correlation Matrix
 
 ```{r}
-# TODO: Find correlation matrix to determine candidate significant 
-# TODO: predictor values.
-# cor(cleaned_sta302_performance_data)  # TODO: How to make numeric?
+# take out country column
+no_country = cleaned_sta302_performance_data %>%
+  select(-Country)
+```
+
+```{r}
+# Find correlation matrix to determine candidate significant predictor values.
+
+library(GGally)
+ggcorr(no_country, label = TRUE, label_round = 2)
+
+# TODO: How to make numeric?
+# cor(cleaned_sta302_performance_data, use = "complete.obs")
+# cor(no_country, use = "complete.obs")  # TODO: na./rm = true
 ```
 
 \break
