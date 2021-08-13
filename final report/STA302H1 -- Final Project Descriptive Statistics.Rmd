@@ -305,7 +305,7 @@ length(which(cleaned_sta302_performance_data$Country == "Canada")) + 2
 length(which(is.na(cleaned_sta302_performance_data$Country)))
 ```
 
-## Study hours summary statistics
+## STA302H1 Hours 5-Number Summary
 
 ```{r}
 summary(sta302_performance_data$STA302.hours..W1.)
@@ -314,11 +314,20 @@ summary(sta302_performance_data$STA302.hours..W3.)
 summary(sta302_performance_data$STA302.hours..W4.)
 ```
 
-## COVID hours summary statistics
+## COVID Hours 5-Number Summary
 
 ```{r}
 summary(sta302_performance_data$COVID.hours..W1.)
 summary(sta302_performance_data$COVID.hours..W2.)
 summary(sta302_performance_data$COVID.hours..W3.)
 summary(sta302_performance_data$COVID.hours..W4.)
+```
+
+# Quiz Scores 5-Number Summary
+
+```{r}
+summary(sta302_performance_data$Quiz_1_score)
+summary(sta302_performance_data$Quiz_2_score)
+summary(sta302_performance_data$Quiz_3_score)
+summary(sta302_performance_data$Quiz_4_score)
 ```
