@@ -234,121 +234,103 @@ display_histogram(cleaned_sta302_performance_data,
 # TODO: See STA248H1 notes to figure out how to create boxplots. -- DONE
 # TODO: See toy program of boxplots to see how to color them by factor
 
-ggplot(data = cleaned_sta302_performance_data) +
-  geom_boxplot(mapping = aes(x = Country, y = COVID.hours..W1.)) +
-  labs(title = "Country vs. Week 1 Time Spent Thinking About COVID-19",
-       x = "Country",
-       y = "Time Spent Thinking About COVID-19 (hours)")
+display_boxplot <- function(data, predictor_variable, boxplot_title, y_axis_label) {
+  ggplot(mapping = aes(x = Country, y = predictor_variable)) +
+    geom_boxplot(mapping = aes(x = Country, y = predictor_variable)) +
+    labs(title = boxplot_title,
+         x = "Country",
+         y = y_axis_label)
+}
+```
+
+```{r}
+display_boxplot(cleaned_sta302_performance_data, COVID.hours..W1.,
+                "Country vs. Week 1 Time Spent Thinking About COVID-19",
+                "Time Spent Thinking About COVID-19 (hours)")
 ```
 
 \break
 
 ```{R}
-ggplot(data = cleaned_sta302_performance_data) +
-  geom_boxplot(mapping = aes(x = Country, y = COVID.hours..W2.)) +
-  labs(title = "Country vs. Week 2 Time Spent Thinking About COVID-19",
-       x = "Country",
-       y = "Time Spent Thinking About COVID-19 (hours)")
+display_boxplot(cleaned_sta302_performance_data, COVID.hours..W2.,
+                "Country vs. Week 2 Time Spent Thinking About COVID-19",
+                "Time Spent Thinking About COVID-19 (hours)")
 ```
 
 \break
 
 ```{R}
-ggplot(data = cleaned_sta302_performance_data) +
-  geom_boxplot(mapping = aes(x = Country, y = COVID.hours..W3.)) +
-  labs(title = "Country vs. Week 3 Time Spent Thinking About COVID-19",
-       x = "Country",
-       y = "Time Spent Thinking About COVID-19 (hours)")
+display_boxplot(cleaned_sta302_performance_data, COVID.hours..W3.,
+                "Country vs. Week 3 Time Spent Thinking About COVID-19",
+                "Time Spent Thinking About COVID-19 (hours)")
 ```
 
 \break
 
 ```{R}
-ggplot(data = cleaned_sta302_performance_data) +
-  geom_boxplot(mapping = aes(x = Country, y = COVID.hours..W4.)) +
-  labs(title = "Country vs. Week 4 Time Spent Thinking About COVID-19",
-       x = "Country",
-       y = "Time Spent Thinking About COVID-19 (hours)")
+display_boxplot(cleaned_sta302_performance_data, COVID.hours..W4.,
+                "Country vs. Week 4 Time Spent Thinking About COVID-19",
+                "Time Spent Thinking About COVID-19 (hours)")
 ```
 
 \break
 
 ```{R}
-ggplot(data = cleaned_sta302_performance_data) +
-  geom_boxplot(mapping = aes(x = Country, y = STA302.hours..W1.)) +
-  labs(title = "Country vs. Week 1 Time Spent Studying For STA302H1",
-       x = "Country",
-       y = "Time Spent Studying For STA302H1 (hours)")
+display_boxplot(cleaned_sta302_performance_data, STA302.hours..W1.,
+                "Country vs. Week 1 Time Spent Studying For STA302H1",
+                "Time Spent Studying For STA302H1 (hours)")
 ```
 
 \break
 
 ```{R}
-ggplot(data = cleaned_sta302_performance_data) +
-  geom_boxplot(mapping = aes(x = Country, y = STA302.hours..W2.)) +
-  labs(title = "Country vs. Week 2 Time Spent Studying For STA302H1",
-       x = "Country",
-       y = "Time Spent Studying For STA302H1 (hours)")
+display_boxplot(cleaned_sta302_performance_data, STA302.hours..W2.,
+                "Country vs. Week 2 Time Spent Studying For STA302H1",
+                "Time Spent Studying For STA302H1 (hours)")
 ```
 
 \break
 
 ```{R}
-ggplot(data = cleaned_sta302_performance_data) +
-  geom_boxplot(mapping = aes(x = Country, y = STA302.hours..W3.)) +
-  labs(title = "Country vs. Week 3 Time Spent Studying For STA302H1",
-       x = "Country",
-       y = "Time Spent Studying For STA302H1 (hours)")
+display_boxplot(cleaned_sta302_performance_data, STA302.hours..W3.,
+                "Country vs. Week 3 Time Spent Studying For STA302H1",
+                "Time Spent Studying For STA302H1 (hours)")
 ```
 
 \break
 
 ```{R}
-ggplot(data = cleaned_sta302_performance_data) +
-  geom_boxplot(mapping = aes(x = Country, y = STA302.hours..W4.)) +
-  labs(title = "Country vs. Week 4 Time Spent Studying For STA302H1",
-       x = "Country",
-       y = "Time Spent Studying For STA302H1 (hours)")
+display_boxplot(cleaned_sta302_performance_data, STA302.hours..W4.,
+                "Country vs. Week 4 Time Spent Studying For STA302H1",
+                "Time Spent Studying For STA302H1 (hours)")
 ```
 
 \break
 
 ```{R}
-ggplot(data = cleaned_sta302_performance_data) +
-  geom_boxplot(mapping = aes(x = Country, y = Quiz_1_score)) +
-  labs(title = "Country vs. Quiz 1 Score",
-       x = "Country",
-       y = "Score (out of 10)")
+display_boxplot(cleaned_sta302_performance_data, Quiz_1_score,
+                "Country vs. Quiz 1 Score", "Score (out of 10)")
 ```
 
 \break
 
 ```{R}
-ggplot(data = cleaned_sta302_performance_data) +
-  geom_boxplot(mapping = aes(x = Country, y = Quiz_2_score)) +
-  labs(title = "Country vs. Quiz 2 Score",
-       x = "Country",
-       y = "Score (out of 10)")
+display_boxplot(cleaned_sta302_performance_data, Quiz_2_score,
+                "Country vs. Quiz 2 Score", "Score (out of 10)")
 ```
 
 \break
 
 ```{R}
-ggplot(data = cleaned_sta302_performance_data) +
-  geom_boxplot(mapping = aes(x = Country, y = Quiz_3_score)) +
-  labs(title = "Country vs. Quiz 3 Score",
-       x = "Country",
-       y = "Score (out of 10)")
+display_boxplot(cleaned_sta302_performance_data, Quiz_3_score,
+                "Country vs. Quiz 3 Score", "Score (out of 10)")
 ```
 
 \break
 
 ```{R}
-ggplot(data = cleaned_sta302_performance_data) +
-  geom_boxplot(mapping = aes(x = Country, y = Quiz_4_score)) +
-  labs(title = "Country vs. Quiz 4 Score",
-       x = "Country",
-       y = "Score (out of 10)")
+display_boxplot(cleaned_sta302_performance_data, Quiz_4_score,
+                "Country vs. Quiz 4 Score", "Score (out of 10)")
 ```
 
 \break
