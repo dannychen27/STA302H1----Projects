@@ -122,8 +122,8 @@ rows_with_no_country = cleaned_sta302_performance_data %>%
 # Histograms
 
 ```{r}
-# TODO: See toy programs to learn how to create histograms with ggplot.
-# TODO: See Demo 1 to figure out how to add histograms using grid.arrange.
+# TODO: See toy programs to learn how to create histograms with ggplot. -- DONE
+# TODO: See Demo 1 to figure out how to add histograms using grid.arrange. -- IGNORE
 
 display_histogram <- function(data, predictor_variable, histogram_title, x_axis_label) {
   ggplot(data = tibble(data), mapping = aes(x = predictor_variable)) +
