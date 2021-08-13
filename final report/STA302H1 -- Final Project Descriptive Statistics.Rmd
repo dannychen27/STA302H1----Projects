@@ -368,11 +368,27 @@ display_boxplot(cleaned_sta302_performance_data, Quiz_4_score,
 ```{r}
 # TODO: How do I know which scatterplots are most important to focus on?
 
-# pairwise scatterplot
+# work in groups of 2?
+
+# three different pairs function
+
+# quiz4 ~ quiz 1, 2, 3
+# covid4 ~ covid 1, 2, 3
+# sta302h14 ~ sta302h1 1, 2, 3
+
+# or pick out 4 - 5 scatterplots that have interesting relationships
+
+# back up with correlation
+# scatterplot more informative as a first step
+
+# comprehensive pairwise scatterplot
 pairs(~COVID.hours..W1. + COVID.hours..W2. + COVID.hours..W3. + COVID.hours..W4. +
       STA302.hours..W1. + STA302.hours..W2. + STA302.hours..W3. + STA302.hours..W4. +
       Quiz_1_score + Quiz_2_score + Quiz_3_score + Quiz_4_score,
       data = cleaned_sta302_performance_data)
+
+## GGally
+# ggpairs -- removes bottom half of pairs plot
 ```
 
 \break
