@@ -43,7 +43,7 @@ cleaned_sta302_performance_data <- sta302_performance_data %>%
              Quiz_1_score, Quiz_2_score, 
              Quiz_3_score, Quiz_4_score)
     
-    # Identify rows with no quiz 4. 
+    # Identify rows with at least 3 missing quiz marks.
     # These indicate students who have dropped STA302H1, and who 
     # should be excluded from the final data.
     
