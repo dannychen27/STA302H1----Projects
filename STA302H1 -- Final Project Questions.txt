@@ -41,16 +41,13 @@ A5: A pairwise complete observation is less picky (preserves more of the dataset
 
 Model Selection
 
-Q6: Are
-A6:
+Q6: What do you mean by "independent data set"?
+A6: resampling data from a different population (e.g. summer 2020 cohort), not the same one (summer 2021 cohort)
 
+Q7: Rank the following methods from best to worst:
 
-Q7: Rank the following methods:
+50/50 (training/testing) split, 80/20 split, k-fold cross validation, obtaining independent dataset.
 
-	50/50 (training/testing) split, 80/20 split, k-fold cross validation, obtaining independent dataset.
-
-
-from best to worst.
 A7: 1. obtaining independent dataset
 - expensive, infeasible, sometimes new samplings of population are inaccessible
 
@@ -88,7 +85,8 @@ A11: Describe what model you want to use, and back it up using theory from class
 And empirical observations like residual plots, prior knowledge, etc.
 
 Q12: How do I produce cleanly formatted tables?
-A12: See Demo 3 or 4 for an example.
+A12: See Demo 3 or 4 for an example of a clean formatted table.
+
 
 
 
