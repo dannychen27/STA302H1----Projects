@@ -83,7 +83,9 @@ rows_with_mistyped_columms = cleaned_sta302_performance_data[c(38, 83, 84, 117),
 
 # row 38:  STA302.hours..W3. -> 5.5<U+00A0> -- DONE
 # row 117: STA302.hours..W4. -> 7.5 hours -- DONE
+```
 
+```{r}
 # library(janitor)
 # use it to clean up data.
 ```
