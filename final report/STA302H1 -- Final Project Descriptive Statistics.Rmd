@@ -96,7 +96,6 @@ Taking out the country column can come in handy for functions like cor() where
 factors aren't allowed.
 
 ```{r}
-# TODO: You could also create separate correlation matrices for each country.
 no_country = cleaned_sta302_performance_data %>%
   select(-country)
 ```
@@ -367,6 +366,8 @@ pairs(~COVID.hours..W1. + COVID.hours..W2. + COVID.hours..W3. + COVID.hours..W4.
 
 ```{r}
 # Find correlation matrix to determine candidate significant predictor values.
+# TODO: You could also create separate correlation matrices for each country.
+
 # library(GGally)
 colnames(no_country) <- c("W1COV", "W2COV", "W3COV", "W4COV", 
                           "W1302", "W2302", "W3302", "W4302", 
