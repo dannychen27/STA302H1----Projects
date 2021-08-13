@@ -87,6 +87,21 @@ And empirical observations like residual plots, prior knowledge, etc.
 Q12: How do I produce cleanly formatted tables?
 A12: See Demo 3 or 4 for an example of a clean formatted table.
 
+Q13: What are the predictor variables and the response variable for this dataset?
+A13: According to @283, the quiz 4 score is the response variable, while everything else is a predictor variable.
+
+Q14: How to clean data programmatically?
+A14: Use read_csv() from the tidy verse library to remove comma delimiters, and then as.numeric() function lets you type cast data into a numeric type. The readr library's parse_number() function also works.
+
+You could also use the janitor library to sanitize certain parts of your dataset.
+
+Q15: What R libraries are allowed besides tidy verse and ggplot?
+A15: GGally, GridExtra, and MASS are also acceptable.
+
+Q16: What format should the report follow?
+A16: See posted exemplar of a report on Quercus, although the final project instructions lay out the required sections in your report.
+
+Maybe I'll use median COVID hours, median STA302H1 study times, and median quiz 1 - 3 scores since they are less biased estimators -- and we know grades tend to be left skewed.
 
 
 
