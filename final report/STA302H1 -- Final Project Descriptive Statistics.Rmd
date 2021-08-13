@@ -155,6 +155,7 @@ pairs(~COVID.hours..W1. + COVID.hours..W2. + COVID.hours..W3. + COVID.hours..W4.
 
 ```{r}
 # take out country column
+# TODO: Or create separate correlation matrices for each country?
 no_country = cleaned_sta302_performance_data %>%
   select(-Country)
 ```
