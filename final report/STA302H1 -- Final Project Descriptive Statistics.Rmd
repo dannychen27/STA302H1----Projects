@@ -254,10 +254,10 @@ display_histogram(cleaned_sta302_performance_data,
 
 ```{r}
 # TODO: See STA248H1 notes to figure out how to create boxplots. -- DONE
-# TODO: See toy program of boxplots to see how to color them by factor
+# TODO: See toy program of boxplots to see how to color them by factor -- DONE
 
 display_boxplot <- function(data, predictor_variable, boxplot_title, y_axis_label) {
-  ggplot(mapping = aes(x = Country, y = predictor_variable)) +
+  ggplot(mapping = aes(x = Country, y = predictor_variable, color = Country)) +
     geom_boxplot(mapping = aes(x = Country, y = predictor_variable)) +
     labs(title = boxplot_title,
          x = "Country",
