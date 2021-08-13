@@ -52,8 +52,9 @@ cleaned_sta302_performance_data <- sta302_performance_data %>%
 
 # Identifying Anomalous Data
 
-Rows with at least one NA deserve closer examination.
-Some of the rows might only have 1 - 2 NAs and are therefore salvageable, which is OK. Other rows may contain 3 or more NAs, and might indicate students who have dropped STA302H1. We'd like to exclude them from our analysis.
+Rows with at least one NA deserve closer examination. \newline
+Some of the rows might only have 1 - 2 NAs and are therefore salvageable, which is OK. \newline
+Other rows may contain 3 or more NAs, and might indicate students who have dropped STA302H1. We'd like to exclude them from our analysis.
 
 ```{r}
 at_least_one_NA = function(data) {
