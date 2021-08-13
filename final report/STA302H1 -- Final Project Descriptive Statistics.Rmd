@@ -46,15 +46,6 @@ cleaned_sta302_performance_data <- sta302_performance_data %>%
              Quiz_1_score, Quiz_2_score, 
              Quiz_3_score, Quiz_4_score)
     
-    # TODO: Make sure all country names are lowercase.
-    # e.g. "Canada" and "canada" are the same country.
-    # 1. Consider running a for loop that makes all rows in column "Country" lowercase,
-    # 2. Consider string replacement on "Canada" -> "canada"?
-
-    # TODO: Make sure all STA302H1 hours and COVID contemplation hours are
-    # all in numeric form.
-    # 1. use as.numeric()?
-    
     # Identify rows with no quiz 4. 
     # These indicate students who have dropped STA302H1, and who 
     # should be excluded from the final data.
@@ -95,8 +86,6 @@ rows_with_mistyped_columms = cleaned_sta302_performance_data[c(38, 83, 84, 117),
 
 # library(janitor)
 # use it to clean up data.
-
-# TODO: You're allowed to change entries manually though.
 ```
 
 
