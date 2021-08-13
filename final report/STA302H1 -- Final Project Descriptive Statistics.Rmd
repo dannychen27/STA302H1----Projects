@@ -244,66 +244,7 @@ round(cor(no_country, use = "complete.obs"), 2)  # TODO: na.rm = true
 
 \break
 
-# Summary Statistics
-
-## Mean STA302H1 study time
-
-```{r}
-mean_STA302H1_study_times <- data.frame(
-  week1 = mean(sta302_performance_data$STA302.hours..W1., na.rm = TRUE),
-  week2 = mean(sta302_performance_data$STA302.hours..W2., na.rm = TRUE),
-  week3 = mean(sta302_performance_data$STA302.hours..W3., na.rm = TRUE),
-  week4 = mean(sta302_performance_data$STA302.hours..W4., na.rm = TRUE)
-)
-mean_STA302H1_study_times
-```
-
-## Mean COVID contemplation time
-
-```{R}
-mean_COVID_contemplation_times <- data.frame(
-  week1 = mean(sta302_performance_data$COVID.hours..W1., na.rm = TRUE),
-  week2 = mean(sta302_performance_data$COVID.hours..W2., na.rm = TRUE),
-  week3 = mean(sta302_performance_data$COVID.hours..W3., na.rm = TRUE),
-  week4 = mean(sta302_performance_data$COVID.hours..W4., na.rm = TRUE)
-)
-mean_COVID_contemplation_times
-```
-
-\break
-
-## Median STA302H1 study time
-
-```{r}
-median_STA302H1_study_times <- data.frame(
-  week1 = median(sta302_performance_data$STA302.hours..W1., na.rm = TRUE),
-  week2 = median(sta302_performance_data$STA302.hours..W2., na.rm = TRUE),
-  week3 = median(sta302_performance_data$STA302.hours..W3., na.rm = TRUE),
-  week4 = median(sta302_performance_data$STA302.hours..W4., na.rm = TRUE)
-)
-median_STA302H1_study_times
-```
-
-## Median COVID contemplation time
-
-```{r}
-median_COVID_contemplation_times <- data.frame(
-  week1 = median(sta302_performance_data$COVID.hours..W1., na.rm = TRUE),
-  week2 = median(sta302_performance_data$COVID.hours..W2., na.rm = TRUE),
-  week3 = median(sta302_performance_data$COVID.hours..W3., na.rm = TRUE),
-  week4 = median(sta302_performance_data$COVID.hours..W4., na.rm = TRUE)
-)
-median_COVID_contemplation_times
-```
-
-\break
-
-## Country summary statistics
-
-```{r}
-length(which(cleaned_sta302_performance_data$Country == "Canada")) + 2
-length(which(is.na(cleaned_sta302_performance_data$Country)))
-```
+# 5-Number Summary Statistics
 
 ## STA302H1 Hours 5-Number Summary
 
