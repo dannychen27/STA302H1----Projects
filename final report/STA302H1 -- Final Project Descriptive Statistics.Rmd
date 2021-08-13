@@ -34,9 +34,6 @@ cleaned_sta302_performance_data <- sta302_performance_data %>%
     # Remove the "Country" column: column "country" already exists
     select(-X, -Country) %>%
     
-    # Group student overall quiz 4 scores from highest to lowest.
-    arrange(desc(Quiz_4_score)) %>%
-    
     # Rearrange similar columns side-by-side.
     relocate(country,
              COVID.hours..W1., COVID.hours..W2., 
