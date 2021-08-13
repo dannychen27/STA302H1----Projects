@@ -163,13 +163,12 @@ no_country = cleaned_sta302_performance_data %>%
 
 ```{r}
 # Find correlation matrix to determine candidate significant predictor values.
-
-library(GGally)
-ggcorr(no_country, label = TRUE, label_round = 2)
-
-# TODO: How to make numeric?
-# cor(cleaned_sta302_performance_data, use = "complete.obs")
-round(cor(no_country, use = "complete.obs"), 4)  # TODO: na.rm = true
+# library(GGally)
+colnames(no_country) <- c("W1COV", "W2COV", "W3COV", "W4COV", 
+                          "W1302", "W2302", "W3302", "W4302", 
+                          "Q1", "Q2", "Q3", "Q4")
+# ggcorr(no_country, label = TRUE, label_round = 2)
+round(cor(no_country, use = "complete.obs"), 2)  # TODO: na.rm = true
 ```
 
 \break
