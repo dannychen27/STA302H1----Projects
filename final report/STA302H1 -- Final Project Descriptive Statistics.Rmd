@@ -89,7 +89,7 @@ rows_with_mistyped_columms = cleaned_sta302_performance_data[c(38, 83, 84, 117),
 
 \break
 
-# Select Predictor Variables, Find Their Significance
+# Find Significance Predictor Variables, Select Predictor Variables Based on Criterion
 
 ```{r}
 # use week 5b slides -- choose model selection criterion to pick predictor variables.
