@@ -85,7 +85,7 @@ head(rows_with_some_NAs, n = 10)
 
 Rows whose columns are mis-typed may need to be corrected via imputation.
 
-```{R}
+```{R echo = FALSE, message = FALSE}
 rows_with_mistyped_columms = cleaned_sta302_performance_data[c(38, 83, 84, 117),]
 rows_with_mistyped_columms
 # row 83: Country -> "canada" -- DONE
