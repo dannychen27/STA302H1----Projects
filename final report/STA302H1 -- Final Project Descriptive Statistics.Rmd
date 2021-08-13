@@ -365,23 +365,9 @@ display_boxplot(cleaned_sta302_performance_data, Quiz_4_score,
 
 # Scatterplots
 
+## Comprehensive pairwise scatterplot
+
 ```{r}
-# TODO: How do I know which scatterplots are most important to focus on?
-
-# work in groups of 2?
-
-# three different pairs function
-
-# quiz4 ~ quiz 1, 2, 3
-# covid4 ~ covid 1, 2, 3
-# sta302h14 ~ sta302h1 1, 2, 3
-
-# or pick out 4 - 5 scatterplots that have interesting relationships
-
-# back up with correlation
-# scatterplot more informative as a first step
-
-# comprehensive pairwise scatterplot
 pairs(~COVID.hours..W1. + COVID.hours..W2. + COVID.hours..W3. + COVID.hours..W4. +
       STA302.hours..W1. + STA302.hours..W2. + STA302.hours..W3. + STA302.hours..W4. +
       Quiz_1_score + Quiz_2_score + Quiz_3_score + Quiz_4_score,
@@ -389,6 +375,30 @@ pairs(~COVID.hours..W1. + COVID.hours..W2. + COVID.hours..W3. + COVID.hours..W4.
 
 ## GGally
 # ggpairs -- removes bottom half of pairs plot
+```
+
+## Slightly Zoomed In Pairwise Scatterplots
+
+```{R}
+# TODO: How do I know which scatterplots are most important to focus on?
+
+# 1. Zoom in a bit by creating 3 - 4 pairs() functions:
+
+# quiz4 ~ quiz 1, 2, 3
+# covid4 ~ covid 1, 2, 3
+# sta302h14 ~ sta302h1 1, 2, 3
+
+```
+
+## Top 4 - 5 Intersting Scatterplots
+
+```{R}
+# 2. Pick out 4 - 5 scatterplots that have interesting relationships
+
+
+# 3. back up your choices with their correlation (R value).
+
+
 ```
 
 \break
@@ -399,24 +409,13 @@ pairs(~COVID.hours..W1. + COVID.hours..W2. + COVID.hours..W3. + COVID.hours..W4.
 
 We can find correlation matrix to determine candidate significant predictor values.
 
-# exploratory data analysis should contain descriptive statistics.
-
-# what to do with Correlation Matrix
-
-# - preliminary data analysis shows these two vars are significant... so we did this .... and explored these variables more closely
-# put correlation matrix in appendix for further details; they don't belong in a formal report
-
-# show residual plots in final report -- justifying model
-
-## ggsummary -- demo 3 or 4 -- for nicely formatted tables.
-
 ```{r}
 library(GGally)
 colnames(rows_with_no_country) <- c("W1COV", "W2COV", "W3COV", "W4COV", 
                           "W1302", "W2302", "W3302", "W4302", 
                           "Q1", "Q2", "Q3", "Q4")
 ggcorr(rows_with_no_country, label = TRUE, label_round = 2)
-round(cor(rows_with_no_country, use = "pairwise.complete.obs", method = "pearson"), 2)  # TODO: na.rm = true  $ pairwise complete obs. is less picky than complete obs.
+round(cor(rows_with_no_country, use = "pairwise.complete.obs", method = "pearson"), 2)
 ```
 
 ## By Individual Country
