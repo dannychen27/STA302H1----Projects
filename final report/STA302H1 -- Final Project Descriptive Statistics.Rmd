@@ -99,7 +99,7 @@ Taking out the country column can come in handy for functions like cor() where
 factors aren't allowed.
 
 ```{r}
-no_country = cleaned_sta302_performance_data %>%
+rows_with_no_country = cleaned_sta302_performance_data %>%
   select(-country)
 ```
 
@@ -385,11 +385,11 @@ We can find correlation matrix to determine candidate significant predictor valu
 
 ```{r}
 # library(GGally)
-colnames(no_country) <- c("W1COV", "W2COV", "W3COV", "W4COV", 
+colnames(rows_with_no_country) <- c("W1COV", "W2COV", "W3COV", "W4COV", 
                           "W1302", "W2302", "W3302", "W4302", 
                           "Q1", "Q2", "Q3", "Q4")
-# ggcorr(no_country, label = TRUE, label_round = 2)
-round(cor(no_country, use = "complete.obs"), 2)  # TODO: na.rm = true
+# ggcorr(rows_with_no_country, label = TRUE, label_round = 2)
+round(cor(rows_with_no_country, use = "complete.obs"), 2)  # TODO: na.rm = true
 ```
 
 ## By Individual Country
