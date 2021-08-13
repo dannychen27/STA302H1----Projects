@@ -133,9 +133,80 @@ rows_with_mistyped_columms
 # Boxplots
 
 ```{r}
-# TODO: See STA248H1 notes to figure out how to create boxplots by class.
+# TODO: See STA248H1 notes to figure out how to create boxplots. -- DONE
+# TODO: See toy program of boxplots to see how to color them by factor
 
-# TODO: create factors for each class, so you can color them.
+ggplot(data = cleaned_sta302_performance_data) +
+  geom_boxplot(mapping = aes(x = Country, y = COVID.hours..W1.)) +
+  labs(title = "Country vs. Week 1 Time Spent Thinking About COVID-19",
+       x = "Country",
+       y = "Time Spent Thinking About COVID-19 (hours)")
+
+ggplot(data = cleaned_sta302_performance_data) +
+  geom_boxplot(mapping = aes(x = Country, y = COVID.hours..W2.)) +
+  labs(title = "Country vs. Week 2 Time Spent Thinking About COVID-19",
+       x = "Country",
+       y = "Time Spent Thinking About COVID-19 (hours)")
+
+ggplot(data = cleaned_sta302_performance_data) +
+  geom_boxplot(mapping = aes(x = Country, y = COVID.hours..W3.)) +
+  labs(title = "Country vs. Week 3 Time Spent Thinking About COVID-19",
+       x = "Country",
+       y = "Time Spent Thinking About COVID-19 (hours)")
+
+ggplot(data = cleaned_sta302_performance_data) +
+  geom_boxplot(mapping = aes(x = Country, y = COVID.hours..W4.)) +
+  labs(title = "Country vs. Week 4 Time Spent Thinking About COVID-19",
+       x = "Country",
+       y = "Time Spent Thinking About COVID-19 (hours)")
+
+ggplot(data = cleaned_sta302_performance_data) +
+  geom_boxplot(mapping = aes(x = Country, y = STA302.hours..W1.)) +
+  labs(title = "Country vs. Week 1 Time Spent Studying For STA302H1",
+       x = "Country",
+       y = "Time Spent Studying For STA302H1 (hours)")
+
+ggplot(data = cleaned_sta302_performance_data) +
+  geom_boxplot(mapping = aes(x = Country, y = STA302.hours..W2.)) +
+  labs(title = "Country vs. Week 2 Time Spent Studying For STA302H1",
+       x = "Country",
+       y = "Time Spent Studying For STA302H1 (hours)")
+
+ggplot(data = cleaned_sta302_performance_data) +
+  geom_boxplot(mapping = aes(x = Country, y = STA302.hours..W3.)) +
+  labs(title = "Country vs. Week 3 Time Spent Studying For STA302H1",
+       x = "Country",
+       y = "Time Spent Studying For STA302H1 (hours)")
+
+ggplot(data = cleaned_sta302_performance_data) +
+  geom_boxplot(mapping = aes(x = Country, y = STA302.hours..W4.)) +
+  labs(title = "Country vs. Week 4 Time Spent Studying For STA302H1",
+       x = "Country",
+       y = "Time Spent Studying For STA302H1 (hours)")
+
+ggplot(data = cleaned_sta302_performance_data) +
+  geom_boxplot(mapping = aes(x = Country, y = Quiz_1_score)) +
+  labs(title = "Country vs. Quiz 1 Score",
+       x = "Country",
+       y = "Score (out of 10)")
+
+ggplot(data = cleaned_sta302_performance_data) +
+  geom_boxplot(mapping = aes(x = Country, y = Quiz_2_score)) +
+  labs(title = "Country vs. Quiz 2 Score",
+       x = "Country",
+       y = "Score (out of 10)")
+
+ggplot(data = cleaned_sta302_performance_data) +
+  geom_boxplot(mapping = aes(x = Country, y = Quiz_3_score)) +
+  labs(title = "Country vs. Quiz 3 Score",
+       x = "Country",
+       y = "Score (out of 10)")
+
+ggplot(data = cleaned_sta302_performance_data) +
+  geom_boxplot(mapping = aes(x = Country, y = Quiz_4_score)) +
+  labs(title = "Country vs. Quiz 4 Score",
+       x = "Country",
+       y = "Score (out of 10)")
 ```
 
 \break
