@@ -60,7 +60,9 @@ Other rows may contain 3 or more NAs, and might indicate students who have dropp
 at_least_one_NA = function(data) {
   return (rowSums(is.na(cleaned_sta302_performance_data)) >= 1)
 }
+```
 
+```{r}
 rows_with_some_NAs = cleaned_sta302_performance_data[
   at_least_one_NA(cleaned_sta302_performance_data),
 ]
