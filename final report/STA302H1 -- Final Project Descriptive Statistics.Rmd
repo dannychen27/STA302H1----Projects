@@ -106,9 +106,124 @@ rows_with_mistyped_columms = cleaned_sta302_performance_data[c(38, 83, 84, 117),
 # Histograms
 
 ```{r}
-# TODO: See Demo 1 to figure out how to add histograms in a matrix format.
+# TODO: See toy programs to learn how to create histograms with ggplot.
+# TODO: See Demo 1 to figure out how to add histograms using grid.arrange.
 
-# TODO: create histograms with ggplot, and then grid.arrange them together.
+display_histogram <- function(data, predictor_variable, histogram_title, x_axis_label) {
+  ggplot(data = tibble(data), mapping = aes(x = predictor_variable)) +
+    geom_histogram(col = "black", fill = "red", bins = 30) +
+    labs(title = histogram_title, y = "Frequency", x = x_axis_label) + 
+    geom_vline(mapping = aes(xintercept = mean(predictor_variable, na.rm = TRUE)),
+               color = "blue", linetype = "solid") +
+    geom_vline(mapping = aes(xintercept = median(predictor_variable, na.rm = TRUE)),
+               color = "dark green", linetype = "dotted")
+}
+```
+
+```{r}
+display_histogram(cleaned_sta302_performance_data, 
+                  cleaned_sta302_performance_data$COVID.hours..W1., 
+                  "Histogram of Week 1 Time Spent Thinking About COVID-19",
+                  "Time Spent Thinking About COVID-19 (hours)")
+```
+
+\break
+
+```{r}
+display_histogram(cleaned_sta302_performance_data, 
+                  cleaned_sta302_performance_data$COVID.hours..W2., 
+                  "Histogram of Week 2 Time Spent Thinking About COVID-19",
+                  "Time Spent Thinking About COVID-19 (hours)")
+```
+
+\break
+
+```{r}
+display_histogram(cleaned_sta302_performance_data, 
+                  cleaned_sta302_performance_data$COVID.hours..W3., 
+                  "Histogram of Week 3 Time Spent Thinking About COVID-19",
+                  "Time Spent Thinking About COVID-19 (hours)")
+```
+
+\break
+
+```{r}
+display_histogram(cleaned_sta302_performance_data, 
+                  cleaned_sta302_performance_data$COVID.hours..W4., 
+                  "Histogram of Week 4 Time Spent Thinking About COVID-19",
+                  "Time Spent Thinking About COVID-19 (hours)")
+```
+
+\break
+
+```{r}
+display_histogram(cleaned_sta302_performance_data, 
+                  cleaned_sta302_performance_data$STA302.hours..W1., 
+                  "Histogram of Week 1 Time Spent Studying for STA302H1",
+                  "Time Spent Studying for STA302H1 (hours)")
+```
+
+\break
+
+```{r}
+display_histogram(cleaned_sta302_performance_data, 
+                  cleaned_sta302_performance_data$STA302.hours..W2., 
+                  "Histogram of Week 2 Time Spent Studying for STA302H1",
+                  "Time Spent Studying for STA302H1 (hours)")
+```
+
+\break
+
+```{r}
+display_histogram(cleaned_sta302_performance_data, 
+                  cleaned_sta302_performance_data$STA302.hours..W3., 
+                  "Histogram of Week 3 Time Spent Studying for STA302H1",
+                  "Time Spent Studying for STA302H1 (hours)")
+```
+
+\break
+
+```{r}
+display_histogram(cleaned_sta302_performance_data, 
+                  cleaned_sta302_performance_data$STA302.hours..W4., 
+                  "Histogram of Week 4 Time Spent Studying for STA302H1",
+                  "Time Spent Studying for STA302H1 (hours)")
+```
+
+\break
+
+```{r}
+display_histogram(cleaned_sta302_performance_data, 
+                  cleaned_sta302_performance_data$Quiz_1_score, 
+                  "Histogram of Quiz 1 Scores",
+                  "Quiz Score (out of 10)")
+```
+
+\break
+
+```{r}
+display_histogram(cleaned_sta302_performance_data, 
+                  cleaned_sta302_performance_data$Quiz_2_score, 
+                  "Histogram of Quiz 2 Scores",
+                  "Quiz Score (out of 10)")
+```
+
+\break
+
+```{r}
+display_histogram(cleaned_sta302_performance_data, 
+                  cleaned_sta302_performance_data$Quiz_3_score, 
+                  "Histogram of Quiz 3 Scores",
+                  "Quiz Score (out of 10)")
+```
+
+\break
+
+```{r}
+display_histogram(cleaned_sta302_performance_data, 
+                  cleaned_sta302_performance_data$Quiz_4_score, 
+                  "Histogram of Quiz 4 Scores",
+                  "Quiz Score (out of 10)")
 ```
 
 \break
