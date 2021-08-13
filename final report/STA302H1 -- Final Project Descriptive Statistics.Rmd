@@ -50,7 +50,7 @@ cleaned_sta302_performance_data <- sta302_performance_data %>%
 
 \break
 
-# Identifying Anomalous Data
+# Rows With At Least One NA
 
 Rows with at least one NA deserve closer examination. \newline
 Some of the rows might only have 1 - 2 NAs and are therefore salvageable, which is OK. \newline
