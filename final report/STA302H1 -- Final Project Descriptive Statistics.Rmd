@@ -34,14 +34,18 @@ First, I'll clean my data.
 
 ```{r}
 cleaned_sta302_performance_data <- sta302_performance_data %>%
+    # Create a new "country" column, which is just "Country" but whose entries are factors.
+    mutate(country = as.factor(Country)) %>%
+
     # Remove the "X" column: it's simply the row number, which isn't very useful.
-    select(-X) %>%
+    # Remove the "Country" column: column "country" already exists
+    select(-X, -Country) %>%
     
     # Group student overall quiz 4 scores from highest to lowest.
     arrange(desc(Quiz_4_score)) %>%
     
     # Rearrange similar columns side-by-side.
-    relocate(Country,
+    relocate(country,
              COVID.hours..W1., COVID.hours..W2., 
              COVID.hours..W3., COVID.hours..W4.,
              STA302.hours..W1., STA302.hours..W2., 
