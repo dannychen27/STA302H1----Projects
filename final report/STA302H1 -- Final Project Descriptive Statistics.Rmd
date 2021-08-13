@@ -58,8 +58,6 @@ cleaned_sta302_performance_data <- sta302_performance_data %>%
     # Identify rows with no quiz 4. 
     # These indicate students who have dropped STA302H1, and who 
     # should be excluded from the final data.
-
-head(cleaned_sta302_performance_data, n = 15)
 ```
 
 \break
@@ -77,7 +75,6 @@ at_least_one_NA = function(data) {
 rows_with_some_NAs = cleaned_sta302_performance_data[
   at_least_one_NA(cleaned_sta302_performance_data),
 ]
-rows_with_some_NAs
 ```
 
 \break
@@ -88,7 +85,6 @@ Rows whose columns are mis-typed may need to be corrected via imputation.
 
 ```{R echo = FALSE, message = FALSE}
 rows_with_mistyped_columms = cleaned_sta302_performance_data[c(38, 83, 84, 117),]
-rows_with_mistyped_columms
 # row 83: Country -> "canada" -- DONE
 # row 84: Country -> "canada" -- DONE
 
