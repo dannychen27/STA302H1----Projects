@@ -46,6 +46,7 @@ cleaned_sta302_performance_data <- sta302_performance_data %>%
     # Identify rows with no quiz 4. 
     # These indicate students who have dropped STA302H1, and who 
     # should be excluded from the final data.
+    
 ```
 
 \break
