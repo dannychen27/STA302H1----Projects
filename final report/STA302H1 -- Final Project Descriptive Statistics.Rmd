@@ -384,12 +384,12 @@ pairs(~COVID.hours..W1. + COVID.hours..W2. + COVID.hours..W3. + COVID.hours..W4.
 We can find correlation matrix to determine candidate significant predictor values.
 
 ```{r}
-# library(GGally)
+library(GGally)
 colnames(rows_with_no_country) <- c("W1COV", "W2COV", "W3COV", "W4COV", 
                           "W1302", "W2302", "W3302", "W4302", 
                           "Q1", "Q2", "Q3", "Q4")
-# ggcorr(rows_with_no_country, label = TRUE, label_round = 2)
-round(cor(rows_with_no_country, use = "complete.obs"), 2)  # TODO: na.rm = true
+ggcorr(rows_with_no_country, label = TRUE, label_round = 2)
+round(cor(rows_with_no_country, use = "pairwise.complete.obs", method = "pearson"), 2)  # TODO: na.rm = true  $ pairwise complete obs. is less picky than complete obs.
 ```
 
 ## By Individual Country
