@@ -369,6 +369,7 @@ pairs(~COVID.hours..W1. + COVID.hours..W2. + COVID.hours..W3. + COVID.hours..W4.
 
 ## GGally
 # ggpairs -- removes bottom half of pairs plot
+# ggpairs(data = cleaned_sta302_performance_data)
 ```
 
 ## Slightly Zoomed In Pairwise Scatterplots
