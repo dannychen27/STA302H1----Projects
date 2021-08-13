@@ -392,7 +392,7 @@ summary(sta302_performance_data$COVID.hours..W4.)
 
 \break
 
-# Quiz Scores 5-Number Summary
+## Quiz Scores 5-Number Summary
 
 ```{r}
 summary(sta302_performance_data$Quiz_1_score)
