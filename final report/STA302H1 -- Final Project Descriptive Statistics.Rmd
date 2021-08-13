@@ -51,7 +51,7 @@ cleaned_sta302_performance_data <- sta302_performance_data %>%
 
 \break
 
-# Rows With At Least One NA
+## Rows With At Least One NA
 
 Rows with at least one NA deserve closer examination. \newline
 Some of the rows might only have 1 - 2 NAs and are therefore salvageable, which is OK. \newline
@@ -71,7 +71,7 @@ rows_with_some_NAs = cleaned_sta302_performance_data[
 
 \break
 
-# Rows with Mistyped Columns
+## Rows with Mistyped Columns
 
 Rows whose columns are mis-typed may need to be corrected via imputation.
 
@@ -93,7 +93,7 @@ rows_with_mistyped_columms = cleaned_sta302_performance_data[c(38, 83, 84, 117),
 
 \break
 
-# Rows Without Country Entry
+## Rows Without Country Entry
 
 Taking out the country column can come in handy for functions like cor() where
 factors aren't allowed.
@@ -136,6 +136,8 @@ display_histogram <- function(data, predictor_variable, histogram_title, x_axis_
 }
 ```
 
+## Histograms of COVID Hours
+
 ```{r}
 display_histogram(cleaned_sta302_performance_data, 
                   cleaned_sta302_performance_data$COVID.hours..W1., 
@@ -172,6 +174,8 @@ display_histogram(cleaned_sta302_performance_data,
 
 \break
 
+## Histograms of STA302H1 Hours
+
 ```{r}
 display_histogram(cleaned_sta302_performance_data, 
                   cleaned_sta302_performance_data$STA302.hours..W1., 
@@ -207,6 +211,8 @@ display_histogram(cleaned_sta302_performance_data,
 ```
 
 \break
+
+## Histograms of Quiz Scores
 
 ```{r}
 display_histogram(cleaned_sta302_performance_data, 
@@ -259,6 +265,8 @@ display_boxplot <- function(data, predictor_variable, boxplot_title, y_axis_labe
 }
 ```
 
+## Boxplots of COVID Hours
+
 ```{r}
 display_boxplot(cleaned_sta302_performance_data, COVID.hours..W1.,
                 "Country vs. Week 1 Time Spent Thinking About COVID-19",
@@ -291,6 +299,8 @@ display_boxplot(cleaned_sta302_performance_data, COVID.hours..W4.,
 
 \break
 
+## Boxplots of STA302H1 Hours
+
 ```{R}
 display_boxplot(cleaned_sta302_performance_data, STA302.hours..W1.,
                 "Country vs. Week 1 Time Spent Studying For STA302H1",
@@ -322,6 +332,8 @@ display_boxplot(cleaned_sta302_performance_data, STA302.hours..W4.,
 ```
 
 \break
+
+## Boxplots of Quiz Scores
 
 ```{R}
 display_boxplot(cleaned_sta302_performance_data, Quiz_1_score,
@@ -367,17 +379,23 @@ pairs(~COVID.hours..W1. + COVID.hours..W2. + COVID.hours..W3. + COVID.hours..W4.
 
 # Correlation Matrix
 
+## All Countries
+
 We can find correlation matrix to determine candidate significant predictor values.
 
 ```{r}
-# TODO: You could also create separate correlation matrices for each country.
-
 # library(GGally)
 colnames(no_country) <- c("W1COV", "W2COV", "W3COV", "W4COV", 
                           "W1302", "W2302", "W3302", "W4302", 
                           "Q1", "Q2", "Q3", "Q4")
 # ggcorr(no_country, label = TRUE, label_round = 2)
 round(cor(no_country, use = "complete.obs"), 2)  # TODO: na.rm = true
+```
+
+## By Individual Country
+
+```{r}
+# TODO: You could also create separate correlation matrices for each country.
 ```
 
 \break
