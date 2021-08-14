@@ -321,17 +321,11 @@ rows_with_no_country = cleaned_sta302_performance_data2 %>%
 
 \break
 
-# Histograms
-
-## Histograms of COVID Hours
-
 ```{r}
 display_boxplot(cleaned_sta302_performance_data2, COVID.hours..W1.,
                 "Country vs. Week 1 Time Spent Thinking About COVID-19",
                 "Time Spent Thinking About COVID-19 (hours)")
 ```
-
-\break
 
 ```{r}
 display_histogram(cleaned_sta302_performance_data2, 
@@ -408,8 +402,6 @@ summary(cleaned_sta302_performance_data2$COVID.hours..W4.)
 ```
 
 \break
-
-## Histograms of STA302H1 Hours
 
 ```{R}
 display_boxplot(cleaned_sta302_performance_data2, STA302.hours..W1.,
@@ -495,8 +487,6 @@ summary(cleaned_sta302_performance_data2$STA302.hours..W4.)
 
 \break
 
-## Histograms of Quiz Scores
-
 ```{R}
 display_boxplot(cleaned_sta302_performance_data2, Quiz_1_score,
                 "Country vs. Quiz 1 Score", "Score (out of 10)")
@@ -574,14 +564,6 @@ summary(cleaned_sta302_performance_data2$Quiz_4_score)
 ```
 
 \break
-
-# Boxplots
-
-## Boxplots of COVID Hours
-
-## Boxplots of STA302H1 Hours
-
-## Boxplots of Quiz Scores
 
 # Scatterplots
 
