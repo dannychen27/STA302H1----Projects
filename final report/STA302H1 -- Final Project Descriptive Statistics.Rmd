@@ -321,13 +321,13 @@ rows_with_no_country = cleaned_sta302_performance_data2 %>%
 
 \break
 
-```{r}
+```{r echo = FALSE, warning = FALSE}
 display_boxplot(cleaned_sta302_performance_data2, COVID.hours..W1.,
                 "Country vs. Week 1 Time Spent Thinking About COVID-19",
                 "Time Spent Thinking About COVID-19 (hours)")
 ```
 
-```{r}
+```{r echo = FALSE, warning = FALSE}
 display_histogram(cleaned_sta302_performance_data2, 
                   cleaned_sta302_performance_data2$COVID.hours..W1., 
                   "Histogram of Week 1 Time Spent Thinking About COVID-19",
@@ -340,7 +340,7 @@ summary(cleaned_sta302_performance_data2$COVID.hours..W1.)
 
 \break
 
-```{R}
+```{R echo = FALSE, warning = FALSE}
 display_boxplot(cleaned_sta302_performance_data2, COVID.hours..W2.,
                 "Country vs. Week 2 Time Spent Thinking About COVID-19",
                 "Time Spent Thinking About COVID-19 (hours)")
@@ -348,7 +348,7 @@ display_boxplot(cleaned_sta302_performance_data2, COVID.hours..W2.,
 
 \break
 
-```{r}
+```{r echo = FALSE, warning = FALSE}
 display_histogram(cleaned_sta302_performance_data2, 
                   cleaned_sta302_performance_data2$COVID.hours..W2., 
                   "Histogram of Week 2 Time Spent Thinking About COVID-19",
@@ -361,7 +361,7 @@ summary(cleaned_sta302_performance_data2$COVID.hours..W2.)
 
 \break
 
-```{R}
+```{R echo = FALSE, warning = FALSE}
 display_boxplot(cleaned_sta302_performance_data2, COVID.hours..W3.,
                 "Country vs. Week 3 Time Spent Thinking About COVID-19",
                 "Time Spent Thinking About COVID-19 (hours)")
@@ -369,7 +369,7 @@ display_boxplot(cleaned_sta302_performance_data2, COVID.hours..W3.,
 
 \break
 
-```{r}
+```{r echo = FALSE, warning = FALSE}
 display_histogram(cleaned_sta302_performance_data2, 
                   cleaned_sta302_performance_data2$COVID.hours..W3., 
                   "Histogram of Week 3 Time Spent Thinking About COVID-19",
@@ -382,7 +382,7 @@ summary(cleaned_sta302_performance_data2$COVID.hours..W3.)
 
 \break
 
-```{R}
+```{R echo = FALSE, warning = FALSE}
 display_boxplot(cleaned_sta302_performance_data2, COVID.hours..W4.,
                 "Country vs. Week 4 Time Spent Thinking About COVID-19",
                 "Time Spent Thinking About COVID-19 (hours)")
@@ -390,7 +390,7 @@ display_boxplot(cleaned_sta302_performance_data2, COVID.hours..W4.,
 
 \break
 
-```{r}
+```{r echo = FALSE, warning = FALSE}
 display_histogram(cleaned_sta302_performance_data2, 
                   cleaned_sta302_performance_data2$COVID.hours..W4., 
                   "Histogram of Week 4 Time Spent Thinking About COVID-19",
@@ -403,7 +403,7 @@ summary(cleaned_sta302_performance_data2$COVID.hours..W4.)
 
 \break
 
-```{R}
+```{R echo = FALSE, warning = FALSE}
 display_boxplot(cleaned_sta302_performance_data2, STA302.hours..W1.,
                 "Country vs. Week 1 Time Spent Studying For STA302H1",
                 "Time Spent Studying For STA302H1 (hours)")
@@ -411,7 +411,7 @@ display_boxplot(cleaned_sta302_performance_data2, STA302.hours..W1.,
 
 \break
 
-```{r}
+```{r echo = FALSE, warning = FALSE}
 display_histogram(cleaned_sta302_performance_data2, 
                   cleaned_sta302_performance_data2$STA302.hours..W1., 
                   "Histogram of Week 1 Time Spent Studying for STA302H1",
@@ -424,7 +424,7 @@ summary(cleaned_sta302_performance_data2$STA302.hours..W1.)
 
 \break
 
-```{R}
+```{R echo = FALSE, warning = FALSE}
 display_boxplot(cleaned_sta302_performance_data2, STA302.hours..W2.,
                 "Country vs. Week 2 Time Spent Studying For STA302H1",
                 "Time Spent Studying For STA302H1 (hours)")
@@ -432,7 +432,7 @@ display_boxplot(cleaned_sta302_performance_data2, STA302.hours..W2.,
 
 \break
 
-```{r}
+```{r echo = FALSE, warning = FALSE}
 display_histogram(cleaned_sta302_performance_data2, 
                   cleaned_sta302_performance_data2$STA302.hours..W2., 
                   "Histogram of Week 2 Time Spent Studying for STA302H1",
@@ -445,7 +445,7 @@ summary(cleaned_sta302_performance_data2$STA302.hours..W2.)
 
 \break
 
-```{R}
+```{R echo = FALSE, warning = FALSE}
 display_boxplot(cleaned_sta302_performance_data2, STA302.hours..W3.,
                 "Country vs. Week 3 Time Spent Studying For STA302H1",
                 "Time Spent Studying For STA302H1 (hours)")
@@ -453,7 +453,7 @@ display_boxplot(cleaned_sta302_performance_data2, STA302.hours..W3.,
 
 \break
 
-```{r}
+```{r echo = FALSE, warning = FALSE}
 display_histogram(cleaned_sta302_performance_data2, 
                   cleaned_sta302_performance_data2$STA302.hours..W3., 
                   "Histogram of Week 3 Time Spent Studying for STA302H1",
@@ -466,7 +466,7 @@ summary(cleaned_sta302_performance_data2$STA302.hours..W3.)
 
 \break
 
-```{R}
+```{R echo = FALSE, warning = FALSE}
 display_boxplot(cleaned_sta302_performance_data2, STA302.hours..W4.,
                 "Country vs. Week 4 Time Spent Studying For STA302H1",
                 "Time Spent Studying For STA302H1 (hours)")
@@ -474,7 +474,7 @@ display_boxplot(cleaned_sta302_performance_data2, STA302.hours..W4.,
 
 \break
 
-```{r}
+```{r echo = FALSE, warning = FALSE}
 display_histogram(cleaned_sta302_performance_data2, 
                   cleaned_sta302_performance_data2$STA302.hours..W4., 
                   "Histogram of Week 4 Time Spent Studying for STA302H1",
@@ -487,14 +487,14 @@ summary(cleaned_sta302_performance_data2$STA302.hours..W4.)
 
 \break
 
-```{R}
+```{R echo = FALSE, warning = FALSE}
 display_boxplot(cleaned_sta302_performance_data2, Quiz_1_score,
                 "Country vs. Quiz 1 Score", "Score (out of 10)")
 ```
 
 \break
 
-```{r}
+```{r echo = FALSE, warning = FALSE}
 display_histogram(cleaned_sta302_performance_data2, 
                   cleaned_sta302_performance_data2$Quiz_1_score, 
                   "Histogram of Quiz 1 Scores",
@@ -507,14 +507,14 @@ summary(cleaned_sta302_performance_data2$Quiz_1_score)
 
 \break
 
-```{R}
+```{R echo = FALSE, warning = FALSE}
 display_boxplot(cleaned_sta302_performance_data2, Quiz_2_score,
                 "Country vs. Quiz 2 Score", "Score (out of 10)")
 ```
 
 \break
 
-```{r}
+```{r echo = FALSE, warning = FALSE}
 display_histogram(cleaned_sta302_performance_data2, 
                   cleaned_sta302_performance_data2$Quiz_2_score, 
                   "Histogram of Quiz 2 Scores",
@@ -527,12 +527,12 @@ summary(cleaned_sta302_performance_data2$Quiz_2_score)
 
 \break
 
-```{R}
+```{R echo = FALSE, warning = FALSE}
 display_boxplot(cleaned_sta302_performance_data2, Quiz_3_score,
                 "Country vs. Quiz 3 Score", "Score (out of 10)")
 ```
 
-```{r}
+```{r echo = FALSE, warning = FALSE}
 display_histogram(cleaned_sta302_performance_data2, 
                   cleaned_sta302_performance_data2$Quiz_3_score, 
                   "Histogram of Quiz 3 Scores",
@@ -545,14 +545,14 @@ summary(cleaned_sta302_performance_data2$Quiz_3_score)
 
 \break
 
-```{R}
+```{R echo = FALSE, warning = FALSE}
 display_boxplot(cleaned_sta302_performance_data2, Quiz_4_score,
                 "Country vs. Quiz 4 Score", "Score (out of 10)")
 ```
 
 \break
 
-```{r}
+```{r echo = FALSE, warning = FALSE}
 display_histogram(cleaned_sta302_performance_data2, 
                   cleaned_sta302_performance_data2$Quiz_4_score, 
                   "Histogram of Quiz 4 Scores",
