@@ -36,12 +36,9 @@ cleaned_sta302_performance_data <- sta302_performance_data %>%
     
     # Rearrange similar columns side-by-side.
     relocate(country,
-             COVID.hours..W1., COVID.hours..W2., 
-             COVID.hours..W3., COVID.hours..W4.,
-             STA302.hours..W1., STA302.hours..W2., 
-             STA302.hours..W3., STA302.hours..W4.,
-             Quiz_1_score, Quiz_2_score, 
-             Quiz_3_score, Quiz_4_score)
+             COVID.hours..W1., COVID.hours..W2., COVID.hours..W3., COVID.hours..W4.,
+             STA302.hours..W1., STA302.hours..W2., STA302.hours..W3., STA302.hours..W4.,
+             Quiz_1_score, Quiz_2_score, Quiz_3_score, Quiz_4_score)
 ```
 
 \break
@@ -88,9 +85,7 @@ display_histogram <- function(data, predictor_variable, histogram_title, x_axis_
 display_boxplot <- function(data, predictor_variable, boxplot_title, y_axis_label) {
   ggplot(mapping = aes(x = Country, y = predictor_variable, color = Country)) +
     geom_boxplot(mapping = aes(x = Country, y = predictor_variable)) +
-    labs(title = boxplot_title,
-         x = "Country",
-         y = y_axis_label)
+    labs(title = boxplot_title, x = "Country", y = y_axis_label)
 }
 ```
 
