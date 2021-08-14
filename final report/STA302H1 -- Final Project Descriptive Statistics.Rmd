@@ -332,6 +332,10 @@ display_histogram(cleaned_sta302_performance_data2,
                   "Time Spent Thinking About COVID-19 (hours)")
 ```
 
+```{r}
+summary(cleaned_sta302_performance_data2$COVID.hours..W1.)
+```
+
 \break
 
 ```{r}
@@ -339,6 +343,10 @@ display_histogram(cleaned_sta302_performance_data2,
                   cleaned_sta302_performance_data2$COVID.hours..W2., 
                   "Histogram of Week 2 Time Spent Thinking About COVID-19",
                   "Time Spent Thinking About COVID-19 (hours)")
+```
+
+```{r}
+summary(cleaned_sta302_performance_data2$COVID.hours..W2.)
 ```
 
 \break
@@ -350,6 +358,10 @@ display_histogram(cleaned_sta302_performance_data2,
                   "Time Spent Thinking About COVID-19 (hours)")
 ```
 
+```{r}
+summary(cleaned_sta302_performance_data2$COVID.hours..W3.)
+```
+
 \break
 
 ```{r}
@@ -357,6 +369,10 @@ display_histogram(cleaned_sta302_performance_data2,
                   cleaned_sta302_performance_data2$COVID.hours..W4., 
                   "Histogram of Week 4 Time Spent Thinking About COVID-19",
                   "Time Spent Thinking About COVID-19 (hours)")
+```
+
+```{r}
+summary(cleaned_sta302_performance_data2$COVID.hours..W4.)
 ```
 
 \break
@@ -370,6 +386,10 @@ display_histogram(cleaned_sta302_performance_data2,
                   "Time Spent Studying for STA302H1 (hours)")
 ```
 
+```{r}
+summary(cleaned_sta302_performance_data2$STA302.hours..W1.)
+```
+
 \break
 
 ```{r}
@@ -377,6 +397,10 @@ display_histogram(cleaned_sta302_performance_data2,
                   cleaned_sta302_performance_data2$STA302.hours..W2., 
                   "Histogram of Week 2 Time Spent Studying for STA302H1",
                   "Time Spent Studying for STA302H1 (hours)")
+```
+
+```{r}
+summary(cleaned_sta302_performance_data2$STA302.hours..W2.)
 ```
 
 \break
@@ -388,6 +412,10 @@ display_histogram(cleaned_sta302_performance_data2,
                   "Time Spent Studying for STA302H1 (hours)")
 ```
 
+```{r}
+summary(cleaned_sta302_performance_data2$STA302.hours..W3.)
+```
+
 \break
 
 ```{r}
@@ -395,6 +423,10 @@ display_histogram(cleaned_sta302_performance_data2,
                   cleaned_sta302_performance_data2$STA302.hours..W4., 
                   "Histogram of Week 4 Time Spent Studying for STA302H1",
                   "Time Spent Studying for STA302H1 (hours)")
+```
+
+```{r}
+summary(cleaned_sta302_performance_data2$STA302.hours..W4.)
 ```
 
 \break
@@ -408,6 +440,10 @@ display_histogram(cleaned_sta302_performance_data2,
                   "Quiz Score (out of 10)")
 ```
 
+```{r}
+summary(cleaned_sta302_performance_data2$Quiz_1_score)
+```
+
 \break
 
 ```{r}
@@ -415,6 +451,10 @@ display_histogram(cleaned_sta302_performance_data2,
                   cleaned_sta302_performance_data2$Quiz_2_score, 
                   "Histogram of Quiz 2 Scores",
                   "Quiz Score (out of 10)")
+```
+
+```{r}
+summary(cleaned_sta302_performance_data2$Quiz_2_score)
 ```
 
 \break
@@ -426,6 +466,10 @@ display_histogram(cleaned_sta302_performance_data2,
                   "Quiz Score (out of 10)")
 ```
 
+```{r}
+summary(cleaned_sta302_performance_data2$Quiz_3_score)
+```
+
 \break
 
 ```{r}
@@ -433,6 +477,10 @@ display_histogram(cleaned_sta302_performance_data2,
                   cleaned_sta302_performance_data2$Quiz_4_score, 
                   "Histogram of Quiz 4 Scores",
                   "Quiz Score (out of 10)")
+```
+
+```{r}
+summary(cleaned_sta302_performance_data2$Quiz_4_score)
 ```
 
 \break
@@ -614,39 +662,4 @@ round(cor(rows_with_no_country, use = "pairwise.complete.obs", method = "pearson
 
 ```{r}
 # TODO: You could also create separate correlation matrices for each country.
-```
-
-\break
-
-# 5-Number Summary Statistics
-
-## STA302H1 Hours 5-Number Summary
-
-```{r}
-summary(cleaned_sta302_performance_data2$STA302.hours..W1.)
-summary(cleaned_sta302_performance_data2$STA302.hours..W2.)
-summary(cleaned_sta302_performance_data2$STA302.hours..W3.)
-summary(cleaned_sta302_performance_data2$STA302.hours..W4.)
-```
-
-\break
-
-## COVID Hours 5-Number Summary
-
-```{r}
-summary(cleaned_sta302_performance_data2$COVID.hours..W1.)
-summary(cleaned_sta302_performance_data2$COVID.hours..W2.)
-summary(cleaned_sta302_performance_data2$COVID.hours..W3.)
-summary(cleaned_sta302_performance_data2$COVID.hours..W4.)
-```
-
-\break
-
-## Quiz Scores 5-Number Summary
-
-```{r}
-summary(cleaned_sta302_performance_data2$Quiz_1_score)
-summary(cleaned_sta302_performance_data2$Quiz_2_score)
-summary(cleaned_sta302_performance_data2$Quiz_3_score)
-summary(cleaned_sta302_performance_data2$Quiz_4_score)
 ```
