@@ -251,9 +251,7 @@ data.frame(
 
 Identify rows with at least 3 missing quiz marks. These indicate students who have dropped STA302H1, and who should be excluded from the final data.
 
-Notice that we didn't check the number of NAs for country of origin, COVID hours,
-and STA302H1 hours, since some students either forgot or abstained.
-So there's no reason to exclude these students from our final dataset.
+Notice that we didn't check the number of NAs for country of origin, COVID hours, and STA302H1 hours, since some students either forgot or abstained. So there's no reason to exclude these students from our final dataset.
 
 ```{r}
 row_nums_to_exclude <- get_row_nums_to_exclude(quiz_grades)
