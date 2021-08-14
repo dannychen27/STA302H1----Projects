@@ -58,27 +58,69 @@ Some of the rows might only have 1 - 2 NAs and are therefore salvageable, which 
 Other rows may contain 3 or more NAs, and might indicate students who have dropped STA302H1. We'd like to exclude them from our analysis.
 
 ```{r}
-rows_with_at_least_one_NA = function(data) {
-  return (rowSums(is.na(cleaned_sta302_performance_data)) >= 1)
+rows_with_num_NAs = function(data, num_NAs) {
+  return (rowSums(is.na(data)) == num_NAs)
 }
 ```
 
 ```{r}
-rows_with_some_NAs = cleaned_sta302_performance_data[
-  rows_with_at_least_one_NA(cleaned_sta302_performance_data),
+row_nums_of_NA_rows = function(data, num_NAs) {
+  return (which(rows_with_num_NAs(data, num_NAs)))
+}
+```
+
+```{r}
+rows_with_0_NAs = cleaned_sta302_performance_data[
+  rows_with_num_NAs(cleaned_sta302_performance_data, 0),
+]
+rows_with_1_NAs = cleaned_sta302_performance_data[
+  rows_with_num_NAs(cleaned_sta302_performance_data, 1),
+]
+rows_with_2_NAs = cleaned_sta302_performance_data[
+  rows_with_num_NAs(cleaned_sta302_performance_data, 2),
+]
+rows_with_3_NAs = cleaned_sta302_performance_data[
+  rows_with_num_NAs(cleaned_sta302_performance_data, 3),
+]
+rows_with_4_NAs = cleaned_sta302_performance_data[
+  rows_with_num_NAs(cleaned_sta302_performance_data, 4),
 ]
 ```
 
+Let's count the number of rows with 0 - 4 NAs.
+
 ```{r}
 print(as_tibble(data.frame(
-  num_row_NAs = nrow(rows_with_some_NAs)
+  nrows_0_NAs = nrow(rows_with_0_NAs),
+  nrows_1_NAs = nrow(rows_with_1_NAs),
+  nrows_2_NAs = nrow(rows_with_2_NAs),
+  nrows_3_NAs = nrow(rows_with_3_NAs),
+  nrows_4_NAs = nrow(rows_with_4_NAs)
 )))
 ```
 
-Let's identify which rows only have 1 NA.
+\break
+
+And then we'll determine which row numbers have 0 - 4 NAs.
 
 ```{r}
-which(rows_with_at_least_one_NA(cleaned_sta302_performance_data))
+row_nums_of_NA_rows(cleaned_sta302_performance_data, 0)
+```
+
+```{r}
+row_nums_of_NA_rows(cleaned_sta302_performance_data, 1)
+```
+
+```{r}
+row_nums_of_NA_rows(cleaned_sta302_performance_data, 2)
+```
+
+```{r}
+row_nums_of_NA_rows(cleaned_sta302_performance_data, 3)
+```
+
+```{r}
+row_nums_of_NA_rows(cleaned_sta302_performance_data, 4)
 ```
 
 \break
@@ -86,13 +128,13 @@ which(rows_with_at_least_one_NA(cleaned_sta302_performance_data))
 ## Columns with NAs
 
 ```{r}
-num_NAs_in_column = function(predictor_variable) {
+num_column_NAs = function(predictor_variable) {
   sum(is.na(predictor_variable))
 }
 ```
 
 ```{r}
-row_nums_of_NA = function(data, predictor_variable) {
+row_nums_of_NA_columns = function(data, predictor_variable) {
   which(is.na(predictor_variable))
 }
 ```
@@ -100,28 +142,28 @@ row_nums_of_NA = function(data, predictor_variable) {
 ```{R}
 perform_data = cleaned_sta302_performance_data
 print(as_tibble(data.frame(
-  week1_covid = num_NAs_in_column(perform_data$COVID.hours..W1.),
-  week2_covid = num_NAs_in_column(perform_data$COVID.hours..W2.),
-  week3_covid = num_NAs_in_column(perform_data$COVID.hours..W3.),
-  week4_covid = num_NAs_in_column(perform_data$COVID.hours..W4.)
+  week1_covid = num_column_NAs(perform_data$COVID.hours..W1.),
+  week2_covid = num_column_NAs(perform_data$COVID.hours..W2.),
+  week3_covid = num_column_NAs(perform_data$COVID.hours..W3.),
+  week4_covid = num_column_NAs(perform_data$COVID.hours..W4.)
 )))
 ```
 
 ```{R}
 print(as_tibble(data.frame(
-  week1_sta302 = num_NAs_in_column(perform_data$STA302.hours..W1.),
-  week2_sta302 = num_NAs_in_column(perform_data$STA302.hours..W2.),
-  week3_sta302 = num_NAs_in_column(perform_data$STA302.hours..W3.),
-  week4_sta302 = num_NAs_in_column(perform_data$STA302.hours..W4.)
+  week1_sta302 = num_column_NAs(perform_data$STA302.hours..W1.),
+  week2_sta302 = num_column_NAs(perform_data$STA302.hours..W2.),
+  week3_sta302 = num_column_NAs(perform_data$STA302.hours..W3.),
+  week4_sta302 = num_column_NAs(perform_data$STA302.hours..W4.)
 )))
 ```
 
 ```{R}
 print(as_tibble(data.frame(
-  quiz1_score = num_NAs_in_column(perform_data$Quiz_1_score),
-  quiz2_score = num_NAs_in_column(perform_data$Quiz_2_score),
-  quiz3_score = num_NAs_in_column(perform_data$Quiz_3_score),
-  quiz4_score = num_NAs_in_column(perform_data$Quiz_4_score)
+  quiz1_score = num_column_NAs(perform_data$Quiz_1_score),
+  quiz2_score = num_column_NAs(perform_data$Quiz_2_score),
+  quiz3_score = num_column_NAs(perform_data$Quiz_3_score),
+  quiz4_score = num_column_NAs(perform_data$Quiz_4_score)
 )))
 ```
 
