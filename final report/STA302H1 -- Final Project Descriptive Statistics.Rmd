@@ -129,29 +129,27 @@ data.frame(
 )
 ```
 
-We also want to know which row numbers have 0 - 4 NAs.
+<!-- We also want to know which row numbers have 0 - 4 NAs. -->
 
-```{r}
-row_nums_of_NA_rows(cleaned_sta302_performance_data, 0)
+```{r echo = FALSE}
+# row_nums_of_NA_rows(cleaned_sta302_performance_data, 0)
 ```
 
-```{r}
-row_nums_of_NA_rows(cleaned_sta302_performance_data, 1)
+```{r echo = FALSE}
+# row_nums_of_NA_rows(cleaned_sta302_performance_data, 1)
 ```
 
-```{r}
-row_nums_of_NA_rows(cleaned_sta302_performance_data, 2)
+```{r echo = FALSE}
+# row_nums_of_NA_rows(cleaned_sta302_performance_data, 2)
 ```
 
-```{r}
-row_nums_of_NA_rows(cleaned_sta302_performance_data, 3)
+```{r echo = FALSE}
+# row_nums_of_NA_rows(cleaned_sta302_performance_data, 3)
 ```
 
-```{r}
-row_nums_of_NA_rows(cleaned_sta302_performance_data, 4)
+```{r echo = FALSE}
+# row_nums_of_NA_rows(cleaned_sta302_performance_data, 4)
 ```
-
-\break
 
 ## Columns with NAs
 
@@ -218,26 +216,26 @@ data.frame(
 )
 ```
 
-## Who Missed Quizzes?
+<!-- ## Who Missed Quizzes? -->
 
-```{r}
-which(rows_with_num_NAs(quiz_grades, 0))
+```{r echo = FALSE}
+# which(rows_with_num_NAs(quiz_grades, 0))
 ```
 
-```{r}
-which(rows_with_num_NAs(quiz_grades, 1))
+```{r echo = FALSE}
+# which(rows_with_num_NAs(quiz_grades, 1))
 ```
 
-```{r}
-which(rows_with_num_NAs(quiz_grades, 2))
+```{r echo = FALSE}
+# which(rows_with_num_NAs(quiz_grades, 2))
 ```
 
-```{r}
-which(rows_with_num_NAs(quiz_grades, 3))
+```{r echo = FALSE}
+# which(rows_with_num_NAs(quiz_grades, 3))
 ```
 
-```{r}
-which(rows_with_num_NAs(quiz_grades, 4))
+```{r echo = FALSE}
+# which(rows_with_num_NAs(quiz_grades, 4))
 ```
 
 ## Who to Exclude from the Dataset?
@@ -248,15 +246,14 @@ Notice that we didn't check the number of NAs for country of origin, COVID hours
 and STA302H1 hours, since some students either forgot or abstained.
 So there's no reason to exclude these students from our final dataset.
 
-```{r}
+```{r echo = FALSE}
 library(dplyr)
 row_nums_to_exclude <- union(
   which(rows_with_num_NAs(quiz_grades, 3)),
-  which(rows_with_num_NAs(quiz_grades, 4))) # that's 28 people.
-row_nums_to_exclude
+  which(rows_with_num_NAs(quiz_grades, 4)))
 ```
 
-```{R}
+```{R echo = FALSE}
 cleaned_sta302_performance_data2 = 
   cleaned_sta302_performance_data[-row_nums_to_exclude,]
 ```
