@@ -89,6 +89,15 @@ display_boxplot <- function(data, predictor_variable, boxplot_title, y_axis_labe
 }
 ```
 
+```{R}
+get_row_nums_to_exclude <- function(data) {
+  row_nums_with_3_NAs = which(rows_with_num_NAs(data, 3))
+  row_nums_with_4_NAs = which(rows_with_num_NAs(data, 4))
+  row_nums_to_exclude <- union(row_nums_with_3_NAs,
+                               row_nums_with_4_NAs)
+  return (row_nums_to_exclude)
+}
+```
 \break
 
 # Special Tables
@@ -246,14 +255,8 @@ Notice that we didn't check the number of NAs for country of origin, COVID hours
 and STA302H1 hours, since some students either forgot or abstained.
 So there's no reason to exclude these students from our final dataset.
 
-```{r echo = FALSE}
-library(dplyr)
-row_nums_to_exclude <- union(
-  which(rows_with_num_NAs(quiz_grades, 3)),
-  which(rows_with_num_NAs(quiz_grades, 4)))
-```
-
-```{R echo = FALSE}
+```{r}
+row_nums_to_exclude <- get_row_nums_to_exclude(quiz_grades)
 cleaned_sta302_performance_data2 = 
   cleaned_sta302_performance_data[-row_nums_to_exclude,]
 ```
