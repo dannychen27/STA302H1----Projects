@@ -326,6 +326,14 @@ rows_with_no_country = cleaned_sta302_performance_data2 %>%
 ## Histograms of COVID Hours
 
 ```{r}
+display_boxplot(cleaned_sta302_performance_data2, COVID.hours..W1.,
+                "Country vs. Week 1 Time Spent Thinking About COVID-19",
+                "Time Spent Thinking About COVID-19 (hours)")
+```
+
+\break
+
+```{r}
 display_histogram(cleaned_sta302_performance_data2, 
                   cleaned_sta302_performance_data2$COVID.hours..W1., 
                   "Histogram of Week 1 Time Spent Thinking About COVID-19",
@@ -334,6 +342,14 @@ display_histogram(cleaned_sta302_performance_data2,
 
 ```{r}
 summary(cleaned_sta302_performance_data2$COVID.hours..W1.)
+```
+
+\break
+
+```{R}
+display_boxplot(cleaned_sta302_performance_data2, COVID.hours..W2.,
+                "Country vs. Week 2 Time Spent Thinking About COVID-19",
+                "Time Spent Thinking About COVID-19 (hours)")
 ```
 
 \break
@@ -351,6 +367,14 @@ summary(cleaned_sta302_performance_data2$COVID.hours..W2.)
 
 \break
 
+```{R}
+display_boxplot(cleaned_sta302_performance_data2, COVID.hours..W3.,
+                "Country vs. Week 3 Time Spent Thinking About COVID-19",
+                "Time Spent Thinking About COVID-19 (hours)")
+```
+
+\break
+
 ```{r}
 display_histogram(cleaned_sta302_performance_data2, 
                   cleaned_sta302_performance_data2$COVID.hours..W3., 
@@ -360,6 +384,14 @@ display_histogram(cleaned_sta302_performance_data2,
 
 ```{r}
 summary(cleaned_sta302_performance_data2$COVID.hours..W3.)
+```
+
+\break
+
+```{R}
+display_boxplot(cleaned_sta302_performance_data2, COVID.hours..W4.,
+                "Country vs. Week 4 Time Spent Thinking About COVID-19",
+                "Time Spent Thinking About COVID-19 (hours)")
 ```
 
 \break
@@ -379,6 +411,14 @@ summary(cleaned_sta302_performance_data2$COVID.hours..W4.)
 
 ## Histograms of STA302H1 Hours
 
+```{R}
+display_boxplot(cleaned_sta302_performance_data2, STA302.hours..W1.,
+                "Country vs. Week 1 Time Spent Studying For STA302H1",
+                "Time Spent Studying For STA302H1 (hours)")
+```
+
+\break
+
 ```{r}
 display_histogram(cleaned_sta302_performance_data2, 
                   cleaned_sta302_performance_data2$STA302.hours..W1., 
@@ -388,6 +428,14 @@ display_histogram(cleaned_sta302_performance_data2,
 
 ```{r}
 summary(cleaned_sta302_performance_data2$STA302.hours..W1.)
+```
+
+\break
+
+```{R}
+display_boxplot(cleaned_sta302_performance_data2, STA302.hours..W2.,
+                "Country vs. Week 2 Time Spent Studying For STA302H1",
+                "Time Spent Studying For STA302H1 (hours)")
 ```
 
 \break
@@ -405,6 +453,14 @@ summary(cleaned_sta302_performance_data2$STA302.hours..W2.)
 
 \break
 
+```{R}
+display_boxplot(cleaned_sta302_performance_data2, STA302.hours..W3.,
+                "Country vs. Week 3 Time Spent Studying For STA302H1",
+                "Time Spent Studying For STA302H1 (hours)")
+```
+
+\break
+
 ```{r}
 display_histogram(cleaned_sta302_performance_data2, 
                   cleaned_sta302_performance_data2$STA302.hours..W3., 
@@ -414,6 +470,14 @@ display_histogram(cleaned_sta302_performance_data2,
 
 ```{r}
 summary(cleaned_sta302_performance_data2$STA302.hours..W3.)
+```
+
+\break
+
+```{R}
+display_boxplot(cleaned_sta302_performance_data2, STA302.hours..W4.,
+                "Country vs. Week 4 Time Spent Studying For STA302H1",
+                "Time Spent Studying For STA302H1 (hours)")
 ```
 
 \break
@@ -433,6 +497,13 @@ summary(cleaned_sta302_performance_data2$STA302.hours..W4.)
 
 ## Histograms of Quiz Scores
 
+```{R}
+display_boxplot(cleaned_sta302_performance_data2, Quiz_1_score,
+                "Country vs. Quiz 1 Score", "Score (out of 10)")
+```
+
+\break
+
 ```{r}
 display_histogram(cleaned_sta302_performance_data2, 
                   cleaned_sta302_performance_data2$Quiz_1_score, 
@@ -442,6 +513,13 @@ display_histogram(cleaned_sta302_performance_data2,
 
 ```{r}
 summary(cleaned_sta302_performance_data2$Quiz_1_score)
+```
+
+\break
+
+```{R}
+display_boxplot(cleaned_sta302_performance_data2, Quiz_2_score,
+                "Country vs. Quiz 2 Score", "Score (out of 10)")
 ```
 
 \break
@@ -459,6 +537,11 @@ summary(cleaned_sta302_performance_data2$Quiz_2_score)
 
 \break
 
+```{R}
+display_boxplot(cleaned_sta302_performance_data2, Quiz_3_score,
+                "Country vs. Quiz 3 Score", "Score (out of 10)")
+```
+
 ```{r}
 display_histogram(cleaned_sta302_performance_data2, 
                   cleaned_sta302_performance_data2$Quiz_3_score, 
@@ -468,6 +551,13 @@ display_histogram(cleaned_sta302_performance_data2,
 
 ```{r}
 summary(cleaned_sta302_performance_data2$Quiz_3_score)
+```
+
+\break
+
+```{R}
+display_boxplot(cleaned_sta302_performance_data2, Quiz_4_score,
+                "Country vs. Quiz 4 Score", "Score (out of 10)")
 ```
 
 \break
@@ -489,101 +579,9 @@ summary(cleaned_sta302_performance_data2$Quiz_4_score)
 
 ## Boxplots of COVID Hours
 
-```{r}
-display_boxplot(cleaned_sta302_performance_data2, COVID.hours..W1.,
-                "Country vs. Week 1 Time Spent Thinking About COVID-19",
-                "Time Spent Thinking About COVID-19 (hours)")
-```
-
-\break
-
-```{R}
-display_boxplot(cleaned_sta302_performance_data2, COVID.hours..W2.,
-                "Country vs. Week 2 Time Spent Thinking About COVID-19",
-                "Time Spent Thinking About COVID-19 (hours)")
-```
-
-\break
-
-```{R}
-display_boxplot(cleaned_sta302_performance_data2, COVID.hours..W3.,
-                "Country vs. Week 3 Time Spent Thinking About COVID-19",
-                "Time Spent Thinking About COVID-19 (hours)")
-```
-
-\break
-
-```{R}
-display_boxplot(cleaned_sta302_performance_data2, COVID.hours..W4.,
-                "Country vs. Week 4 Time Spent Thinking About COVID-19",
-                "Time Spent Thinking About COVID-19 (hours)")
-```
-
-\break
-
 ## Boxplots of STA302H1 Hours
 
-```{R}
-display_boxplot(cleaned_sta302_performance_data2, STA302.hours..W1.,
-                "Country vs. Week 1 Time Spent Studying For STA302H1",
-                "Time Spent Studying For STA302H1 (hours)")
-```
-
-\break
-
-```{R}
-display_boxplot(cleaned_sta302_performance_data2, STA302.hours..W2.,
-                "Country vs. Week 2 Time Spent Studying For STA302H1",
-                "Time Spent Studying For STA302H1 (hours)")
-```
-
-\break
-
-```{R}
-display_boxplot(cleaned_sta302_performance_data2, STA302.hours..W3.,
-                "Country vs. Week 3 Time Spent Studying For STA302H1",
-                "Time Spent Studying For STA302H1 (hours)")
-```
-
-\break
-
-```{R}
-display_boxplot(cleaned_sta302_performance_data2, STA302.hours..W4.,
-                "Country vs. Week 4 Time Spent Studying For STA302H1",
-                "Time Spent Studying For STA302H1 (hours)")
-```
-
-\break
-
 ## Boxplots of Quiz Scores
-
-```{R}
-display_boxplot(cleaned_sta302_performance_data2, Quiz_1_score,
-                "Country vs. Quiz 1 Score", "Score (out of 10)")
-```
-
-\break
-
-```{R}
-display_boxplot(cleaned_sta302_performance_data2, Quiz_2_score,
-                "Country vs. Quiz 2 Score", "Score (out of 10)")
-```
-
-\break
-
-```{R}
-display_boxplot(cleaned_sta302_performance_data2, Quiz_3_score,
-                "Country vs. Quiz 3 Score", "Score (out of 10)")
-```
-
-\break
-
-```{R}
-display_boxplot(cleaned_sta302_performance_data2, Quiz_4_score,
-                "Country vs. Quiz 4 Score", "Score (out of 10)")
-```
-
-\break
 
 # Scatterplots
 
