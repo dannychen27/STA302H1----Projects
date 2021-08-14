@@ -119,7 +119,7 @@ rows_with_4_NAs = cleaned_sta302_performance_data[
 
 Let's count the number of rows with 0 - 4 NAs.
 
-```{r}
+```{r echo = FALSE}
 data.frame(
   nrows_0_NAs = nrow(rows_with_0_NAs),
   nrows_1_NAs = nrow(rows_with_1_NAs),
@@ -155,7 +155,7 @@ row_nums_of_NA_rows(cleaned_sta302_performance_data, 4)
 
 ## Columns with NAs
 
-```{R}
+```{R echo = FALSE}
 perform_data = cleaned_sta302_performance_data
 data.frame(
   week1_covid = num_column_NAs(perform_data$COVID.hours..W1.),
@@ -165,7 +165,7 @@ data.frame(
 )
 ```
 
-```{R}
+```{R echo = FALSE}
 data.frame(
   week1_sta302 = num_column_NAs(perform_data$STA302.hours..W1.),
   week2_sta302 = num_column_NAs(perform_data$STA302.hours..W2.),
@@ -174,7 +174,7 @@ data.frame(
 )
 ```
 
-```{R}
+```{R echo = FALSE}
 data.frame(
   quiz1_score = num_column_NAs(perform_data$Quiz_1_score),
   quiz2_score = num_column_NAs(perform_data$Quiz_2_score),
@@ -182,10 +182,6 @@ data.frame(
   quiz4_score = num_column_NAs(perform_data$Quiz_4_score)
 )
 ```
-
-\break
-
-## Columns only with Quiz Grades
 
 ```{r echo = FALSE, warning = FALSE}
 quiz_grades <- cleaned_sta302_performance_data %>%
@@ -212,7 +208,7 @@ missed_4_quizzes = quiz_grades[
 
 ## Number of Missed Quizzes
 
-```{r}
+```{r echo = FALSE}
 data.frame(
   miss_0_quizzes = nrow(missed_0_quizzes),
   miss_1_quizzes = nrow(missed_1_quizzes),
