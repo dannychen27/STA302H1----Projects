@@ -304,20 +304,6 @@ rows_with_no_country = cleaned_sta302_performance_data2 %>%
 
 \break
 
-# Find Significance Predictor Variables, Select Predictor Variables Based on Criterion
-
-```{r}
-# use week 5b slides -- choose model selection criterion to pick predictor variables.
-
-
-# use lm() on a bunch of predictor variables to determine significant
-# predictor variables.
-
-
-```
-
-\break
-
 ```{r echo = FALSE, warning = FALSE}
 display_boxplot(cleaned_sta302_performance_data2, COVID.hours..W1.,
                 "Country vs. Week 1 Time Spent Thinking About COVID-19",
@@ -618,4 +604,18 @@ round(cor(rows_with_no_country, use = "pairwise.complete.obs", method = "pearson
 
 ```{r}
 # TODO: You could also create separate correlation matrices for each country.
+```
+
+\break
+
+# Find Significance Predictor Variables, Select Predictor Variables Based on Criterion
+
+```{r}
+# use week 5b slides -- choose model selection criterion to pick predictor variables.
+
+
+# use lm() on a bunch of predictor variables to determine significant
+# predictor variables.
+
+
 ```
