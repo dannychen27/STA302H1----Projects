@@ -96,13 +96,15 @@ display_boxplot <- function(data, predictor_variable, boxplot_title, y_axis_labe
 
 \break
 
+# Special Tables
+
 ## Rows With At Least One NA
 
 Rows with at least one NA deserve closer examination. \newline
 Some of the rows might only have 1 - 2 NAs and are therefore salvageable, which is OK. \newline
 Other rows may contain 3 or more NAs, and might indicate students who have dropped STA302H1. We'd like to exclude them from our analysis.
 
-```{r}
+```{r echo = FALSE, warning = FALSE}
 rows_with_0_NAs = cleaned_sta302_performance_data[
   rows_with_num_NAs(cleaned_sta302_performance_data, 0),
 ]
@@ -123,16 +125,14 @@ rows_with_4_NAs = cleaned_sta302_performance_data[
 Let's count the number of rows with 0 - 4 NAs.
 
 ```{r}
-print(as_tibble(data.frame(
+data.frame(
   nrows_0_NAs = nrow(rows_with_0_NAs),
   nrows_1_NAs = nrow(rows_with_1_NAs),
   nrows_2_NAs = nrow(rows_with_2_NAs),
   nrows_3_NAs = nrow(rows_with_3_NAs),
   nrows_4_NAs = nrow(rows_with_4_NAs)
-)))
+)
 ```
-
-\break
 
 And then we'll determine which row numbers have 0 - 4 NAs.
 
@@ -162,43 +162,42 @@ row_nums_of_NA_rows(cleaned_sta302_performance_data, 4)
 
 ```{R}
 perform_data = cleaned_sta302_performance_data
-print(as_tibble(data.frame(
+data.frame(
   week1_covid = num_column_NAs(perform_data$COVID.hours..W1.),
   week2_covid = num_column_NAs(perform_data$COVID.hours..W2.),
   week3_covid = num_column_NAs(perform_data$COVID.hours..W3.),
   week4_covid = num_column_NAs(perform_data$COVID.hours..W4.)
-)))
+)
 ```
 
 ```{R}
-print(as_tibble(data.frame(
+data.frame(
   week1_sta302 = num_column_NAs(perform_data$STA302.hours..W1.),
   week2_sta302 = num_column_NAs(perform_data$STA302.hours..W2.),
   week3_sta302 = num_column_NAs(perform_data$STA302.hours..W3.),
   week4_sta302 = num_column_NAs(perform_data$STA302.hours..W4.)
-)))
+)
 ```
 
 ```{R}
-print(as_tibble(data.frame(
+data.frame(
   quiz1_score = num_column_NAs(perform_data$Quiz_1_score),
   quiz2_score = num_column_NAs(perform_data$Quiz_2_score),
   quiz3_score = num_column_NAs(perform_data$Quiz_3_score),
   quiz4_score = num_column_NAs(perform_data$Quiz_4_score)
-)))
+)
 ```
 
 \break
 
 ## Columns only with Quiz Grades
 
-```{r}
+```{r echo = FALSE, warning = FALSE}
 quiz_grades <- cleaned_sta302_performance_data %>%
-  select(Quiz_1_score, Quiz_2_score, 
-         Quiz_3_score, Quiz_4_score)
+  select(Quiz_1_score, Quiz_2_score, Quiz_3_score, Quiz_4_score)
 ```
 
-```{r}
+```{r echo = FALSE, warning = FALSE}
 missed_0_quizzes = quiz_grades[
   rows_with_num_NAs(quiz_grades, 0),
 ]
@@ -219,13 +218,13 @@ missed_4_quizzes = quiz_grades[
 ## Number of Missed Quizzes
 
 ```{r}
-print(as.tibble(data.frame(
+data.frame(
   miss_0_quizzes = nrow(missed_0_quizzes),
   miss_1_quizzes = nrow(missed_1_quizzes),
   miss_2_quizzes = nrow(missed_2_quizzes),
   miss_3_quizzes = nrow(missed_3_quizzes),
   miss_4_quizzes = nrow(missed_4_quizzes)
-)))
+)
 ```
 
 ## Who Missed Quizzes?
@@ -292,8 +291,6 @@ rows_with_mistyped_columms = cleaned_sta302_performance_data2[c(38, 83, 84, 117)
 # library(janitor)
 # use it to clean up data.
 ```
-
-\break
 
 ## Rows Without Country Entry
 
