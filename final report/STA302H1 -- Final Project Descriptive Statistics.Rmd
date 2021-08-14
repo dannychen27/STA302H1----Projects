@@ -594,23 +594,16 @@ pairs(~Quiz_4_score + STA302.hours..W1. + STA302.hours..W2.
 Let's pick out 4 - 5 scatterplots that have interesting relationships.
 
 ```{R}
-
+# TODO: Add scatterplots here.
 ```
 
 I'll back up my choices with their correlation (R value).
-
-
-```{r}
-
-```
-
-\break
 
 # Correlation Matrix
 
 ## All Countries
 
-We can find correlation matrix to determine candidate significant predictor values.
+We can find the correlation matrix to determine candidate significant predictor values.
 
 ```{r echo = FALSE, message = FALSE, warning = FALSE}
 library(GGally)
