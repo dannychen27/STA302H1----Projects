@@ -117,7 +117,7 @@ rows_with_4_NAs = cleaned_sta302_performance_data[
 ]
 ```
 
-Let's count the number of rows with 0 - 4 NAs.
+Here are the number of rows with 0 - 4 NAs.
 
 ```{r echo = FALSE}
 data.frame(
@@ -129,7 +129,7 @@ data.frame(
 )
 ```
 
-And then we'll determine which row numbers have 0 - 4 NAs.
+We also want to know which row numbers have 0 - 4 NAs.
 
 ```{r}
 row_nums_of_NA_rows(cleaned_sta302_performance_data, 0)
