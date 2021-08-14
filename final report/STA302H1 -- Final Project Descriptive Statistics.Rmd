@@ -46,11 +46,19 @@ cleaned_sta302_performance_data <- sta302_performance_data %>%
 
 \break
 
-## Rows With At Least One NA
+# Helper Functions
 
-Rows with at least one NA deserve closer examination. \newline
-Some of the rows might only have 1 - 2 NAs and are therefore salvageable, which is OK. \newline
-Other rows may contain 3 or more NAs, and might indicate students who have dropped STA302H1. We'd like to exclude them from our analysis.
+```{r}
+num_column_NAs = function(predictor_variable) {
+  sum(is.na(predictor_variable))
+}
+```
+
+```{r}
+row_nums_of_NA_columns = function(data, predictor_variable) {
+  which(is.na(predictor_variable))
+}
+```
 
 ```{r}
 rows_with_num_NAs = function(data, num_NAs) {
@@ -63,6 +71,36 @@ row_nums_of_NA_rows = function(data, num_NAs) {
   return (which(rows_with_num_NAs(data, num_NAs)))
 }
 ```
+
+```{r}
+display_histogram <- function(data, predictor_variable, histogram_title, x_axis_label) {
+  ggplot(data = tibble(data), mapping = aes(x = predictor_variable)) +
+    geom_histogram(col = "black", fill = "red", bins = 30) +
+    labs(title = histogram_title, y = "Frequency", x = x_axis_label) + 
+    geom_vline(mapping = aes(xintercept = mean(predictor_variable, na.rm = TRUE)),
+               color = "blue", linetype = "solid") +
+    geom_vline(mapping = aes(xintercept = median(predictor_variable, na.rm = TRUE)),
+               color = "dark green", linetype = "dotted")
+}
+```
+
+```{r}
+display_boxplot <- function(data, predictor_variable, boxplot_title, y_axis_label) {
+  ggplot(mapping = aes(x = Country, y = predictor_variable, color = Country)) +
+    geom_boxplot(mapping = aes(x = Country, y = predictor_variable)) +
+    labs(title = boxplot_title,
+         x = "Country",
+         y = y_axis_label)
+}
+```
+
+\break
+
+## Rows With At Least One NA
+
+Rows with at least one NA deserve closer examination. \newline
+Some of the rows might only have 1 - 2 NAs and are therefore salvageable, which is OK. \newline
+Other rows may contain 3 or more NAs, and might indicate students who have dropped STA302H1. We'd like to exclude them from our analysis.
 
 ```{r}
 rows_with_0_NAs = cleaned_sta302_performance_data[
@@ -121,18 +159,6 @@ row_nums_of_NA_rows(cleaned_sta302_performance_data, 4)
 \break
 
 ## Columns with NAs
-
-```{r}
-num_column_NAs = function(predictor_variable) {
-  sum(is.na(predictor_variable))
-}
-```
-
-```{r}
-row_nums_of_NA_columns = function(data, predictor_variable) {
-  which(is.na(predictor_variable))
-}
-```
 
 ```{R}
 perform_data = cleaned_sta302_performance_data
@@ -297,18 +323,6 @@ rows_with_no_country = cleaned_sta302_performance_data2 %>%
 
 # Histograms
 
-```{r}
-display_histogram <- function(data, predictor_variable, histogram_title, x_axis_label) {
-  ggplot(data = tibble(data), mapping = aes(x = predictor_variable)) +
-    geom_histogram(col = "black", fill = "red", bins = 30) +
-    labs(title = histogram_title, y = "Frequency", x = x_axis_label) + 
-    geom_vline(mapping = aes(xintercept = mean(predictor_variable, na.rm = TRUE)),
-               color = "blue", linetype = "solid") +
-    geom_vline(mapping = aes(xintercept = median(predictor_variable, na.rm = TRUE)),
-               color = "dark green", linetype = "dotted")
-}
-```
-
 ## Histograms of COVID Hours
 
 ```{r}
@@ -424,16 +438,6 @@ display_histogram(cleaned_sta302_performance_data2,
 \break
 
 # Boxplots
-
-```{r}
-display_boxplot <- function(data, predictor_variable, boxplot_title, y_axis_label) {
-  ggplot(mapping = aes(x = Country, y = predictor_variable, color = Country)) +
-    geom_boxplot(mapping = aes(x = Country, y = predictor_variable)) +
-    labs(title = boxplot_title,
-         x = "Country",
-         y = y_axis_label)
-}
-```
 
 ## Boxplots of COVID Hours
 
