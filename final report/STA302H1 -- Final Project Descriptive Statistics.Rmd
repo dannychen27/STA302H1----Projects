@@ -291,6 +291,82 @@ rows_with_no_country = cleaned_sta302_performance_data2 %>%
   select(-country)
 ```
 
+## Rows Filtered by Country
+
+This is useful if we want data for individual countries. \newline
+Only the first and last code snippets are shown.
+
+```{r}
+canada <- cleaned_sta302_performance_data2 %>%
+  filter(as.character(country) == "Canada") %>%
+  select(-country)
+
+na <- cleaned_sta302_performance_data2 %>%
+  filter(is.na(as.character(country))) %>%
+  select(-country)
+```
+
+```{r echo = FALSE}
+china <- cleaned_sta302_performance_data2 %>%
+  filter(as.character(country) == "China") %>%
+  select(-country)
+
+india <- cleaned_sta302_performance_data2 %>%
+  filter(as.character(country) == "India") %>%
+  select(-country)
+
+japan <- cleaned_sta302_performance_data2 %>%
+  filter(as.character(country) == "Japan") %>%
+  select(-country)
+
+mongolia <- cleaned_sta302_performance_data2 %>%
+  filter(as.character(country) == "Mongolia") %>%
+  select(-country)
+
+pakistan <- cleaned_sta302_performance_data2 %>%
+  filter(as.character(country) == "Pakistan") %>%
+  select(-country)
+
+singapore <- cleaned_sta302_performance_data2 %>%
+  filter(as.character(country) == "Singapore") %>%
+  select(-country)
+
+south_korea <- cleaned_sta302_performance_data2 %>%
+  filter(as.character(country) == "South Korea") %>%
+  select(-country)
+
+taiwan <- cleaned_sta302_performance_data2 %>%
+  filter(as.character(country) == "Taiwan") %>%
+  select(-country)
+
+uae <- cleaned_sta302_performance_data2 %>%
+  filter(as.character(country) == "UAE") %>%
+  select(-country)
+
+usa <- cleaned_sta302_performance_data2 %>%
+  filter(as.character(country) == "USA") %>%
+  select(-country)
+```
+
+```{r echo = FALSE}
+countries = data.frame(
+  Canada = nrow(canada),
+  China = nrow(china),
+  India = nrow(india),
+  Japan = nrow(japan),
+  Mongolia = nrow(mongolia),
+  Pakistan = nrow(pakistan),
+  Singapore = nrow(singapore),
+  South_Korea = nrow(south_korea),
+  Taiwan = nrow(taiwan),
+  UAE = nrow(uae),
+  USA = nrow(usa),
+  Unknown = nrow(na)
+)
+rownames(countries) = "Country"
+t(countries)
+```
+
 \break
 
 ```{r echo = FALSE, warning = FALSE}
@@ -591,9 +667,7 @@ round(cor(rows_with_no_country, use = "pairwise.complete.obs", method = "pearson
 
 ## By Individual Country
 
-```{r}
-# TODO: You could also create separate correlation matrices for each country.
-```
+TODO: You could also create separate correlation matrices for each country.
 
 \break
 
