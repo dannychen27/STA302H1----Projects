@@ -30,6 +30,9 @@ First, I'll clean my data.
 cleaned_sta302_performance_data <- sta302_performance_data %>%
     # Create a new "country" column, which is just "Country" but whose entries are factors.
     mutate(country = as.factor(Country)) %>%
+  
+    # TODO: Replace quiz grades, covid hours, and sta302h1 study hours with their
+    # TODO: median counterparts.
 
     # Remove the "X" column: it's simply the row number, which isn't very useful.
     # Remove the "Country" column: column "country" already exists
