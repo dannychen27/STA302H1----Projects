@@ -113,3 +113,30 @@ Q18: In the introduction section of the final report handout, what did the profe
 	"Explain how the model meets the purpose mentioned earlier."
 A18:
 
+Q19: How do you want us to handle NA entries, and different countries?
+A19: You could either:
+
+- do as you see fit (e.g., if one of the quizzes are missing but the rest of them are there, you could state that you took the mean/median of the remaining ones to save data, etc.)
+- delete the NA entries and state this as part of the clean up phase
+
+
+Q20a: Are we supposed to choose our own question to answer, or follow the one provided in the pdf "What are the factors that predict student performance on the final STA302 assessment (i.e. quiz 4)?"
+A20a: You should work with the question given, but format the question in a way that you think is appropriate to what you want to focus on.
+
+Q20b (follow up to Q20a): Does that mean that we could change the question slightly? For example, change the question to "To what extent are Covid-19 hours a good predictor of student performance on the final STA302 assesment?" or something along those lines?
+
+
+Q21a: The professor had given an example report from her research. How similar must our final reports be to this example report?
+A21a: No that was posted because people wanted a sample of how to write grammatically. You need not follow that format at all.
+Follow the format I gave you in the guidelines in terms of what sections you should have.
+
+Q21b (follow up to Q21a): How long should the final report be?
+A21b: I don’t think I specified a page limit. I wouldn’t submit something over 20 pages in words, and I may not submit something under 5 pages. Somewhere in the middle is the report length. 
+
+Q22a: How to make the model optimal?
+A22a: The optimal model is one that yields the smallest MSE among all the possible models.
+
+Q22b (follow up to Q22a): How do you calculate MSE?
+A22b:
+
+
