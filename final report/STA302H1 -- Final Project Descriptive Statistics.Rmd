@@ -642,13 +642,62 @@ pairs(~Quiz_4_score + STA302.hours..W1. + STA302.hours..W2.
 
 ## Top 4 - 5 Interesting Scatterplots
 
-Let's pick out 4 - 5 scatterplots that have interesting relationships.
+On page 28 "Correlation Matrix," when I look at the row labelled "Q4" (Quiz 4), I obtained the top 4 - 5 predictor variables based on their correlation:
 
-```{R}
-# TODO: Add scatterplots here.
+- Quiz 3 Score ($R = 0.55$), significant
+- Quiz 1 Score ($R = 0.29$), significant
+- Quiz 2 Score ($R = 0.19$), moderately significant
+- Week 2 STA302H1 Hours ($R = -0.11$), not significant at all
+- Week 3 COVID Hours ($R = -0.09$), not significant at all
+
+Here are all of their scatterplots, linear regressions, and p-values.
+
+```{R warning = FALSE}
+ggplot(data = cleaned_sta302_performance_data2, mapping = aes(x = COVID.hours..W3., y = Quiz_4_score)) +
+  geom_point() +
+  geom_smooth(method = "lm", col = "red", formula = y ~ x)
+summary(lm(formula = Quiz_4_score ~ COVID.hours..W3.))$coefficients
 ```
 
-I'll back up my choices with their correlation (R value).
+\break
+
+```{R warning = FALSE}
+ggplot(data = cleaned_sta302_performance_data2, mapping = aes(x = STA302.hours..W2., y = Quiz_4_score)) +
+  geom_point() +
+  geom_smooth(method = "lm", col = "red", formula = y ~ x)
+summary(lm(formula = Quiz_4_score ~ STA302.hours..W2.))$coefficients
+```
+
+\break
+
+```{r warning = FALSE}
+ggplot(data = cleaned_sta302_performance_data2, mapping = aes(x = Quiz_1_score, y = Quiz_4_score)) +
+  geom_point() +
+  geom_smooth(method = "lm", col = "red", formula = y ~ x)
+summary(lm(formula = Quiz_4_score ~ Quiz_1_score))$coefficients
+```
+
+\break
+
+```{r warning = FALSE}
+ggplot(data = cleaned_sta302_performance_data2, mapping = aes(x = Quiz_2_score, y = Quiz_4_score)) +
+  geom_point() +
+  geom_smooth(method = "lm", col = "red", formula = y ~ x)
+summary(lm(formula = Quiz_4_score ~ Quiz_2_score))$coefficients
+```
+
+\break
+
+```{r warning = FALSE}
+ggplot(data = cleaned_sta302_performance_data2, mapping = aes(x = Quiz_3_score, y = Quiz_4_score)) +
+  geom_point() +
+  geom_smooth(method = "lm", col = "red", formula = y ~ x)
+summary(lm(formula = Quiz_4_score ~ Quiz_3_score))$coefficients
+```
+
+I'll back up my choices with their correlations (R value).
+
+\break
 
 # Correlation Matrix
 
