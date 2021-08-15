@@ -11,6 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 library(dplyr)
 library(tidyverse)
+library(GGally)
 ```
 
 # Import STA302H1 Study Time and COVID Contemplation Time vs. Quiz Performance Dataset
@@ -98,6 +99,16 @@ get_row_nums_to_exclude <- function(data) {
   return (row_nums_to_exclude)
 }
 ```
+
+```{r}
+display_correlation_by_country <- function(country_data) {
+  colnames(country_data) <- c("W1COV", "W2COV", "W3COV", "W4COV",
+                              "W1302", "W2302", "W3302", "W4302",
+                              "Q1", "Q2", "Q3", "Q4")
+  round(cor(country_data, use = "pairwise.complete.obs", method = "pearson"), 2)
+}
+```
+
 \break
 
 # Special Tables
@@ -706,7 +717,6 @@ I'll back up my choices with their correlations (R value).
 We can find the correlation matrix to determine candidate significant predictor values.
 
 ```{r echo = FALSE, message = FALSE, warning = FALSE}
-library(GGally)
 colnames(rows_with_no_country) <- c("W1COV", "W2COV", "W3COV", "W4COV", 
                           "W1302", "W2302", "W3302", "W4302", 
                           "Q1", "Q2", "Q3", "Q4")
@@ -716,7 +726,63 @@ round(cor(rows_with_no_country, use = "pairwise.complete.obs", method = "pearson
 
 ## By Individual Country
 
-TODO: You could also create separate correlation matrices for each country.
+We could also create separate correlation matrices for each country.
+
+```{r warning = FALSE}
+display_correlation_by_country(canada)
+```
+
+\break
+
+```{r warning = FALSE}
+display_correlation_by_country(china)
+```
+
+```{r warning = FALSE}
+display_correlation_by_country(india)
+```
+
+```{r warning = FALSE}
+display_correlation_by_country(japan)
+```
+
+\break
+
+```{r warning = FALSE}
+display_correlation_by_country(mongolia)
+```
+
+```{r warning = FALSE}
+display_correlation_by_country(na)
+```
+
+```{r warning = FALSE}
+display_correlation_by_country(na)
+```
+
+\break
+
+```{r warning = FALSE}
+display_correlation_by_country(pakistan)
+```
+
+```{r warning = FALSE}
+display_correlation_by_country(south_korea)
+```
+
+```{r warning = FALSE}
+display_correlation_by_country(taiwan)
+```
+
+\break
+
+```{r warning = FALSE}
+display_correlation_by_country(uae)
+```
+
+```{r warning = FALSE}
+display_correlation_by_country(usa)
+```
 
 \break
 
