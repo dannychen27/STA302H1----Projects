@@ -107,4 +107,6 @@ Maybe I'll use median COVID hours, median STA302H1 study times, and median quiz 
 Q17: You said that doing k-folds cross validation is optional. Is 80/20 split also optional, or is it mandatory?
 A17:
 
+Q18: In the introduction section of the report, what do you mean by "Explain how the model meets the purpose mentioned earlier."?
+A18:
 
