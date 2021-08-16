@@ -140,3 +140,10 @@ Q22b (follow up to Q22a): How do you calculate MSE?
 A22b:
 
 
+Q23: Do all model criteria always agree on the same best model?
+A23: Not always.
+
+Q24: If two models happened to be the best models, how would we break ties?
+Would we select both models, pick a model randomly, or pick a model based on some other criterion?
+A24:
+
