@@ -315,7 +315,7 @@ canada <- cleaned_sta302_performance_data2 %>%
   filter(as.character(country) == "Canada") %>%
   select(-country)
 
-na <- cleaned_sta302_performance_data2 %>%
+unknown <- cleaned_sta302_performance_data2 %>%
   filter(is.na(as.character(country))) %>%
   select(-country)
 ```
@@ -375,7 +375,7 @@ countries = data.frame(
   Taiwan = nrow(taiwan),
   UAE = nrow(uae),
   USA = nrow(usa),
-  Unknown = nrow(na)
+  Unknown = nrow(unknown)
 )
 rownames(countries) = "Country"
 t(countries)
@@ -756,11 +756,7 @@ display_correlation_by_country(mongolia)
 ```
 
 ```{r warning = FALSE}
-display_correlation_by_country(na)
-```
-
-```{r warning = FALSE}
-display_correlation_by_country(na)
+display_correlation_by_country(unknown)
 ```
 
 \break
