@@ -770,6 +770,10 @@ display_correlation_by_country(pakistan)
 ```
 
 ```{r warning = FALSE}
+display_correlation_by_country(singapore)
+```
+
+```{r warning = FALSE}
 display_correlation_by_country(south_korea)
 ```
 
