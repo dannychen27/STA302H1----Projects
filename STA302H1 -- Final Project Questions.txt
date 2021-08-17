@@ -1,11 +1,206 @@
+Data Cleaning
+
 Q1: What's with the NA country entries? Maybe this could be under the "undetermined" country.
 A1: Some students may have left this entry blank on the survey. Perhaps either students forgot to answer the question about country of origin, or they were embarrassed to include their country of origin.
 
-
-Q2: Can I simply ignore the missing COVID hours entries, STA302H1 study times, and missing quiz marks -- since students can opt not to write certain quizzes or complete the weekly surveys...
+Q2: Can I simply ignore the missing COVID hours entries, STA302H1 study times, and missing quiz marks -- since students can opt not to write certain quizzes or complete the weekly surveys?
 A2: Yes. That's totally fine.
 
+Q3: What do I do with rows that contain one or more NAs?
+A3: If a row only has 1 or 2 NAs, that's ok. However, if there are 3 - 4 NAs that may indicate a student who has dropped STA302H1.
+You should exclude dropped students from your final dataset.
 
-Begin compiling a list of questions about the final project.
+Q4: What is imputation?
+A4: Imputation is when you replace missing values with substituted default values.
 
-- These questions are about how to handle rows that contain one or more NAs.
+
+Scatterplot
+
+Q5: I created a large pairwise scatterplot using the pairs() function. It contains 144 boxes, but 12 of them are the main diagonal and 66 of them (the bottom half of the scatterplots) are redundant since they are reflections about the line y = x of the upper half of the scatterplots.
+How do I know which scatterplots are most important to focus on?
+A5: The large pairwise scatterplot provides an overview of all possible scatterplots and their relationships -- more visual and informative as a first step than the correlation matrix which is more detail and numerical.
+You may want to ignore the main diagonal and the bottom half of the scatterplots.
+
+After that, here are some ideas:
+
+1. Break up the giant pairs plots into 2 - 4 smaller pair plots using pairs()?
+
+- Quiz 4 scores as a function of Quiz 1 - 3 scores,
+- Week 4 COVID hours as a function of Weeks 1 - 3 COVID hours,
+- Week 4 STA302H1 hours as a function of Weeks 1 - 3 STA302H1 hours.
+
+2. Pick out 4 - 5 distinct scatterplots that exhibit an interesting relationship.
+
+3. Back up your scatterplots with the correlation matrix of your chosen pairs of predictor variables.
+
+Correlation Matrix
+
+Q5: What's the difference between pairwise complete observations and (strictly) complete observations in a correlation matrix?
+A5: A pairwise complete observation is less picky (preserves more of the dataset) than a strictly complete observation.
+
+
+Model Selection
+
+Q6: What do you mean by "independent data set"?
+A6: resampling data from a different population (e.g. summer 2020 cohort), not the same one (summer 2021 cohort)
+
+Q7: Rank the following methods from best to worst:
+
+50/50 (training/testing) split, 80/20 split, k-fold cross validation, obtaining independent dataset.
+
+A7: 1. obtaining independent dataset
+- expensive, infeasible, sometimes new samplings of population are inaccessible
+
+2. K-fold cross validation
+- like doing multiple 80/20 splits on smaller datasets
+- less prone to overfitting because unlikely to overfit by accident
+
+3. 80/20 split
+- harder to overfit than 50/50
+- can still accidently overfit
+
+4. 50/50 split
+- smaller training dataset makes it easier to overfit, this reflects in validation model
+
+
+Final Report Contents
+
+Q8: Why does R code belong in the appendix instead of the report body?
+A8: The report body visualization must resemble ones you'd see in the New York Times or some other professional publication.
+
+Q9: Does the pairwise correlation plot count as a visualization?
+A9: Although it's more visual than a correlation matrix, it's still not quite a visualization: they belong in the Appendix section (add "see appendix for details")
+Instead, you should report on the pairs of predictor variables with high correlations, analyze them more closely, and consider
+recentering your data or transforming your variables to make them more normally distributed and more amenable to CLT/hypothesis testing/CIs, etc.
+You might write something like:
+
+	"Preliminary data analysis shows these two predictor variables are significant ... so we did .... and 
+	explored these variables more closely."
+
+Q10: What should exploratory data analysis contain?
+A10: Descriptive statistics is one thing.
+
+Q11: What about the Model Development section?
+A11: Describe what model you want to use, and back it up using theory from class (gauss-markov, 4 properties of simple linear regressions, etc.)
+And empirical observations like residual plots, prior knowledge, etc.
+
+Q12: How do I produce cleanly formatted tables?
+A12: See Demo 3 or 4 for an example of a clean formatted table.
+
+Q13: What are the predictor variables and the response variable for this dataset?
+A13: According to @283, the quiz 4 score is the response variable, while everything else is a predictor variable.
+
+Q14: How to clean data programmatically?
+A14: Use read_csv() from the tidy verse library to remove comma delimiters, and then as.numeric() function lets you type cast data into a numeric type. The readr library's parse_number() function also works.
+
+You could also use the janitor library to sanitize certain parts of your dataset.
+
+Q15: What R libraries are allowed besides tidy verse and ggplot?
+A15: GGally, GridExtra, and MASS are also acceptable.
+
+Q16: What format should the report follow?
+A16: See posted exemplar of a report on Quercus, although the final project instructions lay out the required sections in your report.
+
+Maybe I'll use median COVID hours, median STA302H1 study times, and median quiz 1 - 3 scores since they are less biased estimators -- and we know grades tend to be left skewed.
+
+
+Q17: During office hours, the professor said that doing k-folds cross-validation is optional. 
+Is doing an 80/20 split also optional, or is it mandatory?
+A17: Doing an 80/20 split is also optional, since a residual plot and qqplot suffices for proving a model's goodness.
+
+Q18: In the introduction section of the final report handout, what did the professor mean by:
+
+	"Explain how the model meets the purpose mentioned earlier."
+A18: The purpose of determining factors that predict quiz 4 marks.
+
+Q19: How do you want us to handle NA entries, and different countries?
+A19: You could either:
+
+- do as you see fit (e.g., if one of the quizzes are missing but the rest of them are there, you could state that you took the mean/median of the remaining ones to save data, etc.)
+- delete the NA entries and state this as part of the clean up phase
+
+
+Q20a: Are we supposed to choose our own question to answer, or follow the one provided in the pdf "What are the factors that predict student performance on the final STA302 assessment (i.e. quiz 4)?"
+A20a: You should work with the question given, but format the question in a way that you think is appropriate to what you want to focus on.
+
+Q20b (follow up to Q20a): Does that mean that we could change the question slightly? For example, change the question to "To what extent are Covid-19 hours a good predictor of student performance on the final STA302 assesment?" or something along those lines?
+
+
+Q21a: The professor had given an example report from her research. How similar must our final reports be to this example report?
+A21a: No that was posted because people wanted a sample of how to write grammatically. You need not follow that format at all.
+Follow the format I gave you in the guidelines in terms of what sections you should have.
+
+Q21b (follow up to Q21a): How long should the final report be?
+A21b: I don’t think I specified a page limit. I wouldn’t submit something over 20 pages in words, and I may not submit something under 5 pages. Somewhere in the middle is the report length. 
+
+Q22a: How to make the model optimal?
+A22a: The optimal model is one that yields the smallest MSE among all the possible models.
+
+Q22b (follow up to Q22a): How do you calculate MSE?
+A22b:
+
+Q23: Do all model criteria always agree on the same best model?
+A23: Not always. It’s because the mathematics is not equivalent across all the methods. 
+While they may have the same idea some methods may penalize more strictly than others, 
+which is the case with AIC versus BIC, for example, which will yield different models.
+
+Q24: If two models happened to be the best models, how would we break ties?
+Would we select both models, pick a model randomly, or pick a model based on some other criterion?
+A24: Generally you have a testing set that breaks the tie, as one model tends to perform better.
+
+
+Monday's office hours.
+
+Q25: In what order should I consider the models presented in STA302H1:
+- Linear
+- Quadratic
+- Logarithm
+- Cubic (order n = 3 is the highest reasonable order)
+
+etc.?
+
+Would I do something like this:
+
+Try linear model -> check linear model assumptions -> try quadratic model (if linear model fails) -> quadratic model assumptions 
+
+But I'm checking the residual plots and QQplots either way?
+A25:
+
+Q26: Suppose I use a linear model. How do I determine which covariates to use?
+A26: You could derive your covariates by doing any of the following:
+- try using all high-correlation covariates from your correlation matrix first.
+- try using only the top 4 - 5 high-correlation covariates from your correlation matrix first.
+
+Q27a: What is the purpose of variable transformations? Is it to make the distrubiution more normal?
+A27a: The purpose isn't to make the distribution more normal, but to capture the true relationship of the model (not necessarily linear.)
+
+Q27b (follow up to Q27a): So if I transform using ln(), and the RHS is linear, then would that mean that the true relationship is exponential?
+A27b:
+
+Q28: It seems like I have a sparse dataset for Mongolia, Japan, India, pAKISTAN, etc. What should I do?
+A28: You could just have 3 categories:
+- Canada
+- China
+- Other (including unknown)
+So that you have enough data for each region.
+
+Q29: How thorough should our model validation stage be?
+A29: residual plot and QQplot should be sufficient.
+
+Q30: What's the difference between polynomial regression and second-order model/third-order model? Is polynomial regression an umbrella term for things like first-order model, second-order model, and third-order model?
+A30:
+
+
+Q31: When should I remove outliers?
+A31: Remove outliers as early as possible, since no amount of variable recentering or variable transformation can correct them effectively.
+You can use the lecture 6a notes to determine where your influential outliers are.
+
+Q32: What's the difference between the advanced outlier detection methods in Lecture 6a vs. The 1.5 IQR rules.
+A32: The 1.5 IQR rule only tells you whether a data point is an outlier without stating whether it's influential or not, and the advanced outlier detection methods in Lecture 6a tell you that given an outlier -> determine whether it's influential or not.
+
+Q33: Looking at the stepAIC output, how do I know which variables were pruned and which ones remain.
+A33: For each variable, compare its new AIC value to the start AIC value.
+- if new AIC value < old AIC value -> drop this variable (this model is better off without this variable)
+- if new AIC value > old AIC value -> keep this variable (discarding this variable makes the model worse off)
+- what if they're equal?
+
