@@ -186,3 +186,7 @@ So that you have enough data for each region.
 Q29: How thorough should our model validation stage be?
 A29: residual plot and QQplot should be sufficient.
 
+Q30: What's the difference between polynomial regression and second-order model/third-order model? Is polynomial regression an umbrella term for things like first-order model, second-order model, and third-order model?
+A30:
+
+
