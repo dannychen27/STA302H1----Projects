@@ -786,33 +786,43 @@ covid3 = final_data$COVID.hours..W3.
 covid4 = final_data$COVID.hours..W4.
 ```
 
-```{r}
+This R code snippet below produces the model quiz4 = quiz3. 
+This model seems to under-fit though.
+
+```{r eval = FALSE}
 quiz_grades.fit = lm(quiz4 ~ quiz1 + quiz2 + quiz3)
 step = stepAIC(quiz_grades.fit, direction = "both")
 step$anova
 ```
-\break
 
-```{r}
+This R code snippet below produces the model 
+
+quiz4 = quiz1 + I(quiz2 ^ 2) + I(quiz3 ^ 2) + I(quiz1 quiz3) + I(quiz2 quiz3).
+
+This model seems to be a good fit.
+
+```{r eval = FALSE}
 quiz_grades.fit2 = lm(
-  quiz4 ~ quiz1 + quiz2 + quiz3 + 
-    I(quiz1 ^ 2) + I(quiz2 ^ 2) + I(quiz3 ^ 2) +
-    I(quiz1 * quiz2) + I(quiz1 * quiz3) + I(quiz2 * quiz3))
+  quiz4 ~ quiz1 + quiz2 + quiz3 
+  + I(quiz1 ^ 2) + I(quiz2 ^ 2) + I(quiz3 ^ 2)
+  + I(quiz1 * quiz2) + I(quiz1 * quiz3) + I(quiz2 * quiz3))
 step2 = stepAIC(quiz_grades.fit2, direction = "both")
 step2$anova
 ```
 
-\break
+This R code snippet below produces the model quiz4 = 1.
+This model seems to under-fit though.
 
-```{r}
+```{r eval = FALSE}
 study_hours.fit = lm(quiz4 ~ study1 + study2 + study3 + study4)
 step3 = stepAIC(study_hours.fit, direction = "both")
 step3$anova
 ```
 
-\break
+This R code snippet below produces the model quiz4 = 1.
+This model seems to be a good fit.
 
-```{R}
+```{R eval = FALSE}
 study_hours.fit2 = lm(
   quiz4 ~ study1 + study2 + study3 + study4 +
     I(study1 ^ 2) + I(study2 ^ 2) + I(study3 ^ 2) + I(study4 ^ 2) +
@@ -824,15 +834,22 @@ step4$anova
 
 \break
 
-```{r}
+This R code snippet below produces the model quiz4 = 1.
+This model seems to under-fit though.
+
+```{r eval = FALSE}
 covid_hours.fit = lm(quiz4 ~ covid1 + covid2 + covid3 + covid4)
 step5 = stepAIC(covid_hours.fit, direction = "both")
 step5$anova
 ```
 
-\break
+This R code snippet below produces the model 
 
-```{R}
+quiz4 = covid3 + I(covid3 ^ 2).
+
+This model seems to be a good fit.
+
+```{R eval = FALSE}
 covid_hours.fit2 = lm(
   quiz4 ~ covid1 + covid2 + covid3 + covid4 +
     I(covid1 ^ 2) + I(covid2 ^ 2) + I(covid3 ^ 2) + I(covid4 ^ 2) +
@@ -842,61 +859,29 @@ step6 = stepAIC(covid_hours.fit2, direction = "both")
 step6$anova
 ```
 
-\break
+This R code snippet below produces the model quiz4 = quiz3.
+This model seems to under-fit though.
 
-```{r}
+```{r eval = FALSE}
 full_model.fit = lm(quiz4 ~ 
      quiz1 + quiz2 + quiz3 +
      covid1 + covid2 + covid3 + covid4 +
-     study1 + study2 + study3 + study4
-)
-
+     study1 + study2 + study3 + study4)
 step7 = stepAIC(full_model.fit, direction = "both")
 step7$anova
 ```
 
-\break
+This R code snippet below produces the model 
 
-```{R}
+quiz4 = quiz3 + I(study1 study2) + I(study2 study3) + I(study3 study4).
+
+This model seems to be a good fit.
+
+```{R eval = FALSE}
 full_model.fit2 = lm(
   quiz4 ~ quiz1 + quiz2 + quiz3 
-  + covid1 + covid2 + covid3 + covid4 
-  + study1 + study2 + study3 + study4
-  
-  + I(quiz1 ^ 2) + I(quiz2 ^ 2) + I(quiz3 ^ 2)
-  + I(covid1 ^ 2) + I(covid2 ^ 2) + I(covid3 ^ 2) + I(covid4 ^ 2)
-  + I(study1 ^ 2) + I(study2 ^ 2) + I(study3 ^ 2) + I(study4 ^ 2)
-  
-  + I(quiz1 * quiz2) + I(quiz1 * quiz3) + I(quiz1 * quiz4) + I(quiz1 * covid1) + I(quiz1 * covid2) 
-  + I(quiz1 * covid3) + I(quiz1 * covid4) + I(quiz1 * study1) + I(quiz1 * study2) + I(quiz1 * study3) 
-  + I(quiz1 * study4)
-  
-  + I(quiz2 * quiz3) + I(quiz2 * quiz4) + I(quiz2 * covid1) + I(quiz2 * covid2) + I(quiz2 * covid3)
-  + I(quiz2 * covid4) + I(quiz2 * study1) + I(quiz2 * study2) + I(quiz2 * study3) + I(quiz2 * study4)
-  
-  + I(quiz3 * quiz4) + I(quiz3 * covid1) + I(quiz3 * covid2) + I(quiz3 * covid3) + I(quiz3 * covid4)
-  + I(quiz3 * study1) + I(quiz3 * study2) + I(quiz3 * study3) + I(quiz3 * study4)
-  
-  + I(quiz4 * covid1) + I(quiz4 * covid2) + I(quiz4 * covid3) + I(quiz4 * covid4) + I(quiz4 * study1)
-  + I(quiz4 * study2) + I(quiz4 * study3) + I(quiz4 * study4)
-  
-  + I(covid1 * covid2) + I(covid1 * covid3) + I(covid1 * covid4) + I(covid1 * study1) + I(covid1 * study2) 
-  + I(covid1 * study3) + I(covid1 * study4)
-  
-  + I(covid2 * covid3) + I(covid2 * covid4) + I(covid2 * study1) + I(covid2 * study2) + I(covid2 * study3) 
-  + I(covid2 * study4) 
-  
-  + I(covid3 * covid4) + I(covid3 * study1) + I(covid3 * study2) + I(covid3 * study3) + I(covid3 * study4) 
-  
-  + I(covid4 * study1) + I(covid4 * study2) + I(covid4 * study3) + I(covid4 * study4) 
-  
-  + I(study1 * study2) + I(study1 * study3) + I(study1 * study4) 
-  
-  + I(study2 * study3) + I(study2 * study4) 
-  
-  + I(study3 * study4) 
-)
-
+  + I(covid1 * covid2) + I(covid2 * covid3) + I(covid2 * covid4) + I(covid3 * covid4)
+  + I(study1 * study2) + I(study1 * study3) + I(study2 * study3) + I(study3 * study4))
 step8 = stepAIC(full_model.fit2, direction = "both")
 step8$anova
 ```
@@ -911,6 +896,6 @@ step8$anova
 
 # use lm() on a bunch of predictor variables to determine significant
 # predictor variables.
-summary(full_model.fit2)
+
 
 ```
