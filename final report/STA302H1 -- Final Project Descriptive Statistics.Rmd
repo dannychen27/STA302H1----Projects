@@ -37,7 +37,7 @@ cleaned_sta302_performance_data <- sta302_performance_data %>%
 
     # Remove the "X" column: it's simply the row number, which isn't very useful.
     # Remove the "Country" column: column "country" already exists
-    select(-X, -Country) %>%
+    dplyr::select(-X, -Country) %>%
     
     # Rearrange similar columns side-by-side.
     relocate(country,
@@ -207,7 +207,7 @@ data.frame(
 
 ```{r echo = FALSE, warning = FALSE}
 quiz_grades <- cleaned_sta302_performance_data %>%
-  select(Quiz_1_score, Quiz_2_score, Quiz_3_score, Quiz_4_score)
+  dplyr::select(Quiz_1_score, Quiz_2_score, Quiz_3_score, Quiz_4_score)
 ```
 
 ```{r echo = FALSE, warning = FALSE}
@@ -303,7 +303,7 @@ factors aren't allowed.
 
 ```{r}
 rows_with_no_country = cleaned_sta302_performance_data2 %>%
-  select(-country)
+  dplyr::select(-country)
 ```
 
 ## Rows Filtered by Country
@@ -314,53 +314,53 @@ Only the first and last code snippets are shown.
 ```{r}
 canada <- cleaned_sta302_performance_data2 %>%
   filter(as.character(country) == "Canada") %>%
-  select(-country)
+  dplyr::select(-country)
 
 unknown <- cleaned_sta302_performance_data2 %>%
   filter(is.na(as.character(country))) %>%
-  select(-country)
+  dplyr::select(-country)
 ```
 
 ```{r echo = FALSE}
 china <- cleaned_sta302_performance_data2 %>%
   filter(as.character(country) == "China") %>%
-  select(-country)
+  dplyr::select(-country)
 
 india <- cleaned_sta302_performance_data2 %>%
   filter(as.character(country) == "India") %>%
-  select(-country)
+  dplyr::select(-country)
 
 japan <- cleaned_sta302_performance_data2 %>%
   filter(as.character(country) == "Japan") %>%
-  select(-country)
+  dplyr::select(-country)
 
 mongolia <- cleaned_sta302_performance_data2 %>%
   filter(as.character(country) == "Mongolia") %>%
-  select(-country)
+  dplyr::select(-country)
 
 pakistan <- cleaned_sta302_performance_data2 %>%
   filter(as.character(country) == "Pakistan") %>%
-  select(-country)
+  dplyr::select(-country)
 
 singapore <- cleaned_sta302_performance_data2 %>%
   filter(as.character(country) == "Singapore") %>%
-  select(-country)
+  dplyr::select(-country)
 
 south_korea <- cleaned_sta302_performance_data2 %>%
   filter(as.character(country) == "South Korea") %>%
-  select(-country)
+  dplyr::select(-country)
 
 taiwan <- cleaned_sta302_performance_data2 %>%
   filter(as.character(country) == "Taiwan") %>%
-  select(-country)
+  dplyr::select(-country)
 
 uae <- cleaned_sta302_performance_data2 %>%
   filter(as.character(country) == "UAE") %>%
-  select(-country)
+  dplyr::select(-country)
 
 usa <- cleaned_sta302_performance_data2 %>%
   filter(as.character(country) == "USA") %>%
-  select(-country)
+  dplyr::select(-country)
 ```
 
 ```{r echo = FALSE}
