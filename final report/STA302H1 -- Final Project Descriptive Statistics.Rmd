@@ -12,6 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(dplyr)
 library(tidyverse)
 library(GGally)
+library(MASS)
 ```
 
 # Import STA302H1 Study Time and COVID Contemplation Time vs. Quiz Performance Dataset
@@ -789,7 +790,134 @@ display_correlation_by_country(usa)
 
 \break
 
-# Find Significance Predictor Variables, Select Predictor Variables Based on Criterion
+# Select Predictor Variables Based on Criterion
+
+Here are our tentative models:
+- quiz4 ~ quiz 1, 2, 3 grades (out of 10)
+- quiz4 ~ weeks 1, 2, 3, 4 covid19 hours
+- quiz4 ~ weeks 1, 2, 3, 4 sta302h1 hours
+
+```{r}
+final_data = na.omit(cleaned_sta302_performance_data2)
+quiz1 = final_data$Quiz_1_score
+quiz2 = final_data$Quiz_2_score
+quiz3 = final_data$Quiz_3_score
+quiz4 = final_data$Quiz_4_score
+
+study1 = final_data$STA302.hours..W1.
+study2 = final_data$STA302.hours..W2.
+study3 = final_data$STA302.hours..W3.
+study4 = final_data$STA302.hours..W4.
+
+covid1 = final_data$COVID.hours..W1.
+covid2 = final_data$COVID.hours..W2.
+covid3 = final_data$COVID.hours..W3.
+covid4 = final_data$COVID.hours..W4.
+```
+
+```{r}
+quiz_grades.fit = lm(quiz4 ~ quiz1 + quiz2 + quiz3)
+step = stepAIC(quiz_grades.fit, direction = "both")
+step$anova
+```
+
+```{r}
+quiz_grades.fit2 = lm(
+  quiz4 ~ quiz1 + quiz2 + quiz3 + 
+    I(quiz1 ^ 2) + I(quiz2 ^ 2) + I(quiz3 ^ 2) +
+    I(quiz1 * quiz2) + I(quiz1 * quiz3) + I(quiz2 * quiz3))
+step2 = stepAIC(quiz_grades.fit2, direction = "both")
+step2$anova
+```
+
+```{r}
+study_hours.fit = lm(quiz4 ~ study1 + study2 + study3 + study4)
+step3 = stepAIC(study_hours.fit, direction = "both")
+step3$anova
+```
+
+```{R}
+study_hours.fit2 = lm(
+  quiz4 ~ study1 + study2 + study3 + study4 +
+    I(study1 ^ 2) + I(study2 ^ 2) + I(study3 ^ 2) + I(study4 ^ 2) +
+    I(study1 * study2) + I(study1 * study3) + I(study1 * study4) + 
+    I(study2 * study3) + I(study2 * study4) + I(study3 * study4))
+step4 = stepAIC(study_hours.fit2, direction = "both")
+step4$anova
+```
+
+```{r}
+covid_hours.fit = lm(quiz4 ~ covid1 + covid2 + covid3 + covid4)
+step5 = stepAIC(covid_hours.fit, direction = "both")
+step5$anova
+```
+
+```{R}
+covid_hours.fit2 = lm(
+  quiz4 ~ covid1 + covid2 + covid3 + covid4 +
+    I(covid1 ^ 2) + I(covid2 ^ 2) + I(covid3 ^ 2) + I(covid4 ^ 2) +
+    I(covid1 * covid2) + I(covid1 * covid3) + I(covid1 * covid4) + 
+    I(covid2 * covid3) + I(covid2 * covid4) + I(covid3 * covid4))
+step6 = stepAIC(covid_hours.fit2, direction = "both")
+step6
+```
+
+```{r}
+full_model.fit = lm(quiz4 ~ 
+     quiz1 + quiz2 + quiz3 +
+     covid1 + covid2 + covid3 + covid4 +
+     study1 + study2 + study3 + study4
+)
+
+step7 = stepAIC(full_model.fit, direction = "both")
+step7$anova
+```
+
+```{R}
+full_model.fit2 = lm(
+  quiz4 ~ quiz1 + quiz2 + quiz3 
+  + covid1 + covid2 + covid3 + covid4 
+  + study1 + study2 + study3 + study4
+  
+  + I(quiz1 ^ 2) + I(quiz2 ^ 2) + I(quiz3 ^ 2)
+  + I(covid1 ^ 2) + I(covid2 ^ 2) + I(covid3 ^ 2) + I(covid4 ^ 2)
+  + I(study1 ^ 2) + I(study2 ^ 2) + I(study3 ^ 2) + I(study4 ^ 2)
+  
+  + I(quiz1 * quiz2) + I(quiz1 * quiz3) + I(quiz1 * quiz4) + I(quiz1 * covid1) + I(quiz1 * covid2) 
+  + I(quiz1 * covid3) + I(quiz1 * covid4) + I(quiz1 * study1) + I(quiz1 * study2) + I(quiz1 * study3) 
+  + I(quiz1 * study4)
+  
+  + I(quiz2 * quiz3) + I(quiz2 * quiz4) + I(quiz2 * covid1) + I(quiz2 * covid2) + I(quiz2 * covid3)
+  + I(quiz2 * covid4) + I(quiz2 * study1) + I(quiz2 * study2) + I(quiz2 * study3) + I(quiz2 * study4)
+  
+  + I(quiz3 * quiz4) + I(quiz3 * covid1) + I(quiz3 * covid2) + I(quiz3 * covid3) + I(quiz3 * covid4)
+  + I(quiz3 * study1) + I(quiz3 * study2) + I(quiz3 * study3) + I(quiz3 * study4)
+  
+  + I(quiz4 * covid1) + I(quiz4 * covid2) + I(quiz4 * covid3) + I(quiz4 * covid4) + I(quiz4 * study1)
+  + I(quiz4 * study2) + I(quiz4 * study3) + I(quiz4 * study4)
+  
+  + I(covid1 * covid2) + I(covid1 * covid3) + I(covid1 * covid4) + I(covid1 * study1) + I(covid1 * study2) 
+  + I(covid1 * study3) + I(covid1 * study4)
+  
+  + I(covid2 * covid3) + I(covid2 * covid4) + I(covid2 * study1) + I(covid2 * study2) + I(covid2 * study3) 
+  + I(covid2 * study4) 
+  
+  + I(covid3 * covid4) + I(covid3 * study1) + I(covid3 * study2) + I(covid3 * study3) + I(covid3 * study4) 
+  
+  + I(covid4 * study1) + I(covid4 * study2) + I(covid4 * study3) + I(covid4 * study4) 
+  
+  + I(study1 * study2) + I(study1 * study3) + I(study1 * study4) 
+  
+  + I(study2 * study3) + I(study2 * study4) 
+  
+  + I(study3 * study4) 
+)
+
+step8 = stepAIC(full_model.fit2, direction = "both")
+step8$anova
+```
+
+# Find Significance Predictor Variables
 
 ```{r}
 # use week 5b slides -- choose model selection criterion to pick predictor variables.
@@ -797,6 +925,6 @@ display_correlation_by_country(usa)
 
 # use lm() on a bunch of predictor variables to determine significant
 # predictor variables.
-
+summary(full_model.fit2)
 
 ```
