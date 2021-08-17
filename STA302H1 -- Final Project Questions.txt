@@ -198,3 +198,9 @@ You can use the lecture 6a notes to determine where your influential outliers ar
 Q32: What's the difference between the advanced outlier detection methods in Lecture 6a vs. The 1.5 IQR rules.
 A32: The 1.5 IQR rule only tells you whether a data point is an outlier without stating whether it's influential or not, and the advanced outlier detection methods in Lecture 6a tell you that given an outlier -> determine whether it's influential or not.
 
+Q33: Looking at the stepAIC output, how do I know which variables were pruned and which ones remain.
+A33: For each variable, compare its new AIC value to the start AIC value.
+- if new AIC value < old AIC value -> drop this variable (this model is better off without this variable)
+- if new AIC value > old AIC value -> keep this variable (discarding this variable makes the model worse off)
+- what if they're equal?
+
