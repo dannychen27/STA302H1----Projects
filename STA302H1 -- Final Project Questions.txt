@@ -190,3 +190,10 @@ Q30: What's the difference between polynomial regression and second-order model/
 A30:
 
 
+Q31: When should I remove outliers?
+A31: Remove outliers as early as possible, since no amount of variable recentering or variable transformation can correct them effectively.
+You can use the lecture 6a notes to determine where your influential outliers are.
+
+Q32: What's the difference between the advanced outlier detection methods in Lecture 6a vs. The 1.5 IQR rules.
+A32: The 1.5 IQR rule only tells you whether a data point is an outlier without stating whether it's influential or not, and the advanced outlier detection methods in Lecture 6a tell you that given an outlier -> determine whether it's influential or not.
+
