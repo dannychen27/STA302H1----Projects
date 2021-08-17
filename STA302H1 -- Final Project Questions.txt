@@ -106,12 +106,12 @@ Maybe I'll use median COVID hours, median STA302H1 study times, and median quiz 
 
 Q17: During office hours, the professor said that doing k-folds cross-validation is optional. 
 Is doing an 80/20 split also optional, or is it mandatory?
-A17:
+A17: Doing an 80/20 split is also optional, since a residual plot and qqplot suffices for proving a model's goodness.
 
 Q18: In the introduction section of the final report handout, what did the professor mean by:
 
 	"Explain how the model meets the purpose mentioned earlier."
-A18:
+A18: The purpose of determining factors that predict quiz 4 marks.
 
 Q19: How do you want us to handle NA entries, and different countries?
 A19: You could either:
@@ -139,13 +139,14 @@ A22a: The optimal model is one that yields the smallest MSE among all the possib
 Q22b (follow up to Q22a): How do you calculate MSE?
 A22b:
 
-
 Q23: Do all model criteria always agree on the same best model?
-A23: Not always.
+A23: Not always. It’s because the mathematics is not equivalent across all the methods. 
+While they may have the same idea some methods may penalize more strictly than others, 
+which is the case with AIC versus BIC, for example, which will yield different models.
 
 Q24: If two models happened to be the best models, how would we break ties?
 Would we select both models, pick a model randomly, or pick a model based on some other criterion?
-A24:
+A24: Generally you have a testing set that breaks the tie, as one model tends to perform better.
 
 
 Monday's office hours.
@@ -170,7 +171,7 @@ A26: You could derive your covariates by doing any of the following:
 - try using all high-correlation covariates from your correlation matrix first.
 - try using only the top 4 - 5 high-correlation covariates from your correlation matrix first.
 
-Q27a: What is the purpose of variable transformations? Is it to make the ditstrubiution more normal?
+Q27a: What is the purpose of variable transformations? Is it to make the distrubiution more normal?
 A27a: The purpose isn't to make the distribution more normal, but to capture the true relationship of the model (not necessarily linear.)
 
 Q27b (follow up to Q27a): So if I transform using ln(), and the RHS is linear, then would that mean that the true relationship is exponential?
