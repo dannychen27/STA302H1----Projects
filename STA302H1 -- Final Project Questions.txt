@@ -147,3 +147,42 @@ Q24: If two models happened to be the best models, how would we break ties?
 Would we select both models, pick a model randomly, or pick a model based on some other criterion?
 A24:
 
+
+Monday's office hours.
+
+Q25: In what order should I consider the models presented in STA302H1:
+- Linear
+- Quadratic
+- Logarithm
+- Cubic (order n = 3 is the highest reasonable order)
+
+etc.?
+
+Would I do something like this:
+
+Try linear model -> check linear model assumptions -> try quadratic model (if linear model fails) -> quadratic model assumptions 
+
+But I'm checking the residual plots and QQplots either way?
+A25:
+
+Q26: Suppose I use a linear model. How do I determine which covariates to use?
+A26: You could derive your covariates by doing any of the following:
+- try using all high-correlation covariates from your correlation matrix first.
+- try using only the top 4 - 5 high-correlation covariates from your correlation matrix first.
+
+Q27a: What is the purpose of variable transformations? Is it to make the ditstrubiution more normal?
+A27a: The purpose isn't to make the distribution more normal, but to capture the true relationship of the model (not necessarily linear.)
+
+Q27b (follow up to Q27a): So if I transform using ln(), and the RHS is linear, then would that mean that the true relationship is exponential?
+A27b:
+
+Q28: It seems like I have a sparse dataset for Mongolia, Japan, India, pAKISTAN, etc. What should I do?
+A28: You could just have 3 categories:
+- Canada
+- China
+- Other (including unknown)
+So that you have enough data for each region.
+
+Q29: How thorough should our model validation stage be?
+A29: residual plot and QQplot should be sufficient.
+
