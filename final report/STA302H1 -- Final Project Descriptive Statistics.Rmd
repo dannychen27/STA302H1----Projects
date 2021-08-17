@@ -790,6 +790,7 @@ quiz_grades.fit = lm(quiz4 ~ quiz1 + quiz2 + quiz3)
 step = stepAIC(quiz_grades.fit, direction = "both")
 step$anova
 ```
+\break
 
 ```{r}
 quiz_grades.fit2 = lm(
@@ -800,11 +801,15 @@ step2 = stepAIC(quiz_grades.fit2, direction = "both")
 step2$anova
 ```
 
+\break
+
 ```{r}
 study_hours.fit = lm(quiz4 ~ study1 + study2 + study3 + study4)
 step3 = stepAIC(study_hours.fit, direction = "both")
 step3$anova
 ```
+
+\break
 
 ```{R}
 study_hours.fit2 = lm(
@@ -816,11 +821,15 @@ step4 = stepAIC(study_hours.fit2, direction = "both")
 step4$anova
 ```
 
+\break
+
 ```{r}
 covid_hours.fit = lm(quiz4 ~ covid1 + covid2 + covid3 + covid4)
 step5 = stepAIC(covid_hours.fit, direction = "both")
 step5$anova
 ```
+
+\break
 
 ```{R}
 covid_hours.fit2 = lm(
@@ -832,6 +841,8 @@ step6 = stepAIC(covid_hours.fit2, direction = "both")
 step6
 ```
 
+\break
+
 ```{r}
 full_model.fit = lm(quiz4 ~ 
      quiz1 + quiz2 + quiz3 +
@@ -842,6 +853,8 @@ full_model.fit = lm(quiz4 ~
 step7 = stepAIC(full_model.fit, direction = "both")
 step7$anova
 ```
+
+\break
 
 ```{R}
 full_model.fit2 = lm(
@@ -886,6 +899,8 @@ full_model.fit2 = lm(
 step8 = stepAIC(full_model.fit2, direction = "both")
 step8$anova
 ```
+
+\break
 
 # Find Significance Predictor Variables
 
