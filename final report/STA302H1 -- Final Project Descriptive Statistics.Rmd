@@ -839,7 +839,7 @@ covid_hours.fit2 = lm(
     I(covid1 * covid2) + I(covid1 * covid3) + I(covid1 * covid4) + 
     I(covid2 * covid3) + I(covid2 * covid4) + I(covid3 * covid4))
 step6 = stepAIC(covid_hours.fit2, direction = "both")
-step6
+step6$anova
 ```
 
 \break
