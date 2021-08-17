@@ -763,6 +763,7 @@ display_correlation_by_country(other)
 # Select Predictor Variables Based on Criterion
 
 Here are our tentative models:
+
 - quiz4 ~ quiz 1, 2, 3 grades (out of 10)
 - quiz4 ~ weeks 1, 2, 3, 4 covid19 hours
 - quiz4 ~ weeks 1, 2, 3, 4 sta302h1 hours
