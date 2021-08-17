@@ -728,6 +728,8 @@ colnames(rows_with_no_country) <- c("W1COV", "W2COV", "W3COV", "W4COV",
 round(cor(rows_with_no_country, use = "pairwise.complete.obs", method = "pearson"), 2)
 ```
 
+\break
+
 ## By Individual Country
 
 We could also create separate correlation matrices for each country.
@@ -736,56 +738,24 @@ We could also create separate correlation matrices for each country.
 display_correlation_by_country(canada)
 ```
 
-\break
-
 ```{r warning = FALSE}
 display_correlation_by_country(china)
 ```
 
-```{r warning = FALSE}
-display_correlation_by_country(india)
+```{r echo = FALSE}
+other = dplyr::union(india, japan)
+other = dplyr::union(other, mongolia)
+other = dplyr::union(other, pakistan)
+other = dplyr::union(other, singapore)
+other = dplyr::union(other, south_korea)
+other = dplyr::union(other, taiwan)
+other = dplyr::union(other, uae)
+other = dplyr::union(other, unknown)
+other = dplyr::union(other, usa)
 ```
 
-```{r warning = FALSE}
-display_correlation_by_country(japan)
-```
-
-\break
-
-```{r warning = FALSE}
-display_correlation_by_country(mongolia)
-```
-
-```{r warning = FALSE}
-display_correlation_by_country(unknown)
-```
-
-\break
-
-```{r warning = FALSE}
-display_correlation_by_country(pakistan)
-```
-
-```{r warning = FALSE}
-display_correlation_by_country(singapore)
-```
-
-```{r warning = FALSE}
-display_correlation_by_country(south_korea)
-```
-
-```{r warning = FALSE}
-display_correlation_by_country(taiwan)
-```
-
-\break
-
-```{r warning = FALSE}
-display_correlation_by_country(uae)
-```
-
-```{r warning = FALSE}
-display_correlation_by_country(usa)
+```{R}
+display_correlation_by_country(other)
 ```
 
 \break
