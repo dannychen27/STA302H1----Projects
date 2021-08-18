@@ -612,21 +612,132 @@ summary(cleaned_sta302_performance_data2$Quiz_3_score)
 summary(cleaned_sta302_performance_data2$Quiz_4_score)
 ```
 
+\break
+
+```{r echo = FALSE}
+quiz1 = cleaned_sta302_performance_data2$Quiz_1_score
+quiz2 = cleaned_sta302_performance_data2$Quiz_2_score
+quiz3 = cleaned_sta302_performance_data2$Quiz_3_score
+quiz4 = cleaned_sta302_performance_data2$Quiz_4_score
+
+covid1 = cleaned_sta302_performance_data2$COVID.hours..W1.
+covid2 = cleaned_sta302_performance_data2$COVID.hours..W2.
+covid3 = cleaned_sta302_performance_data2$COVID.hours..W3.
+covid4 = cleaned_sta302_performance_data2$COVID.hours..W4.
+
+study1 = cleaned_sta302_performance_data2$STA302.hours..W1.
+study2 = cleaned_sta302_performance_data2$STA302.hours..W2.
+study3 = cleaned_sta302_performance_data2$STA302.hours..W3.
+study4 = cleaned_sta302_performance_data2$STA302.hours..W4.
+
+country = cleaned_sta302_performance_data2$country
+```
+
+```{r echo = FALSE}
+canadians = canada
+non_canadians = dplyr::union(china, india)
+non_canadians = dplyr::union(non_canadians, japan)
+non_canadians = dplyr::union(non_canadians, mongolia)
+
+non_canadians = dplyr::union(non_canadians, pakistan)
+non_canadians = dplyr::union(non_canadians, singapore)
+
+non_canadians = dplyr::union(non_canadians, south_korea)
+non_canadians = dplyr::union(non_canadians, taiwan)
+
+non_canadians = dplyr::union(non_canadians, uae)
+non_canadians = dplyr::union(non_canadians, unknown)
+non_canadians = dplyr::union(non_canadians, usa)
+```
+
 ```{r}
+quiz1 = canadians$Quiz_1_score
+quiz2 = canadians$Quiz_2_score
+quiz3 = canadians$Quiz_3_score
+quiz4 = canadians$Quiz_4_score
 
+covid1 = canadians$COVID.hours..W1.
+covid2 = canadians$COVID.hours..W2.
+covid3 = canadians$COVID.hours..W3.
+covid4 = canadians$COVID.hours..W4.
 
+study1 = canadians$STA302.hours..W1.
+study2 = canadians$STA302.hours..W2.
+study3 = canadians$STA302.hours..W3.
+study4 = canadians$STA302.hours..W4.
 
+additive_model = lm(
+  quiz4 ~ 
+    # quiz1 + quiz2 
+  + quiz3 
+  # + covid1 + covid2 + covid3 + covid4
+  # + study1 + study2 + study3 + study4
+  + I(covid1 * study1) + I(covid2 * study2) + I(covid3 * study3) + I(covid4 * study4)
+)
+summary(additive_model)
 ```
 
+\break
 
-
-
-```
-
-```
-
-```
-
+```{r echo = FALSE}
+# additive_model.fit = fitted(additive_model)
+# residuals = resid(additive_model)
+# ggplot(prof, aes(x = Experience, y = residuals)) +
+#   geom_point(size = 2, shape = 23) + geom_hline(yintercept = 0)
 ```
 
 ```{r}
+quiz1 = non_canadians$Quiz_1_score
+quiz2 = non_canadians$Quiz_2_score
+quiz3 = non_canadians$Quiz_3_score
+quiz4 = non_canadians$Quiz_4_score
+
+covid1 = non_canadians$COVID.hours..W1.
+covid2 = non_canadians$COVID.hours..W2.
+covid3 = non_canadians$COVID.hours..W3.
+covid4 = non_canadians$COVID.hours..W4.
+
+study1 = non_canadians$STA302.hours..W1.
+study2 = non_canadians$STA302.hours..W2.
+study3 = non_canadians$STA302.hours..W3.
+study4 = non_canadians$STA302.hours..W4.
+
+additive_model2 = lm(
+  quiz4 ~ 
+    # quiz1 + quiz2 
+  + quiz3 
+  # + covid1 + covid2 + covid3 + covid4
+  # + study1 + study2 + study3 + study4
+  + I(covid1 * study1) + I(covid2 * study2) + I(covid3 * study3) + I(covid4 * study4)
+)
+summary(additive_model2)
+```
+
+\break
+
+```{r}
+quiz1 = cleaned_sta302_performance_data2$Quiz_1_score
+quiz2 = cleaned_sta302_performance_data2$Quiz_2_score
+quiz3 = cleaned_sta302_performance_data2$Quiz_3_score
+quiz4 = cleaned_sta302_performance_data2$Quiz_4_score
+
+covid1 = cleaned_sta302_performance_data2$COVID.hours..W1.
+covid2 = cleaned_sta302_performance_data2$COVID.hours..W2.
+covid3 = cleaned_sta302_performance_data2$COVID.hours..W3.
+covid4 = cleaned_sta302_performance_data2$COVID.hours..W4.
+
+study1 = cleaned_sta302_performance_data2$STA302.hours..W1.
+study2 = cleaned_sta302_performance_data2$STA302.hours..W2.
+study3 = cleaned_sta302_performance_data2$STA302.hours..W3.
+study4 = cleaned_sta302_performance_data2$STA302.hours..W4.
+
+additive_model3 = lm(
+  quiz4 ~ 
+    # quiz1 + quiz2 
+  quiz3 
+  # + covid1 + covid2 + covid3 + covid4
+  # + study1 + study2 + study3 + study4
+  + I(covid1 * study1) + I(covid2 * study2) + I(covid3 * study3) + I(covid4 * study4)
+)
+summary(additive_model3)
+```
