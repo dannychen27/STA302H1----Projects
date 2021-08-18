@@ -884,6 +884,114 @@ full_model.fit2 = lm(
   + I(study1 * study2) + I(study1 * study3) + I(study2 * study3) + I(study3 * study4))
 step8 = stepAIC(full_model.fit2, direction = "both")
 step8$anova
+summary(full_model.fit2)$r.squared
+summary(full_model.fit2)$adj.r.squared
+```
+
+\break
+
+```{R echo = FALSE}
+canada = na.omit(canada)
+quiz1 = canada$Quiz_1_score
+quiz2 = canada$Quiz_2_score
+quiz3 = canada$Quiz_3_score
+quiz4 = canada$Quiz_4_score
+
+study1 = canada$STA302.hours..W1.
+study2 = canada$STA302.hours..W2.
+study3 = canada$STA302.hours..W3.
+study4 = canada$STA302.hours..W4.
+
+covid1 = canada$COVID.hours..W1.
+covid2 = canada$COVID.hours..W2.
+covid3 = canada$COVID.hours..W3.
+covid4 = canada$COVID.hours..W4.
+```
+
+With just Canada, we get the model
+
+quiz4 ~ quiz3 + I(covid1 covid2) + I(covid2 covid3) + I(study2 study3) + I(study2 study4)
+
+```{r eval = FALSE}
+full_model_canada.fit = lm(
+  quiz4 ~ quiz1 + quiz2 + quiz3 
+  + I(covid1 * covid2) + I(covid1 * covid3) + I(covid2 * covid3) + I(covid2 * covid4)
+  + I(covid3 * covid4) 
+  
+  + I(study1 * study2) + I(study1 * study3) + I(study1 * study4) + I(study2 * study3)
+  + I(study2 * study4) + I(study3 * study4))
+step9 = stepAIC(full_model_canada.fit, direction = "both")
+step9$anova
+summary(full_model_canada.fit)$r.squared
+summary(full_model_canada.fit)$adj.r.squared
+```
+
+```{r echo = FALSE}
+china = na.omit(china)
+quiz1 = china$Quiz_1_score
+quiz2 = china$Quiz_2_score
+quiz3 = china$Quiz_3_score
+quiz4 = china$Quiz_4_score
+
+study1 = china$STA302.hours..W1.
+study2 = china$STA302.hours..W2.
+study3 = china$STA302.hours..W3.
+study4 = china$STA302.hours..W4.
+
+covid1 = china$COVID.hours..W1.
+covid2 = china$COVID.hours..W2.
+covid3 = china$COVID.hours..W3.
+covid4 = china$COVID.hours..W4.
+```
+
+With just China, we get the model
+
+quiz4 ~ quiz3 + I(covid1 covid2) + I(covid2 covid3) + I(study2 study3) + I(study3 study4)
+
+```{R eval = FALSE}
+full_model_china.fit = lm(
+  quiz4 ~ quiz1 + quiz2 + quiz3 
+  + I(covid1 * covid2) + I(covid1 * covid3) + I(covid2 * covid3) + I(covid2 * covid4)
+  + I(covid3 * covid4) 
+  
+  + I(study1 * study2) + I(study2 * study3) + I(study3 * study4))
+step10 = stepAIC(full_model_china.fit, direction = "both")
+step10$anova
+summary(full_model_china.fit)$r.squared
+summary(full_model_china.fit)$adj.r.squared
+```
+
+With all other countries, we get the model
+
+quiz4 ~ quiz3 + I(covid2 covid3)
+
+```{r echo = FALSE}
+other = na.omit(other)
+quiz1 = other$Quiz_1_score
+quiz2 = other$Quiz_2_score
+quiz3 = other$Quiz_3_score
+quiz4 = other$Quiz_4_score
+
+study1 = other$STA302.hours..W1.
+study2 = other$STA302.hours..W2.
+study3 = other$STA302.hours..W3.
+study4 = other$STA302.hours..W4.
+
+covid1 = other$COVID.hours..W1.
+covid2 = other$COVID.hours..W2.
+covid3 = other$COVID.hours..W3.
+covid4 = other$COVID.hours..W4.
+```
+
+```{r eval = FALSE}
+full_model_other.fit = lm(
+  quiz4 ~ quiz1 + quiz2 + quiz3
+  + I(covid2 * covid3) + I(covid2 * covid4) + I(covid3 * covid4)
+  + I(study3 * study4))
+step11 = stepAIC(full_model_other.fit, direction = "both")
+step11$anova
+summary(full_model_other.fit)$r.squared
+summary(full_model_other.fit)$adj.r.squared
 ```
 
 \break
