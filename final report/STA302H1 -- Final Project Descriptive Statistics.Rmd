@@ -793,6 +793,8 @@ This model seems to under-fit though.
 quiz_grades.fit = lm(quiz4 ~ quiz1 + quiz2 + quiz3)
 step = stepAIC(quiz_grades.fit, direction = "both")
 step$anova
+summary(quiz_grades.fit)$r.squared
+summary(quiz_grades.fit)$adj.r.squared
 ```
 
 This R code snippet below produces the model 
@@ -808,6 +810,8 @@ quiz_grades.fit2 = lm(
   + I(quiz1 * quiz2) + I(quiz1 * quiz3) + I(quiz2 * quiz3))
 step2 = stepAIC(quiz_grades.fit2, direction = "both")
 step2$anova
+summary(quiz_grades.fit2)$r.squared
+summary(quiz_grades.fit2)$adj.r.squared
 ```
 
 This R code snippet below produces the model quiz4 = 1.
@@ -817,6 +821,8 @@ This model seems to under-fit though.
 study_hours.fit = lm(quiz4 ~ study1 + study2 + study3 + study4)
 step3 = stepAIC(study_hours.fit, direction = "both")
 step3$anova
+summary(study_hours.fit)$r.squared
+summary(study_hours.fit)$adj.r.squared
 ```
 
 This R code snippet below produces the model quiz4 = 1.
@@ -830,6 +836,8 @@ study_hours.fit2 = lm(
     I(study2 * study3) + I(study2 * study4) + I(study3 * study4))
 step4 = stepAIC(study_hours.fit2, direction = "both")
 step4$anova
+summary(study_hours.fit2)$r.squared
+summary(study_hours.fit2)$adj.r.squared
 ```
 
 \break
@@ -841,6 +849,8 @@ This model seems to under-fit though.
 covid_hours.fit = lm(quiz4 ~ covid1 + covid2 + covid3 + covid4)
 step5 = stepAIC(covid_hours.fit, direction = "both")
 step5$anova
+summary(covid_hours.fit)$r.squared
+summary(covid_hours.fit)$adj.r.squared
 ```
 
 This R code snippet below produces the model 
@@ -857,6 +867,8 @@ covid_hours.fit2 = lm(
     I(covid2 * covid3) + I(covid2 * covid4) + I(covid3 * covid4))
 step6 = stepAIC(covid_hours.fit2, direction = "both")
 step6$anova
+summary(covid_hours.fit2)$r.squared
+summary(covid_hours.fit2)$adj.r.squared
 ```
 
 This R code snippet below produces the model quiz4 = quiz3.
@@ -869,6 +881,8 @@ full_model.fit = lm(quiz4 ~
      study1 + study2 + study3 + study4)
 step7 = stepAIC(full_model.fit, direction = "both")
 step7$anova
+summary(full_model.fit)$r.squared
+summary(full_model.fit)$adj.r.squared
 ```
 
 This R code snippet below produces the model 
