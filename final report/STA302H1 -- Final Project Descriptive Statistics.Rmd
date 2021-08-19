@@ -708,3 +708,119 @@ predicted_values - actual_values
 mean(predicted_values - actual_values)
 ```
 
+## 50/50 Training/Testing
+
+## partitioning
+
+```{r}
+# https://stackoverflow.com/questions/17200114/how-to-split-data-into-training-testing-sets-using-sample-function
+
+set.seed(888)
+library(caTools)
+sample = sample.split(remaining_data_no_NAs, SplitRatio = 0.55)
+training_data = subset(remaining_data_no_NAs, sample == TRUE)
+testing_data  = subset(remaining_data_no_NAs, sample == FALSE)
+```
+
+## training
+
+```{r}
+training_data_no_NAs = na.omit(training_data)
+
+quiz1 = training_data_no_NAs$Quiz_1_score
+quiz2 = training_data_no_NAs$Quiz_2_score
+quiz3 = training_data_no_NAs$Quiz_3_score
+quiz4 = training_data_no_NAs$Quiz_4_score
+
+covid1 = training_data_no_NAs$COVID.hours..W1.
+covid2 = training_data_no_NAs$COVID.hours..W2.
+covid3 = training_data_no_NAs$COVID.hours..W3.
+covid4 = training_data_no_NAs$COVID.hours..W4.
+
+study1 = training_data_no_NAs$STA302.hours..W1.
+study2 = training_data_no_NAs$STA302.hours..W2.
+study3 = training_data_no_NAs$STA302.hours..W3.
+study4 = training_data_no_NAs$STA302.hours..W4.
+
+country = training_data_no_NAs$country
+```
+
+```{r}
+additive_model2 = lm(
+quiz4 ~ quiz3
+  # + I(covid1 * covid2)
+  # + I(covid2 * covid3) 
+  # + I(covid3 * covid4)
+
+  + I(study1 * study2)
+  + I(study2 * study3) 
+  + I(study3 * study4)
+)
+summary(additive_model2)
+```
+
+# testing
+
+```{r}
+testing_data_no_NAs = na.omit(testing_data)
+
+quiz1 = testing_data_no_NAs$Quiz_1_score
+quiz2 = testing_data_no_NAs$Quiz_2_score
+quiz3 = testing_data_no_NAs$Quiz_3_score
+quiz4 = testing_data_no_NAs$Quiz_4_score
+
+covid1 = testing_data_no_NAs$COVID.hours..W1.
+covid2 = testing_data_no_NAs$COVID.hours..W2.
+covid3 = testing_data_no_NAs$COVID.hours..W3.
+covid4 = testing_data_no_NAs$COVID.hours..W4.
+
+study1 = testing_data_no_NAs$STA302.hours..W1.
+study2 = testing_data_no_NAs$STA302.hours..W2.
+study3 = testing_data_no_NAs$STA302.hours..W3.
+study4 = testing_data_no_NAs$STA302.hours..W4.
+
+country = testing_data_no_NAs$country
+```
+
+```{r}
+predicted_values = predict(additive_model2, testing_data_no_NAs)
+predicted_values
+```
+
+```{r}
+actual_values = testing_data$Quiz_4_score
+actual_values
+```
+
+```{r}
+predicted_values - actual_values
+```
+
+```{r}
+mean(predicted_values - actual_values)
+```
+
+```{r}
+median(predicted_values - actual_values)
+```
+
+```{r}
+hist(predicted_values - actual_values)
+```
+
+# one-sample t-test on mean
+
+hypothesized mean = 0
+
+- n = 77, so by CLT sample mean is approximately normal
+
+is -0.427222 statistically different from 0?
+the p-value should be small.
+
+```{R}
+t.test(predicted_values - actual_values)
+```
+
+p-value = 0.7938
+t = -0.26242
+
