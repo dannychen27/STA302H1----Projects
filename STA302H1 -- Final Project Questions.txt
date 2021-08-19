@@ -269,3 +269,10 @@ Q53: Should I specify date ranges to weeks when the surveys take place?
 e.g., week 1 = week of July 5 – July 9.
 A53:
 
+Q54: When you want us to explain how we'd go about developing a model, can we add any "wrong paths" to take? Or just stick to what works I actually used that worked?
+A54:
+
+Q55: What's the difference between the intro section's "how you intend to develop the model" and the model development section's "detailed discussion of the process used to come to the final model"?
+Is the main difference that the first one is about what you WOULD do, and the second one is what you actually did?
+A55:
+
