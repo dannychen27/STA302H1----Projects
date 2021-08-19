@@ -262,4 +262,6 @@ A50:
 Q51: Hmmm... for the residual plots it seems to only let me put one predictor variable in at a time. Does that mean I have to create one residual plot for each predictor variable -- since it wouldn't make much sense to have multi-dimensional residual plots?
 A51:
 
+Q52: How do I check if a quadratic model is valid? Are there "quadratic model assumptions", or do I instead consider things like multi-collinearity issues, recentering issues and the boxcar transformation?
+A52:
 
