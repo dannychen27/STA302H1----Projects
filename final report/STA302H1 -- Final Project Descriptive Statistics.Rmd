@@ -676,7 +676,7 @@ stepAIC(additive_model, direction = "both")$anova
 additive_model2 = lm(
 quiz4 ~ quiz3 
   # + I(covid1 ^ 2)  # this lone quadratic term add a lot of complexity for negligible change in R^2 and adjusted R^2.
-  # + I(covid1 * covid2) + I(covid2 * covid3) # these terms alone add complexity -- harder to interpret the statement when discussing 2-week or 3-week gaps between covid weeks of interest
+  # + I(covid1 * covid2) + I(covid2 * covid3) # these terms alone add complexity -- harder to interpret the statement when discussing 2-week or 3-week gaps between covid weeks of interest # TODO: does it affect significance?
 
   + I(study1 * study2) 
 # + I(study1 * study3)  # make weeks consecutive: "want to see correlation from week to week", rather than non-consecutive weeks.
