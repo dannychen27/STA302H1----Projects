@@ -708,6 +708,18 @@ predicted_values - actual_values
 mean(predicted_values - actual_values)
 ```
 
+```{r}
+median(predicted_values - actual_values)
+```
+
+```{r}
+hist(predicted_values - actual_values)
+```
+
+```{r}
+t.test(predicted_values - actual_values)
+```
+
 ## 50/50 Training/Testing
 
 ## partitioning
