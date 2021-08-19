@@ -614,7 +614,9 @@ summary(cleaned_sta302_performance_data2$Quiz_4_score)
 
 \break
 
-```{r echo = FALSE}
+```{r}
+cleaned_sta302_performance_data2 = na.omit(cleaned_sta302_performance_data2)
+
 quiz1 = cleaned_sta302_performance_data2$Quiz_1_score
 quiz2 = cleaned_sta302_performance_data2$Quiz_2_score
 quiz3 = cleaned_sta302_performance_data2$Quiz_3_score
@@ -633,111 +635,93 @@ study4 = cleaned_sta302_performance_data2$STA302.hours..W4.
 country = cleaned_sta302_performance_data2$country
 ```
 
-```{r echo = FALSE}
-canadians = canada
-non_canadians = dplyr::union(china, india)
-non_canadians = dplyr::union(non_canadians, japan)
-non_canadians = dplyr::union(non_canadians, mongolia)
-
-non_canadians = dplyr::union(non_canadians, pakistan)
-non_canadians = dplyr::union(non_canadians, singapore)
-
-non_canadians = dplyr::union(non_canadians, south_korea)
-non_canadians = dplyr::union(non_canadians, taiwan)
-
-non_canadians = dplyr::union(non_canadians, uae)
-non_canadians = dplyr::union(non_canadians, unknown)
-non_canadians = dplyr::union(non_canadians, usa)
-```
+## Full Model (Without Splitting by Country)
 
 ```{r}
-quiz1 = canadians$Quiz_1_score
-quiz2 = canadians$Quiz_2_score
-quiz3 = canadians$Quiz_3_score
-quiz4 = canadians$Quiz_4_score
-
-covid1 = canadians$COVID.hours..W1.
-covid2 = canadians$COVID.hours..W2.
-covid3 = canadians$COVID.hours..W3.
-covid4 = canadians$COVID.hours..W4.
-
-study1 = canadians$STA302.hours..W1.
-study2 = canadians$STA302.hours..W2.
-study3 = canadians$STA302.hours..W3.
-study4 = canadians$STA302.hours..W4.
-
 additive_model = lm(
   quiz4 ~ 
-    # quiz1 + quiz2 
-  + quiz3 
-  # + covid1 + covid2 + covid3 + covid4
-  # + study1 + study2 + study3 + study4
-  + I(covid1 * study1) + I(covid2 * study2) + I(covid3 * study3) + I(covid4 * study4)
+    quiz1  # scatterplot seems to have no relationship
+  + quiz2  # scatterplot seems to have no relationship
+  + quiz3  # scatterplot looks more linear
+  + covid1 # must add this linear term b/c i have a quadratic term 
+  + I(covid1 ^ 2)  # scatterplot looks more quadratic
+  + covid2 # must add this linear term b/c i have a quadratic term 
+  + I(covid2 ^ 2)  # scatterplot looks more quadratic
+  + covid3
+  # + I(covid3 ^ 2) # scatterplot looks less quadratic
+  + covid4  # must add this linear term b/c i have a quadratic term 
+  + I(covid4 ^ 2) # scatterplot looks more quadratic
+  
+  + I(covid1 * covid2) # first impressions from correlation matrix
+  + I(covid2 * covid3) # correlation = 0.67
+  + I(covid2 * covid4) # discard: correlation = 0.71
+  + I(covid3 * covid4) # correlation = 0.72
+  
+  + I(study1 * study2)  # correlation = 0.61
+  + I(study1 * study3)  # correlation = 0.58
+  + I(study2 * study3)  # correlation = 0.70
+  + I(study3 * study4)  # correlation = 0.62
+  
+  + country  # for simplicity, but backwards process shows this term is not significant
 )
 summary(additive_model)
 ```
 
-\break
-
-```{r echo = FALSE}
-# additive_model.fit = fitted(additive_model)
-# residuals = resid(additive_model)
-# ggplot(prof, aes(x = Experience, y = residuals)) +
-#   geom_point(size = 2, shape = 23) + geom_hline(yintercept = 0)
+```{r}
+stepAIC(additive_model, direction = "both")$anova
 ```
 
 ```{r}
-quiz1 = non_canadians$Quiz_1_score
-quiz2 = non_canadians$Quiz_2_score
-quiz3 = non_canadians$Quiz_3_score
-quiz4 = non_canadians$Quiz_4_score
-
-covid1 = non_canadians$COVID.hours..W1.
-covid2 = non_canadians$COVID.hours..W2.
-covid3 = non_canadians$COVID.hours..W3.
-covid4 = non_canadians$COVID.hours..W4.
-
-study1 = non_canadians$STA302.hours..W1.
-study2 = non_canadians$STA302.hours..W2.
-study3 = non_canadians$STA302.hours..W3.
-study4 = non_canadians$STA302.hours..W4.
-
+# I decide to remove more terms for simplicity.
 additive_model2 = lm(
-  quiz4 ~ 
-    # quiz1 + quiz2 
-  + quiz3 
-  # + covid1 + covid2 + covid3 + covid4
-  # + study1 + study2 + study3 + study4
-  + I(covid1 * study1) + I(covid2 * study2) + I(covid3 * study3) + I(covid4 * study4)
+quiz4 ~ quiz3 
+  # + I(covid1 ^ 2)  # this lone quadratic term add a lot of complexity for negligible change in R^2 and adjusted R^2.
+  # + I(covid1 * covid2) + I(covid2 * covid3) # these terms alone add complexity -- harder to interpret the statement when discussing 2-week or 3-week gaps between covid weeks of interest
+
+  + I(study1 * study2) 
+# + I(study1 * study3)  # make weeks consecutive: "want to see correlation from week to week", rather than non-consecutive weeks.
+  + I(study2 * study3) 
+  + I(study3 * study4)
 )
 summary(additive_model2)
 ```
 
-\break
+```{r}
+# Doing stepAIC on a well-fitted model produces the same model.
+# The model is already in a "steady state."
+stepAIC(additive_model2, direction = "both")$anova
+```
 
 ```{r}
-quiz1 = cleaned_sta302_performance_data2$Quiz_1_score
-quiz2 = cleaned_sta302_performance_data2$Quiz_2_score
-quiz3 = cleaned_sta302_performance_data2$Quiz_3_score
-quiz4 = cleaned_sta302_performance_data2$Quiz_4_score
+display_residual_plot <- function(data, model, predictor_variable) {
+  fit = fitted(model)
+  residuals = resid(model)
+  ggplot(data = data, aes(x = predictor_variable, y = residuals)) +
+    geom_point() + 
+    geom_hline(yintercept = 0)
+}
+```
 
-covid1 = cleaned_sta302_performance_data2$COVID.hours..W1.
-covid2 = cleaned_sta302_performance_data2$COVID.hours..W2.
-covid3 = cleaned_sta302_performance_data2$COVID.hours..W3.
-covid4 = cleaned_sta302_performance_data2$COVID.hours..W4.
+## residual plot
 
-study1 = cleaned_sta302_performance_data2$STA302.hours..W1.
-study2 = cleaned_sta302_performance_data2$STA302.hours..W2.
-study3 = cleaned_sta302_performance_data2$STA302.hours..W3.
-study4 = cleaned_sta302_performance_data2$STA302.hours..W4.
+```{r}
+display_residual_plot(cleaned_sta302_performance_data2, additive_model2, quiz3)
+```
 
-additive_model3 = lm(
-  quiz4 ~ 
-    # quiz1 + quiz2 
-  quiz3 
-  # + covid1 + covid2 + covid3 + covid4
-  # + study1 + study2 + study3 + study4
-  + I(covid1 * study1) + I(covid2 * study2) + I(covid3 * study3) + I(covid4 * study4)
-)
-summary(additive_model3)
+```{r}
+display_residual_plot(cleaned_sta302_performance_data2, additive_model2, study1 * study2)
+```
+
+```{r}
+display_residual_plot(cleaned_sta302_performance_data2, additive_model2, study2 * study3)
+```
+
+```{r}
+display_residual_plot(cleaned_sta302_performance_data2, additive_model2, study3 * study4)
+```
+
+## residual vs. fit, qqplot, scale-location, and residual vs. leverage
+
+```{r}
+plot(additive_model2)
 ```
