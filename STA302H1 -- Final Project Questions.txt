@@ -265,3 +265,7 @@ A51:
 Q52: How do I check if a quadratic model is valid? Are there "quadratic model assumptions", or do I instead consider things like multi-collinearity issues, recentering issues and the boxcar transformation?
 A52:
 
+Q53: Should I specify date ranges to weeks when the surveys take place?
+e.g., week 1 = week of July 5 – July 9.
+A53:
+
