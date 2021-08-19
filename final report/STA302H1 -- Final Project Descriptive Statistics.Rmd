@@ -687,3 +687,24 @@ display_residual_plot(remaining_data_no_NAs, additive_model2, study3 * study4)
 ```{r}
 plot(additive_model2)
 ```
+
+## Try Predicting on the Fitted Values
+
+```{r}
+predicted_values = predict(additive_model2)
+predicted_values
+```
+
+```{r}
+actual_values = remaining_data_no_NAs$Quiz_4_score
+actual_values
+```
+
+```{r}
+predicted_values - actual_values
+```
+
+```{r}
+mean(predicted_values - actual_values)
+```
+
