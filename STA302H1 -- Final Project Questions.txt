@@ -177,7 +177,7 @@ A27a: The purpose isn't to make the distribution more normal, but to capture the
 Q27b (follow up to Q27a): So if I transform using ln(), and the RHS is linear, then would that mean that the true relationship is exponential?
 A27b:
 
-Q28: It seems like I have a sparse dataset for Mongolia, Japan, India, pAKISTAN, etc. What should I do?
+Q28: It seems like I have a sparse dataset for Mongolia, Japan, India, Pakistan, etc. What should I do?
 A28: You could just have 3 categories:
 - Canada
 - China
@@ -189,7 +189,6 @@ A29: residual plot and QQplot should be sufficient.
 
 Q30: What's the difference between polynomial regression and second-order model/third-order model? Is polynomial regression an umbrella term for things like first-order model, second-order model, and third-order model?
 A30:
-
 
 Q31: When should I remove outliers?
 A31: Remove outliers as early as possible, since no amount of variable recentering or variable transformation can correct them effectively.
@@ -207,22 +206,88 @@ Q33b (follow up to Q33a): What if the AICs are equal?
 A33b:
 
 Q34: Is variable re-centering and variable transformations only for higher order models (e.g. quadratic models), since they involve reducing multi-collinearity?
-A34:
+A34: it works for linear models too. Can interpret model from mean/median, and not 0.
+High degree of correlation is another reason.
+
+Q45: Should I just take the median/mean of quiz scores, STA302H1 study hours, and COVID19 contemplation time?
+A45: You don't have to.
+
+Q46: Is simplicity a strong reason to remove terms from model? For example, to pass all 4 conditions of linear assumption? 
+Or to make the model easier to interpret in the conclusion section? You even said yourself not to fish for desirable R^2 and adjusted R^2 values, 
+and that simpler, clearer analyses can earn more marks.
+A46: Two factors to consider:
+
+1. significance
+- non-significant terms that are uninterpretable or have little effect on significance model = remove it 
+- terms that shrinks effects of other covariates = remove it
+
+2. interpretability
+- non-significant terms that are easy to interpret? = still ok? Need empirical research to justify
+- variables only adds complexity and not much else = remove it
+
+How to get high marks for analysis ()
+- thought hard about variables you want to use
+- steps you took to arrive at final model makes sense
+- final model and its variables makes sense
+
+Q57: How do I know if I have all predictor variables I need for my model?
+A57:
+- Constant variances = did you account for all predictor variables? did you miss any factors?
+- variables significant -> unexpected predictive variables?????
+- ttest, cis -> evaluate goodness of fit -> if tests are biased then CIs will be unstable
+- don't present ttests, look at cis to determine if variables are significant.
+
+- show point estimates, and ci
+- ci -> perform hypothesis tests -> level of significance
+
+- avoid t-values and p-values?
+
+- subjective -- one reader might deem one test significant ?
+- look at sample paper for structure cis and point estimates, and tables?
+- no diagnostic plots in sample paper, don't determine what you need.
+
+LIMITATION: doing 100/0 instead of 50/50
+
+- predicts -- don't predict outside scope of data
+Take an observation not in dataset -> plug into model, see how it performs in particular regions?
+
+for goodness of model, what should we check about residual? the SSRes?
+- smallest MSRes across different models?
+
+Q55: What's the difference between the intro section's "how you intend to develop the model" and the model development section's 
+"detailed discussion of the process used to come to the final model"?
+Is the main difference that the first one is about what you WOULD do, and the second one is what you actually did?
+A55: 
+
+Intro
+- what I'll do, don't state final model
+
+Model dev
+- what I did do, what final model is
+
+Q54: When you want us to explain how we'd go about developing a model, can we add any "wrong paths" to take? Or just stick to what works I actually used that worked?
+A54: No, they must be consistent.
+
+Q50: In addition to raw R output, can the appendix also include other tables that might be helpful for analysis that aren't directly related to my model?
+A50:
 
 Q35: Do we have to separate description of descriptive variables in EDA and explanation of relationships in discussion section?
 A35:
 
+Q44: Does "highlight certain characteristics of your variables that you deem important to mention" include any variables that I found to be significant or not?
+A44:
+
+Q37: Should I base my chosen model on the model selection criterion I used, or consider a full range of model selection criterion and compare which models each one favours? This might influence the length of my paper.
+A37: double check with t-tests? R^2, adjusted R^2, C (maybe at least two other models) to see if you get the same model.
+
+Q39: In the conclusion section, does "predictions" mean saying things like "for every unit change in X, there is a y change in Y ... "?
+A39: 
+
 Q36: What other reasons are there to justify removing outliers, besides cook's distance model, and those metrics in Week 6a?
 A36:
 
-Q37: Should I base my chosen model on the model selection criterion I used, or consider a full range of model selection criterion and compare which models each one favours? This might influence the length of my paper.
-A37:
-
 Q38: How "in-depth" do the "in-depth diagnostics" have to be -- can they be brief, or do they involve lots of plots or statistical theory?
 A38: 
-
-Q39: In the conclusion section, does "predictions" means "for every unit change in X, there is a y change in Y"?
-A39: 
 
 Q40: Do "grade adjustments" count as an external factor?
 A40: 
@@ -237,18 +302,8 @@ Q43: I'm having trouble rephrasing the purpose of collecting the data in the con
 Do you have effective advice for how to rephrase the purpose of collecting the data?
 A43:
 
-Q44: Does "highlight certain characteristics of your variables that you deem important to mention" include any variables that I found to be significant or not?
-A44:
-
-Q45: Should I just take the median/mean of quiz scores, STA302H1 study hours, and COVID19 contemplation time?
-A45: You don't have to.
-
-Q46: Is simplicity a strong reason to remove terms from model? For example, to pass all 4 conditions of linear assumption? Or to make the model easier to interpret in the conclusion section? You even said yourself not to fish for desirable R^2 and adjusted R^2 values, and that simpler, clearer analyses can earn more marks.
-A46: 
-
 Q47: Can "detailed" mean "succinct"? I interpret "detailed" as a long analysis.
 A47:
-
 
 Q48: What is the purpose of the scale-location model?
 A48:
@@ -256,23 +311,19 @@ A48:
 Q49: Is "residuals vs. Leverage" for finding influential outliers? And the numbered points the influential outliers.
 A49:
 
-Q50: In addition to raw R output, can the appendix also include other tables that might be helpful for analysis that aren't directly related to my model?
-A50:
-
 Q51: Hmmm... for the residual plots it seems to only let me put one predictor variable in at a time. Does that mean I have to create one residual plot for each predictor variable -- since it wouldn't make much sense to have multi-dimensional residual plots?
 A51:
 
-Q52: How do I check if a quadratic model is valid? Are there "quadratic model assumptions", or do I instead consider things like multi-collinearity issues, recentering issues and the boxcar transformation?
+Q52: How do I check if a quadratic model is valid? Are there "quadratic model assumptions," or do I instead consider things like multi-collinearity issues, recentering issues and the boxcar transformation?
 A52:
 
 Q53: Should I specify date ranges to weeks when the surveys take place?
 e.g., week 1 = week of July 5 – July 9.
 A53:
 
-Q54: When you want us to explain how we'd go about developing a model, can we add any "wrong paths" to take? Or just stick to what works I actually used that worked?
-A54:
+Q56: How to extract lm() output?
+A56: Convert lm summary in table using gtsummary is even better than extracting numbers from lm
 
-Q55: What's the difference between the intro section's "how you intend to develop the model" and the model development section's "detailed discussion of the process used to come to the final model"?
-Is the main difference that the first one is about what you WOULD do, and the second one is what you actually did?
-A55:
-
+How to calculate CIs in R?
+- predict()?
+ 
