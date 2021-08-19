@@ -28,7 +28,7 @@ attach(sta302_performance_data)
 First, I'll clean my data.
 
 ```{r}
-cleaned_sta302_performance_data <- sta302_performance_data %>%
+rearranged_data <- sta302_performance_data %>%
     # Create a new "country" column, which is just "Country" but whose entries are factors.
     mutate(country = as.factor(Country)) %>%
   
@@ -124,21 +124,11 @@ Some of the rows might only have 1 - 2 NAs and are therefore salvageable, which 
 Other rows may contain 3 or more NAs, and might indicate students who have dropped STA302H1. We'd like to exclude them from our analysis.
 
 ```{r echo = FALSE, warning = FALSE}
-rows_with_0_NAs = cleaned_sta302_performance_data[
-  rows_with_num_NAs(cleaned_sta302_performance_data, 0),
-]
-rows_with_1_NAs = cleaned_sta302_performance_data[
-  rows_with_num_NAs(cleaned_sta302_performance_data, 1),
-]
-rows_with_2_NAs = cleaned_sta302_performance_data[
-  rows_with_num_NAs(cleaned_sta302_performance_data, 2),
-]
-rows_with_3_NAs = cleaned_sta302_performance_data[
-  rows_with_num_NAs(cleaned_sta302_performance_data, 3),
-]
-rows_with_4_NAs = cleaned_sta302_performance_data[
-  rows_with_num_NAs(cleaned_sta302_performance_data, 4),
-]
+rows_with_0_NAs = rearranged_data[rows_with_num_NAs(rearranged_data, 0),]
+rows_with_1_NAs = rearranged_data[rows_with_num_NAs(rearranged_data, 1),]
+rows_with_2_NAs = rearranged_data[rows_with_num_NAs(rearranged_data, 2),]
+rows_with_3_NAs = rearranged_data[rows_with_num_NAs(rearranged_data, 3),]
+rows_with_4_NAs = rearranged_data[rows_with_num_NAs(rearranged_data, 4),]
 ```
 
 Here are the number of rows with 0 - 4 NAs.
@@ -156,76 +146,65 @@ data.frame(
 <!-- We also want to know which row numbers have 0 - 4 NAs. -->
 
 ```{r echo = FALSE}
-# row_nums_of_NA_rows(cleaned_sta302_performance_data, 0)
+# row_nums_of_NA_rows(rearranged_data, 0)
 ```
 
 ```{r echo = FALSE}
-# row_nums_of_NA_rows(cleaned_sta302_performance_data, 1)
+# row_nums_of_NA_rows(rearranged_data, 1)
 ```
 
 ```{r echo = FALSE}
-# row_nums_of_NA_rows(cleaned_sta302_performance_data, 2)
+# row_nums_of_NA_rows(rearranged_data, 2)
 ```
 
 ```{r echo = FALSE}
-# row_nums_of_NA_rows(cleaned_sta302_performance_data, 3)
+# row_nums_of_NA_rows(rearranged_data, 3)
 ```
 
 ```{r echo = FALSE}
-# row_nums_of_NA_rows(cleaned_sta302_performance_data, 4)
+# row_nums_of_NA_rows(rearranged_data, 4)
 ```
 
 ## Columns with NAs
 
 ```{R echo = FALSE}
-perform_data = cleaned_sta302_performance_data
 data.frame(
-  week1_covid = num_column_NAs(perform_data$COVID.hours..W1.),
-  week2_covid = num_column_NAs(perform_data$COVID.hours..W2.),
-  week3_covid = num_column_NAs(perform_data$COVID.hours..W3.),
-  week4_covid = num_column_NAs(perform_data$COVID.hours..W4.)
+  week1_covid = num_column_NAs(rearranged_data$COVID.hours..W1.),
+  week2_covid = num_column_NAs(rearranged_data$COVID.hours..W2.),
+  week3_covid = num_column_NAs(rearranged_data$COVID.hours..W3.),
+  week4_covid = num_column_NAs(rearranged_data$COVID.hours..W4.)
 )
 ```
 
 ```{R echo = FALSE}
 data.frame(
-  week1_sta302 = num_column_NAs(perform_data$STA302.hours..W1.),
-  week2_sta302 = num_column_NAs(perform_data$STA302.hours..W2.),
-  week3_sta302 = num_column_NAs(perform_data$STA302.hours..W3.),
-  week4_sta302 = num_column_NAs(perform_data$STA302.hours..W4.)
+  week1_sta302 = num_column_NAs(rearranged_data$STA302.hours..W1.),
+  week2_sta302 = num_column_NAs(rearranged_data$STA302.hours..W2.),
+  week3_sta302 = num_column_NAs(rearranged_data$STA302.hours..W3.),
+  week4_sta302 = num_column_NAs(rearranged_data$STA302.hours..W4.)
 )
 ```
 
 ```{R echo = FALSE}
 data.frame(
-  quiz1_score = num_column_NAs(perform_data$Quiz_1_score),
-  quiz2_score = num_column_NAs(perform_data$Quiz_2_score),
-  quiz3_score = num_column_NAs(perform_data$Quiz_3_score),
-  quiz4_score = num_column_NAs(perform_data$Quiz_4_score)
+  quiz1_score = num_column_NAs(rearranged_data$Quiz_1_score),
+  quiz2_score = num_column_NAs(rearranged_data$Quiz_2_score),
+  quiz3_score = num_column_NAs(rearranged_data$Quiz_3_score),
+  quiz4_score = num_column_NAs(rearranged_data$Quiz_4_score)
 )
 ```
 
 ```{r echo = FALSE, warning = FALSE}
-quiz_grades <- cleaned_sta302_performance_data %>%
+quiz_grades <- rearranged_data %>%
   dplyr::select(Quiz_1_score, Quiz_2_score, Quiz_3_score, Quiz_4_score)
 ```
 
 ```{r echo = FALSE, warning = FALSE}
-missed_0_quizzes = quiz_grades[
-  rows_with_num_NAs(quiz_grades, 0),
-]
-missed_1_quizzes = quiz_grades[
-  rows_with_num_NAs(quiz_grades, 1),
-]
-missed_2_quizzes = quiz_grades[
-  rows_with_num_NAs(quiz_grades, 2),
-]
-missed_3_quizzes = quiz_grades[
-  rows_with_num_NAs(quiz_grades, 3),
-]
-missed_4_quizzes = quiz_grades[
-  rows_with_num_NAs(quiz_grades, 4),
-]
+missed_0_quizzes = quiz_grades[rows_with_num_NAs(quiz_grades, 0),]
+missed_1_quizzes = quiz_grades[rows_with_num_NAs(quiz_grades, 1),]
+missed_2_quizzes = quiz_grades[rows_with_num_NAs(quiz_grades, 2),]
+missed_3_quizzes = quiz_grades[rows_with_num_NAs(quiz_grades, 3),]
+missed_4_quizzes = quiz_grades[rows_with_num_NAs(quiz_grades, 4),]
 ```
 
 ## Number of Missed Quizzes
@@ -270,8 +249,7 @@ Notice that we didn't check the number of NAs for country of origin, COVID hours
 
 ```{r}
 row_nums_to_exclude <- get_row_nums_to_exclude(quiz_grades)
-cleaned_sta302_performance_data2 = 
-  cleaned_sta302_performance_data[-row_nums_to_exclude,]
+remaining_data = rearranged_data[-row_nums_to_exclude,]
 ```
 
 \break
@@ -281,7 +259,7 @@ cleaned_sta302_performance_data2 =
 Rows whose columns are mis-typed may need to be corrected via imputation.
 
 ```{R}
-rows_with_mistyped_columms = cleaned_sta302_performance_data2[c(38, 83, 84, 117),]
+rows_with_mistyped_columms = remaining_data[c(38, 83, 84, 117),]
 # row 83: Country -> "canada" -- DONE
 # row 84: Country -> "canada" -- DONE
 
@@ -302,7 +280,7 @@ Taking out the country column can come in handy for functions like cor() where
 factors aren't allowed.
 
 ```{r}
-rows_with_no_country = cleaned_sta302_performance_data2 %>%
+rows_with_no_country = remaining_data %>%
   dplyr::select(-country)
 ```
 
@@ -312,53 +290,53 @@ This is useful if we want data for individual countries. \newline
 Only the first and last code snippets are shown.
 
 ```{r}
-canada <- cleaned_sta302_performance_data2 %>%
+canada <- remaining_data %>%
   filter(as.character(country) == "Canada") %>%
   dplyr::select(-country)
 
-unknown <- cleaned_sta302_performance_data2 %>%
+unknown <- remaining_data %>%
   filter(is.na(as.character(country))) %>%
   dplyr::select(-country)
 ```
 
 ```{r echo = FALSE}
-china <- cleaned_sta302_performance_data2 %>%
+china <- remaining_data %>%
   filter(as.character(country) == "China") %>%
   dplyr::select(-country)
 
-india <- cleaned_sta302_performance_data2 %>%
+india <- remaining_data %>%
   filter(as.character(country) == "India") %>%
   dplyr::select(-country)
 
-japan <- cleaned_sta302_performance_data2 %>%
+japan <- remaining_data %>%
   filter(as.character(country) == "Japan") %>%
   dplyr::select(-country)
 
-mongolia <- cleaned_sta302_performance_data2 %>%
+mongolia <- remaining_data %>%
   filter(as.character(country) == "Mongolia") %>%
   dplyr::select(-country)
 
-pakistan <- cleaned_sta302_performance_data2 %>%
+pakistan <- remaining_data %>%
   filter(as.character(country) == "Pakistan") %>%
   dplyr::select(-country)
 
-singapore <- cleaned_sta302_performance_data2 %>%
+singapore <- remaining_data %>%
   filter(as.character(country) == "Singapore") %>%
   dplyr::select(-country)
 
-south_korea <- cleaned_sta302_performance_data2 %>%
+south_korea <- remaining_data %>%
   filter(as.character(country) == "South Korea") %>%
   dplyr::select(-country)
 
-taiwan <- cleaned_sta302_performance_data2 %>%
+taiwan <- remaining_data %>%
   filter(as.character(country) == "Taiwan") %>%
   dplyr::select(-country)
 
-uae <- cleaned_sta302_performance_data2 %>%
+uae <- remaining_data %>%
   filter(as.character(country) == "UAE") %>%
   dplyr::select(-country)
 
-usa <- cleaned_sta302_performance_data2 %>%
+usa <- remaining_data %>%
   filter(as.character(country) == "USA") %>%
   dplyr::select(-country)
 ```
@@ -385,14 +363,13 @@ t(countries)
 \break
 
 ```{r echo = FALSE, warning = FALSE}
-display_boxplot(cleaned_sta302_performance_data2, COVID.hours..W1.,
+display_boxplot(remaining_data, COVID.hours..W1.,
                 "Country vs. Week 1 Time Spent Thinking About COVID-19",
                 "Time Spent Thinking About COVID-19 (hours)")
 ```
 
 ```{r echo = FALSE, warning = FALSE}
-display_histogram(cleaned_sta302_performance_data2, 
-                  cleaned_sta302_performance_data2$COVID.hours..W1., 
+display_histogram(remaining_data, remaining_data$COVID.hours..W1., 
                   "Histogram of Week 1 Time Spent Thinking About COVID-19",
                   "Time Spent Thinking About COVID-19 (hours)")
 ```
@@ -400,14 +377,13 @@ display_histogram(cleaned_sta302_performance_data2,
 \break
 
 ```{R echo = FALSE, warning = FALSE}
-display_boxplot(cleaned_sta302_performance_data2, COVID.hours..W2.,
+display_boxplot(remaining_data, COVID.hours..W2.,
                 "Country vs. Week 2 Time Spent Thinking About COVID-19",
                 "Time Spent Thinking About COVID-19 (hours)")
 ```
 
 ```{r echo = FALSE, warning = FALSE}
-display_histogram(cleaned_sta302_performance_data2, 
-                  cleaned_sta302_performance_data2$COVID.hours..W2., 
+display_histogram(remaining_data, remaining_data$COVID.hours..W2., 
                   "Histogram of Week 2 Time Spent Thinking About COVID-19",
                   "Time Spent Thinking About COVID-19 (hours)")
 ```
@@ -415,14 +391,13 @@ display_histogram(cleaned_sta302_performance_data2,
 \break
 
 ```{R echo = FALSE, warning = FALSE}
-display_boxplot(cleaned_sta302_performance_data2, COVID.hours..W3.,
+display_boxplot(remaining_data, COVID.hours..W3.,
                 "Country vs. Week 3 Time Spent Thinking About COVID-19",
                 "Time Spent Thinking About COVID-19 (hours)")
 ```
 
 ```{r echo = FALSE, warning = FALSE}
-display_histogram(cleaned_sta302_performance_data2, 
-                  cleaned_sta302_performance_data2$COVID.hours..W3., 
+display_histogram(remaining_data, remaining_data$COVID.hours..W3., 
                   "Histogram of Week 3 Time Spent Thinking About COVID-19",
                   "Time Spent Thinking About COVID-19 (hours)")
 ```
@@ -430,14 +405,13 @@ display_histogram(cleaned_sta302_performance_data2,
 \break
 
 ```{R echo = FALSE, warning = FALSE}
-display_boxplot(cleaned_sta302_performance_data2, COVID.hours..W4.,
+display_boxplot(remaining_data, COVID.hours..W4.,
                 "Country vs. Week 4 Time Spent Thinking About COVID-19",
                 "Time Spent Thinking About COVID-19 (hours)")
 ```
 
 ```{r echo = FALSE, warning = FALSE}
-display_histogram(cleaned_sta302_performance_data2, 
-                  cleaned_sta302_performance_data2$COVID.hours..W4., 
+display_histogram(remaining_data, remaining_data$COVID.hours..W4., 
                   "Histogram of Week 4 Time Spent Thinking About COVID-19",
                   "Time Spent Thinking About COVID-19 (hours)")
 ```
@@ -445,14 +419,13 @@ display_histogram(cleaned_sta302_performance_data2,
 \break
 
 ```{R echo = FALSE, warning = FALSE}
-display_boxplot(cleaned_sta302_performance_data2, STA302.hours..W1.,
+display_boxplot(remaining_data, STA302.hours..W1.,
                 "Country vs. Week 1 Time Spent Studying For STA302H1",
                 "Time Spent Studying For STA302H1 (hours)")
 ```
 
 ```{r echo = FALSE, warning = FALSE}
-display_histogram(cleaned_sta302_performance_data2, 
-                  cleaned_sta302_performance_data2$STA302.hours..W1., 
+display_histogram(remaining_data, remaining_data$STA302.hours..W1., 
                   "Histogram of Week 1 Time Spent Studying for STA302H1",
                   "Time Spent Studying for STA302H1 (hours)")
 ```
@@ -460,14 +433,13 @@ display_histogram(cleaned_sta302_performance_data2,
 \break
 
 ```{R echo = FALSE, warning = FALSE}
-display_boxplot(cleaned_sta302_performance_data2, STA302.hours..W2.,
+display_boxplot(remaining_data, STA302.hours..W2.,
                 "Country vs. Week 2 Time Spent Studying For STA302H1",
                 "Time Spent Studying For STA302H1 (hours)")
 ```
 
 ```{r echo = FALSE, warning = FALSE}
-display_histogram(cleaned_sta302_performance_data2, 
-                  cleaned_sta302_performance_data2$STA302.hours..W2., 
+display_histogram(remaining_data, remaining_data$STA302.hours..W2., 
                   "Histogram of Week 2 Time Spent Studying for STA302H1",
                   "Time Spent Studying for STA302H1 (hours)")
 ```
@@ -475,14 +447,13 @@ display_histogram(cleaned_sta302_performance_data2,
 \break
 
 ```{R echo = FALSE, warning = FALSE}
-display_boxplot(cleaned_sta302_performance_data2, STA302.hours..W3.,
+display_boxplot(remaining_data, STA302.hours..W3.,
                 "Country vs. Week 3 Time Spent Studying For STA302H1",
                 "Time Spent Studying For STA302H1 (hours)")
 ```
 
 ```{r echo = FALSE, warning = FALSE}
-display_histogram(cleaned_sta302_performance_data2, 
-                  cleaned_sta302_performance_data2$STA302.hours..W3., 
+display_histogram(remaining_data, remaining_data$STA302.hours..W3., 
                   "Histogram of Week 3 Time Spent Studying for STA302H1",
                   "Time Spent Studying for STA302H1 (hours)")
 ```
@@ -490,14 +461,13 @@ display_histogram(cleaned_sta302_performance_data2,
 \break
 
 ```{R echo = FALSE, warning = FALSE}
-display_boxplot(cleaned_sta302_performance_data2, STA302.hours..W4.,
+display_boxplot(remaining_data, STA302.hours..W4.,
                 "Country vs. Week 4 Time Spent Studying For STA302H1",
                 "Time Spent Studying For STA302H1 (hours)")
 ```
 
 ```{r echo = FALSE, warning = FALSE}
-display_histogram(cleaned_sta302_performance_data2, 
-                  cleaned_sta302_performance_data2$STA302.hours..W4., 
+display_histogram(remaining_data, remaining_data$STA302.hours..W4., 
                   "Histogram of Week 4 Time Spent Studying for STA302H1",
                   "Time Spent Studying for STA302H1 (hours)")
 ```
@@ -505,57 +475,49 @@ display_histogram(cleaned_sta302_performance_data2,
 \break
 
 ```{R echo = FALSE, warning = FALSE}
-display_boxplot(cleaned_sta302_performance_data2, Quiz_1_score,
+display_boxplot(remaining_data, Quiz_1_score,
                 "Country vs. Quiz 1 Score", "Score (out of 10)")
 ```
 
 ```{r echo = FALSE, warning = FALSE}
-display_histogram(cleaned_sta302_performance_data2, 
-                  cleaned_sta302_performance_data2$Quiz_1_score, 
-                  "Histogram of Quiz 1 Scores",
-                  "Quiz Score (out of 10)")
+display_histogram(remaining_data, remaining_data$Quiz_1_score, 
+                  "Histogram of Quiz 1 Scores", "Quiz Score (out of 10)")
 ```
 
 \break
 
 ```{R echo = FALSE, warning = FALSE}
-display_boxplot(cleaned_sta302_performance_data2, Quiz_2_score,
+display_boxplot(remaining_data, Quiz_2_score,
                 "Country vs. Quiz 2 Score", "Score (out of 10)")
 ```
 
 ```{r echo = FALSE, warning = FALSE}
-display_histogram(cleaned_sta302_performance_data2, 
-                  cleaned_sta302_performance_data2$Quiz_2_score, 
-                  "Histogram of Quiz 2 Scores",
-                  "Quiz Score (out of 10)")
+display_histogram(remaining_data, remaining_data$Quiz_2_score, 
+                  "Histogram of Quiz 2 Scores", "Quiz Score (out of 10)")
 ```
 
 \break
 
 ```{R echo = FALSE, warning = FALSE}
-display_boxplot(cleaned_sta302_performance_data2, Quiz_3_score,
+display_boxplot(remaining_data, Quiz_3_score,
                 "Country vs. Quiz 3 Score", "Score (out of 10)")
 ```
 
 ```{r echo = FALSE, warning = FALSE}
-display_histogram(cleaned_sta302_performance_data2, 
-                  cleaned_sta302_performance_data2$Quiz_3_score, 
-                  "Histogram of Quiz 3 Scores",
-                  "Quiz Score (out of 10)")
+display_histogram(remaining_data, remaining_data$Quiz_3_score, 
+                  "Histogram of Quiz 3 Scores", "Quiz Score (out of 10)")
 ```
 
 \break
 
 ```{R echo = FALSE, warning = FALSE}
-display_boxplot(cleaned_sta302_performance_data2, Quiz_4_score,
+display_boxplot(remaining_data, Quiz_4_score,
                 "Country vs. Quiz 4 Score", "Score (out of 10)")
 ```
 
 ```{r echo = FALSE, warning = FALSE}
-display_histogram(cleaned_sta302_performance_data2, 
-                  cleaned_sta302_performance_data2$Quiz_4_score, 
-                  "Histogram of Quiz 4 Scores",
-                  "Quiz Score (out of 10)")
+display_histogram(remaining_data, remaining_data$Quiz_4_score, 
+                  "Histogram of Quiz 4 Scores", "Quiz Score (out of 10)")
 ```
 
 \break
@@ -563,76 +525,76 @@ display_histogram(cleaned_sta302_performance_data2,
 # 5-Number Summary Statistics
 
 ```{r}
-summary(cleaned_sta302_performance_data2$COVID.hours..W1.)
+summary(remaining_data$COVID.hours..W1.)
 ```
 
 ```{r}
-summary(cleaned_sta302_performance_data2$COVID.hours..W2.)
+summary(remaining_data$COVID.hours..W2.)
 ```
 
 ```{r}
-summary(cleaned_sta302_performance_data2$COVID.hours..W3.)
+summary(remaining_data$COVID.hours..W3.)
 ```
 
 ```{r}
-summary(cleaned_sta302_performance_data2$COVID.hours..W4.)
+summary(remaining_data$COVID.hours..W4.)
 ```
 
 ```{r}
-summary(cleaned_sta302_performance_data2$STA302.hours..W1.)
+summary(remaining_data$STA302.hours..W1.)
 ```
 
 ```{r}
-summary(cleaned_sta302_performance_data2$STA302.hours..W2.)
+summary(remaining_data$STA302.hours..W2.)
 ```
 
 ```{r}
-summary(cleaned_sta302_performance_data2$STA302.hours..W3.)
+summary(remaining_data$STA302.hours..W3.)
 ```
 
 ```{r}
-summary(cleaned_sta302_performance_data2$STA302.hours..W4.)
-```
-
-\break
-
-```{r}
-summary(cleaned_sta302_performance_data2$Quiz_1_score)
-```
-
-```{r}
-summary(cleaned_sta302_performance_data2$Quiz_2_score)
-```
-
-```{r}
-summary(cleaned_sta302_performance_data2$Quiz_3_score)
-```
-
-```{r}
-summary(cleaned_sta302_performance_data2$Quiz_4_score)
+summary(remaining_data$STA302.hours..W4.)
 ```
 
 \break
 
 ```{r}
-cleaned_sta302_performance_data2 = na.omit(cleaned_sta302_performance_data2)
+summary(remaining_data$Quiz_1_score)
+```
 
-quiz1 = cleaned_sta302_performance_data2$Quiz_1_score
-quiz2 = cleaned_sta302_performance_data2$Quiz_2_score
-quiz3 = cleaned_sta302_performance_data2$Quiz_3_score
-quiz4 = cleaned_sta302_performance_data2$Quiz_4_score
+```{r}
+summary(remaining_data$Quiz_2_score)
+```
 
-covid1 = cleaned_sta302_performance_data2$COVID.hours..W1.
-covid2 = cleaned_sta302_performance_data2$COVID.hours..W2.
-covid3 = cleaned_sta302_performance_data2$COVID.hours..W3.
-covid4 = cleaned_sta302_performance_data2$COVID.hours..W4.
+```{r}
+summary(remaining_data$Quiz_3_score)
+```
 
-study1 = cleaned_sta302_performance_data2$STA302.hours..W1.
-study2 = cleaned_sta302_performance_data2$STA302.hours..W2.
-study3 = cleaned_sta302_performance_data2$STA302.hours..W3.
-study4 = cleaned_sta302_performance_data2$STA302.hours..W4.
+```{r}
+summary(remaining_data$Quiz_4_score)
+```
 
-country = cleaned_sta302_performance_data2$country
+\break
+
+```{r}
+remaining_data_no_NAs = na.omit(remaining_data)
+
+quiz1 = remaining_data_no_NAs$Quiz_1_score
+quiz2 = remaining_data_no_NAs$Quiz_2_score
+quiz3 = remaining_data_no_NAs$Quiz_3_score
+quiz4 = remaining_data_no_NAs$Quiz_4_score
+
+covid1 = remaining_data_no_NAs$COVID.hours..W1.
+covid2 = remaining_data_no_NAs$COVID.hours..W2.
+covid3 = remaining_data_no_NAs$COVID.hours..W3.
+covid4 = remaining_data_no_NAs$COVID.hours..W4.
+
+study1 = remaining_data_no_NAs$STA302.hours..W1.
+study2 = remaining_data_no_NAs$STA302.hours..W2.
+study3 = remaining_data_no_NAs$STA302.hours..W3.
+study4 = remaining_data_no_NAs$STA302.hours..W4.
+
+country = remaining_data_no_NAs$country
 ```
 
 ## Full Model (Without Splitting by Country)
@@ -705,19 +667,19 @@ display_residual_plot <- function(data, model, predictor_variable) {
 ## residual plot
 
 ```{r}
-display_residual_plot(cleaned_sta302_performance_data2, additive_model2, quiz3)
+display_residual_plot(remaining_data_no_NAs, additive_model2, quiz3)
 ```
 
 ```{r}
-display_residual_plot(cleaned_sta302_performance_data2, additive_model2, study1 * study2)
+display_residual_plot(remaining_data_no_NAs, additive_model2, study1 * study2)
 ```
 
 ```{r}
-display_residual_plot(cleaned_sta302_performance_data2, additive_model2, study2 * study3)
+display_residual_plot(remaining_data_no_NAs, additive_model2, study2 * study3)
 ```
 
 ```{r}
-display_residual_plot(cleaned_sta302_performance_data2, additive_model2, study3 * study4)
+display_residual_plot(remaining_data_no_NAs, additive_model2, study3 * study4)
 ```
 
 ## residual vs. fit, qqplot, scale-location, and residual vs. leverage
