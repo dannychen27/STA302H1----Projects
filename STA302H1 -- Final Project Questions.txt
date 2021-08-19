@@ -207,9 +207,9 @@ A33b:
 
 Q34: Is variable re-centering and variable transformations only for higher order models (e.g. quadratic models), since they involve reducing multi-collinearity?
 A34: it works for linear models too. Can interpret model from mean/median, and not 0.
-High degree of correlation is another reason.
+High degree of correlation is another reason???
 
-Q45: Should I just take the median/mean of quiz scores, STA302H1 study hours, and COVID19 contemplation time?
+Q45: Can I combine the quiz scores, STA302H1 study hours, and COVID19 contemplation time into its median/mean?
 A45: You don't have to.
 
 Q46: Is simplicity a strong reason to remove terms from model? For example, to pass all 4 conditions of linear assumption? 
@@ -234,16 +234,20 @@ Q57: How do I know if I have all predictor variables I need for my model?
 A57:
 - Constant variances = did you account for all predictor variables? did you miss any factors?
 - variables significant -> unexpected predictive variables?????
-- ttest, cis -> evaluate goodness of fit -> if tests are biased then CIs will be unstable
-- don't present ttests, look at cis to determine if variables are significant.
+- ttest, CIs -> evaluate goodness of fit -> if tests are biased then CIs will be unstable
+- don't present ttests, look at CIs to determine if variables are significant.
 
-- show point estimates, and ci
-- ci -> perform hypothesis tests -> level of significance
 
+Results: e.g., "This variable is/is not statistically significant at the 5% significance level."
+
+What I could do:
+- show point estimates, and CI
+- CI -> perform hypothesis tests -> level of significance
 - avoid t-values and p-values?
 
-- subjective -- one reader might deem one test significant ?
-- look at sample paper for structure cis and point estimates, and tables?
+How do you know which tests to do?
+- subjective -- one reader might deem certain tests more significant than others.
+- look at sample paper for structure CIs and point estimates, and tables?
 - no diagnostic plots in sample paper, don't determine what you need.
 
 LIMITATION: doing 100/0 instead of 50/50
@@ -252,12 +256,14 @@ LIMITATION: doing 100/0 instead of 50/50
 Take an observation not in dataset -> plug into model, see how it performs in particular regions?
 
 for goodness of model, what should we check about residual? the SSRes?
-- smallest MSRes across different models?
+- smallest MSResidual across different models?
 
 Q55: What's the difference between the intro section's "how you intend to develop the model" and the model development section's 
 "detailed discussion of the process used to come to the final model"?
 Is the main difference that the first one is about what you WOULD do, and the second one is what you actually did?
 A55: 
+
+- study hours increasing -- correlation matrix, but also summary statistics, histogram, and boxplots.
 
 Intro
 - what I'll do, don't state final model
@@ -271,13 +277,14 @@ A54: No, they must be consistent.
 Q50: In addition to raw R output, can the appendix also include other tables that might be helpful for analysis that aren't directly related to my model?
 A50:
 
-Q35: Do we have to separate description of descriptive variables in EDA and explanation of relationships in discussion section?
+Q35: Why do we have to separate description of all variables in EDA and explanation of relationships in discussion section?
 A35:
 
 Q44: Does "highlight certain characteristics of your variables that you deem important to mention" include any variables that I found to be significant or not?
 A44:
 
-Q37: Should I base my chosen model on the model selection criterion I used, or consider a full range of model selection criterion and compare which models each one favours? This might influence the length of my paper.
+Q37: Should I base my chosen model on the model selection criterion I used, or consider a full range of model selection criterion 
+and compare which models each one favours? This might influence the length of my paper.
 A37: double check with t-tests? R^2, adjusted R^2, C (maybe at least two other models) to see if you get the same model.
 
 Q39: In the conclusion section, does "predictions" mean saying things like "for every unit change in X, there is a y change in Y ... "?
