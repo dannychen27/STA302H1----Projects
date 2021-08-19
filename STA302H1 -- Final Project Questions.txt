@@ -198,9 +198,65 @@ You can use the lecture 6a notes to determine where your influential outliers ar
 Q32: What's the difference between the advanced outlier detection methods in Lecture 6a vs. The 1.5 IQR rules.
 A32: The 1.5 IQR rule only tells you whether a data point is an outlier without stating whether it's influential or not, and the advanced outlier detection methods in Lecture 6a tell you that given an outlier -> determine whether it's influential or not.
 
-Q33: Looking at the stepAIC output, how do I know which variables were pruned and which ones remain.
-A33: For each variable, compare its new AIC value to the start AIC value.
+Q33a: Looking at the stepAIC output, how do I know which variables were pruned and which ones remain.
+A33a: For each variable, compare its new AIC value to the start AIC value.
 - if new AIC value < old AIC value -> drop this variable (this model is better off without this variable)
 - if new AIC value > old AIC value -> keep this variable (discarding this variable makes the model worse off)
-- what if they're equal?
+
+Q33b (follow up to Q33a): What if the AICs are equal?
+A33b:
+
+Q34: Is variable re-centering and variable transformations only for higher order models (e.g. quadratic models), since they involve reducing multi-collinearity?
+A34:
+
+Q35: Do we have to separate description of descriptive variables in EDA and explanation of relationships in discussion section?
+A35:
+
+Q36: What other reasons are there to justify removing outliers, besides cook's distance model, and those metrics in Week 6a?
+A36:
+
+Q37: Should I base my chosen model on the model selection criterion I used, or consider a full range of model selection criterion and compare which models each one favours? This might influence the length of my paper.
+A37:
+
+Q38: How "in-depth" do the "in-depth diagnostics" have to be -- can they be brief, or do they involve lots of plots or statistical theory?
+A38: 
+
+Q39: In the conclusion section, does "predictions" means "for every unit change in X, there is a y change in Y"?
+A39: 
+
+Q40: Do "grade adjustments" count as an external factor?
+A40: 
+
+Q41: Do we have to talk about the generalizability of our model when explaining the use of the model in the real world?
+A41: 
+
+Q42: How in depth should the limitations section be? Just 3 - 4 major limitations. I've got plenty of good ones.
+A42:
+
+Q43: I'm having trouble rephrasing the purpose of collecting the data in the conclusion section.
+Do you have effective advice for how to rephrase the purpose of collecting the data?
+A43:
+
+Q44: Does "highlight certain characteristics of your variables that you deem important to mention" include any variables that I found to be significant or not?
+A44:
+
+Q45: Should I just take the median/mean of quiz scores, STA302H1 study hours, and COVID19 contemplation time?
+A45: You don't have to.
+
+Q46: Is simplicity a strong reason to remove terms from model? For example, to pass all 4 conditions of linear assumption? Or to make the model easier to interpret in the conclusion section? You even said yourself not to fish for desirable R^2 and adjusted R^2 values, and that simpler, clearer analyses can earn more marks.
+A46: 
+
+Q47: Can "detailed" mean "succinct"? I interpret "detailed" as a long analysis.
+A47:
+
+
+Q48: What is the purpose of the scale-location model?
+A48:
+
+Q49: Is "residuals vs. Leverage" for finding influential outliers? And the numbered points the influential outliers.
+A49:
+
+Q50: In addition to raw R output, can the appendix also include other tables that might be helpful for analysis that aren't directly related to my model?
+A50:
+
 
