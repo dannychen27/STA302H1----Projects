@@ -259,4 +259,7 @@ A49:
 Q50: In addition to raw R output, can the appendix also include other tables that might be helpful for analysis that aren't directly related to my model?
 A50:
 
+Q51: Hmmm... for the residual plots it seems to only let me put one predictor variable in at a time. Does that mean I have to create one residual plot for each predictor variable -- since it wouldn't make much sense to have multi-dimensional residual plots?
+A51:
+
 
