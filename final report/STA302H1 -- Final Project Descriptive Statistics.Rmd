@@ -600,6 +600,7 @@ country = remaining_data_no_NAs$country
 ## Full Model (Without Splitting by Country)
 
 ```{r}
+# single variable per term = additive model
 additive_model = lm(
   quiz4 ~ 
     quiz1  # scatterplot seems to have no relationship
