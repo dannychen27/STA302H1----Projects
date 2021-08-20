@@ -277,10 +277,10 @@ A54: No, they must be consistent.
 Q50: In addition to raw R output, can the appendix also include other tables that might be helpful for analysis that aren't directly related to my model?
 A50:
 
-Q35: Why do we have to separate description of all variables in EDA and explanation of relationships in discussion section?
+Q35: Is there a logical reason why we have to separate description of all variables in EDA and explanation of relationships in discussion section, besides the instructions saying so?
 A35:
 
-Q44: Does "highlight certain characteristics of your variables that you deem important to mention" include any variables that I found to be significant or not?
+Q44: Does "highlight certain characteristics of your variables that you deem important to mention" mean any variables that I found to be significant or not?
 A44:
 
 Q37: Should I base my chosen model on the model selection criterion I used, or consider a full range of model selection criterion 
@@ -299,10 +299,10 @@ A38:
 Q40: Do "grade adjustments" count as an external factor?
 A40: 
 
-Q41: Do we have to talk about the generalizability of our model when explaining the use of the model in the real world?
+Q41: Can we talk about the generalizability of our model when explaining the use of the model in the real world?
 A41: 
 
-Q42: How in depth should the limitations section be? Just 3 - 4 major limitations. I've got plenty of good ones.
+Q42: How in depth should the limitations section be? Just 3 - 4 major limitations? I've got plenty of good ones.
 A42:
 
 Q43: I'm having trouble rephrasing the purpose of collecting the data in the conclusion section.
@@ -321,7 +321,7 @@ A49:
 Q51: Hmmm... for the residual plots it seems to only let me put one predictor variable in at a time. Does that mean I have to create one residual plot for each predictor variable -- since it wouldn't make much sense to have multi-dimensional residual plots?
 A51:
 
-Q52: How do I check if a quadratic model is valid? Are there "quadratic model assumptions," or do I instead consider things like multi-collinearity issues, recentering issues and the boxcar transformation?
+Q52: How do I check if a quadratic model is valid? Are there "quadratic model assumptions," or do I instead consider things like multi-collinearity issues, recentering issues and the boxcox transformation?
 A52:
 
 Q53: Should I specify date ranges to weeks when the surveys take place?
