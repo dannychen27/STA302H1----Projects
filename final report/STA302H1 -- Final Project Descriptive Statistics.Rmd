@@ -28,7 +28,7 @@ attach(sta302_performance_data)
 First, I'll clean my data.
 
 ```{r}
-cleaned_sta302_performance_data <- sta302_performance_data %>%
+rearranged_data <- sta302_performance_data %>%
     # Create a new "country" column, which is just "Country" but whose entries are factors.
     mutate(country = as.factor(Country)) %>%
   
@@ -124,21 +124,11 @@ Some of the rows might only have 1 - 2 NAs and are therefore salvageable, which 
 Other rows may contain 3 or more NAs, and might indicate students who have dropped STA302H1. We'd like to exclude them from our analysis.
 
 ```{r echo = FALSE, warning = FALSE}
-rows_with_0_NAs = cleaned_sta302_performance_data[
-  rows_with_num_NAs(cleaned_sta302_performance_data, 0),
-]
-rows_with_1_NAs = cleaned_sta302_performance_data[
-  rows_with_num_NAs(cleaned_sta302_performance_data, 1),
-]
-rows_with_2_NAs = cleaned_sta302_performance_data[
-  rows_with_num_NAs(cleaned_sta302_performance_data, 2),
-]
-rows_with_3_NAs = cleaned_sta302_performance_data[
-  rows_with_num_NAs(cleaned_sta302_performance_data, 3),
-]
-rows_with_4_NAs = cleaned_sta302_performance_data[
-  rows_with_num_NAs(cleaned_sta302_performance_data, 4),
-]
+rows_with_0_NAs = rearranged_data[rows_with_num_NAs(rearranged_data, 0),]
+rows_with_1_NAs = rearranged_data[rows_with_num_NAs(rearranged_data, 1),]
+rows_with_2_NAs = rearranged_data[rows_with_num_NAs(rearranged_data, 2),]
+rows_with_3_NAs = rearranged_data[rows_with_num_NAs(rearranged_data, 3),]
+rows_with_4_NAs = rearranged_data[rows_with_num_NAs(rearranged_data, 4),]
 ```
 
 Here are the number of rows with 0 - 4 NAs.
@@ -156,76 +146,65 @@ data.frame(
 <!-- We also want to know which row numbers have 0 - 4 NAs. -->
 
 ```{r echo = FALSE}
-# row_nums_of_NA_rows(cleaned_sta302_performance_data, 0)
+# row_nums_of_NA_rows(rearranged_data, 0)
 ```
 
 ```{r echo = FALSE}
-# row_nums_of_NA_rows(cleaned_sta302_performance_data, 1)
+# row_nums_of_NA_rows(rearranged_data, 1)
 ```
 
 ```{r echo = FALSE}
-# row_nums_of_NA_rows(cleaned_sta302_performance_data, 2)
+# row_nums_of_NA_rows(rearranged_data, 2)
 ```
 
 ```{r echo = FALSE}
-# row_nums_of_NA_rows(cleaned_sta302_performance_data, 3)
+# row_nums_of_NA_rows(rearranged_data, 3)
 ```
 
 ```{r echo = FALSE}
-# row_nums_of_NA_rows(cleaned_sta302_performance_data, 4)
+# row_nums_of_NA_rows(rearranged_data, 4)
 ```
 
 ## Columns with NAs
 
 ```{R echo = FALSE}
-perform_data = cleaned_sta302_performance_data
 data.frame(
-  week1_covid = num_column_NAs(perform_data$COVID.hours..W1.),
-  week2_covid = num_column_NAs(perform_data$COVID.hours..W2.),
-  week3_covid = num_column_NAs(perform_data$COVID.hours..W3.),
-  week4_covid = num_column_NAs(perform_data$COVID.hours..W4.)
+  week1_covid = num_column_NAs(rearranged_data$COVID.hours..W1.),
+  week2_covid = num_column_NAs(rearranged_data$COVID.hours..W2.),
+  week3_covid = num_column_NAs(rearranged_data$COVID.hours..W3.),
+  week4_covid = num_column_NAs(rearranged_data$COVID.hours..W4.)
 )
 ```
 
 ```{R echo = FALSE}
 data.frame(
-  week1_sta302 = num_column_NAs(perform_data$STA302.hours..W1.),
-  week2_sta302 = num_column_NAs(perform_data$STA302.hours..W2.),
-  week3_sta302 = num_column_NAs(perform_data$STA302.hours..W3.),
-  week4_sta302 = num_column_NAs(perform_data$STA302.hours..W4.)
+  week1_sta302 = num_column_NAs(rearranged_data$STA302.hours..W1.),
+  week2_sta302 = num_column_NAs(rearranged_data$STA302.hours..W2.),
+  week3_sta302 = num_column_NAs(rearranged_data$STA302.hours..W3.),
+  week4_sta302 = num_column_NAs(rearranged_data$STA302.hours..W4.)
 )
 ```
 
 ```{R echo = FALSE}
 data.frame(
-  quiz1_score = num_column_NAs(perform_data$Quiz_1_score),
-  quiz2_score = num_column_NAs(perform_data$Quiz_2_score),
-  quiz3_score = num_column_NAs(perform_data$Quiz_3_score),
-  quiz4_score = num_column_NAs(perform_data$Quiz_4_score)
+  quiz1_score = num_column_NAs(rearranged_data$Quiz_1_score),
+  quiz2_score = num_column_NAs(rearranged_data$Quiz_2_score),
+  quiz3_score = num_column_NAs(rearranged_data$Quiz_3_score),
+  quiz4_score = num_column_NAs(rearranged_data$Quiz_4_score)
 )
 ```
 
 ```{r echo = FALSE, warning = FALSE}
-quiz_grades <- cleaned_sta302_performance_data %>%
+quiz_grades <- rearranged_data %>%
   dplyr::select(Quiz_1_score, Quiz_2_score, Quiz_3_score, Quiz_4_score)
 ```
 
 ```{r echo = FALSE, warning = FALSE}
-missed_0_quizzes = quiz_grades[
-  rows_with_num_NAs(quiz_grades, 0),
-]
-missed_1_quizzes = quiz_grades[
-  rows_with_num_NAs(quiz_grades, 1),
-]
-missed_2_quizzes = quiz_grades[
-  rows_with_num_NAs(quiz_grades, 2),
-]
-missed_3_quizzes = quiz_grades[
-  rows_with_num_NAs(quiz_grades, 3),
-]
-missed_4_quizzes = quiz_grades[
-  rows_with_num_NAs(quiz_grades, 4),
-]
+missed_0_quizzes = quiz_grades[rows_with_num_NAs(quiz_grades, 0),]
+missed_1_quizzes = quiz_grades[rows_with_num_NAs(quiz_grades, 1),]
+missed_2_quizzes = quiz_grades[rows_with_num_NAs(quiz_grades, 2),]
+missed_3_quizzes = quiz_grades[rows_with_num_NAs(quiz_grades, 3),]
+missed_4_quizzes = quiz_grades[rows_with_num_NAs(quiz_grades, 4),]
 ```
 
 ## Number of Missed Quizzes
@@ -270,8 +249,7 @@ Notice that we didn't check the number of NAs for country of origin, COVID hours
 
 ```{r}
 row_nums_to_exclude <- get_row_nums_to_exclude(quiz_grades)
-cleaned_sta302_performance_data2 = 
-  cleaned_sta302_performance_data[-row_nums_to_exclude,]
+remaining_data = rearranged_data[-row_nums_to_exclude,]
 ```
 
 \break
@@ -281,7 +259,7 @@ cleaned_sta302_performance_data2 =
 Rows whose columns are mis-typed may need to be corrected via imputation.
 
 ```{R}
-rows_with_mistyped_columms = cleaned_sta302_performance_data2[c(38, 83, 84, 117),]
+rows_with_mistyped_columms = remaining_data[c(38, 83, 84, 117),]
 # row 83: Country -> "canada" -- DONE
 # row 84: Country -> "canada" -- DONE
 
@@ -302,7 +280,7 @@ Taking out the country column can come in handy for functions like cor() where
 factors aren't allowed.
 
 ```{r}
-rows_with_no_country = cleaned_sta302_performance_data2 %>%
+rows_with_no_country = remaining_data %>%
   dplyr::select(-country)
 ```
 
@@ -312,53 +290,53 @@ This is useful if we want data for individual countries. \newline
 Only the first and last code snippets are shown.
 
 ```{r}
-canada <- cleaned_sta302_performance_data2 %>%
+canada <- remaining_data %>%
   filter(as.character(country) == "Canada") %>%
   dplyr::select(-country)
 
-unknown <- cleaned_sta302_performance_data2 %>%
+unknown <- remaining_data %>%
   filter(is.na(as.character(country))) %>%
   dplyr::select(-country)
 ```
 
 ```{r echo = FALSE}
-china <- cleaned_sta302_performance_data2 %>%
+china <- remaining_data %>%
   filter(as.character(country) == "China") %>%
   dplyr::select(-country)
 
-india <- cleaned_sta302_performance_data2 %>%
+india <- remaining_data %>%
   filter(as.character(country) == "India") %>%
   dplyr::select(-country)
 
-japan <- cleaned_sta302_performance_data2 %>%
+japan <- remaining_data %>%
   filter(as.character(country) == "Japan") %>%
   dplyr::select(-country)
 
-mongolia <- cleaned_sta302_performance_data2 %>%
+mongolia <- remaining_data %>%
   filter(as.character(country) == "Mongolia") %>%
   dplyr::select(-country)
 
-pakistan <- cleaned_sta302_performance_data2 %>%
+pakistan <- remaining_data %>%
   filter(as.character(country) == "Pakistan") %>%
   dplyr::select(-country)
 
-singapore <- cleaned_sta302_performance_data2 %>%
+singapore <- remaining_data %>%
   filter(as.character(country) == "Singapore") %>%
   dplyr::select(-country)
 
-south_korea <- cleaned_sta302_performance_data2 %>%
+south_korea <- remaining_data %>%
   filter(as.character(country) == "South Korea") %>%
   dplyr::select(-country)
 
-taiwan <- cleaned_sta302_performance_data2 %>%
+taiwan <- remaining_data %>%
   filter(as.character(country) == "Taiwan") %>%
   dplyr::select(-country)
 
-uae <- cleaned_sta302_performance_data2 %>%
+uae <- remaining_data %>%
   filter(as.character(country) == "UAE") %>%
   dplyr::select(-country)
 
-usa <- cleaned_sta302_performance_data2 %>%
+usa <- remaining_data %>%
   filter(as.character(country) == "USA") %>%
   dplyr::select(-country)
 ```
@@ -385,14 +363,13 @@ t(countries)
 \break
 
 ```{r echo = FALSE, warning = FALSE}
-display_boxplot(cleaned_sta302_performance_data2, COVID.hours..W1.,
+display_boxplot(remaining_data, COVID.hours..W1.,
                 "Country vs. Week 1 Time Spent Thinking About COVID-19",
                 "Time Spent Thinking About COVID-19 (hours)")
 ```
 
 ```{r echo = FALSE, warning = FALSE}
-display_histogram(cleaned_sta302_performance_data2, 
-                  cleaned_sta302_performance_data2$COVID.hours..W1., 
+display_histogram(remaining_data, remaining_data$COVID.hours..W1., 
                   "Histogram of Week 1 Time Spent Thinking About COVID-19",
                   "Time Spent Thinking About COVID-19 (hours)")
 ```
@@ -400,14 +377,13 @@ display_histogram(cleaned_sta302_performance_data2,
 \break
 
 ```{R echo = FALSE, warning = FALSE}
-display_boxplot(cleaned_sta302_performance_data2, COVID.hours..W2.,
+display_boxplot(remaining_data, COVID.hours..W2.,
                 "Country vs. Week 2 Time Spent Thinking About COVID-19",
                 "Time Spent Thinking About COVID-19 (hours)")
 ```
 
 ```{r echo = FALSE, warning = FALSE}
-display_histogram(cleaned_sta302_performance_data2, 
-                  cleaned_sta302_performance_data2$COVID.hours..W2., 
+display_histogram(remaining_data, remaining_data$COVID.hours..W2., 
                   "Histogram of Week 2 Time Spent Thinking About COVID-19",
                   "Time Spent Thinking About COVID-19 (hours)")
 ```
@@ -415,14 +391,13 @@ display_histogram(cleaned_sta302_performance_data2,
 \break
 
 ```{R echo = FALSE, warning = FALSE}
-display_boxplot(cleaned_sta302_performance_data2, COVID.hours..W3.,
+display_boxplot(remaining_data, COVID.hours..W3.,
                 "Country vs. Week 3 Time Spent Thinking About COVID-19",
                 "Time Spent Thinking About COVID-19 (hours)")
 ```
 
 ```{r echo = FALSE, warning = FALSE}
-display_histogram(cleaned_sta302_performance_data2, 
-                  cleaned_sta302_performance_data2$COVID.hours..W3., 
+display_histogram(remaining_data, remaining_data$COVID.hours..W3., 
                   "Histogram of Week 3 Time Spent Thinking About COVID-19",
                   "Time Spent Thinking About COVID-19 (hours)")
 ```
@@ -430,14 +405,13 @@ display_histogram(cleaned_sta302_performance_data2,
 \break
 
 ```{R echo = FALSE, warning = FALSE}
-display_boxplot(cleaned_sta302_performance_data2, COVID.hours..W4.,
+display_boxplot(remaining_data, COVID.hours..W4.,
                 "Country vs. Week 4 Time Spent Thinking About COVID-19",
                 "Time Spent Thinking About COVID-19 (hours)")
 ```
 
 ```{r echo = FALSE, warning = FALSE}
-display_histogram(cleaned_sta302_performance_data2, 
-                  cleaned_sta302_performance_data2$COVID.hours..W4., 
+display_histogram(remaining_data, remaining_data$COVID.hours..W4., 
                   "Histogram of Week 4 Time Spent Thinking About COVID-19",
                   "Time Spent Thinking About COVID-19 (hours)")
 ```
@@ -445,14 +419,13 @@ display_histogram(cleaned_sta302_performance_data2,
 \break
 
 ```{R echo = FALSE, warning = FALSE}
-display_boxplot(cleaned_sta302_performance_data2, STA302.hours..W1.,
+display_boxplot(remaining_data, STA302.hours..W1.,
                 "Country vs. Week 1 Time Spent Studying For STA302H1",
                 "Time Spent Studying For STA302H1 (hours)")
 ```
 
 ```{r echo = FALSE, warning = FALSE}
-display_histogram(cleaned_sta302_performance_data2, 
-                  cleaned_sta302_performance_data2$STA302.hours..W1., 
+display_histogram(remaining_data, remaining_data$STA302.hours..W1., 
                   "Histogram of Week 1 Time Spent Studying for STA302H1",
                   "Time Spent Studying for STA302H1 (hours)")
 ```
@@ -460,14 +433,13 @@ display_histogram(cleaned_sta302_performance_data2,
 \break
 
 ```{R echo = FALSE, warning = FALSE}
-display_boxplot(cleaned_sta302_performance_data2, STA302.hours..W2.,
+display_boxplot(remaining_data, STA302.hours..W2.,
                 "Country vs. Week 2 Time Spent Studying For STA302H1",
                 "Time Spent Studying For STA302H1 (hours)")
 ```
 
 ```{r echo = FALSE, warning = FALSE}
-display_histogram(cleaned_sta302_performance_data2, 
-                  cleaned_sta302_performance_data2$STA302.hours..W2., 
+display_histogram(remaining_data, remaining_data$STA302.hours..W2., 
                   "Histogram of Week 2 Time Spent Studying for STA302H1",
                   "Time Spent Studying for STA302H1 (hours)")
 ```
@@ -475,14 +447,13 @@ display_histogram(cleaned_sta302_performance_data2,
 \break
 
 ```{R echo = FALSE, warning = FALSE}
-display_boxplot(cleaned_sta302_performance_data2, STA302.hours..W3.,
+display_boxplot(remaining_data, STA302.hours..W3.,
                 "Country vs. Week 3 Time Spent Studying For STA302H1",
                 "Time Spent Studying For STA302H1 (hours)")
 ```
 
 ```{r echo = FALSE, warning = FALSE}
-display_histogram(cleaned_sta302_performance_data2, 
-                  cleaned_sta302_performance_data2$STA302.hours..W3., 
+display_histogram(remaining_data, remaining_data$STA302.hours..W3., 
                   "Histogram of Week 3 Time Spent Studying for STA302H1",
                   "Time Spent Studying for STA302H1 (hours)")
 ```
@@ -490,14 +461,13 @@ display_histogram(cleaned_sta302_performance_data2,
 \break
 
 ```{R echo = FALSE, warning = FALSE}
-display_boxplot(cleaned_sta302_performance_data2, STA302.hours..W4.,
+display_boxplot(remaining_data, STA302.hours..W4.,
                 "Country vs. Week 4 Time Spent Studying For STA302H1",
                 "Time Spent Studying For STA302H1 (hours)")
 ```
 
 ```{r echo = FALSE, warning = FALSE}
-display_histogram(cleaned_sta302_performance_data2, 
-                  cleaned_sta302_performance_data2$STA302.hours..W4., 
+display_histogram(remaining_data, remaining_data$STA302.hours..W4., 
                   "Histogram of Week 4 Time Spent Studying for STA302H1",
                   "Time Spent Studying for STA302H1 (hours)")
 ```
@@ -505,57 +475,49 @@ display_histogram(cleaned_sta302_performance_data2,
 \break
 
 ```{R echo = FALSE, warning = FALSE}
-display_boxplot(cleaned_sta302_performance_data2, Quiz_1_score,
+display_boxplot(remaining_data, Quiz_1_score,
                 "Country vs. Quiz 1 Score", "Score (out of 10)")
 ```
 
 ```{r echo = FALSE, warning = FALSE}
-display_histogram(cleaned_sta302_performance_data2, 
-                  cleaned_sta302_performance_data2$Quiz_1_score, 
-                  "Histogram of Quiz 1 Scores",
-                  "Quiz Score (out of 10)")
+display_histogram(remaining_data, remaining_data$Quiz_1_score, 
+                  "Histogram of Quiz 1 Scores", "Quiz Score (out of 10)")
 ```
 
 \break
 
 ```{R echo = FALSE, warning = FALSE}
-display_boxplot(cleaned_sta302_performance_data2, Quiz_2_score,
+display_boxplot(remaining_data, Quiz_2_score,
                 "Country vs. Quiz 2 Score", "Score (out of 10)")
 ```
 
 ```{r echo = FALSE, warning = FALSE}
-display_histogram(cleaned_sta302_performance_data2, 
-                  cleaned_sta302_performance_data2$Quiz_2_score, 
-                  "Histogram of Quiz 2 Scores",
-                  "Quiz Score (out of 10)")
+display_histogram(remaining_data, remaining_data$Quiz_2_score, 
+                  "Histogram of Quiz 2 Scores", "Quiz Score (out of 10)")
 ```
 
 \break
 
 ```{R echo = FALSE, warning = FALSE}
-display_boxplot(cleaned_sta302_performance_data2, Quiz_3_score,
+display_boxplot(remaining_data, Quiz_3_score,
                 "Country vs. Quiz 3 Score", "Score (out of 10)")
 ```
 
 ```{r echo = FALSE, warning = FALSE}
-display_histogram(cleaned_sta302_performance_data2, 
-                  cleaned_sta302_performance_data2$Quiz_3_score, 
-                  "Histogram of Quiz 3 Scores",
-                  "Quiz Score (out of 10)")
+display_histogram(remaining_data, remaining_data$Quiz_3_score, 
+                  "Histogram of Quiz 3 Scores", "Quiz Score (out of 10)")
 ```
 
 \break
 
 ```{R echo = FALSE, warning = FALSE}
-display_boxplot(cleaned_sta302_performance_data2, Quiz_4_score,
+display_boxplot(remaining_data, Quiz_4_score,
                 "Country vs. Quiz 4 Score", "Score (out of 10)")
 ```
 
 ```{r echo = FALSE, warning = FALSE}
-display_histogram(cleaned_sta302_performance_data2, 
-                  cleaned_sta302_performance_data2$Quiz_4_score, 
-                  "Histogram of Quiz 4 Scores",
-                  "Quiz Score (out of 10)")
+display_histogram(remaining_data, remaining_data$Quiz_4_score, 
+                  "Histogram of Quiz 4 Scores", "Quiz Score (out of 10)")
 ```
 
 \break
@@ -563,339 +525,315 @@ display_histogram(cleaned_sta302_performance_data2,
 # 5-Number Summary Statistics
 
 ```{r}
-summary(cleaned_sta302_performance_data2$COVID.hours..W1.)
+summary(remaining_data$COVID.hours..W1.)
 ```
 
 ```{r}
-summary(cleaned_sta302_performance_data2$COVID.hours..W2.)
+summary(remaining_data$COVID.hours..W2.)
 ```
 
 ```{r}
-summary(cleaned_sta302_performance_data2$COVID.hours..W3.)
+summary(remaining_data$COVID.hours..W3.)
 ```
 
 ```{r}
-summary(cleaned_sta302_performance_data2$COVID.hours..W4.)
+summary(remaining_data$COVID.hours..W4.)
 ```
 
 ```{r}
-summary(cleaned_sta302_performance_data2$STA302.hours..W1.)
+summary(remaining_data$STA302.hours..W1.)
 ```
 
 ```{r}
-summary(cleaned_sta302_performance_data2$STA302.hours..W2.)
+summary(remaining_data$STA302.hours..W2.)
 ```
 
 ```{r}
-summary(cleaned_sta302_performance_data2$STA302.hours..W3.)
+summary(remaining_data$STA302.hours..W3.)
 ```
 
 ```{r}
-summary(cleaned_sta302_performance_data2$STA302.hours..W4.)
+summary(remaining_data$STA302.hours..W4.)
 ```
 
 \break
 
 ```{r}
-summary(cleaned_sta302_performance_data2$Quiz_1_score)
+summary(remaining_data$Quiz_1_score)
 ```
 
 ```{r}
-summary(cleaned_sta302_performance_data2$Quiz_2_score)
+summary(remaining_data$Quiz_2_score)
 ```
 
 ```{r}
-summary(cleaned_sta302_performance_data2$Quiz_3_score)
+summary(remaining_data$Quiz_3_score)
 ```
 
 ```{r}
-summary(cleaned_sta302_performance_data2$Quiz_4_score)
+summary(remaining_data$Quiz_4_score)
 ```
 
 \break
-
-# Scatterplots
-
-## Comprehensive pairwise scatterplot
 
 ```{r}
-pairs(~COVID.hours..W1. + COVID.hours..W2. + COVID.hours..W3. + COVID.hours..W4. +
-      STA302.hours..W1. + STA302.hours..W2. + STA302.hours..W3. + STA302.hours..W4. +
-      Quiz_1_score + Quiz_2_score + Quiz_3_score + Quiz_4_score,
-      data = cleaned_sta302_performance_data2, lower.panel = NULL)
-## GGally
-# ggpairs -- removes bottom half of pairs plot
-# ggpairs(data = cleaned_sta302_performance_data2)
+remaining_data_no_NAs = na.omit(remaining_data)
+
+quiz1 = remaining_data_no_NAs$Quiz_1_score
+quiz2 = remaining_data_no_NAs$Quiz_2_score
+quiz3 = remaining_data_no_NAs$Quiz_3_score
+quiz4 = remaining_data_no_NAs$Quiz_4_score
+
+covid1 = remaining_data_no_NAs$COVID.hours..W1.
+covid2 = remaining_data_no_NAs$COVID.hours..W2.
+covid3 = remaining_data_no_NAs$COVID.hours..W3.
+covid4 = remaining_data_no_NAs$COVID.hours..W4.
+
+study1 = remaining_data_no_NAs$STA302.hours..W1.
+study2 = remaining_data_no_NAs$STA302.hours..W2.
+study3 = remaining_data_no_NAs$STA302.hours..W3.
+study4 = remaining_data_no_NAs$STA302.hours..W4.
+
+country = remaining_data_no_NAs$country
 ```
 
-\break
+## Full Model (Without Splitting by Country)
 
-## Slightly Zoomed In Pairwise Scatterplots
-
-We can zoom in a bit by creating 3 - 4 pairs() functions:
-
-- quiz4 ~ quiz 1, 2, 3
-- quiz4 ~ covid 1, 2, 3, 4
-- quiz4 ~ sta302h1 1, 2, 3, 4
-
-```{R echo = FALSE, warning = FALSE}
-pairs(~Quiz_4_score + Quiz_1_score + Quiz_2_score 
-      + Quiz_3_score, lower.panel = NULL)
+```{r}
+# single variable per term = additive model
+additive_model = lm(
+  quiz4 ~ 
+    quiz1  # scatterplot seems to have no relationship
+  + quiz2  # scatterplot seems to have no relationship
+  + quiz3  # scatterplot looks more linear
+  + covid1 # must add this linear term b/c i have a quadratic term 
+  + I(covid1 ^ 2)  # scatterplot looks more quadratic
+  + covid2 # must add this linear term b/c i have a quadratic term 
+  + I(covid2 ^ 2)  # scatterplot looks more quadratic
+  + covid3
+  # + I(covid3 ^ 2) # scatterplot looks less quadratic
+  + covid4  # must add this linear term b/c i have a quadratic term 
+  + I(covid4 ^ 2) # scatterplot looks more quadratic
+  
+  + I(covid1 * covid2) # first impressions from correlation matrix
+  + I(covid2 * covid3) # correlation = 0.67
+  + I(covid2 * covid4) # discard: correlation = 0.71
+  + I(covid3 * covid4) # correlation = 0.72
+  
+  + I(study1 * study2)  # correlation = 0.61
+  + I(study1 * study3)  # correlation = 0.58
+  + I(study2 * study3)  # correlation = 0.70
+  + I(study3 * study4)  # correlation = 0.62
+  
+  + country  # for simplicity, but backwards process shows this term is not significant
+)
+summary(additive_model)
 ```
 
-```{r echo = FALSE, warning = FALSE}
-pairs(~Quiz_4_score + COVID.hours..W1. + COVID.hours..W2. 
-      + COVID.hours..W3. + COVID.hours..W4., lower.panel = NULL)
+```{r}
+stepAIC(additive_model, direction = "both")$anova
 ```
 
-```{r echo = FALSE, warning = FALSE}
-pairs(~Quiz_4_score + STA302.hours..W1. + STA302.hours..W2. 
-      + STA302.hours..W3. + STA302.hours..W4., lower.panel = NULL)
+```{r}
+# I decide to remove more terms for simplicity.
+additive_model2 = lm(
+quiz4 ~ quiz3 
+  # + I(covid1 ^ 2)  # this lone quadratic term add a lot of complexity for negligible change in R^2 and adjusted R^2.
+  # + I(covid1 * covid2) + I(covid2 * covid3) # these terms alone add complexity -- harder to interpret the statement when discussing 2-week or 3-week gaps between covid weeks of interest # TODO: does it affect significance?
+
+  + I(study1 * study2) 
+# + I(study1 * study3)  # make weeks consecutive: "want to see correlation from week to week", rather than non-consecutive weeks.
+  + I(study2 * study3) 
+  + I(study3 * study4)
+)
+summary(additive_model2)
 ```
 
-\break
-
-## Top 4 - 5 Interesting Scatterplots
-
-On page 28 "Correlation Matrix," when I look at the row labelled "Q4" (Quiz 4), I obtained the top 4 - 5 predictor variables based on their correlation:
-
-- Quiz 3 Score ($R = 0.55$), significant
-- Quiz 1 Score ($R = 0.29$), significant
-- Quiz 2 Score ($R = 0.19$), moderately significant
-- Week 2 STA302H1 Hours ($R = -0.11$), not significant at all
-- Week 3 COVID Hours ($R = -0.09$), not significant at all
-
-Here are all of their scatterplots, linear regressions, and p-values.
-
-```{R warning = FALSE}
-ggplot(data = cleaned_sta302_performance_data2, mapping = aes(x = COVID.hours..W3., y = Quiz_4_score)) +
-  geom_point() +
-  geom_smooth(method = "lm", col = "red", formula = y ~ x)
-summary(lm(formula = Quiz_4_score ~ COVID.hours..W3.))$coefficients
+```{r}
+# Doing stepAIC on a well-fitted model produces the same model.
+# The model is already in a "steady state."
+stepAIC(additive_model2, direction = "both")$anova
 ```
 
-\break
-
-```{R warning = FALSE}
-ggplot(data = cleaned_sta302_performance_data2, mapping = aes(x = STA302.hours..W2., y = Quiz_4_score)) +
-  geom_point() +
-  geom_smooth(method = "lm", col = "red", formula = y ~ x)
-summary(lm(formula = Quiz_4_score ~ STA302.hours..W2.))$coefficients
+```{r}
+display_residual_plot <- function(data, model, predictor_variable) {
+  fit = fitted(model)
+  residuals = resid(model)
+  ggplot(data = data, aes(x = predictor_variable, y = residuals)) +
+    geom_point() + 
+    geom_hline(yintercept = 0)
+}
 ```
 
-\break
+## residual plot
 
-```{r warning = FALSE}
-ggplot(data = cleaned_sta302_performance_data2, mapping = aes(x = Quiz_1_score, y = Quiz_4_score)) +
-  geom_point() +
-  geom_smooth(method = "lm", col = "red", formula = y ~ x)
-summary(lm(formula = Quiz_4_score ~ Quiz_1_score))$coefficients
+```{r}
+display_residual_plot(remaining_data_no_NAs, additive_model2, quiz3)
 ```
 
-\break
-
-```{r warning = FALSE}
-ggplot(data = cleaned_sta302_performance_data2, mapping = aes(x = Quiz_2_score, y = Quiz_4_score)) +
-  geom_point() +
-  geom_smooth(method = "lm", col = "red", formula = y ~ x)
-summary(lm(formula = Quiz_4_score ~ Quiz_2_score))$coefficients
+```{r}
+display_residual_plot(remaining_data_no_NAs, additive_model2, study1 * study2)
 ```
 
-\break
-
-```{r warning = FALSE}
-ggplot(data = cleaned_sta302_performance_data2, mapping = aes(x = Quiz_3_score, y = Quiz_4_score)) +
-  geom_point() +
-  geom_smooth(method = "lm", col = "red", formula = y ~ x)
-summary(lm(formula = Quiz_4_score ~ Quiz_3_score))$coefficients
+```{r}
+display_residual_plot(remaining_data_no_NAs, additive_model2, study2 * study3)
 ```
 
-I'll back up my choices with their correlations (R value).
-
-\break
-
-# Correlation Matrix
-
-## All Countries
-
-We can find the correlation matrix to determine candidate significant predictor values.
-
-```{r echo = FALSE, message = FALSE, warning = FALSE}
-colnames(rows_with_no_country) <- c("W1COV", "W2COV", "W3COV", "W4COV", 
-                          "W1302", "W2302", "W3302", "W4302", 
-                          "Q1", "Q2", "Q3", "Q4")
-# ggcorr(rows_with_no_country, label = TRUE, label_round = 2)
-round(cor(rows_with_no_country, use = "pairwise.complete.obs", method = "pearson"), 2)
+```{r}
+display_residual_plot(remaining_data_no_NAs, additive_model2, study3 * study4)
 ```
 
-\break
+## residual vs. fit, qqplot, scale-location, and residual vs. leverage
 
-## By Individual Country
-
-We could also create separate correlation matrices for each country.
-
-```{r warning = FALSE}
-display_correlation_by_country(canada)
+```{r}
+plot(additive_model2)
 ```
 
-```{r warning = FALSE}
-display_correlation_by_country(china)
+## Try Predicting on the Fitted Values
+
+```{r}
+predicted_values = predict(additive_model2)
+predicted_values
 ```
 
-```{r echo = FALSE}
-other = dplyr::union(india, japan)
-other = dplyr::union(other, mongolia)
-other = dplyr::union(other, pakistan)
-other = dplyr::union(other, singapore)
-other = dplyr::union(other, south_korea)
-other = dplyr::union(other, taiwan)
-other = dplyr::union(other, uae)
-other = dplyr::union(other, unknown)
-other = dplyr::union(other, usa)
+```{r}
+actual_values = remaining_data_no_NAs$Quiz_4_score
+actual_values
 ```
+
+```{r}
+predicted_values - actual_values
+```
+
+```{r}
+mean(predicted_values - actual_values)
+```
+
+```{r}
+median(predicted_values - actual_values)
+```
+
+```{r}
+hist(predicted_values - actual_values)
+```
+
+```{r}
+t.test(predicted_values - actual_values)
+```
+
+## 50/50 Training/Testing
+
+## partitioning
+
+```{r}
+# https://stackoverflow.com/questions/17200114/how-to-split-data-into-training-testing-sets-using-sample-function
+
+set.seed(888)
+library(caTools)
+sample = sample.split(remaining_data_no_NAs, SplitRatio = 0.55)
+training_data = subset(remaining_data_no_NAs, sample == TRUE)
+testing_data  = subset(remaining_data_no_NAs, sample == FALSE)
+```
+
+## training
+
+```{r}
+training_data_no_NAs = na.omit(training_data)
+
+quiz1 = training_data_no_NAs$Quiz_1_score
+quiz2 = training_data_no_NAs$Quiz_2_score
+quiz3 = training_data_no_NAs$Quiz_3_score
+quiz4 = training_data_no_NAs$Quiz_4_score
+
+covid1 = training_data_no_NAs$COVID.hours..W1.
+covid2 = training_data_no_NAs$COVID.hours..W2.
+covid3 = training_data_no_NAs$COVID.hours..W3.
+covid4 = training_data_no_NAs$COVID.hours..W4.
+
+study1 = training_data_no_NAs$STA302.hours..W1.
+study2 = training_data_no_NAs$STA302.hours..W2.
+study3 = training_data_no_NAs$STA302.hours..W3.
+study4 = training_data_no_NAs$STA302.hours..W4.
+
+country = training_data_no_NAs$country
+```
+
+```{r}
+additive_model2 = lm(
+quiz4 ~ quiz3
+  # + I(covid1 * covid2)
+  # + I(covid2 * covid3) 
+  # + I(covid3 * covid4)
+
+  + I(study1 * study2)
+  + I(study2 * study3) 
+  + I(study3 * study4)
+)
+summary(additive_model2)
+```
+
+# testing
+
+```{r}
+testing_data_no_NAs = na.omit(testing_data)
+
+quiz1 = testing_data_no_NAs$Quiz_1_score
+quiz2 = testing_data_no_NAs$Quiz_2_score
+quiz3 = testing_data_no_NAs$Quiz_3_score
+quiz4 = testing_data_no_NAs$Quiz_4_score
+
+covid1 = testing_data_no_NAs$COVID.hours..W1.
+covid2 = testing_data_no_NAs$COVID.hours..W2.
+covid3 = testing_data_no_NAs$COVID.hours..W3.
+covid4 = testing_data_no_NAs$COVID.hours..W4.
+
+study1 = testing_data_no_NAs$STA302.hours..W1.
+study2 = testing_data_no_NAs$STA302.hours..W2.
+study3 = testing_data_no_NAs$STA302.hours..W3.
+study4 = testing_data_no_NAs$STA302.hours..W4.
+
+country = testing_data_no_NAs$country
+```
+
+```{r}
+predicted_values = predict(additive_model2, testing_data_no_NAs)
+predicted_values
+```
+
+```{r}
+actual_values = testing_data$Quiz_4_score
+actual_values
+```
+
+```{r}
+predicted_values - actual_values
+```
+
+```{r}
+mean(predicted_values - actual_values)
+```
+
+```{r}
+median(predicted_values - actual_values)
+```
+
+```{r}
+hist(predicted_values - actual_values)
+```
+
+# one-sample t-test on mean
+
+hypothesized mean = 0
+
+- n = 77, so by CLT sample mean is approximately normal
+
+is -0.427222 statistically different from 0?
+the p-value should be small.
 
 ```{R}
-display_correlation_by_country(other)
+t.test(predicted_values - actual_values)
 ```
 
-\break
+p-value = 0.7938
+t = -0.26242
 
-# Select Predictor Variables Based on Criterion
-
-Here are our tentative models:
-
-- quiz4 ~ quiz 1, 2, 3 grades (out of 10)
-- quiz4 ~ weeks 1, 2, 3, 4 covid19 hours
-- quiz4 ~ weeks 1, 2, 3, 4 sta302h1 hours
-
-```{r echo = FALSE}
-final_data = na.omit(cleaned_sta302_performance_data2)
-quiz1 = final_data$Quiz_1_score
-quiz2 = final_data$Quiz_2_score
-quiz3 = final_data$Quiz_3_score
-quiz4 = final_data$Quiz_4_score
-
-study1 = final_data$STA302.hours..W1.
-study2 = final_data$STA302.hours..W2.
-study3 = final_data$STA302.hours..W3.
-study4 = final_data$STA302.hours..W4.
-
-covid1 = final_data$COVID.hours..W1.
-covid2 = final_data$COVID.hours..W2.
-covid3 = final_data$COVID.hours..W3.
-covid4 = final_data$COVID.hours..W4.
-```
-
-This R code snippet below produces the model quiz4 = quiz3. 
-This model seems to under-fit though.
-
-```{r eval = FALSE}
-quiz_grades.fit = lm(quiz4 ~ quiz1 + quiz2 + quiz3)
-step = stepAIC(quiz_grades.fit, direction = "both")
-step$anova
-```
-
-This R code snippet below produces the model 
-
-quiz4 = quiz1 + I(quiz2 ^ 2) + I(quiz3 ^ 2) + I(quiz1 quiz3) + I(quiz2 quiz3).
-
-This model seems to be a good fit.
-
-```{r eval = FALSE}
-quiz_grades.fit2 = lm(
-  quiz4 ~ quiz1 + quiz2 + quiz3 
-  + I(quiz1 ^ 2) + I(quiz2 ^ 2) + I(quiz3 ^ 2)
-  + I(quiz1 * quiz2) + I(quiz1 * quiz3) + I(quiz2 * quiz3))
-step2 = stepAIC(quiz_grades.fit2, direction = "both")
-step2$anova
-```
-
-This R code snippet below produces the model quiz4 = 1.
-This model seems to under-fit though.
-
-```{r eval = FALSE}
-study_hours.fit = lm(quiz4 ~ study1 + study2 + study3 + study4)
-step3 = stepAIC(study_hours.fit, direction = "both")
-step3$anova
-```
-
-This R code snippet below produces the model quiz4 = 1.
-This model seems to be a good fit.
-
-```{R eval = FALSE}
-study_hours.fit2 = lm(
-  quiz4 ~ study1 + study2 + study3 + study4 +
-    I(study1 ^ 2) + I(study2 ^ 2) + I(study3 ^ 2) + I(study4 ^ 2) +
-    I(study1 * study2) + I(study1 * study3) + I(study1 * study4) + 
-    I(study2 * study3) + I(study2 * study4) + I(study3 * study4))
-step4 = stepAIC(study_hours.fit2, direction = "both")
-step4$anova
-```
-
-\break
-
-This R code snippet below produces the model quiz4 = 1.
-This model seems to under-fit though.
-
-```{r eval = FALSE}
-covid_hours.fit = lm(quiz4 ~ covid1 + covid2 + covid3 + covid4)
-step5 = stepAIC(covid_hours.fit, direction = "both")
-step5$anova
-```
-
-This R code snippet below produces the model 
-
-quiz4 = covid3 + I(covid3 ^ 2).
-
-This model seems to be a good fit.
-
-```{R eval = FALSE}
-covid_hours.fit2 = lm(
-  quiz4 ~ covid1 + covid2 + covid3 + covid4 +
-    I(covid1 ^ 2) + I(covid2 ^ 2) + I(covid3 ^ 2) + I(covid4 ^ 2) +
-    I(covid1 * covid2) + I(covid1 * covid3) + I(covid1 * covid4) + 
-    I(covid2 * covid3) + I(covid2 * covid4) + I(covid3 * covid4))
-step6 = stepAIC(covid_hours.fit2, direction = "both")
-step6$anova
-```
-
-This R code snippet below produces the model quiz4 = quiz3.
-This model seems to under-fit though.
-
-```{r eval = FALSE}
-full_model.fit = lm(quiz4 ~ 
-     quiz1 + quiz2 + quiz3 +
-     covid1 + covid2 + covid3 + covid4 +
-     study1 + study2 + study3 + study4)
-step7 = stepAIC(full_model.fit, direction = "both")
-step7$anova
-```
-
-This R code snippet below produces the model 
-
-quiz4 = quiz3 + I(study1 study2) + I(study2 study3) + I(study3 study4).
-
-This model seems to be a good fit.
-
-```{R eval = FALSE}
-full_model.fit2 = lm(
-  quiz4 ~ quiz1 + quiz2 + quiz3 
-  + I(covid1 * covid2) + I(covid2 * covid3) + I(covid2 * covid4) + I(covid3 * covid4)
-  + I(study1 * study2) + I(study1 * study3) + I(study2 * study3) + I(study3 * study4))
-step8 = stepAIC(full_model.fit2, direction = "both")
-step8$anova
-```
-
-\break
-
-# Find Significance Predictor Variables
-
-```{r}
-# use week 5b slides -- choose model selection criterion to pick predictor variables.
-
-
-# use lm() on a bunch of predictor variables to determine significant
-# predictor variables.
-
-
-```
