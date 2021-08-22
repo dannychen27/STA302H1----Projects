@@ -91,3 +91,19 @@ TODO: Display correlation matrix, Display linear model \newline
 TODO: Consult 3 – 4 external sources to confirm your findings.
 
 \newpage
+
+# Model Development Section
+
+## Process Used to Determine Final Model
+
+
+
+## Statistical and Empirical Justifications for Model
+
+
+
+## In-Depth Diagnostics to Verify Goodness of Model
+
+TODO: Anything else, other than residual plot and qqplot to assess goodness of fit?
+
+\newpage
