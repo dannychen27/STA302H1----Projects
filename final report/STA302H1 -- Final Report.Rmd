@@ -51,5 +51,43 @@ However, students who miss 3 or more quizzes jeopardize their chances of receivi
 I will first exclude dropped students from my final dataset, since they likely do not contribute to available quiz 4 scores. I will also identify any influential outliers to remove, as no amount of variable transformations or variable re-centering can effectively correct them.
 
 Then, I will create descriptive statistics such as histograms, boxplots, 5-number summaries, and pairs scatterplots to reveal useful relationships that will help me determine a reasonably informed, yet simple model. I will also consult scholarly articles and journals, and empirical research to propose new information to add to my model.
+Lastly, I will use (TODO: insert methods here) to verify my model's soundness.
 
+\newpage
 
+# Explanatory Data Analysis
+
+There are a total of 13 variables in the dataset: a student's quiz 4 score is the response variable, and the remaining 12 variables -- time spent thinking about COVID-19 during weeks 1 - 4, time spent studying for STA302H1 during weeks 1 - 4, a student's country of origin, and their Quiz 1 - 3 scores -- are the predictor variables.
+
+- Variable,	Meaning, Type of Variable
+- Quiz_1_Score, Student’s quiz 1 score out of 10, Continuous numeric
+- Quiz_2_Score, Student’s quiz 2 score out of 10, Continuous numeric
+- Quiz_3_Score, Student’s quiz 3 score out of 10, Continuous numeric
+- Quiz_4_Score, Student’s quiz 4 score out of 10, Continuous numeric
+
+- COVID..hours.W1, Time student spent thinking about COVID-19 during Week 1 in hours, Continuous numeric
+- COVID..hours.W2, Time student spent thinking about COVID-19 during Week 2 in hours, Continuous numeric
+- COVID..hours.W3, Time student spent thinking about COVID-19 during Week 3 in hours, Continuous numeric
+- COVID..hours.W4, Time student spent thinking about COVID-19 during Week 4 in hours, Continuous numeric
+
+- STA302..hours.W1, Time student spent studying for STA302H1 during Week 1 (can include lecture time, review time, quiz time, or assignment time), Continuous numeric
+- STA302..hours.W2, Time student spent studying for STA302H1 during Week 2 (can include lecture time, review time, quiz time, or assignment time), Continuous numeric
+- STA302..hours.W3, Time student spent studying for STA302H1 during Week 3 (can include lecture time, review time, quiz time, or assignment time), Continuous numeric
+- STA302..hours.W4, Time student spent studying for STA302H1 during Week 4 (can include lecture time, review time, quiz time, or assignment time), Continuous numeric
+
+- Country, Student’s country of origin, Categorical/nominal
+
+Note that quiz 1 - 4 scores are out of 10; COVID and STA302H1 study hours are measured in hours.
+
+## Relevant Tables and Figures for Noteworthy Variables
+
+TODO: Display histograms of all predictor variables against quiz 4 score \newline
+TODO: Display boxplots of all predictor variables against quiz 4 score \newline
+TODO: Display pair scatterplots of relationships between quiz 4 score and each predictor var \newline
+TODO: Describe each descriptive statistic – “this histogram/boxplot/scatterplot displays relationship between X and Y” \newline
+TODO: Don’t discuss relationship results though -- See figure X in appendix \newline
+TODO: Display pairs scatterplot, with any potential outliers (influential or otherwise) \newline
+TODO: Display correlation matrix, Display linear model \newline
+TODO: Consult 3 – 4 external sources to confirm your findings.
+
+\newpage
