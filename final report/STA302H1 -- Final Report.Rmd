@@ -107,3 +107,25 @@ TODO: Consult 3 – 4 external sources to confirm your findings.
 TODO: Anything else, other than residual plot and qqplot to assess goodness of fit?
 
 \newpage
+
+# Conclusion
+
+## Purpose of Final Model
+
+
+
+## Interpretation of Final Model
+
+
+
+## Remaining Limitations and Problems with Model
+
+
+
+## Proposed Improvements with Model
+
+
+
+## Generalizability of Model?
+
+
