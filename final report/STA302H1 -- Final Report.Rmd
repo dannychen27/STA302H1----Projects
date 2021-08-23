@@ -104,11 +104,18 @@ Note that time spent studying for STA302H1 can include lecture time, review time
 
 (TODO: Display histograms of all predictor variables against quiz 4 score) \newline
 (TODO: Display boxplots of all predictor variables against quiz 4 score) \newline
+(TODO: Add 5-number summaries of all predictor variables) \newline
 (TODO: Display pair scatterplots of relationships between quiz 4 score and each predictor variable) \newline
 (TODO: Describe each descriptive statistic – “this histogram/boxplot/scatterplot displays relationship between X and Y”) \newline
 (TODO: Don’t discuss relationship results though -- See figure X in appendix) \newline
 (TODO: Display pairs scatterplot, with any potential outliers -- influential or otherwise) \newline
-(TODO: Display correlation matrix, Display linear model.) \newline
+(TODO: Display correlation matrix) \newline
+(TODO: Display lm() output of linear model in nice table using gtsummary().) \newline
+(TODO: Point out similarities and differences between various descriptive statistics (i.e., histograms, boxplots, scatterplots)
+
+- Comment on distribution of variables
+- Comment on 5-number summary (mean, mean, IQR), outliers across all countries – analysis will be performed later to find influential outliers
+
 (TODO: Consult 3 – 4 external sources to confirm your findings.)
 
 \newpage
