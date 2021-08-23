@@ -124,15 +124,71 @@ Note that time spent studying for STA302H1 can include lecture time, review time
 
 ## Process Used to Determine Final Model
 
+I begin by identifying influential outliers in the original dataset. \newline
+(TODO: Use Cook’s distance and leverage points to find influential outliers?) \newline
+(TODO: Use VIF method to find influential outliers?) \newline
+(TODO: Use DDFITS, DDBETA to find influential outliers?) \newline
+Notice that there are no influential outliers because no points outside of cook's distance in upper right and lower left quadrants of plot, so there are no points to remove.
 
+To derive the terms in my model, I first decide to construct a correlation matrix to find the correlation between two covariates and the correlation between a covariate and a response variable. I use highly correlated (correlation $\geq$ 0.50 are considered) combinations of predictor variables as a heuristic for determining potentially significant terms in my model.
+
+Next, I create a pairs scatterplot to get an overview of relationships between all combinations of variables. Since the pairs scatterplot is symmetric along its main diagonal, I could safely omit the bottom half of my pairs scatterplot. I then decided to analyze Quiz 1 - 3 scores, Weeks 1 - 4 COVID-19 times, and Weeks 1 - 4 STA302H1 study times separately against Quiz 4 score. I only inspect the the first row where the quiz 4 score was the response variable to hypothesize a relationship between one's Quiz 4 score and each predictor variable. 
+
+For simplicity's sake, I wanted to stick to using a simple model such as a linear relationship or a quadratic relationship, rather than a more complex model such as a 3rd order model (or higher), a logarithmic, or even a square root relationship. I fitted the initial model using \texttt{quiz4} as the response variable; and \texttt{quiz1}, \texttt{quiz2}, \texttt{quiz3}, \texttt{covid1}, \texttt{covid2}, \texttt{covid3}, \texttt{covid4} (including 3 quadratic terms), 8 interaction terms, and \texttt{country} as predictor variables. \newline
+(TODO: See figure X below for R lm() output of original model in appendix)
+
+To refine the original model, I use backwards selection to remove insignificant terms (terms whose p-values were $\geq$ 0.05) and find a subset model with the lowest AIC value. I fitted the final model using quiz 4 as the response variable; quiz3, and the interaction terms \texttt{covid1 * covid2}, \texttt{covid2 * covid3}, \texttt{covid3 * covid4} as the predictor variables. I perform all further analyses on the final model. \newline
+(TODO: See figure X below for R lm() output of final model in appendix) 
+\newline
+(TODO: See figure X below for R anova output of final model in appendix)
+
+I chose not to perform any variable transformations on my distributions because (TODO: Why shouldn't I transform my variables in this case? Is it because the skew doesn't mean much?). I also opted not to re-center my variables since only a few entries in the correlation matrix had high correlation (correlation $\geq$ 0.50).
+
+(TODO: Show ANOVA output in nice table) \newline
+(TODO: Explain model results) \newline
+(TODO: See figure X below for R anova output of final model in appendix) \newline
+
+<!-- Looking at the descriptive statistics from the previous section, we see that the histograms for grades are left-skewed as few students fail quizzes, and the hisotgrams for COVID-19 times and STA302H1 study times are right-skewed as few students spend a significant amount of time thinking about COVID-19 or studying for STA302H1 compared to the mean or median amounts of study and COVID times. -->
+
+<!-- We find that the $R^2$ value of our model is (TODO: Insert $R^2$ value here) whereas the adjusted $R^2$ value is (TODO: Insert adjusted $R^2$ value here). -->
 
 ## Statistical and Empirical Justifications for Model
 
+(TODO: Show that linear model assumptions hold.) \newline
+(TODO: Insert results of assumption 1/4.) \newline
+(TODO: Insert results of assumption 2/4.) \newline
+(TODO: Insert results of assumption 3/4.) \newline
+(TODO: Insert results of assumption 4/4.) \newline
+(TODO: Insert R code to produce residual plots in appendix.) \newline
 
+<!-- To show that my model is linear, I'll do the following. -->
+
+<!-- 1. Linearity -->
+<!-- 2. Independence of Errors -->
+<!-- 3. Homoscedasticity (constant variance) -->
+<!-- 4. Normality of Error -->
+
+<!-- To verify A1, the original scatterplot must exhibit a linear relationship. -->
+
+<!-- (TODO: Show plot that satisfies A1.) -->
+
+<!-- To verify A2, the scatterplot of residuals versus fits for all predictor variables must not have a discernible relationship. -->
+
+<!-- (TODO: Show plot that satisfies A2.) -->
+
+<!-- To verify A3, the scatterplot of residuals versus fits for all predictor variables must not have a "megaphone effect" or a "bowtie effect" where residuals tend to increase/decrease as fits increase. -->
+
+<!-- (TODO: Show plot that satisfies A3.) -->
+
+<!-- To verify A4, we could either show that all points on a QQplot follow the QQline closely or show that the histogram of residuals is approximately normal. -->
+
+<!-- (TODO: Show plot that satisfies A4.) -->
 
 ## In-Depth Diagnostics to Verify Goodness of Model
 
-TODO: Anything else, other than residual plot and qqplot to assess goodness of fit?
+(TODO: Add part about validating model soundness.)
+
+<!-- TODO: Anything else, other than residual plot and qqplot to assess goodness of fit? -->
 
 \newpage
 
