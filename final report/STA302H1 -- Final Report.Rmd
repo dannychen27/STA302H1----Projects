@@ -60,27 +60,24 @@ I will use model diagnostics to verify assumptions of my final model. Lastly, I 
 
 # Explanatory Data Analysis
 
-There are a total of 13 variables in the dataset: a student's quiz 4 score is the response variable, and the remaining 12 variables -- time spent thinking about COVID-19 during weeks 1 - 4, time spent studying for STA302H1 during weeks 1 - 4, a student's country of origin, and their Quiz 1 - 3 scores -- are the predictor variables.
+There are a total of 13 variables in the dataset. The response variable is a student's quiz 4 score, and the predictor variables are the remaining 12 variables: a student's country of origin, the time they spent thinking about COVID-19 during weeks 1 - 4, the time they spent studying for STA302H1 during weeks 1 - 4, and their Quiz 1 - 3 scores.
+
+The following table describes each variable, its meaning, and its type:
 
 - Variable,	Meaning, Type of Variable
+- Country, Student’s country of origin, Categorical/nominal
 - Quiz_1_Score, Student’s quiz 1 score out of 10, Continuous numeric
 - Quiz_2_Score, Student’s quiz 2 score out of 10, Continuous numeric
 - Quiz_3_Score, Student’s quiz 3 score out of 10, Continuous numeric
 - Quiz_4_Score, Student’s quiz 4 score out of 10, Continuous numeric
-
 - COVID..hours.W1, Time student spent thinking about COVID-19 during Week 1 in hours, Continuous numeric
 - COVID..hours.W2, Time student spent thinking about COVID-19 during Week 2 in hours, Continuous numeric
 - COVID..hours.W3, Time student spent thinking about COVID-19 during Week 3 in hours, Continuous numeric
 - COVID..hours.W4, Time student spent thinking about COVID-19 during Week 4 in hours, Continuous numeric
-
 - STA302..hours.W1, Time student spent studying for STA302H1 during Week 1 (can include lecture time, review time, quiz time, or assignment time), Continuous numeric
 - STA302..hours.W2, Time student spent studying for STA302H1 during Week 2 (can include lecture time, review time, quiz time, or assignment time), Continuous numeric
 - STA302..hours.W3, Time student spent studying for STA302H1 during Week 3 (can include lecture time, review time, quiz time, or assignment time), Continuous numeric
 - STA302..hours.W4, Time student spent studying for STA302H1 during Week 4 (can include lecture time, review time, quiz time, or assignment time), Continuous numeric
-
-- Country, Student’s country of origin, Categorical/nominal
-
-Note that quiz 1 - 4 scores are out of 10; COVID and STA302H1 study hours are measured in hours.
 
 ## Relevant Tables and Figures for Noteworthy Variables
 
