@@ -766,13 +766,13 @@ display_residual_plot(remaining_data_no_NAs, final_model, study3 * study4, "stud
 ## residual vs. fit, qqplot, scale-location, and residual vs. leverage
 
 ```{r}
-plot(second_model)
+plot(final_model)
 ```
 
 ```{r}
-hist(lm(second_model)$residuals)
-mean(lm(second_model)$residuals)
-median(lm(second_model)$residuals)
+hist(lm(final_model)$residuals)
+mean(lm(final_model)$residuals)
+median(lm(final_model)$residuals)
 ```
 
 ## Try Predicting on the Fitted Values
