@@ -268,10 +268,18 @@ This model is only generalizable to online courses rather than in-person courses
 
 ## Remaining Limitations and Problems with Model
 
+This model fails to capture variables such as weekly anxiety levels, the weekly number of hours students sleep, and the weekly number of hours students participate in physical activity.
 
+(TODO: Studies show high anxiety impairs course performance)
+(TODO: Studies show high anxiety and more COVID think time)
+(TODO: Studies show moderate sleep improves course performance)
+(TODO: Studies show moderate exercise improves course performance)
 
-## Proposed Improvements with Model
+The final dataset excluded 28 STA302H1 dropped students, and some blank entries remained for missing survey responses, and missing quiz scores remained due to some students skipping quizzes.
 
+Some students may have underreported the number of study hours under the assumption that it only involves the number of hours spent attending lectures and the number of hours spend reviewing lecture notes, when in fact some students included hours spent doing assignments, writing quizzes, and even hours spent attending office hours -- overall the number of hours spent doing any kind of coursework for STA302H1. 
+
+Despite these limitations, further research may help inform us on benefits of study and COVID think times vs. quiz scores.
 
 
 ## Generalizability of Model?
