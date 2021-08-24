@@ -102,10 +102,36 @@ Note that time spent studying for STA302H1 can include lecture time, review time
 
 ## Relevant Tables and Figures for Noteworthy Variables
 
-(TODO: Display histograms of all predictor variables against quiz 4 score) \newline
-(TODO: Display boxplots of all predictor variables against quiz 4 score) \newline
-(TODO: Add 5-number summaries of all predictor variables) \newline
+(TODO: Display histogram of study times weeks 1 - 4 against quiz 4 score.) \newline
+(TODO: Display boxplot of study times weeks 1 - 4 against quiz 4 score.) \newline
+(TODO: Display 5-number summaries of all study times weeks 1 - 4.) \newline
+
+(TODO: Comment on histogram of study times weeks 1 - 4 against quiz 4 score.) \newline
+(TODO: Comment on boxplot of study times weeks 1 - 4 against quiz 4 score.) \newline
+
+
+
+(TODO: Display histogram of COVID times weeks 1 - 4 against quiz 4 score.) \newline
+(TODO: Display boxplot of COVID times weeks 1 - 4 against quiz 4 score.) \newline
+(TODO: Display 5-number summaries of all COVID times weeks 1 - 4.) \newline
+
+(TODO: Comment on histogram of COVID times weeks 1 - 4 against quiz 4 score.) \newline
+(TODO: Comment on boxplot of COVID times weeks 1 - 4 against quiz 4 score.) \newline
+
+
+
+(TODO: Display histogram of quiz scores 1 - 3 against quiz 4 score.) \newline
+(TODO: Display boxplot of quiz scores 1 - 3 against quiz 4 score.) \newline
+(TODO: Display 5-number summaries of all quiz scores 1 - 3.) \newline
+
+(TODO: Comment on histogram of quiz scores 1 - 3 against quiz 4 score.) \newline
+(TODO: Comment on boxplot of quiz scores 1 - 3 against quiz 4 score.) \newline
+
+
 (TODO: Display pair scatterplots of relationships between quiz 4 score and each predictor variable) \newline
+(TODO: Comment on pair scatterplots of relationships between quiz 4 score and each predictor variable) \newline
+
+
 (TODO: Describe each descriptive statistic – “this histogram/boxplot/scatterplot displays relationship between X and Y”) \newline
 (TODO: Don’t discuss relationship results though -- See figure X in appendix) \newline
 (TODO: Display pairs scatterplot, with any potential outliers -- influential or otherwise) \newline
