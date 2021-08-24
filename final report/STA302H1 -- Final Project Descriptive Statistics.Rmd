@@ -653,6 +653,14 @@ summary(final_model)
 ```
 
 ```{r}
+stepAIC(final_model, direction = "forward")$anova
+```
+
+```{r}
+stepAIC(final_model, direction = "backward")$anova
+```
+
+```{r}
 stepAIC(final_model, direction = "both")$anova
 ```
 
