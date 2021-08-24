@@ -249,7 +249,7 @@ Therefore, we've shown that our linear model is a reasonable model.
 
 ## Purpose of Final Model
 
-
+Recall that the purpose of the model is to see whether previous quiz scores, time spent thinking about COVID, and study time can predict future quiz scores.
 
 ## Interpretation of Final Model
 
