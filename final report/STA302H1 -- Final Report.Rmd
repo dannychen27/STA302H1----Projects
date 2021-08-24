@@ -131,7 +131,7 @@ I begin by identifying influential outliers in the original dataset. \newline
 (TODO: Use DDFITS, DDBETA to find influential outliers?) \newline
 Notice that there are no influential outliers because no points outside of cook's distance in upper right and lower left quadrants of plot, so there are no points to remove.
 
-To derive the terms in my model, I first decide to construct a correlation matrix to find the correlation between two covariates and the correlation between a covariate and a response variable. I use highly correlated (correlation $\geq$ 0.50 are considered) combinations of predictor variables as a heuristic for determining potentially significant terms in my model.
+To derive the terms in my model, I first decide to construct a correlation matrix to find the correlation between covariates and the response variable. I use highly correlated (correlation $\geq$ 0.50 are considered) combinations of predictor variables as a heuristic for determining potentially significant terms in my model.
 
 Next, I create a pairs scatterplot to get an overview of relationships between all combinations of variables. Since the pairs scatterplot is symmetric along its main diagonal, I could safely omit the bottom half of my pairs scatterplot. I then decided to analyze Quiz 1 - 3 scores, Weeks 1 - 4 COVID-19 times, and Weeks 1 - 4 STA302H1 study times separately against Quiz 4 score. I only inspect the the first row where the quiz 4 score was the response variable to hypothesize a relationship between one's Quiz 4 score and each predictor variable. 
 
@@ -139,7 +139,7 @@ For simplicity's sake, I wanted to stick to using a simple model such as a linea
 
 (TODO: Show lm() results of original model in nice table.) \newline
 (TODO: Show ANOVA results of original model in nice table.) \newline
-In the original model, I found that only the predictor variables \texttt{quiz3}, \texttt{I(covid1 ** 2)}, \texttt{I(covid2 ** 2)}, \texttt{I(covid1 * covid2)}, and \texttt{I(study1 * study2)} were significant at the 5% significance level. A coefficient of 0.477087 for \texttt{quiz3} shows that for a unit increase of quiz 3 score, one's quiz 4 increases by about 0.48/10 points. A coefficient of 0.016115 for \texttt{I(covid1 ** 2)} shows that a 1 hour increase in \texttt{covid1} time increases quiz 4 scores by $(0.016115)^2$??? A coefficient of 0.023657 for \texttt{I(covid2 ** 2)} shows that a 1 hour increase in \texttt{covid2} time decreases quiz 4 scores by $(0.023657)^2$??? An interaction effect exists between \texttt{covid1} and \texttt{covid2} times, as well as between \texttt{study1} and \texttt{study2} times. A coefficient of -0.074201 shows that \texttt{covid1} and \texttt{covid2} times are inversely related, and likewise a coefficient of -0.016578 shows a inverse relationship between \texttt{covid2} and \texttt{covid3} times. The global F-statistic value is 3.098, and the global p-value is approximately $1.436 \times 10^{-5}$. The residual standard error is 1.582. The multiple $R ^ 2$ value is 0.4211, which is far off from the adjusted $R ^ 2$ value of 0.2851. \newline
+In the original model, I found that only the predictor variables \texttt{quiz3}, \texttt{I(covid1 ** 2)}, \texttt{I(covid2 ** 2)}, \texttt{I(covid1 * covid2)}, and \texttt{I(study1 * study2)} were significant at the 5% significance level. The global F-statistic value is 3.098, and the global p-value is approximately $1.436 \times 10^{-5}$. The residual standard error is 1.582. The multiple $R ^ 2$ value is 0.4211 and the adjusted $R ^ 2$ value of 0.2851. \newline
 (TODO: See figure X below for R ANOVA output of original model in appendix) \newline
 (TODO: See figure X below for R lm() output of original model in appendix)
 
@@ -155,6 +155,9 @@ In the final model, only the \texttt{quiz3} predictor variable is significant at
 The coefficient of 0.483867 for \texttt{quiz3} suggests that for every 1 point increase in quiz 3, there is an increase in quiz 4 grades by 0.48/10 points. The global F-statistic value increased to 15.76, the global $p$-value increased to $1.207 \times 10^{-10}$. The residual standard error improved marginally to 15.76. Even though the multiple $R ^ 2$ value dropped significantly to 0.3135, the adjusted $R ^ 2$ value increase slightly to 0.2936 -- and in fact, they are much closer together than in the original model. \newline
 (TODO: See figure X below for R ANOVA output of final model in appendix) \newline
 (TODO: See figure X below for R lm() output of final model in appendix)
+
+# TODO: How do I interpret coefficients of interaction terms and quadratic terms?
+A coefficient of 0.477087 for \texttt{quiz3} shows that for a unit increase of quiz 3 score, one's quiz 4 increases by about 0.48/10 points. A coefficient of 0.016115 for \texttt{I(covid1 ** 2)} shows that a 1 hour increase in \texttt{covid1} time increases quiz 4 scores by $(0.016115)^2$??? A coefficient of 0.023657 for \texttt{I(covid2 ** 2)} shows that a 1 hour increase in \texttt{covid2} time decreases quiz 4 scores by $(0.023657)^2$??? An interaction effect exists between \texttt{covid1} and \texttt{covid2} times, as well as between \texttt{study1} and \texttt{study2} times. A coefficient of -0.074201 shows that \texttt{covid1} and \texttt{covid2} times are inversely related, and likewise a coefficient of -0.016578 shows a inverse relationship between \texttt{covid2} and \texttt{covid3} times.
 
 \newpage
 
