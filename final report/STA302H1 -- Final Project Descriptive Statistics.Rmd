@@ -715,12 +715,13 @@ stepAIC(fourth_model, direction = "both")$anova
 ```
 
 ```{r}
-display_residual_plot <- function(data, model, predictor_variable) {
+display_residual_plot <- function(data, model, predictor_variable, plot_title, predictor_variable_name) {
   fit = fitted(model)
   residuals = resid(model)
   ggplot(data = data, aes(x = predictor_variable, y = residuals)) +
     geom_point() + 
-    geom_hline(yintercept = 0)
+    geom_hline(yintercept = 0) + 
+    labs(title = plot_title, x = predictor_variable_name, y = paste0("Residuals of ", predictor_variable_name))
 }
 ```
 
