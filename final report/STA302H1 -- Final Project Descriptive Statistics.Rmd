@@ -715,6 +715,28 @@ stepAIC(fourth_model, direction = "both")$anova
 ```
 
 ```{r}
+additive_model = lm(
+  quiz4 ~ quiz1 + quiz2 + quiz3
+  + covid1 + covid2 + covid3 + covid4
+  + study1 + study2 + study3 + study4
+  + country
+)
+summary(additive_model)
+```
+
+```{r}
+stepAIC(additive_model, direction = "forward")$anova
+```
+
+```{r}
+stepAIC(additive_model, direction = "backward")$anova
+```
+
+```{r}
+stepAIC(additive_model, direction = "both")$anova
+```
+
+```{r}
 display_residual_plot <- function(data, model, predictor_variable, predictor_variable_name) {
   fit = fitted(model)
   residuals = resid(model)
