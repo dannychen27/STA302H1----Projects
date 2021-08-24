@@ -281,7 +281,10 @@ Some students may have underreported the number of study hours under the assumpt
 
 Despite these limitations, further research may help inform us on benefits of study and COVID think times vs. quiz scores.
 
+## Proposed Improvements with Model
 
-## Generalizability of Model?
+One way to improve the model is to introduce composite variables in the model, such as a student happiness index as a function of a student's anxiety levels, COVID, and physical activity.
 
+Another improvement is to use empirical research to propose some more new terms to improve model.
 
+Another improvement to this model is to take the median of a student's 1 - 3 quizzes that they wrote, the median of a student's 1 - 4 COVID hours they report, and the median of a student's 1 - 4 study hours they report. Using the median as opposed to the mean makes these values less prone to skewness, and even smaller residuals since medians are more reliable statistic than mean.
