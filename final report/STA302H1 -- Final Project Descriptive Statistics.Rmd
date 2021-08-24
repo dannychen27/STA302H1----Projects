@@ -601,7 +601,7 @@ country = remaining_data_no_NAs$country
 
 ```{r}
 # single variable per term = additive model
-additive_model = lm(
+first_model = lm(
   quiz4 ~ 
     quiz1  # scatterplot seems to have no relationship
   + quiz2  # scatterplot seems to have no relationship
@@ -627,39 +627,39 @@ additive_model = lm(
   
   + country  # for simplicity, but backwards process shows this term is not significant
 )
-summary(additive_model)
+summary(first_model)
 ```
 
 ```{r}
-stepAIC(additive_model, direction = "forward")$anova
+stepAIC(first_model, direction = "forward")$anova
 ```
 
 ```{r}
-stepAIC(additive_model, direction = "backward")$anova
+stepAIC(first_model, direction = "backward")$anova
 ```
 
 ```{r}
-stepAIC(additive_model, direction = "both")$anova
+stepAIC(first_model, direction = "both")$anova
 ```
 
 ```{r}
-second_model = lm(
+final_model = lm(
   quiz4 ~ quiz3 + 
     I(covid1 ^ 2) 
   + I(covid1 * covid2) + I(covid2 * covid3) 
   + I(study1 * study2) + I(study1 * study3) + I(study2 * study3) + I(study3 * study4)
 )
-summary(second_model)
+summary(final_model)
 ```
 
 ```{r}
-stepAIC(second_model, direction = "both")$anova
+stepAIC(final_model, direction = "both")$anova
 ```
 
 ```{r}
 # I decide to remove more terms for simplicity.
-additive_model2 = lm(
-quiz4 ~ quiz3 
+third_model = lm(
+quiz4 ~ quiz3
   # + I(covid1 ^ 2)  # this lone quadratic term add a lot of complexity for negligible change in R^2 and adjusted R^2.
   # + I(covid1 * covid2) + I(covid2 * covid3) # these terms alone add complexity -- harder to interpret the statement when discussing 2-week or 3-week gaps between covid weeks of interest # TODO: does it affect significance?
 
@@ -668,18 +668,34 @@ quiz4 ~ quiz3
   + I(study2 * study3) 
   + I(study3 * study4)
 )
-summary(additive_model2)
+summary(third_model)
 ```
 
 ```{r}
 # Doing stepAIC on a well-fitted model produces the same model.
 # The model is already in a "steady state."
-stepAIC(additive_model2, direction = "both")$anova
+stepAIC(third_model, direction = "both")$anova
+```
+
+```{r}
+stepAIC(third_model, direction = "forward")$anova
+```
+
+```{r}
+stepAIC(third_model, direction = "backward")$anova
 ```
 
 ```{r}
 fourth_model = lm(quiz4 ~ quiz3)
 summary(fourth_model)
+```
+
+```{r}
+stepAIC(fourth_model, direction = "forward")$anova
+```
+
+```{r}
+stepAIC(fourth_model, direction = "backward")$anova
 ```
 
 ```{r}
@@ -699,37 +715,37 @@ display_residual_plot <- function(data, model, predictor_variable) {
 ## residual plot
 
 ```{r}
-display_residual_plot(remaining_data_no_NAs, additive_model2, quiz3)
+display_residual_plot(remaining_data_no_NAs, second_model, quiz3)
 ```
 
 ```{r}
-display_residual_plot(remaining_data_no_NAs, additive_model2, study1 * study2)
+display_residual_plot(remaining_data_no_NAs, second_model, study1 * study2)
 ```
 
 ```{r}
-display_residual_plot(remaining_data_no_NAs, additive_model2, study2 * study3)
+display_residual_plot(remaining_data_no_NAs, second_model, study2 * study3)
 ```
 
 ```{r}
-display_residual_plot(remaining_data_no_NAs, additive_model2, study3 * study4)
+display_residual_plot(remaining_data_no_NAs, second_model, study3 * study4)
 ```
 
 ## residual vs. fit, qqplot, scale-location, and residual vs. leverage
 
 ```{r}
-plot(additive_model2)
+plot(second_model)
 ```
 
 ```{r}
-hist(lm(additive_model2)$residuals)
-mean(lm(additive_model2)$residuals)
-median(lm(additive_model2)$residuals)
+hist(lm(second_model)$residuals)
+mean(lm(second_model)$residuals)
+median(lm(second_model)$residuals)
 ```
 
 ## Try Predicting on the Fitted Values
 
 ```{r}
-predicted_values = predict(additive_model2)
+predicted_values = predict(second_model)
 actual_values = remaining_data_no_NAs$Quiz_4_score
 ```
 
@@ -787,7 +803,7 @@ country = training_data_no_NAs$country
 ```
 
 ```{r}
-additive_model2 = lm(
+second_model = lm(
 quiz4 ~ quiz3
   # + I(covid1 * covid2)
   # + I(covid2 * covid3) 
@@ -797,7 +813,7 @@ quiz4 ~ quiz3
   + I(study2 * study3) 
   + I(study3 * study4)
 )
-summary(additive_model2)
+summary(second_model)
 ```
 
 # testing
@@ -824,7 +840,7 @@ country = testing_data_no_NAs$country
 ```
 
 ```{r}
-predicted_values = predict(additive_model2, testing_data_no_NAs)
+predicted_values = predict(second_model, testing_data_no_NAs)
 predicted_values
 ```
 
