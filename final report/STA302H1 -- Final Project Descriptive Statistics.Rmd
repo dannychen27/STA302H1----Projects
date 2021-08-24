@@ -778,7 +778,7 @@ median(lm(final_model)$residuals)
 ## Try Predicting on the Fitted Values
 
 ```{r}
-predicted_values = predict(second_model)
+predicted_values = predict(final_model)
 actual_values = remaining_data_no_NAs$Quiz_4_score
 ```
 
@@ -835,20 +835,6 @@ study4 = training_data_no_NAs$STA302.hours..W4.
 country = training_data_no_NAs$country
 ```
 
-```{r}
-second_model = lm(
-quiz4 ~ quiz3
-  # + I(covid1 * covid2)
-  # + I(covid2 * covid3) 
-  # + I(covid3 * covid4)
-
-  + I(study1 * study2)
-  + I(study2 * study3) 
-  + I(study3 * study4)
-)
-summary(second_model)
-```
-
 # testing
 
 ```{r}
@@ -873,17 +859,8 @@ country = testing_data_no_NAs$country
 ```
 
 ```{r}
-predicted_values = predict(second_model, testing_data_no_NAs)
-predicted_values
-```
-
-```{r}
+predicted_values = predict(final_model, testing_data_no_NAs)
 actual_values = testing_data$Quiz_4_score
-actual_values
-```
-
-```{r}
-predicted_values - actual_values
 ```
 
 ```{r}
@@ -913,4 +890,3 @@ t.test(predicted_values - actual_values)
 
 p-value = 0.7938
 t = -0.26242
-
