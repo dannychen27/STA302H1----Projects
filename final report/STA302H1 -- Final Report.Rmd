@@ -143,13 +143,27 @@ In the original model, I found that only the predictor variables \texttt{quiz3},
 (TODO: See figure X below for R ANOVA output of original model in appendix) \newline
 (TODO: See figure X below for R lm() output of original model in appendix)
 
-I chose not to perform any variable transformations on my distributions because (TODO: Why shouldn't I transform my variables in this case? Is it because the skew doesn't mean much?). I also opted not to re-center my variables since only a few entries in the correlation matrix have high correlation (correlation $\geq$ 0.50).
+From the final model, I decided to remove a few more terms. The \texttt{I(covid1 ** 2)} term is the only quadratic term in my final model which added a lot of complexity to my model for a negligible change in $R ^ 2$ and adjusted $R ^ 2$ value. Also, the \texttt{I(covid1 * covid2)} + \texttt{I(covid2 * covid3)} terms alone made it slightly more difficult to interpret the model since it was difficult to explain how COVID-19 changes between consecutive weeks, or whether it would affect the overall significance of the final model. 
 
-To refine the original model, I use backwards selection to remove insignificant terms (terms whose $p$-values were $\geq$ 0.50) and find a subset model with the lowest AIC value. I fitted the final model using quiz 4 as the response variable; quiz3, and the interaction terms \texttt{covid1 * covid2}, \texttt{covid2 * covid3}, \texttt{covid3 * covid4} as the predictor variables. I perform all further analyses on the final model. \newline
+To refine the original model, I use backwards selection to remove insignificant terms (terms whose $p$-values were > 0.05) and find a subset model with the lowest AIC value. This refined model using quiz 4 as the response variable; quiz3, and the interaction terms \texttt{study1 * study2}, \texttt{study2 * study3}, \texttt{study3 * study4} as the predictor variables. I perform all further analyses on the final model. \newline
+
+
+
+
+quiz4 ~ quiz3 + I(covid1^2) + I(covid1 * covid2) + I(covid2 * 
+    covid3) + I(study1 * study2) + I(study1 * study3) + I(study2 * 
+    study3) + I(study3 * study4)
+
 
 (TODO: Show lm() results of final model in nice table.) \newline
 (TODO: Show ANOVA results of final model in nice table.) \newline
-From the final model, I decided to remove a few more terms. The \texttt{I(covid1 ** 2)} term is the only quadratic term in my final model which added a lot of complexity to my model for a negligible change in $R ^ 2$ and adjusted $R ^ 2$ value. Also, the \texttt{I(covid1 * covid2)} + \texttt{I(covid2 * covid3)} terms alone made it slightly more difficult to interpret the model since it was difficult to explain how COVID-19 changes between consecutive weeks, or whether it would affect the overall significance of the final model. 
+
+
+I chose not to perform any variable transformations on my final model because (TODO: Why shouldn't I transform my variables in this case? Is it because the skew doesn't mean much?). I also opted not to re-center my variables since only a few entries in the correlation matrix have high correlation (correlation $\geq$ 0.50).
+
+# TODO: Try to perform a variable transformation first to see if it improves it.
+# TODO: Try to perform a variable re-centering first to see if it improves it.
+# Likely no improvement, but let's see...
 
 In the final model, only the \texttt{quiz3} predictor variable is significant at the 5% significance level. 
 The coefficient of 0.483867 for \texttt{quiz3} suggests that for every 1 point increase in quiz 3, there is an increase in quiz 4 grades by 0.48/10 points. The global F-statistic value increased to 15.76, the global $p$-value increased to $1.207 \times 10^{-10}$. The residual standard error improved marginally to 15.76. Even though the multiple $R ^ 2$ value dropped significantly to 0.3135, the adjusted $R ^ 2$ value increase slightly to 0.2936 -- and in fact, they are much closer together than in the original model. \newline

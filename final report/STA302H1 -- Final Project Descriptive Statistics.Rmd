@@ -631,7 +631,29 @@ summary(additive_model)
 ```
 
 ```{r}
+stepAIC(additive_model, direction = "forward")$anova
+```
+
+```{r}
+stepAIC(additive_model, direction = "backward")$anova
+```
+
+```{r}
 stepAIC(additive_model, direction = "both")$anova
+```
+
+```{r}
+second_model = lm(
+  quiz4 ~ quiz3 + 
+    I(covid1 ^ 2) 
+  + I(covid1 * covid2) + I(covid2 * covid3) 
+  + I(study1 * study2) + I(study1 * study3) + I(study2 * study3) + I(study3 * study4)
+)
+summary(second_model)
+```
+
+```{r}
+stepAIC(second_model, direction = "both")$anova
 ```
 
 ```{r}
@@ -653,6 +675,15 @@ summary(additive_model2)
 # Doing stepAIC on a well-fitted model produces the same model.
 # The model is already in a "steady state."
 stepAIC(additive_model2, direction = "both")$anova
+```
+
+```{r}
+fourth_model = lm(quiz4 ~ quiz3)
+summary(fourth_model)
+```
+
+```{r}
+stepAIC(fourth_model, direction = "both")$anova
 ```
 
 ```{r}
