@@ -253,7 +253,18 @@ Recall that the purpose of the model is to see whether previous quiz scores, tim
 
 ## Interpretation of Final Model
 
+The final model suggests a strong evidence of a positive relationship between quiz 3 scores and quiz 4 scores, as well as study times between consecutive weeks (i.e., (STA302W1, STA302W2), (STA302W2, STA302W3), (STA302W3, STA302W4)), keeping all other variables constant.
 
+Quiz 3 is much closer in difficulty to Quiz 4 because students are used to the online Quercus quiz format. Students better understood how many decimal places they should round their final answers to from Quizzes 1 and 2, and the style of Quiz 3 questions are very similar to Quiz 4. Students also ramped up their study efforts as they anticipated more challenging quizzes as the semester progressed.
+
+Although STA302H1 studying increased throughout the semester, the final model suggests that students who made a consistent effort to start studying during the 1st week of classes tend to score higher than students who started studying during the 2nd or 3rd week of classes. (TODO: Insert author here) shows that studying many hours last minute (mass learning) is less effective than studying a few hours a day throughout the term (spaced learning). By studying frequently throughout the semester, students have more opportunities to review STA302H1 material and their STA302H1 knowledge has more time to "compound" throughout the semester.
+
+(TODO: Insert scholarly source about how far students start studying for quizzes in advance vs. test scores.) \newline
+(TODO: Insert scholarly source about how far students start studying for quizzes in advance improves material retention.)
+
+## Generalizability of Model
+
+This model is only generalizable to online courses rather than in-person courses. Students may enroll in online courses from various time zones, as opposed to a standardized time zone for in person courses. STA302H1 is also a 3rd year course, so naturally 3rd year students tend to study more for their courses and score higher on average on quizzes than 1st year students.
 
 ## Remaining Limitations and Problems with Model
 
