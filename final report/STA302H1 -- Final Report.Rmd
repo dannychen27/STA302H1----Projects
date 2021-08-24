@@ -143,35 +143,24 @@ In the original model, I found that only the predictor variables \texttt{quiz3},
 (TODO: See figure X below for R ANOVA output of original model in appendix) \newline
 (TODO: See figure X below for R lm() output of original model in appendix)
 
-From the final model, I decided to remove a few more terms. The \texttt{I(covid1 ** 2)} term is the only quadratic term in my final model which added a lot of complexity to my model for a negligible change in $R ^ 2$ and adjusted $R ^ 2$ value. Also, the \texttt{I(covid1 * covid2)} + \texttt{I(covid2 * covid3)} terms alone made it slightly more difficult to interpret the model since it was difficult to explain how COVID-19 changes between consecutive weeks, or whether it would affect the overall significance of the final model. 
-
-To refine the original model, I use backwards selection to remove insignificant terms (terms whose $p$-values were > 0.05) and find a subset model with the lowest AIC value. This refined model using quiz 4 as the response variable; quiz3, and the interaction terms \texttt{study1 * study2}, \texttt{study2 * study3}, \texttt{study3 * study4} as the predictor variables. I perform all further analyses on the final model. \newline
-
-
-
-
-quiz4 ~ quiz3 + I(covid1^2) + I(covid1 * covid2) + I(covid2 * 
-    covid3) + I(study1 * study2) + I(study1 * study3) + I(study2 * 
-    study3) + I(study3 * study4)
-
-
 (TODO: Show lm() results of final model in nice table.) \newline
 (TODO: Show ANOVA results of final model in nice table.) \newline
+To refine the original model, I use backwards selection to remove insignificant terms (terms whose $p$-values were > 0.05) and find the subset model with the lowest AIC value.
+The final model has \texttt{quiz4} as the response variable; \texttt{quiz3}, the quadratic term \texttt{I(covid1 ** 2)}, and the interaction terms \texttt{I(covid1 * covid2)}, \texttt{I(covid2 * covid3)}, \texttt{study1 * study2}, \texttt{study1 * study3}, \texttt{study2 * study3}, \texttt{study3 * study4} as the predictor variables. I perform all further analyses on the final model. \newline
 
-
-I chose not to perform any variable transformations on my final model because (TODO: Why shouldn't I transform my variables in this case? Is it because the skew doesn't mean much?). I also opted not to re-center my variables since only a few entries in the correlation matrix have high correlation (correlation $\geq$ 0.50).
-
-# TODO: Try to perform a variable transformation first to see if it improves it.
-# TODO: Try to perform a variable re-centering first to see if it improves it.
-# Likely no improvement, but let's see...
-
-In the final model, only the \texttt{quiz3} predictor variable is significant at the 5% significance level. 
-The coefficient of 0.483867 for \texttt{quiz3} suggests that for every 1 point increase in quiz 3, there is an increase in quiz 4 grades by 0.48/10 points. The global F-statistic value increased to 15.76, the global $p$-value increased to $1.207 \times 10^{-10}$. The residual standard error improved marginally to 15.76. Even though the multiple $R ^ 2$ value dropped significantly to 0.3135, the adjusted $R ^ 2$ value increase slightly to 0.2936 -- and in fact, they are much closer together than in the original model. \newline
+Out of all of the predictors variables in the final model, only the predictor variables \texttt{quiz3}, \texttt{I(covid1 ** 2}, \texttt{I(covid1 * covid2)}, \texttt{I(study1 * study2)}, \texttt{I(study2 * study3)}, and \texttt{I(study3 * study4)} are significant at the 5% significance level. The global F-statistic value increased to 8.764, the global $p$-value increased to $1.374 \times 10^{-9}$. The residual standard error decreased marginally to 1.561. Even though the multiple $R ^ 2$ value dropped significantly to 0.3435, the adjusted $R ^ 2$ value increase slightly to 0.3043 -- there is a smaller difference between the $R ^ 2$ value and the adjusted $R ^ 2$ value in the final model than the original model. The coefficient of 0.499110 for \texttt{quiz3} suggests that for every 1 point increase in quiz 3, there is an increase in quiz 4 grades by about 0.50/10 points.
 (TODO: See figure X below for R ANOVA output of final model in appendix) \newline
 (TODO: See figure X below for R lm() output of final model in appendix)
 
 # TODO: How do I interpret coefficients of interaction terms and quadratic terms?
 A coefficient of 0.477087 for \texttt{quiz3} shows that for a unit increase of quiz 3 score, one's quiz 4 increases by about 0.48/10 points. A coefficient of 0.016115 for \texttt{I(covid1 ** 2)} shows that a 1 hour increase in \texttt{covid1} time increases quiz 4 scores by $(0.016115)^2$??? A coefficient of 0.023657 for \texttt{I(covid2 ** 2)} shows that a 1 hour increase in \texttt{covid2} time decreases quiz 4 scores by $(0.023657)^2$??? An interaction effect exists between \texttt{covid1} and \texttt{covid2} times, as well as between \texttt{study1} and \texttt{study2} times. A coefficient of -0.074201 shows that \texttt{covid1} and \texttt{covid2} times are inversely related, and likewise a coefficient of -0.016578 shows a inverse relationship between \texttt{covid2} and \texttt{covid3} times.
+
+<!-- From the second model, I decided to remove a few more terms. The \texttt{I(covid1 ** 2)} term is the only quadratic term in my final model which added a lot of complexity to my model for a negligible change in $R ^ 2$ and adjusted $R ^ 2$ value. Also, the \texttt{I(covid1 * covid2)} + \texttt{I(covid2 * covid3)} terms alone made it slightly more difficult to interpret the model since it was difficult to explain how COVID-19 changes between consecutive weeks, or whether it would affect the overall significance of the final model.  -->
+
+I chose not to perform any variable transformations on my final model because (TODO: Why shouldn't I transform my variables in this case? Is it because the skew doesn't mean much?). I also opted not to re-center my variables since only a few entries in the correlation matrix have high correlation (correlation $\geq$ 0.50). \newline
+(TODO: Try to perform a variable transformation first to see if it improves it.) \newline
+(TODO: Try to perform a variable re-centering first to see if it improves it.
+Likely no improvement, but let's see...)
 
 \newpage
 
