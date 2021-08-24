@@ -153,9 +153,11 @@ The final model has \texttt{quiz4} as the response variable; \texttt{quiz3}, the
 <!-- From the second model, I decided to remove a few more terms. The \texttt{I(covid1 ** 2)} term is the only quadratic term in my final model which added a lot of complexity to my model for a negligible change in $R ^ 2$ and adjusted $R ^ 2$ value. Also, the \texttt{I(covid1 * covid2)} + \texttt{I(covid2 * covid3)} terms alone made it slightly more difficult to interpret the model since it was difficult to explain how COVID-19 changes between consecutive weeks, or whether it would affect the overall significance of the final model.  -->
 
 I chose not to perform any variable transformations on my final model because (TODO: Why shouldn't I transform my variables in this case? Is it because the skew doesn't mean much?). I also opted not to re-center my variables since only a few entries in the correlation matrix have high correlation (correlation $\geq$ 0.50). \newline
-(TODO: Try to perform a variable transformation first to see if it improves it.) \newline
+(TODO: Try to perform a variable transformation first to see if it improves it.)
+
+Since most of the entries in the correlation matrix had low (correlation between 0.0 - 0.3) to moderate (correlation between 0.3 - 0.5) correlation, re-centering variables likely has negligible effect on the correlation matrix. \newline
 (TODO: Try to perform a variable re-centering first to see if it improves it.
-Likely no improvement, but let's see...)
+Likely no improvement because not much multi-collinearity, but let's see...)
 
 \newpage
 
