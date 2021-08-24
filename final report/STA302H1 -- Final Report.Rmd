@@ -220,9 +220,28 @@ Hence, our model satisfies the assumptions for a linear model.
 
 ## In-Depth Diagnostics to Verify Goodness of Model
 
-(TODO: Add training/test results.)
+To validate my linear model, I decided to use a 55/45 training-testing strategy, as well as perform a t-test for significance.
 
-(TODO: Add t-test results.)
+### 55/45 Training/Testing Split
+
+Out of $n = 142$ data points, I want to use 55% of the data points to train my linear model, and the remaining 45% to try to predict new values and create a new distribution to see if the mean of this new distribution is close to 0.
+
+I found that the mean of this new distribution is $8.124 \times 10^{-15}$ (see figure X in appendix).
+
+(TODO: Add histogram of residuals for trained model.)
+
+Moreover, the histogram of residuals looks approximately symmetric, with the mean of this new distribution being $-0.2102$ (see figure X in appendix). To be sure, since there are $n = 142$ points, the central limit theorem states that the sample mean is approximately normally distributed.
+
+### T-test for significance 
+
+For our t-test, we hypothesized that the mean of residuals was identically equal to 0. More formally,
+
+- $H_0: \mu_{residuals} = 0$
+- $H_1: \mu_{residuals} \neq 0$
+
+The t-test results showed that the $p$-value is 0.7938, which means that we fail to reject $H_0$, meaning that $\mu_{residuals} = 0$ holds. The 95% confidence interval for the mean of residuals is $(-0.4510668, 0.3462948)$, and since $0 \in (-0.4510668, 0.3462948)$, we again fail to reject $H_0$ and conclude that $\mu_{residuals} = 0$.
+
+Therefore, we've shown that our linear model is a reasonable model.
 
 \newpage
 
