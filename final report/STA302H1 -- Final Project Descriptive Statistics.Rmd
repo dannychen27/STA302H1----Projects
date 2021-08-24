@@ -689,6 +689,12 @@ display_residual_plot(remaining_data_no_NAs, additive_model2, study3 * study4)
 plot(additive_model2)
 ```
 
+```{r}
+hist(lm(additive_model2)$residuals)
+mean(lm(additive_model2)$residuals)
+median(lm(additive_model2)$residuals)
+```
+
 ## Try Predicting on the Fitted Values
 
 ```{r}

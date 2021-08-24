@@ -156,47 +156,73 @@ The coefficient of 0.483867 for \texttt{quiz3} suggests that for every 1 point i
 (TODO: See figure X below for R ANOVA output of final model in appendix) \newline
 (TODO: See figure X below for R lm() output of final model in appendix)
 
+\newpage
+
 ## Statistical and Empirical Justifications for Model
 
 To show that my model is linear, I'll show that the following assumptions hold.
 
-1. Linearity. 
+### Assumption 1. Linearity
 
-To verify A1, the original scatterplot must exhibit a linear relationship.
+To verify A1, the scatterplot of the final model must exhibit a linear relationship.
 
-(TODO: Insert results of assumption 1/4.) \newline
+(TODO: Show scatterplot of final model, with line of best fit.)
 
-2. Independence of Errors
+Since the final model contains only 1st order terms, we can conclude that our final model has a linear relationship.
 
-<!-- To verify A2, the scatterplot of residuals versus fits for all predictor variables must not have a discernible relationship. -->
+### Assumption 2. Independence of Errors
 
-(TODO: Insert results of assumption 2/4.) \newline
+To verify A2, the scatterplot of residuals versus fits for all predictor variables must not have a discernible relationship.
 
-<!-- (TODO: Show plot that satisfies A2.) -->
+The scatterplot of residuals versus fits for \texttt{quiz3} shows no pattern.
 
-3. Homoscedasticity (constant variance)
+(TODO: Show plot of residual vs. fitted quiz3)
 
-<!-- To verify A3, the scatterplot of residuals versus fits for all predictor variables must not have a "megaphone effect" or a "bowtie effect" where residuals tend to increase/decrease as fits increase. -->
+The scatterplot of residuals versus fits for \texttt{I(study1 * study2} shows no pattern, ignoring all outliers.
 
-(TODO: Insert results of assumption 3/4.) \newline
+(TODO: Show plot of residual vs. fitted I(study1 * study2))
 
-<!-- (TODO: Show plot that satisfies A3.) -->
+The scatterplot of residuals versus fits for \texttt{I(study2 * study3} shows no pattern, ignoring all outliers.
 
-4. Normality of Error
+(TODO: Show plot of residual vs. fitted I(study2 * study3))
 
-<!-- To verify A4, we could either show that all points on a QQplot follow the QQline closely or show that the histogram of residuals is approximately normal. -->
+The scatterplot of residuals versus fits for \texttt{I(study3 * study4} shows no pattern, ignoring all outliers.
 
-(TODO: Insert results of assumption 4/4.) \newline
+(TODO: Show plot of residual vs. fitted I(study3 * study4))
 
-<!-- (TODO: Show plot that satisfies A4.) -->
+Therefore, the errors are independent.
 
-(TODO: Insert R code to produce residual plots in appendix.) \newline
+### Assumption 3. Homoscedasticity (constant variance)
+
+To verify A3, the scatterplot of residuals versus fits for all predictor variables must not have a "megaphone effect" or a "bowtie effect" where residuals tend to increase/decrease as fits increase.
+
+(TODO: Show plot of residual vs. fitted for full model?)
+
+Therefore, the error terms have constant variance.
+
+### Assumption 4. Normality of Error
+
+To verify A4, we could either show that all points on a QQplot follow the QQline closely or show that the histogram of residuals is approximately normal.
+
+Notice that most of the points in the middle follow the QQplot line, and the left-tail points deviate slightly more from the QQplot line than the right-tail points, suggesting that our distribution of residuals is slightly more left-skeved than right skewed.
+
+(TODO: Insert QQplot of final model.)
+
+Moreover, the histograms of residuals for the final model looks approximately normal since the mean looks very close to 0.
+
+(TODO: Insert histogram of residuals for final model.)
+
+Therefore, the error terms are approximately normal.
+
+(TODO: Insert R code to produce residual plots in appendix.)
+
+Hence, our model satisfies the assumptions for a linear model.
 
 ## In-Depth Diagnostics to Verify Goodness of Model
 
-(TODO: Add part about validating model soundness.)
+(TODO: Add training/test results.)
 
-<!-- TODO: Anything else, other than residual plot and qqplot to assess goodness of fit? -->
+(TODO: Add t-test results.)
 
 \newpage
 
