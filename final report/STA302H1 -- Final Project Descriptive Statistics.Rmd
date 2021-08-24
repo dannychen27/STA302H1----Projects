@@ -644,10 +644,14 @@ stepAIC(first_model, direction = "both")$anova
 
 ```{r}
 final_model = lm(
-  quiz4 ~ quiz3 + 
-    I(covid1 ^ 2) 
-  + I(covid1 * covid2) + I(covid2 * covid3) 
-  + I(study1 * study2) + I(study1 * study3) + I(study2 * study3) + I(study3 * study4)
+  quiz4 ~ quiz3
+  + I(covid1 ^ 2)   # don't remove, else all other terms become insignificant
+  + I(covid1 * covid2) 
+  + I(covid2 * covid3)  # don't remove, else all other terms become insignificant
+  + I(study1 * study2) 
+  + I(study1 * study3)  # maybe don't remove?
+  + I(study2 * study3) 
+  + I(study3 * study4)
 )
 summary(final_model)
 ```
