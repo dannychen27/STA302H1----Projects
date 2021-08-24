@@ -699,16 +699,7 @@ median(lm(additive_model2)$residuals)
 
 ```{r}
 predicted_values = predict(additive_model2)
-predicted_values
-```
-
-```{r}
 actual_values = remaining_data_no_NAs$Quiz_4_score
-actual_values
-```
-
-```{r}
-predicted_values - actual_values
 ```
 
 ```{r}
