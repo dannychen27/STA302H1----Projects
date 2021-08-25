@@ -561,7 +561,7 @@ summary(remaining_data$Quiz_4_score)
 
 \break
 
-```{r}
+```{r warning = FALSE, echo = FALSE, message = FALSE}
 remaining_data_no_NAs = na.omit(remaining_data)
 
 quiz1 = remaining_data_no_NAs$Quiz_1_score
@@ -582,9 +582,9 @@ study4 = remaining_data_no_NAs$STA302.hours..W4.
 country = remaining_data_no_NAs$country
 ```
 
-## Full Model (Without Splitting by Country)
+## Full Model
 
-```{r}
+```{r results = "hide"}
 # single variable per term = additive model
 first_model = lm(
   quiz4 ~ 
@@ -599,35 +599,36 @@ first_model = lm(
   # + I(covid3 ^ 2) # scatterplot looks less quadratic
   + covid4  # must add this linear term b/c i have a quadratic term 
   + I(covid4 ^ 2) # scatterplot looks more quadratic
-  
   + I(covid1 * covid2) # first impressions from correlation matrix
   + I(covid2 * covid3) # correlation = 0.67
   + I(covid2 * covid4) # discard: correlation = 0.71
   + I(covid3 * covid4) # correlation = 0.72
-  
   + I(study1 * study2)  # correlation = 0.61
   + I(study1 * study3)  # correlation = 0.58
   + I(study2 * study3)  # correlation = 0.70
   + I(study3 * study4)  # correlation = 0.62
-  
   + country  # for simplicity, but backwards process shows this term is not significant
 )
 summary(first_model)
 ```
 
-```{r}
+```{r results = "hide"}
 stepAIC(first_model, direction = "forward")$anova
 ```
 
-```{r}
+```{r results = "hide"}
 stepAIC(first_model, direction = "backward")$anova
 ```
 
-```{r}
+```{r results = "hide"}
 stepAIC(first_model, direction = "both")$anova
 ```
 
-```{r}
+\newpage
+
+## Final Model
+
+```{r results = "hide"}
 final_model = lm(
   quiz4 ~ quiz3
   + I(covid1 ^ 2)   # don't remove, else all other terms become insignificant
@@ -641,25 +642,26 @@ final_model = lm(
 summary(final_model)
 ```
 
-```{r}
+```{r results = "hide"}
 stepAIC(final_model, direction = "forward")$anova
 ```
 
-```{r}
+```{r results = "hide"}
 stepAIC(final_model, direction = "backward")$anova
 ```
 
-```{r}
+```{r results = "hide"}
 stepAIC(final_model, direction = "both")$anova
 ```
 
-```{r}
+## Final Model with Some Terms I Pruned Myself
+
+```{r results = "hide"}
 # I decide to remove more terms for simplicity.
 third_model = lm(
 quiz4 ~ quiz3
   # + I(covid1 ^ 2)  # this lone quadratic term add a lot of complexity for negligible change in R^2 and adjusted R^2.
   # + I(covid1 * covid2) + I(covid2 * covid3) # these terms alone add complexity -- harder to interpret the statement when discussing 2-week or 3-week gaps between covid weeks of interest # TODO: does it affect significance?
-
   + I(study1 * study2) 
 # + I(study1 * study3)  # make weeks consecutive: "want to see correlation from week to week", rather than non-consecutive weeks.
   + I(study2 * study3) 
@@ -668,38 +670,44 @@ quiz4 ~ quiz3
 summary(third_model)
 ```
 
-```{r}
+```{r results = "hide"}
 # Doing stepAIC on a well-fitted model produces the same model.
 # The model is already in a "steady state."
 stepAIC(third_model, direction = "both")$anova
 ```
 
-```{r}
+```{r results = "hide"}
 stepAIC(third_model, direction = "forward")$anova
 ```
 
-```{r}
+```{r results = "hide"}
 stepAIC(third_model, direction = "backward")$anova
 ```
 
-```{r}
+\newpage
+
+## Simplistic Model
+
+```{r results = "hide"}
 fourth_model = lm(quiz4 ~ quiz3)
 summary(fourth_model)
 ```
 
-```{r}
+```{r results = "hide"}
 stepAIC(fourth_model, direction = "forward")$anova
 ```
 
-```{r}
+```{r results = "hide"}
 stepAIC(fourth_model, direction = "backward")$anova
 ```
 
-```{r}
+```{r results = "hide"}
 stepAIC(fourth_model, direction = "both")$anova
 ```
 
-```{r}
+## Linear Model Only
+
+```{r results = "hide"}
 additive_model = lm(
   quiz4 ~ quiz1 + quiz2 + quiz3
   + covid1 + covid2 + covid3 + covid4
@@ -709,17 +717,19 @@ additive_model = lm(
 summary(additive_model)
 ```
 
-```{r}
+```{r results = "hide"}
 stepAIC(additive_model, direction = "forward")$anova
 ```
 
-```{r}
+```{r results = "hide"}
 stepAIC(additive_model, direction = "backward")$anova
 ```
 
-```{r}
+```{r results = "hide"}
 stepAIC(additive_model, direction = "both")$anova
 ```
+
+\newpage
 
 ```{r}
 display_residual_plot <- function(data, model, predictor_variable, predictor_variable_name) {
