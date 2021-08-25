@@ -102,27 +102,48 @@ Note that time spent studying for STA302H1 can include lecture time, review time
 
 ## Relevant Tables and Figures for Noteworthy Variables
 
-(TODO: Display histogram of study times weeks 1 - 4 against quiz 4 score.) \newline
-(TODO: Display boxplot of study times weeks 1 - 4 against quiz 4 score.) \newline
-(TODO: Display 5-number summaries of all study times weeks 1 - 4.) \newline
-
-(TODO: Comment on histogram of study times weeks 1 - 4 against quiz 4 score.) \newline
-(TODO: Comment on boxplot of study times weeks 1 - 4 against quiz 4 score.) \newline
-
-
+Times spent thinking about COVID-19, study times, and quiz scores among all students are summarized using a histogram. The green dotted vertical line represents the mean and the solid blue vertical line represents the median.
 
 (TODO: Display histogram of COVID times weeks 1 - 4 against quiz 4 score.) \newline
 (TODO: Display boxplot of COVID times weeks 1 - 4 against quiz 4 score.) \newline
-(TODO: Display 5-number summaries of all COVID times weeks 1 - 4.) \newline
+(TODO: Display 5-number summaries of all COVID times weeks 1 - 4.)
+
+- week, median COVID time, mean COVID time
+- 1, 1.0, 3.7
+- 2, 1.000, 2.869
+- 3, 1.000, 2.227
+- 4, 1.000, 2.917
 
 (TODO: Comment on histogram of COVID times weeks 1 - 4 against quiz 4 score.) \newline
 (TODO: Comment on boxplot of COVID times weeks 1 - 4 against quiz 4 score.) \newline
 
+The histograms for COVID hours during weeks 1 - 4 are all right skewed (mean < median), indicating that 
+a few students tend to spend a lot of time thinking about COVID-19 during the week. The median times spent thinking about COVID-19 remained constant at 1 hour/week across all 4 weeks, however the mean time spent thinking about COVID-19 decreased for the first 3 weeks from a maximum of 3.7 hours in week 1 to a minimum of 2.227 hours in week 3, and increased from week 3 to week 4.
 
+(TODO: Display histogram of study times weeks 1 - 4 against quiz 4 score.) \newline
+(TODO: Display boxplot of study times weeks 1 - 4 against quiz 4 score.) \newline
+(TODO: Display 5-number summaries of all study times weeks 1 - 4.)
+
+- week, median study time, mean study time
+- 1, 7.000, 7.539
+- 2, 8.000, 8.403
+- 3, 9.00, 9.32
+- 4, 11.00, 13.44
+
+(TODO: Comment on histogram of study times weeks 1 - 4 against quiz 4 score.) \newline
+(TODO: Comment on boxplot of study times weeks 1 - 4 against quiz 4 score.) \newline
+
+Similarly, the histograms for study hours during weeks 1 - 4 are all right skewed (mean < median), as some students tend to study for many hours per week.
 
 (TODO: Display histogram of quiz scores 1 - 3 against quiz 4 score.) \newline
 (TODO: Display boxplot of quiz scores 1 - 3 against quiz 4 score.) \newline
 (TODO: Display 5-number summaries of all quiz scores 1 - 3.) \newline
+
+- week, median quiz score, mean quiz score
+- 1, 8.000, 7.738
+- 2, 8.800, 7.422
+- 3, 8.000, 7.209
+- 4, 8.000, 7.375
 
 (TODO: Comment on histogram of quiz scores 1 - 3 against quiz 4 score.) \newline
 (TODO: Comment on boxplot of quiz scores 1 - 3 against quiz 4 score.) \newline
