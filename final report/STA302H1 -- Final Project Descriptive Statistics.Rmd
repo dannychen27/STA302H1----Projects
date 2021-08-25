@@ -88,7 +88,7 @@ display_histogram <- function(data, predictor_variable, histogram_title, x_axis_
 
 ```{r}
 display_boxplot <- function(data, predictor_variable, boxplot_title, y_axis_label) {
-  ggplot(mapping = aes(x = Country, y = predictor_variable, color = Country)) +
+  ggplot(mapping = aes(x = Country, y = predictor_variable)) +
     geom_boxplot(mapping = aes(x = Country, y = predictor_variable)) +
     labs(title = boxplot_title, x = "Country", y = y_axis_label)
 }
@@ -362,165 +362,150 @@ t(countries)
 
 \break
 
-```{r echo = FALSE, warning = FALSE}
-display_boxplot(remaining_data, COVID.hours..W1.,
-                "Country vs. Week 1 Time Spent Thinking About COVID-19",
-                "Time Spent Thinking About COVID-19 (hours)")
+```{r warning = FALSE, echo = FALSE, message = FALSE}
+library(gridExtra)  # to use grid.arrange
+week1_covid_histogram = display_histogram(
+  remaining_data, remaining_data$COVID.hours..W1.,
+  "Week 1 Time Spent on COVID-19",
+  "Hours Spent on COVID-19")
+week2_covid_histogram = display_histogram(
+  remaining_data, remaining_data$COVID.hours..W2.,
+  "Week 2 Time Spent on COVID-19",
+  "Hours Spent on COVID-19")
+grid.arrange(week1_covid_histogram, week2_covid_histogram)
 ```
 
-```{r echo = FALSE, warning = FALSE}
-display_histogram(remaining_data, remaining_data$COVID.hours..W1., 
-                  "Histogram of Week 1 Time Spent Thinking About COVID-19",
-                  "Time Spent Thinking About COVID-19 (hours)")
+```{r warning = FALSE, echo = FALSE, message = FALSE}
+week3_covid_histogram = display_histogram(
+  remaining_data, remaining_data$COVID.hours..W3.,
+  "Week 3 Time Spent on COVID-19",
+  "Hours Spent on COVID-19")
+week4_covid_histogram = display_histogram(
+  remaining_data, remaining_data$COVID.hours..W4.,
+  "Week 4 Time Spent on COVID-19",
+  "Hours Spent on COVID-19")
+grid.arrange(week3_covid_histogram, week4_covid_histogram)
 ```
 
-\break
+\newpage
 
-```{R echo = FALSE, warning = FALSE}
-display_boxplot(remaining_data, COVID.hours..W2.,
-                "Country vs. Week 2 Time Spent Thinking About COVID-19",
-                "Time Spent Thinking About COVID-19 (hours)")
+```{r warning = FALSE, echo = FALSE, message = FALSE}
+week1_covid_boxplot = display_boxplot(
+  remaining_data, COVID.hours..W1.,
+  "Week 1 Time Spent on COVID-19",
+  "Hours Spent on COVID-19")
+week2_covid_boxplot = display_boxplot(
+  remaining_data, COVID.hours..W2.,
+  "Week 2 Time Spent on COVID-19",
+  "Hours Spent on COVID-19")
+grid.arrange(week1_covid_boxplot, week2_covid_boxplot)
 ```
 
-```{r echo = FALSE, warning = FALSE}
-display_histogram(remaining_data, remaining_data$COVID.hours..W2., 
-                  "Histogram of Week 2 Time Spent Thinking About COVID-19",
-                  "Time Spent Thinking About COVID-19 (hours)")
+```{R warning = FALSE, echo = FALSE, message = FALSE}
+week3_covid_boxplot = display_boxplot(
+  remaining_data, COVID.hours..W3.,
+  "Week 3 Time Spent on COVID-19",
+  "Hours Spent on COVID-19")
+week4_covid_boxplot = display_boxplot(
+  remaining_data, COVID.hours..W4.,
+  "Week 4 Time Spent on COVID-19",
+  "Hours Spent on COVID-19")
+grid.arrange(week3_covid_boxplot, week4_covid_boxplot)
 ```
 
-\break
+\newpage
 
-```{R echo = FALSE, warning = FALSE}
-display_boxplot(remaining_data, COVID.hours..W3.,
-                "Country vs. Week 3 Time Spent Thinking About COVID-19",
-                "Time Spent Thinking About COVID-19 (hours)")
+```{R warning = FALSE, echo = FALSE, message = FALSE}
+week1_study_histogram = display_histogram(
+  remaining_data, remaining_data$STA302.hours..W1.,
+  "Week 1 Time Spent Studying for STA302H1", "Hours Spent Studying for STA302H1")
+week2_study_histogram = display_histogram(
+  remaining_data, remaining_data$STA302.hours..W2.,
+  "Week 2 Time Spent Studying for STA302H1", "Hours Spent Studying for STA302H1")
+grid.arrange(week1_study_histogram, week2_study_histogram)
 ```
 
-```{r echo = FALSE, warning = FALSE}
-display_histogram(remaining_data, remaining_data$COVID.hours..W3., 
-                  "Histogram of Week 3 Time Spent Thinking About COVID-19",
-                  "Time Spent Thinking About COVID-19 (hours)")
+```{R warning = FALSE, echo = FALSE, message = FALSE}
+week3_study_histogram = display_histogram(
+  remaining_data, remaining_data$STA302.hours..W3.,
+  "Week 3 Time Spent Studying for STA302H1", "Hours Spent Studying for STA302H1")
+week4_study_histogram = display_histogram(
+  remaining_data, remaining_data$STA302.hours..W4.,
+  "Week 4 Time Spent Studying for STA302H1", "Hours Spent Studying for STA302H1")
+grid.arrange(week3_study_histogram, week4_study_histogram)
 ```
 
-\break
+\newpage
 
-```{R echo = FALSE, warning = FALSE}
-display_boxplot(remaining_data, COVID.hours..W4.,
-                "Country vs. Week 4 Time Spent Thinking About COVID-19",
-                "Time Spent Thinking About COVID-19 (hours)")
+```{R warning = FALSE, echo = FALSE, message = FALSE}
+week1_study_boxplot = display_boxplot(
+  remaining_data, STA302.hours..W1.,
+  "Week 1 Time Spent Studying For STA302H1",
+  "Hours Spent Studying")
+week2_study_boxplot = display_boxplot(
+  remaining_data, STA302.hours..W2.,
+  "Week 2 Time Spent Studying For STA302H1",
+  "Hours Spent Studying")
+grid.arrange(week1_study_boxplot, week2_study_boxplot)
 ```
 
-```{r echo = FALSE, warning = FALSE}
-display_histogram(remaining_data, remaining_data$COVID.hours..W4., 
-                  "Histogram of Week 4 Time Spent Thinking About COVID-19",
-                  "Time Spent Thinking About COVID-19 (hours)")
+```{R warning = FALSE, echo = FALSE, message = FALSE}
+week3_study_boxplot = display_boxplot(
+  remaining_data, STA302.hours..W3.,
+  "Week 3 Time Spent Studying",
+  "Hours Spent Studying")
+week4_study_boxplot = display_boxplot(
+  remaining_data, STA302.hours..W4.,
+  "Week 4 Time Spent Studying",
+  "Hours Spent Studying")
+grid.arrange(week3_study_boxplot, week4_study_boxplot)
 ```
 
-\break
+\newpage
 
-```{R echo = FALSE, warning = FALSE}
-display_boxplot(remaining_data, STA302.hours..W1.,
-                "Country vs. Week 1 Time Spent Studying For STA302H1",
-                "Time Spent Studying For STA302H1 (hours)")
+```{R warning = FALSE, echo = FALSE, message = FALSE}
+quiz1_histogram = display_histogram(
+  remaining_data, remaining_data$Quiz_1_score, 
+  "Quiz 1 Scores", "Quiz Score (out of 10)")
+quiz2_histogram = display_histogram(
+  remaining_data, remaining_data$Quiz_2_score, 
+  "Quiz 2 Scores", "Quiz Score (out of 10)")
+grid.arrange(quiz1_histogram, quiz2_histogram)
 ```
 
-```{r echo = FALSE, warning = FALSE}
-display_histogram(remaining_data, remaining_data$STA302.hours..W1., 
-                  "Histogram of Week 1 Time Spent Studying for STA302H1",
-                  "Time Spent Studying for STA302H1 (hours)")
+```{r warning = FALSE, echo = FALSE, message = FALSE}
+quiz3_histogram = display_histogram(
+  remaining_data, remaining_data$Quiz_3_score, 
+  "Quiz 3 Scores", "Quiz Score (out of 10)")
+quiz4_histogram = display_histogram(
+  remaining_data, remaining_data$Quiz_4_score, 
+  "Quiz 4 Scores", "Quiz Score (out of 10)")
+grid.arrange(quiz3_histogram, quiz4_histogram)
 ```
 
-\break
+\newpage
 
-```{R echo = FALSE, warning = FALSE}
-display_boxplot(remaining_data, STA302.hours..W2.,
-                "Country vs. Week 2 Time Spent Studying For STA302H1",
-                "Time Spent Studying For STA302H1 (hours)")
+```{R warning = FALSE, echo = FALSE, message = FALSE}
+quiz1_boxplot = display_boxplot(
+  remaining_data, Quiz_1_score,
+  "Quiz 1 Scores", "Quiz Score (out of 10)")
+quiz2_boxplot = display_boxplot(
+  remaining_data, Quiz_2_score,
+  "Quiz 2 Scores", "Quiz Score (out of 10)")
+grid.arrange(quiz1_boxplot, quiz2_boxplot)
 ```
 
-```{r echo = FALSE, warning = FALSE}
-display_histogram(remaining_data, remaining_data$STA302.hours..W2., 
-                  "Histogram of Week 2 Time Spent Studying for STA302H1",
-                  "Time Spent Studying for STA302H1 (hours)")
+```{r warning = FALSE, echo = FALSE, message = FALSE}
+quiz3_boxplot = display_boxplot(
+  remaining_data, Quiz_3_score,
+  "Quiz 3 Scores", "Quiz Score (out of 10)")
+quiz4_boxplot = display_boxplot(
+  remaining_data, Quiz_4_score,
+  "Quiz 4 Scores", "Quiz Score (out of 10)")
+grid.arrange(quiz3_boxplot, quiz4_boxplot)
 ```
 
-\break
-
-```{R echo = FALSE, warning = FALSE}
-display_boxplot(remaining_data, STA302.hours..W3.,
-                "Country vs. Week 3 Time Spent Studying For STA302H1",
-                "Time Spent Studying For STA302H1 (hours)")
-```
-
-```{r echo = FALSE, warning = FALSE}
-display_histogram(remaining_data, remaining_data$STA302.hours..W3., 
-                  "Histogram of Week 3 Time Spent Studying for STA302H1",
-                  "Time Spent Studying for STA302H1 (hours)")
-```
-
-\break
-
-```{R echo = FALSE, warning = FALSE}
-display_boxplot(remaining_data, STA302.hours..W4.,
-                "Country vs. Week 4 Time Spent Studying For STA302H1",
-                "Time Spent Studying For STA302H1 (hours)")
-```
-
-```{r echo = FALSE, warning = FALSE}
-display_histogram(remaining_data, remaining_data$STA302.hours..W4., 
-                  "Histogram of Week 4 Time Spent Studying for STA302H1",
-                  "Time Spent Studying for STA302H1 (hours)")
-```
-
-\break
-
-```{R echo = FALSE, warning = FALSE}
-display_boxplot(remaining_data, Quiz_1_score,
-                "Country vs. Quiz 1 Score", "Score (out of 10)")
-```
-
-```{r echo = FALSE, warning = FALSE}
-display_histogram(remaining_data, remaining_data$Quiz_1_score, 
-                  "Histogram of Quiz 1 Scores", "Quiz Score (out of 10)")
-```
-
-\break
-
-```{R echo = FALSE, warning = FALSE}
-display_boxplot(remaining_data, Quiz_2_score,
-                "Country vs. Quiz 2 Score", "Score (out of 10)")
-```
-
-```{r echo = FALSE, warning = FALSE}
-display_histogram(remaining_data, remaining_data$Quiz_2_score, 
-                  "Histogram of Quiz 2 Scores", "Quiz Score (out of 10)")
-```
-
-\break
-
-```{R echo = FALSE, warning = FALSE}
-display_boxplot(remaining_data, Quiz_3_score,
-                "Country vs. Quiz 3 Score", "Score (out of 10)")
-```
-
-```{r echo = FALSE, warning = FALSE}
-display_histogram(remaining_data, remaining_data$Quiz_3_score, 
-                  "Histogram of Quiz 3 Scores", "Quiz Score (out of 10)")
-```
-
-\break
-
-```{R echo = FALSE, warning = FALSE}
-display_boxplot(remaining_data, Quiz_4_score,
-                "Country vs. Quiz 4 Score", "Score (out of 10)")
-```
-
-```{r echo = FALSE, warning = FALSE}
-display_histogram(remaining_data, remaining_data$Quiz_4_score, 
-                  "Histogram of Quiz 4 Scores", "Quiz Score (out of 10)")
-```
-
-\break
+\newpage
 
 # 5-Number Summary Statistics
 
