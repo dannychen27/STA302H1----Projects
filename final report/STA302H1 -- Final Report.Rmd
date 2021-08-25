@@ -104,52 +104,35 @@ Note that time spent studying for STA302H1 can include lecture time, review time
 
 Times spent thinking about COVID-19, study times, and quiz scores among all students were summarized using histograms. The green dotted vertical line represents the mean and the solid blue vertical line represents the median.
 
+(TODO: Display histogram of COVID times weeks 1 - 4 against quiz 4 score.)
+
 The histograms for COVID hours during weeks 1 - 4 are all right skewed (mean > median), indicating that a few students tend to spend a lot of time thinking about COVID-19 during the week. The median times spent thinking about COVID-19 remained constant at 1 hour/week across all 4 weeks, however the mean time spent thinking about COVID-19 decreased for the first 3 weeks from a maximum of 3.7 hours in week 1 to a minimum of 2.227 hours in week 3, and increased from week 3 to week 4.
+
+(TODO: Display histogram of study times weeks 1 - 4 against quiz 4 score.)
 
 The histograms for study hours during weeks 1 - 3 are approximately normal with a few outliers in the right tail. However, study hours week 4 exhibits a right skewed distribution. In fact, the mean study time increased by approximately 23%, and the median study time increased by approximately 44% from week 3 to week 4.
 
+(TODO: Display histogram of quiz scores 1 - 3 against quiz 4 score.)
+
 The histograms for quiz scores during weeks 1 - 4 are all left skewed (mean < median), as few students tend to underperform on quizzes. The median for weeks 1, 3, and 4 remain at 8/10 points, except for week 3 which had a median of 8.8/10. Week 1 had the smallest difference between mean and median quiz scores (about 0.26/10 points), while week 2 has the largest divide between mean and median quiz scores (about 1.38/10 points).
 
-(TODO: Display histogram of COVID times weeks 1 - 4 against quiz 4 score.) \newline
+Side-by-side boxplots were used to compare COVID-19 times, study times, and quiz scores among students from various countries.
+
 (TODO: Display boxplot of COVID times weeks 1 - 4 against quiz 4 score.) \newline
 (TODO: Display 5-number summaries of all COVID times weeks 1 - 4.)
 
-- week, median COVID time, mean COVID time
-- 1, 1.0, 3.7
-- 2, 1.000, 2.869
-- 3, 1.000, 2.227
-- 4, 1.000, 2.917
+In week 1, most students from all countries spent a small amount of time thinking about COVID-19. Japan has the highest median COVID times, whereas India and USA have the lowest median COVID times. Clear outliers for Canada and China in all 4 weeks indicate that some Canadian and Chinese STA302H1 students were spending an above average amount of time thinking about COVID-19. Among all countries, Mongolia had the highest median COVID time during weeks 2 - 4. Pakistan and Singapore students also showed increased median and IQR COVID times between week 1 and week 2. Additionally, China and USA have the lowest median COVID times in week 2. In week 4, all countries returned to low median COVID-19 times, except for Mongolia which increased by approximately 150% from about 20 hours to about 50 hours).
 
-(TODO: Comment on histogram of COVID times weeks 1 - 4 against quiz 4 score.) \newline
-(TODO: Comment on boxplot of COVID times weeks 1 - 4 against quiz 4 score.) \newline
-
-
-(TODO: Display histogram of study times weeks 1 - 4 against quiz 4 score.) \newline
-(TODO: Display boxplot of study times weeks 1 - 4 against quiz 4 score.) \newline
+(TODO: Display boxplot of study times weeks 1 - 4.) \newline
 (TODO: Display 5-number summaries of all study times weeks 1 - 4.)
 
-- week, median study time, mean study time
-- 1, 7.000, 7.539
-- 2, 8.000, 8.403
-- 3, 9.00, 9.32
-- 4, 11.00, 13.44
-
-(TODO: Comment on histogram of study times weeks 1 - 4 against quiz 4 score.) \newline
-(TODO: Comment on boxplot of study times weeks 1 - 4 against quiz 4 score.) \newline
+(TODO: Comment on boxplot of study times weeks 1 - 4.) \newline
 
 
-(TODO: Display histogram of quiz scores 1 - 3 against quiz 4 score.) \newline
-(TODO: Display boxplot of quiz scores 1 - 3 against quiz 4 score.) \newline
+(TODO: Display boxplot of quiz scores 1 - 3.) \newline
 (TODO: Display 5-number summaries of all quiz scores 1 - 3.) \newline
 
-- week, median quiz score, mean quiz score
-- 1, 8.000, 7.738 = 0.262
-- 2, 8.800, 7.422 = 1.378
-- 3, 8.000, 7.209 = 0.791
-- 4, 8.000, 7.375 = 0.625
-
-(TODO: Comment on histogram of quiz scores 1 - 3 against quiz 4 score.) \newline
-(TODO: Comment on boxplot of quiz scores 1 - 3 against quiz 4 score.) \newline
+(TODO: Comment on boxplot of quiz scores 1 - 3.) \newline
 
 
 (TODO: Display pair scatterplots of relationships between quiz 4 score and each predictor variable) \newline
