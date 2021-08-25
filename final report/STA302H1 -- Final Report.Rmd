@@ -136,8 +136,11 @@ Roughly half of the countries saw a decrease in median study time, and other hal
 (TODO: Display boxplot of quiz scores 1 - 3.) \newline
 (TODO: Display 5-number summaries of all quiz scores 1 - 3.) \newline
 
-(TODO: Comment on boxplot of quiz scores 1 - 3.) \newline
+During week 1, the quiz scores for India, Singapore, Taiwan, and UAE students are all approximately normally distributed. Mongolia, Pakistan, and South Korea all had the highest median quiz scores roughly equal to the 75th percentile of Canada, China, and Singapore: around 9/10.
 
+There were clear outliers for quiz scores among Chinese students in week 2. UAE has lowest median quiz score among all countries (1.25/10), while China and Taiwan have the highest median quiz scores among all countries (9.375/10). Among all countries, Canada and NA have the largest spread of quiz scores. Additionally, UAE decreased median quiz score from 4/10 to 1.25/10 (-68.75%), while Mongolia decreased median quiz score from 9/10 to 2/10 (-77.78%).
+
+The median quiz scores for Canada, Pakistan, Singapore, Taiwan, and USA were all 7/10, whereas Japan and Mongolia have median quiz scores of 9/10 for week 4. The median quiz scores for most countries was between 7/10 and 9/10, with Japan, Mongolia, Singapore, South Korea, Taiwan, and USA having the smallest spread of quiz 4 scores.
 
 (TODO: Display pair scatterplots of relationships between quiz 4 score and each predictor variable) \newline
 (TODO: Comment on pair scatterplots of relationships between quiz 4 score and each predictor variable) \newline
