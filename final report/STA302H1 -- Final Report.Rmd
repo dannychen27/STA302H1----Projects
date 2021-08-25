@@ -14,22 +14,22 @@ knitr::opts_chunk$set(echo = TRUE)
 
 The purpose of this report is to study the relationship between a student's country of origin, the time they spent studying for STA302H1 (weeks 1 - 4), the time they spent thinking about COVID-19 (weeks 1 - 4), and their interim STA302H1 quiz scores (quizzes 1 - 3) versus final STA302H1 quiz scores (quiz 4).
 
-Existing studies in pedagogy tend to focus on individual factors that affect course performance, such as the number of hours slept, or the number of hours spent studying for a course. However, my paper intends to explore multiple covariates simultaneously to assess their collective effect on final quiz grades, as well as the effects of two covariates on each other.
+Existing studies in pedagogy tend to focus on individual factors that affect course performance, such as the number of hours slept, or the number of hours spent studying for a course. However, this study intends to explore multiple covariates simultaneously to assess their collective effect on final quiz grades, as well as the effects of two covariates on each other.
 
 ## Information about Our Popoulation
 
-Our population of interest is a group of students from the online summer 2021 (July - August) STA302H1S cohort, which originally had 227 students at the start of the term, but has 198 students enrolled as of August 13, 2021.
+The population of interest is a group of students from the online summer 2021 (July - August) STA302H1S cohort, which originally had 227 students at the start of the term, but has 198 students enrolled as of August 13, 2021.
 
 ## Experiment Description
 
-The professor announced at the beginning of the term and in the syllabus that she would survey students on Quercus, and collect information about their quiz scores at the end of each week for the first 4 weeks of STA302H1. Each week is specified by a date range below:
+For this study, students were surveyed on Quercus at the end of each week for the first 4 weeks of STA302H1. Each week is specified by a date range below:
 
 - End of Week 1 (July 5 – July 9)
 - End of Week 2 (July 12 – July 16)
 - End of Week 3 (July 19 – July 23)
 - End of Week 4 (July 26 – July 30)
 
-After 4 weeks, students received Quercus access to the anonymous STA302H1 performance dataset to develop a model for analysis during the STA302H1 final project.
+The survey asked about their country of origin (first week only), the number of hours they spent thinking about COVID-19, and the number of hours they spent studying for STA302H1. Quiz scores were also collected and combined into a dataset, where student names were anonymized before the dataset was made available to all STA302H1 students on Quercus for analysis during the STA302H1 final report.
 
 ## Purpose of Developing A Model
 
