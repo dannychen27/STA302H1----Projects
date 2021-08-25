@@ -88,7 +88,7 @@ display_histogram <- function(data, predictor_variable, histogram_title, x_axis_
 
 ```{r}
 display_boxplot <- function(data, predictor_variable, boxplot_title, y_axis_label) {
-  ggplot(mapping = aes(x = Country, y = predictor_variable, color = Country)) +
+  ggplot(mapping = aes(x = Country, y = predictor_variable)) +
     geom_boxplot(mapping = aes(x = Country, y = predictor_variable)) +
     labs(title = boxplot_title, x = "Country", y = y_axis_label)
 }
@@ -110,6 +110,18 @@ display_correlation_by_country <- function(country_data) {
                               "W1302", "W2302", "W3302", "W4302",
                               "Q1", "Q2", "Q3", "Q4")
   round(cor(country_data, use = "pairwise.complete.obs", method = "pearson"), 2)
+}
+```
+
+```{r}
+display_residual_plot <- function(data, model, predictor_variable, predictor_variable_name) {
+  fit = fitted(model)
+  residuals = resid(model)
+  ggplot(data = data, aes(x = predictor_variable, y = residuals)) +
+    geom_point() + 
+    geom_hline(yintercept = 0) + 
+    labs(title = paste0("Residual Plot for Variable ", predictor_variable_name), 
+         x = predictor_variable_name, y = paste0("Residuals of ", predictor_variable_name))
 }
 ```
 
@@ -362,165 +374,150 @@ t(countries)
 
 \break
 
-```{r echo = FALSE, warning = FALSE}
-display_boxplot(remaining_data, COVID.hours..W1.,
-                "Country vs. Week 1 Time Spent Thinking About COVID-19",
-                "Time Spent Thinking About COVID-19 (hours)")
+```{r warning = FALSE, echo = FALSE, message = FALSE}
+library(gridExtra)  # to use grid.arrange
+week1_covid_histogram = display_histogram(
+  remaining_data, remaining_data$COVID.hours..W1.,
+  "Week 1 Time Spent on COVID-19",
+  "Hours Spent on COVID-19")
+week2_covid_histogram = display_histogram(
+  remaining_data, remaining_data$COVID.hours..W2.,
+  "Week 2 Time Spent on COVID-19",
+  "Hours Spent on COVID-19")
+grid.arrange(week1_covid_histogram, week2_covid_histogram)
 ```
 
-```{r echo = FALSE, warning = FALSE}
-display_histogram(remaining_data, remaining_data$COVID.hours..W1., 
-                  "Histogram of Week 1 Time Spent Thinking About COVID-19",
-                  "Time Spent Thinking About COVID-19 (hours)")
+```{r warning = FALSE, echo = FALSE, message = FALSE}
+week3_covid_histogram = display_histogram(
+  remaining_data, remaining_data$COVID.hours..W3.,
+  "Week 3 Time Spent on COVID-19",
+  "Hours Spent on COVID-19")
+week4_covid_histogram = display_histogram(
+  remaining_data, remaining_data$COVID.hours..W4.,
+  "Week 4 Time Spent on COVID-19",
+  "Hours Spent on COVID-19")
+grid.arrange(week3_covid_histogram, week4_covid_histogram)
 ```
 
-\break
+\newpage
 
-```{R echo = FALSE, warning = FALSE}
-display_boxplot(remaining_data, COVID.hours..W2.,
-                "Country vs. Week 2 Time Spent Thinking About COVID-19",
-                "Time Spent Thinking About COVID-19 (hours)")
+```{r warning = FALSE, echo = FALSE, message = FALSE}
+week1_covid_boxplot = display_boxplot(
+  remaining_data, COVID.hours..W1.,
+  "Week 1 Time Spent on COVID-19",
+  "Hours Spent on COVID-19")
+week2_covid_boxplot = display_boxplot(
+  remaining_data, COVID.hours..W2.,
+  "Week 2 Time Spent on COVID-19",
+  "Hours Spent on COVID-19")
+grid.arrange(week1_covid_boxplot, week2_covid_boxplot)
 ```
 
-```{r echo = FALSE, warning = FALSE}
-display_histogram(remaining_data, remaining_data$COVID.hours..W2., 
-                  "Histogram of Week 2 Time Spent Thinking About COVID-19",
-                  "Time Spent Thinking About COVID-19 (hours)")
+```{R warning = FALSE, echo = FALSE, message = FALSE}
+week3_covid_boxplot = display_boxplot(
+  remaining_data, COVID.hours..W3.,
+  "Week 3 Time Spent on COVID-19",
+  "Hours Spent on COVID-19")
+week4_covid_boxplot = display_boxplot(
+  remaining_data, COVID.hours..W4.,
+  "Week 4 Time Spent on COVID-19",
+  "Hours Spent on COVID-19")
+grid.arrange(week3_covid_boxplot, week4_covid_boxplot)
 ```
 
-\break
+\newpage
 
-```{R echo = FALSE, warning = FALSE}
-display_boxplot(remaining_data, COVID.hours..W3.,
-                "Country vs. Week 3 Time Spent Thinking About COVID-19",
-                "Time Spent Thinking About COVID-19 (hours)")
+```{R warning = FALSE, echo = FALSE, message = FALSE}
+week1_study_histogram = display_histogram(
+  remaining_data, remaining_data$STA302.hours..W1.,
+  "Week 1 Time Spent Studying for STA302H1", "Hours Spent Studying for STA302H1")
+week2_study_histogram = display_histogram(
+  remaining_data, remaining_data$STA302.hours..W2.,
+  "Week 2 Time Spent Studying for STA302H1", "Hours Spent Studying for STA302H1")
+grid.arrange(week1_study_histogram, week2_study_histogram)
 ```
 
-```{r echo = FALSE, warning = FALSE}
-display_histogram(remaining_data, remaining_data$COVID.hours..W3., 
-                  "Histogram of Week 3 Time Spent Thinking About COVID-19",
-                  "Time Spent Thinking About COVID-19 (hours)")
+```{R warning = FALSE, echo = FALSE, message = FALSE}
+week3_study_histogram = display_histogram(
+  remaining_data, remaining_data$STA302.hours..W3.,
+  "Week 3 Time Spent Studying for STA302H1", "Hours Spent Studying for STA302H1")
+week4_study_histogram = display_histogram(
+  remaining_data, remaining_data$STA302.hours..W4.,
+  "Week 4 Time Spent Studying for STA302H1", "Hours Spent Studying for STA302H1")
+grid.arrange(week3_study_histogram, week4_study_histogram)
 ```
 
-\break
+\newpage
 
-```{R echo = FALSE, warning = FALSE}
-display_boxplot(remaining_data, COVID.hours..W4.,
-                "Country vs. Week 4 Time Spent Thinking About COVID-19",
-                "Time Spent Thinking About COVID-19 (hours)")
+```{R warning = FALSE, echo = FALSE, message = FALSE}
+week1_study_boxplot = display_boxplot(
+  remaining_data, STA302.hours..W1.,
+  "Week 1 Time Spent Studying For STA302H1",
+  "Hours Spent Studying")
+week2_study_boxplot = display_boxplot(
+  remaining_data, STA302.hours..W2.,
+  "Week 2 Time Spent Studying For STA302H1",
+  "Hours Spent Studying")
+grid.arrange(week1_study_boxplot, week2_study_boxplot)
 ```
 
-```{r echo = FALSE, warning = FALSE}
-display_histogram(remaining_data, remaining_data$COVID.hours..W4., 
-                  "Histogram of Week 4 Time Spent Thinking About COVID-19",
-                  "Time Spent Thinking About COVID-19 (hours)")
+```{R warning = FALSE, echo = FALSE, message = FALSE}
+week3_study_boxplot = display_boxplot(
+  remaining_data, STA302.hours..W3.,
+  "Week 3 Time Spent Studying",
+  "Hours Spent Studying")
+week4_study_boxplot = display_boxplot(
+  remaining_data, STA302.hours..W4.,
+  "Week 4 Time Spent Studying",
+  "Hours Spent Studying")
+grid.arrange(week3_study_boxplot, week4_study_boxplot)
 ```
 
-\break
+\newpage
 
-```{R echo = FALSE, warning = FALSE}
-display_boxplot(remaining_data, STA302.hours..W1.,
-                "Country vs. Week 1 Time Spent Studying For STA302H1",
-                "Time Spent Studying For STA302H1 (hours)")
+```{R warning = FALSE, echo = FALSE, message = FALSE}
+quiz1_histogram = display_histogram(
+  remaining_data, remaining_data$Quiz_1_score, 
+  "Quiz 1 Scores", "Quiz Score (out of 10)")
+quiz2_histogram = display_histogram(
+  remaining_data, remaining_data$Quiz_2_score, 
+  "Quiz 2 Scores", "Quiz Score (out of 10)")
+grid.arrange(quiz1_histogram, quiz2_histogram)
 ```
 
-```{r echo = FALSE, warning = FALSE}
-display_histogram(remaining_data, remaining_data$STA302.hours..W1., 
-                  "Histogram of Week 1 Time Spent Studying for STA302H1",
-                  "Time Spent Studying for STA302H1 (hours)")
+```{r warning = FALSE, echo = FALSE, message = FALSE}
+quiz3_histogram = display_histogram(
+  remaining_data, remaining_data$Quiz_3_score, 
+  "Quiz 3 Scores", "Quiz Score (out of 10)")
+quiz4_histogram = display_histogram(
+  remaining_data, remaining_data$Quiz_4_score, 
+  "Quiz 4 Scores", "Quiz Score (out of 10)")
+grid.arrange(quiz3_histogram, quiz4_histogram)
 ```
 
-\break
+\newpage
 
-```{R echo = FALSE, warning = FALSE}
-display_boxplot(remaining_data, STA302.hours..W2.,
-                "Country vs. Week 2 Time Spent Studying For STA302H1",
-                "Time Spent Studying For STA302H1 (hours)")
+```{R warning = FALSE, echo = FALSE, message = FALSE}
+quiz1_boxplot = display_boxplot(
+  remaining_data, Quiz_1_score,
+  "Quiz 1 Scores", "Quiz Score (out of 10)")
+quiz2_boxplot = display_boxplot(
+  remaining_data, Quiz_2_score,
+  "Quiz 2 Scores", "Quiz Score (out of 10)")
+grid.arrange(quiz1_boxplot, quiz2_boxplot)
 ```
 
-```{r echo = FALSE, warning = FALSE}
-display_histogram(remaining_data, remaining_data$STA302.hours..W2., 
-                  "Histogram of Week 2 Time Spent Studying for STA302H1",
-                  "Time Spent Studying for STA302H1 (hours)")
+```{r warning = FALSE, echo = FALSE, message = FALSE}
+quiz3_boxplot = display_boxplot(
+  remaining_data, Quiz_3_score,
+  "Quiz 3 Scores", "Quiz Score (out of 10)")
+quiz4_boxplot = display_boxplot(
+  remaining_data, Quiz_4_score,
+  "Quiz 4 Scores", "Quiz Score (out of 10)")
+grid.arrange(quiz3_boxplot, quiz4_boxplot)
 ```
 
-\break
-
-```{R echo = FALSE, warning = FALSE}
-display_boxplot(remaining_data, STA302.hours..W3.,
-                "Country vs. Week 3 Time Spent Studying For STA302H1",
-                "Time Spent Studying For STA302H1 (hours)")
-```
-
-```{r echo = FALSE, warning = FALSE}
-display_histogram(remaining_data, remaining_data$STA302.hours..W3., 
-                  "Histogram of Week 3 Time Spent Studying for STA302H1",
-                  "Time Spent Studying for STA302H1 (hours)")
-```
-
-\break
-
-```{R echo = FALSE, warning = FALSE}
-display_boxplot(remaining_data, STA302.hours..W4.,
-                "Country vs. Week 4 Time Spent Studying For STA302H1",
-                "Time Spent Studying For STA302H1 (hours)")
-```
-
-```{r echo = FALSE, warning = FALSE}
-display_histogram(remaining_data, remaining_data$STA302.hours..W4., 
-                  "Histogram of Week 4 Time Spent Studying for STA302H1",
-                  "Time Spent Studying for STA302H1 (hours)")
-```
-
-\break
-
-```{R echo = FALSE, warning = FALSE}
-display_boxplot(remaining_data, Quiz_1_score,
-                "Country vs. Quiz 1 Score", "Score (out of 10)")
-```
-
-```{r echo = FALSE, warning = FALSE}
-display_histogram(remaining_data, remaining_data$Quiz_1_score, 
-                  "Histogram of Quiz 1 Scores", "Quiz Score (out of 10)")
-```
-
-\break
-
-```{R echo = FALSE, warning = FALSE}
-display_boxplot(remaining_data, Quiz_2_score,
-                "Country vs. Quiz 2 Score", "Score (out of 10)")
-```
-
-```{r echo = FALSE, warning = FALSE}
-display_histogram(remaining_data, remaining_data$Quiz_2_score, 
-                  "Histogram of Quiz 2 Scores", "Quiz Score (out of 10)")
-```
-
-\break
-
-```{R echo = FALSE, warning = FALSE}
-display_boxplot(remaining_data, Quiz_3_score,
-                "Country vs. Quiz 3 Score", "Score (out of 10)")
-```
-
-```{r echo = FALSE, warning = FALSE}
-display_histogram(remaining_data, remaining_data$Quiz_3_score, 
-                  "Histogram of Quiz 3 Scores", "Quiz Score (out of 10)")
-```
-
-\break
-
-```{R echo = FALSE, warning = FALSE}
-display_boxplot(remaining_data, Quiz_4_score,
-                "Country vs. Quiz 4 Score", "Score (out of 10)")
-```
-
-```{r echo = FALSE, warning = FALSE}
-display_histogram(remaining_data, remaining_data$Quiz_4_score, 
-                  "Histogram of Quiz 4 Scores", "Quiz Score (out of 10)")
-```
-
-\break
+\newpage
 
 # 5-Number Summary Statistics
 
@@ -574,9 +571,118 @@ summary(remaining_data$Quiz_3_score)
 summary(remaining_data$Quiz_4_score)
 ```
 
+\newpage
+
+## Pairwise Scatterplots
+
+```{R echo = FALSE, warning = FALSE}
+pairs(~ COVID.hours..W1. + COVID.hours..W2. + COVID.hours..W3. + COVID.hours..W4. 
+      + STA302.hours..W1. + STA302.hours..W2. + STA302.hours..W3. + STA302.hours..W4. 
+      + Quiz_1_score + Quiz_2_score + Quiz_3_score + Quiz_4_score,
+      data = remaining_data, lower.panel = NULL)
+```
+
+```{R echo = FALSE, warning = FALSE}
+pairs(~ Quiz_4_score + Quiz_1_score + Quiz_2_score 
+      + Quiz_3_score, lower.panel = NULL)
+```
+
+```{r echo = FALSE, warning = FALSE}
+pairs(~ Quiz_4_score + COVID.hours..W1. + COVID.hours..W2. 
+      + COVID.hours..W3. + COVID.hours..W4., lower.panel = NULL)
+```
+
+```{r echo = FALSE, warning = FALSE}
+pairs(~ Quiz_4_score + STA302.hours..W1. + STA302.hours..W2. 
+      + STA302.hours..W3. + STA302.hours..W4., lower.panel = NULL)
+```
+
+I wanted to group together all of the quiz scores, COVID times, and study times into separate pairwise scatterplots to see whether they had an individual relationship with quiz 4 scores.
+
+\newpage
+
+## Correlation Matrix
+
+```{R echo = FALSE, include = FALSE}
+remaining_data_no_countries = remaining_data %>%
+  dplyr::select(-country)
+colnames(remaining_data_no_countries) <- c(
+  "W1COV", "W2COV", "W3COV", "W4COV",
+  "W1302", "W2302", "W3302", "W4302",
+  "Q1", "Q2", "Q3", "Q4")
+```
+
+```{R}
+round(cor(remaining_data_no_countries, use = "pairwise.complete.obs", method = "pearson"), 2)
+```
+
+```{r include = FALSE, results = "hide"}
+# ggcorr(remaining_data_no_countries, label = TRUE, label_round = 2)
+```
+
+We could also create separate correlation matrices for each country.
+
+```{r warning = FALSE}
+display_correlation_by_country(canada)
+```
+
+```{r warning = FALSE}
+display_correlation_by_country(china)
+```
+
+```{r warning = FALSE}
+display_correlation_by_country(india)
+```
+
+```{r warning = FALSE}
+display_correlation_by_country(japan)
+```
+
+```{r warning = FALSE}
+display_correlation_by_country(mongolia)
+```
+
 \break
 
-```{r}
+```{r warning = FALSE}
+display_correlation_by_country(unknown)
+```
+
+```{r warning = FALSE}
+display_correlation_by_country(pakistan)
+```
+
+```{r warning = FALSE}
+display_correlation_by_country(singapore)
+```
+
+\break
+
+```{r warning = FALSE}
+display_correlation_by_country(south_korea)
+```
+
+```{r warning = FALSE}
+display_correlation_by_country(taiwan)
+```
+
+```{r warning = FALSE}
+display_correlation_by_country(uae)
+```
+
+\break
+
+```{r warning = FALSE}
+display_correlation_by_country(usa)
+```
+
+Since every country other than China, Canada, or Unknown doesn't have enough entries, it does not make sense to look at the correlation of those countries individually.
+
+Therefore, we'll only be working with the correlation of all covariates, regardless of country.
+
+\newpage
+
+```{r warning = FALSE, echo = FALSE, message = FALSE}
 remaining_data_no_NAs = na.omit(remaining_data)
 
 quiz1 = remaining_data_no_NAs$Quiz_1_score
@@ -597,11 +703,11 @@ study4 = remaining_data_no_NAs$STA302.hours..W4.
 country = remaining_data_no_NAs$country
 ```
 
-## Full Model (Without Splitting by Country)
+## Full Model
 
-```{r}
+```{r warning = FALSE, results = "hide"}
 # single variable per term = additive model
-additive_model = lm(
+first_model = lm(
   quiz4 ~ 
     quiz1  # scatterplot seems to have no relationship
   + quiz2  # scatterplot seems to have no relationship
@@ -614,95 +720,226 @@ additive_model = lm(
   # + I(covid3 ^ 2) # scatterplot looks less quadratic
   + covid4  # must add this linear term b/c i have a quadratic term 
   + I(covid4 ^ 2) # scatterplot looks more quadratic
-  
   + I(covid1 * covid2) # first impressions from correlation matrix
   + I(covid2 * covid3) # correlation = 0.67
   + I(covid2 * covid4) # discard: correlation = 0.71
   + I(covid3 * covid4) # correlation = 0.72
-  
   + I(study1 * study2)  # correlation = 0.61
   + I(study1 * study3)  # correlation = 0.58
   + I(study2 * study3)  # correlation = 0.70
   + I(study3 * study4)  # correlation = 0.62
-  
   + country  # for simplicity, but backwards process shows this term is not significant
 )
-summary(additive_model)
+summary(first_model)
 ```
 
-```{r}
-stepAIC(additive_model, direction = "both")$anova
+\newpage
+
+```{r warning = FALSE, message = FALSE}
+library(gtsummary)  # for tbl_regression
+tbl_regression(first_model, exponentiate = FALSE)
 ```
 
-```{r}
+```{r results = "hide"}
+stepAIC(first_model, direction = "forward")$anova
+```
+
+```{r results = "hide"}
+stepAIC(first_model, direction = "backward")$anova
+```
+
+```{r results = "hide"}
+stepAIC(first_model, direction = "both")$anova
+```
+
+\newpage
+
+## Final Model
+
+```{r results = "hide"}
+final_model = lm(
+  quiz4 ~ quiz3
+  + I(covid1 ^ 2)   # don't remove, else all other terms become insignificant
+  + I(covid1 * covid2) 
+  + I(covid2 * covid3)  # don't remove, else all other terms become insignificant
+  + I(study1 * study2) 
+  + I(study1 * study3)  # maybe don't remove?
+  + I(study2 * study3) 
+  + I(study3 * study4)
+)
+summary(final_model)
+```
+
+```{r warning = FALSE, message = FALSE}
+tbl_regression(final_model, exponentiate = FALSE)
+```
+
+```{r results = "hide"}
+stepAIC(final_model, direction = "forward")$anova
+```
+
+```{r results = "hide"}
+stepAIC(final_model, direction = "backward")$anova
+```
+
+```{r results = "hide"}
+stepAIC(final_model, direction = "both")$anova
+```
+
+\newpage
+
+## Final Model with Some Terms I Pruned Myself
+
+```{r results = "hide"}
 # I decide to remove more terms for simplicity.
-additive_model2 = lm(
-quiz4 ~ quiz3 
+third_model = lm(
+quiz4 ~ quiz3
   # + I(covid1 ^ 2)  # this lone quadratic term add a lot of complexity for negligible change in R^2 and adjusted R^2.
   # + I(covid1 * covid2) + I(covid2 * covid3) # these terms alone add complexity -- harder to interpret the statement when discussing 2-week or 3-week gaps between covid weeks of interest # TODO: does it affect significance?
-
   + I(study1 * study2) 
 # + I(study1 * study3)  # make weeks consecutive: "want to see correlation from week to week", rather than non-consecutive weeks.
   + I(study2 * study3) 
   + I(study3 * study4)
 )
-summary(additive_model2)
+summary(third_model)
 ```
 
-```{r}
+```{r warning = FALSE, message = FALSE}
+tbl_regression(third_model, exponentiate = FALSE)
+```
+
+
+```{r results = "hide"}
 # Doing stepAIC on a well-fitted model produces the same model.
 # The model is already in a "steady state."
-stepAIC(additive_model2, direction = "both")$anova
+stepAIC(third_model, direction = "both")$anova
+```
+
+```{r results = "hide"}
+stepAIC(third_model, direction = "forward")$anova
+```
+
+```{r results = "hide"}
+stepAIC(third_model, direction = "backward")$anova
+```
+
+\newpage
+
+## Simplistic Model
+
+```{r results = "hide"}
+fourth_model = lm(quiz4 ~ quiz3)
+summary(fourth_model)
+```
+
+```{r warning = FALSE, message = FALSE}
+tbl_regression(fourth_model, exponentiate = FALSE)
+```
+
+```{r results = "hide"}
+stepAIC(fourth_model, direction = "forward")$anova
+```
+
+```{r results = "hide"}
+stepAIC(fourth_model, direction = "backward")$anova
+```
+
+```{r results = "hide"}
+stepAIC(fourth_model, direction = "both")$anova
+```
+
+\newpage
+
+## Linear Model Only
+
+```{r results = "hide"}
+additive_model = lm(
+  quiz4 ~ quiz1 + quiz2 + quiz3
+  + covid1 + covid2 + covid3 + covid4
+  + study1 + study2 + study3 + study4
+  + country
+)
+summary(additive_model)
+```
+
+```{r warning = FALSE, message = FALSE}
+tbl_regression(additive_model, exponentiate = FALSE)
+```
+
+```{r results = "hide"}
+stepAIC(additive_model, direction = "forward")$anova
+```
+
+```{r results = "hide"}
+stepAIC(additive_model, direction = "backward")$anova
+```
+
+```{r results = "hide"}
+stepAIC(additive_model, direction = "both")$anova
+```
+
+\newpage
+
+<!-- ## Residual Plots -->
+
+```{r echo = FALSE}
+library(ggforce)  # zooming in on plots
+display_residual_plot(remaining_data_no_NAs, final_model, covid1 ^ 2, "covid1 ^ 2") + 
+  facet_zoom(xlim = c(0, 40))  # try upper limit = 70
+```
+
+```{r echo = FALSE}
+display_residual_plot(remaining_data_no_NAs, final_model, covid1 * covid2, "covid1 * covid2") + 
+  facet_zoom(xlim = c(0, 50))  # try upper limit = 100
+```
+
+```{r echo = FALSE}
+display_residual_plot(remaining_data_no_NAs, final_model, covid2 * covid3, "covid2 * covid3")
+```
+
+```{r echo = FALSE}
+display_residual_plot(remaining_data_no_NAs, final_model, study1 * study2, "study1 * study2")
+```
+
+```{r echo = FALSE}
+display_residual_plot(remaining_data_no_NAs, final_model, study1 * study3, "study1 * study3")
+```
+
+```{r echo = FALSE}
+display_residual_plot(remaining_data_no_NAs, final_model, study2 * study3, "study2 * study3")
+```
+
+```{r echo = FALSE}
+display_residual_plot(remaining_data_no_NAs, final_model, study3 * study4, "study3 * study4")
+```
+
+\newpage
+
+```{r echo = FALSE}
+plot(final_model)
+```
+
+## Goodness of Current Model
+
+```{r echo = FALSE}
+hist(lm(final_model)$residuals)
+```
+
+```{R}
+mean(lm(final_model)$residuals)
 ```
 
 ```{r}
-display_residual_plot <- function(data, model, predictor_variable) {
-  fit = fitted(model)
-  residuals = resid(model)
-  ggplot(data = data, aes(x = predictor_variable, y = residuals)) +
-    geom_point() + 
-    geom_hline(yintercept = 0)
-}
+median(lm(final_model)$residuals)
 ```
 
-## residual plot
-
-```{r}
-display_residual_plot(remaining_data_no_NAs, additive_model2, quiz3)
-```
-
-```{r}
-display_residual_plot(remaining_data_no_NAs, additive_model2, study1 * study2)
-```
-
-```{r}
-display_residual_plot(remaining_data_no_NAs, additive_model2, study2 * study3)
-```
-
-```{r}
-display_residual_plot(remaining_data_no_NAs, additive_model2, study3 * study4)
-```
-
-## residual vs. fit, qqplot, scale-location, and residual vs. leverage
-
-```{r}
-plot(additive_model2)
-```
+\newpage
 
 ## Try Predicting on the Fitted Values
 
-```{r}
-predicted_values = predict(additive_model2)
-predicted_values
-```
-
-```{r}
+```{r echo = FALSE}
+predicted_values = predict(final_model)
 actual_values = remaining_data_no_NAs$Quiz_4_score
-actual_values
-```
-
-```{r}
-predicted_values - actual_values
 ```
 
 ```{r}
@@ -713,7 +950,7 @@ mean(predicted_values - actual_values)
 median(predicted_values - actual_values)
 ```
 
-```{r}
+```{r echo = FALSE}
 hist(predicted_values - actual_values)
 ```
 
@@ -721,23 +958,25 @@ hist(predicted_values - actual_values)
 t.test(predicted_values - actual_values)
 ```
 
+\newpage
+
 ## 50/50 Training/Testing
 
-## partitioning
+## Partitioning Phase
+
+Source: https://stackoverflow.com/questions/17200114/how-to-split-data-into-training-testing-sets-using-sample-function
 
 ```{r}
-# https://stackoverflow.com/questions/17200114/how-to-split-data-into-training-testing-sets-using-sample-function
-
+library(caTools)  # for sample.split
 set.seed(888)
-library(caTools)
 sample = sample.split(remaining_data_no_NAs, SplitRatio = 0.55)
 training_data = subset(remaining_data_no_NAs, sample == TRUE)
 testing_data  = subset(remaining_data_no_NAs, sample == FALSE)
 ```
 
-## training
+## Training Phase
 
-```{r}
+```{r echo = FALSE}
 training_data_no_NAs = na.omit(training_data)
 
 quiz1 = training_data_no_NAs$Quiz_1_score
@@ -758,23 +997,23 @@ study4 = training_data_no_NAs$STA302.hours..W4.
 country = training_data_no_NAs$country
 ```
 
-```{r}
-additive_model2 = lm(
-quiz4 ~ quiz3
-  # + I(covid1 * covid2)
-  # + I(covid2 * covid3) 
-  # + I(covid3 * covid4)
-
-  + I(study1 * study2)
+```{r results = "hide"}
+final_model = lm(
+  quiz4 ~ quiz3
+  + I(covid1 ^ 2)   # don't remove, else all other terms become insignificant
+  + I(covid1 * covid2) 
+  + I(covid2 * covid3)  # don't remove, else all other terms become insignificant
+  + I(study1 * study2) 
+  + I(study1 * study3)  # maybe don't remove?
   + I(study2 * study3) 
   + I(study3 * study4)
 )
-summary(additive_model2)
+summary(final_model)
 ```
 
-# testing
+## Testing Phase
 
-```{r}
+```{r echo = FALSE}
 testing_data_no_NAs = na.omit(testing_data)
 
 quiz1 = testing_data_no_NAs$Quiz_1_score
@@ -795,18 +1034,9 @@ study4 = testing_data_no_NAs$STA302.hours..W4.
 country = testing_data_no_NAs$country
 ```
 
-```{r}
-predicted_values = predict(additive_model2, testing_data_no_NAs)
-predicted_values
-```
-
-```{r}
+```{r echo = FALSE}
+predicted_values = predict(final_model, testing_data_no_NAs)
 actual_values = testing_data$Quiz_4_score
-actual_values
-```
-
-```{r}
-predicted_values - actual_values
 ```
 
 ```{r}
@@ -817,23 +1047,22 @@ mean(predicted_values - actual_values)
 median(predicted_values - actual_values)
 ```
 
-```{r}
+```{r echo = FALSE}
 hist(predicted_values - actual_values)
 ```
 
-# one-sample t-test on mean
+# One sample t-test on Mean
 
-hypothesized mean = 0
+- $H_0: \mu_{residuals} = 0$
+- $H_1: \mu_{residuals} \neq 0$
 
+- is -0.427222 statistically different from 0?
+- the p-value should be small.
 - n = 77, so by CLT sample mean is approximately normal
-
-is -0.427222 statistically different from 0?
-the p-value should be small.
 
 ```{R}
 t.test(predicted_values - actual_values)
 ```
 
-p-value = 0.7938
-t = -0.26242
-
+- p-value = 0.9693
+- t-value = -0.038679
