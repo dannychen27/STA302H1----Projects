@@ -147,18 +147,12 @@ The median quiz scores for Canada, Pakistan, Singapore, Taiwan, and USA were all
 Pairwise scatterplots were created to observe the relationship between the response variable and the explanatory variables. \newline
 (TODO: See figure X in appendix)
 
-(TODO: Describe each descriptive statistic – “this histogram/boxplot/scatterplot displays relationship between X and Y”) \newline
-(TODO: Don’t discuss relationship results though -- See figure X in appendix) \newline
-(TODO: Display pairs scatterplot, with any potential outliers -- influential or otherwise) \newline
-(TODO: Display correlation matrix) \newline
-(TODO: Display lm() output of linear model in nice table using gtsummary().) \newline
-(TODO: Point out similarities and differences between various descriptive statistics (i.e., histograms, boxplots, scatterplots)
+Furthermore, a correlation matrix was constructed to determine the correlations of each pair of covariates along with the response variable and each covariate. \newline
+(TODO: The results are displayed in Figure X in the appendix.) 
 
-(TODO: Comment on distribution of variables)
-(TODO: Comment on 5-number summary (mean, mean, IQR), outliers across all countries – analysis will be performed later to find influential outliers)
+A correlation between 0.0 - 0.3 is considered low, 0.3 - 0.5 is moderate, and 0.5 - 1.0 is high.
+
 (TODO: Consult 3 – 4 external sources to confirm your findings.)
-
-<!-- Looking at the descriptive statistics from the previous section, we see that the histograms for grades are left-skewed as few students fail quizzes, and the histograms for COVID-19 times and STA302H1 study times are right-skewed as few students spend a significant amount of time thinking about COVID-19 or studying for STA302H1 compared to the mean or median amounts of study and COVID times. -->
 
 \newpage
 
