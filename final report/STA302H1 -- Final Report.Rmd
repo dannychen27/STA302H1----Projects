@@ -134,7 +134,7 @@ Canada and China both having median study times of approximately 8 hours. The ma
 Roughly half of the countries saw a decrease in median study time, and other half saw an increase median study times in week 3. The boxplots for 7 out of 12 countries (China, India, Pakistan, Singapore, South Korea, UAE, and USA) all display approximately normally distributed study times. From week 3 to week 4, students from some countries increased their median study times from a range of 5 - 10 hours, to a range of 10 - 20 hours.
 
 (TODO: Display boxplot of quiz scores 1 - 3.) \newline
-(TODO: Display 5-number summaries of all quiz scores 1 - 3.) \newline
+(TODO: Display 5-number summaries of all quiz scores 1 - 3.)
 
 During week 1, the quiz scores for India, Singapore, Taiwan, and UAE students are all approximately normally distributed. Mongolia, Pakistan, and South Korea all had the highest median quiz scores roughly equal to the 75th percentile of Canada, China, and Singapore: around 9/10.
 
@@ -142,9 +142,10 @@ There were clear outliers for quiz scores among Chinese students in week 2. UAE 
 
 The median quiz scores for Canada, Pakistan, Singapore, Taiwan, and USA were all 7/10, whereas Japan and Mongolia have median quiz scores of 9/10 for week 4. The median quiz scores for most countries was between 7/10 and 9/10, with Japan, Mongolia, Singapore, South Korea, Taiwan, and USA having the smallest spread of quiz 4 scores.
 
-(TODO: Display pair scatterplots of relationships between quiz 4 score and each predictor variable) \newline
-(TODO: Comment on pair scatterplots of relationships between quiz 4 score and each predictor variable) \newline
+(TODO: Display pair scatterplots of relationships between quiz 4 score and each predictor variable)
 
+Pairwise scatterplots were created to observe the relationship between the response variable and the explanatory variables. \newline
+(TODO: See figure X in appendix)
 
 (TODO: Describe each descriptive statistic – “this histogram/boxplot/scatterplot displays relationship between X and Y”) \newline
 (TODO: Don’t discuss relationship results though -- See figure X in appendix) \newline
