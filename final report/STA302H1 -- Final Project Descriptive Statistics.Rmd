@@ -596,7 +596,7 @@ country = remaining_data_no_NAs$country
 
 ## Full Model
 
-```{r results = "hide"}
+```{r warning = FALSE, results = "hide"}
 # single variable per term = additive model
 first_model = lm(
   quiz4 ~ 
@@ -622,6 +622,13 @@ first_model = lm(
   + country  # for simplicity, but backwards process shows this term is not significant
 )
 summary(first_model)
+```
+
+\newpage
+
+```{r warning = FALSE, message = FALSE}
+library(gtsummary)  # for tbl_regression
+tbl_regression(first_model, exponentiate = FALSE)
 ```
 
 ```{r results = "hide"}
@@ -654,6 +661,10 @@ final_model = lm(
 summary(final_model)
 ```
 
+```{r warning = FALSE, message = FALSE}
+tbl_regression(final_model, exponentiate = FALSE)
+```
+
 ```{r results = "hide"}
 stepAIC(final_model, direction = "forward")$anova
 ```
@@ -665,6 +676,8 @@ stepAIC(final_model, direction = "backward")$anova
 ```{r results = "hide"}
 stepAIC(final_model, direction = "both")$anova
 ```
+
+\newpage
 
 ## Final Model with Some Terms I Pruned Myself
 
@@ -681,6 +694,11 @@ quiz4 ~ quiz3
 )
 summary(third_model)
 ```
+
+```{r warning = FALSE, message = FALSE}
+tbl_regression(third_model, exponentiate = FALSE)
+```
+
 
 ```{r results = "hide"}
 # Doing stepAIC on a well-fitted model produces the same model.
@@ -705,6 +723,10 @@ fourth_model = lm(quiz4 ~ quiz3)
 summary(fourth_model)
 ```
 
+```{r warning = FALSE, message = FALSE}
+tbl_regression(fourth_model, exponentiate = FALSE)
+```
+
 ```{r results = "hide"}
 stepAIC(fourth_model, direction = "forward")$anova
 ```
@@ -717,6 +739,8 @@ stepAIC(fourth_model, direction = "backward")$anova
 stepAIC(fourth_model, direction = "both")$anova
 ```
 
+\newpage
+
 ## Linear Model Only
 
 ```{r results = "hide"}
@@ -727,6 +751,10 @@ additive_model = lm(
   + country
 )
 summary(additive_model)
+```
+
+```{r warning = FALSE, message = FALSE}
+tbl_regression(additive_model, exponentiate = FALSE)
 ```
 
 ```{r results = "hide"}
