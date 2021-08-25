@@ -292,7 +292,8 @@ Out of $n = 142$ data points, I want to use 55% of the data points to train my l
 
 I found that the mean of this new distribution is $8.124 \times 10^{-15}$ (see figure X in appendix).
 
-(TODO: Add histogram of residuals for trained model.)
+(TODO: Add histogram of residuals for trained model.) \newline
+(TODO: Add mean/median residual output.)
 
 Moreover, the histogram of residuals looks approximately symmetric, with the mean of this new distribution being $-0.2102$ (see figure X in appendix). To be sure, since there are $n = 142$ points, the central limit theorem states that the sample mean is approximately normally distributed.
 
@@ -303,7 +304,11 @@ For our t-test, we hypothesized that the mean of residuals was identically equal
 - $H_0: \mu_{residuals} = 0$
 - $H_1: \mu_{residuals} \neq 0$
 
+(TODO: Add t-test results in a nice table.)
+
 The t-test results showed that the $p$-value is 0.7938, which means that we fail to reject $H_0$, meaning that $\mu_{residuals} = 0$ holds. The 95% confidence interval for the mean of residuals is $(-0.4510668, 0.3462948)$, and since $0 \in (-0.4510668, 0.3462948)$, we again fail to reject $H_0$ and conclude that $\mu_{residuals} = 0$.
+
+(TODO: See figure X in appendix for t-test output.)
 
 Therefore, we've shown that our linear model is a reasonable model.
 
@@ -334,9 +339,9 @@ This model is only generalizable to online courses rather than in-person courses
 
 This model fails to capture variables such as weekly anxiety levels, the weekly number of hours students sleep, and the weekly number of hours students participate in physical activity.
 
-(TODO: Studies show high anxiety impairs course performance)
-(TODO: Studies show high anxiety and more COVID think time)
-(TODO: Studies show moderate sleep improves course performance)
+(TODO: Studies show high anxiety impairs course performance) \newline
+(TODO: Studies show high anxiety and more COVID think time) \newline
+(TODO: Studies show moderate sleep improves course performance) \newline
 (TODO: Studies show moderate exercise improves course performance)
 
 The final dataset excluded 28 STA302H1 dropped students, and some blank entries remained for missing survey responses, and missing quiz scores remained due to some students skipping quizzes.
