@@ -571,7 +571,116 @@ summary(remaining_data$Quiz_3_score)
 summary(remaining_data$Quiz_4_score)
 ```
 
+\newpage
+
+## Pairwise Scatterplots
+
+```{R echo = FALSE, warning = FALSE}
+pairs(~ COVID.hours..W1. + COVID.hours..W2. + COVID.hours..W3. + COVID.hours..W4. 
+      + STA302.hours..W1. + STA302.hours..W2. + STA302.hours..W3. + STA302.hours..W4. 
+      + Quiz_1_score + Quiz_2_score + Quiz_3_score + Quiz_4_score,
+      data = remaining_data, lower.panel = NULL)
+```
+
+```{R echo = FALSE, warning = FALSE}
+pairs(~ Quiz_4_score + Quiz_1_score + Quiz_2_score 
+      + Quiz_3_score, lower.panel = NULL)
+```
+
+```{r echo = FALSE, warning = FALSE}
+pairs(~ Quiz_4_score + COVID.hours..W1. + COVID.hours..W2. 
+      + COVID.hours..W3. + COVID.hours..W4., lower.panel = NULL)
+```
+
+```{r echo = FALSE, warning = FALSE}
+pairs(~ Quiz_4_score + STA302.hours..W1. + STA302.hours..W2. 
+      + STA302.hours..W3. + STA302.hours..W4., lower.panel = NULL)
+```
+
+I wanted to group together all of the quiz scores, COVID times, and study times into separate pairwise scatterplots to see whether they had an individual relationship with quiz 4 scores.
+
+\newpage
+
+## Correlation Matrix
+
+```{R echo = FALSE, include = FALSE}
+remaining_data_no_countries = remaining_data %>%
+  dplyr::select(-country)
+colnames(remaining_data_no_countries) <- c(
+  "W1COV", "W2COV", "W3COV", "W4COV",
+  "W1302", "W2302", "W3302", "W4302",
+  "Q1", "Q2", "Q3", "Q4")
+```
+
+```{R}
+round(cor(remaining_data_no_countries, use = "pairwise.complete.obs", method = "pearson"), 2)
+```
+
+```{r include = FALSE, results = "hide"}
+# ggcorr(remaining_data_no_countries, label = TRUE, label_round = 2)
+```
+
+We could also create separate correlation matrices for each country.
+
+```{r warning = FALSE}
+display_correlation_by_country(canada)
+```
+
+```{r warning = FALSE}
+display_correlation_by_country(china)
+```
+
+```{r warning = FALSE}
+display_correlation_by_country(india)
+```
+
+```{r warning = FALSE}
+display_correlation_by_country(japan)
+```
+
+```{r warning = FALSE}
+display_correlation_by_country(mongolia)
+```
+
 \break
+
+```{r warning = FALSE}
+display_correlation_by_country(unknown)
+```
+
+```{r warning = FALSE}
+display_correlation_by_country(pakistan)
+```
+
+```{r warning = FALSE}
+display_correlation_by_country(singapore)
+```
+
+\break
+
+```{r warning = FALSE}
+display_correlation_by_country(south_korea)
+```
+
+```{r warning = FALSE}
+display_correlation_by_country(taiwan)
+```
+
+```{r warning = FALSE}
+display_correlation_by_country(uae)
+```
+
+\break
+
+```{r warning = FALSE}
+display_correlation_by_country(usa)
+```
+
+Since every country other than China, Canada, or Unknown doesn't have enough entries, it does not make sense to look at the correlation of those countries individually.
+
+Therefore, we'll only be working with the correlation of all covariates, regardless of country.
+
+\newpage
 
 ```{r warning = FALSE, echo = FALSE, message = FALSE}
 remaining_data_no_NAs = na.omit(remaining_data)
