@@ -51,10 +51,10 @@ First, I'll exclude dropped students from my final dataset since are unlikely to
 (TODO: Also remove students without Quiz 4 scores?)
 
 Then I will create descriptive statistics such as histograms, boxplots, 5-number summaries, and pairs scatterplots to reveal useful relationships that will help me determine a reasonably informed, yet simple model. 
-(TODO: Address variable transformations to reduce skewness if necessary.) \newline
-(TODO: Address variable re-centering to reduce multicollinearity if necessary)
 
-I will use model diagnostics to verify assumptions of my final model. Lastly, I will also consult empirical research and scholarly research to  confirm my findings and propose ways to improve my model.
+I will use model diagnostics to verify assumptions of my final model, and address whether or not any variable transformation or a variable re-centering is necessary.
+
+Lastly, I will also consult empirical research and scholarly research to  confirm my findings and propose ways to improve my model.
 
 \newpage
 
