@@ -126,8 +126,12 @@ In week 1, most students from all countries spent a small amount of time thinkin
 (TODO: Display boxplot of study times weeks 1 - 4.) \newline
 (TODO: Display 5-number summaries of all study times weeks 1 - 4.)
 
-(TODO: Comment on boxplot of study times weeks 1 - 4.) \newline
+Clear outliers exist for Canada in weeks 1 - 4, and China in weeks 1, 2, and 4. South Korea has the lowest median study time, wheras Japan has the highest median study time in week 1. Median study times in week 1 for a given country seem to fall within the IQR of  other countries. This may indicate that median week 1 study times might not be statistically different from each other. More specifically, median study times for all countries fall between 0 - 10 hours. 
 
+In week 2, all countries have higher median study times compated to week 1, with 
+Canada and China both having median study times of approximately 8 hours. The majority of median study times cluster between 5 - 10 hours, except for USA which has a median study time of approximately 20 hours -- 300% more than week 1.
+
+Roughly half of the countries saw a decrease in median study time, and other half saw an increase median study times in week 3. The boxplots for 7 out of 12 countries (China, India, Pakistan, Singapore, South Korea, UAE, and USA) all display approximately normally distributed study times. From week 3 to week 4, students from some countries increased their median study times from a range of 5 - 10 hours, to a range of 10 - 20 hours.
 
 (TODO: Display boxplot of quiz scores 1 - 3.) \newline
 (TODO: Display 5-number summaries of all quiz scores 1 - 3.) \newline
