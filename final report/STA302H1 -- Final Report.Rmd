@@ -33,11 +33,13 @@ The survey asked about their country of origin (first week only), the number of 
 
 ## Purpose of Developing A Model
 
-The purpose of developing a model is to determine what the strongest predictors for Quiz 4 grades are: interim STA302H1 quiz scores, study time, COVID contemplation time, country, or some combination of these factors.
+The purpose of developing a model is to try to understand the relationship between quiz 4 scores and the other predictor variables (interim STA302H1 quiz scores, study time, COVID contemplation time, country, or some combination of these factors) in explaining the variability among quiz 4 marks.
+
+If the model shows some relationship, it may be possible to use the regression model to determine which of the variables are strong predictors of Quiz 4 grades, and estimate unknown values for quiz 4 scores whenever the values of the independent variables are known.
 
 Developing this model primarily benefits professors and students. Current professors can identify possible weak topics by identifying topics that yield the lowest quiz scores, reflect on things they did/did not help students, and then devote resources to improving lectures or creating carefully curated tutorials that address topics that students find challenging. Teaching stream professors and future STA302H1 professors would inherit these resources so they can establish reasonable STA302H1 learning goals, thoroughly prepare for more formative lectures, and address common student conceptual pitfalls that undermine student quiz scores.
 
-When current STA302H1 students can quickly understand which factors really contribute to a high final STA302H1 grade, they have more cognitive resources available to focus on key material to getting high grades on hard quizzes and adapt to the pace of STA302H1, and they have time to implement their current study strategies or improve flawed ones in time for final assessments. Moreover, future students can establish reasonable expectations about workload and develop strategies to maximize their time and success in STA302H1 with available resources.
+When current STA302H1 students understand the most important factors that contribute to high quiz 4 grades, they can develop informed strategies that can help them effectively learn key material and maximize their grades on formative quizzes. Future students can establish reasonable expectations about workload and develop strategies to maximize their time and success in STA302H1 with available resources.
 
 ## Plan for Developing Model
 
