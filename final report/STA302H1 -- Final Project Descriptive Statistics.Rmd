@@ -884,8 +884,13 @@ stepAIC(additive_model, direction = "both")$anova
 
 ```{r echo = FALSE}
 library(ggforce)  # zooming in on plots
+display_residual_plot(remaining_data_no_NAs, final_model, covid1, "covid1") + 
+  facet_zoom(xlim = c(0, 10))  # try upper limit = 30
+```
+
+```{r echo = FALSE}
 display_residual_plot(remaining_data_no_NAs, final_model, covid1 ^ 2, "covid1 ^ 2") + 
-  facet_zoom(xlim = c(0, 40))  # try upper limit = 70
+  facet_zoom(xlim = c(0, 10))  # try upper limit = 70
 ```
 
 ```{r echo = FALSE}
