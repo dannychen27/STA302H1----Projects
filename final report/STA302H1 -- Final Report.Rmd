@@ -235,14 +235,6 @@ The final model has \texttt{quiz4} as the response variable; \texttt{quiz3}, the
 (TODO: Show ANOVA results of original model in nice table.) \newline
 (TODO: Show lm() results of final model in nice table.)
 
-### Any Variable Transformation Necessary?
-
-No variable transformations were performed on the final model because the residual plots showed that the errors were randomly distributed around 0. 
-
-### Any Variable Re-centering Necessary?
-
-No variable re-centering was required since only a few entries in the correlation matrix have high correlation. Most of the entries in the correlation matrix had low to moderate correlation, so re-centering variables likely has negligible effect on the correlation matrix.
-
 \newpage
 
 ## Statistical and Empirical Justifications for Model
@@ -304,6 +296,14 @@ Therefore, the error terms are approximately normal.
 (TODO: Insert R code to produce residual plots in appendix.)
 
 Hence, our model satisfies the assumptions for a linear model.
+
+### Any Variable Transformation Necessary?
+
+No variable transformations were performed on the final model because the residual plots showed that the errors were randomly distributed around 0. 
+
+### Any Variable Re-centering Necessary?
+
+No variable re-centering was required since only a few entries in the correlation matrix have high correlation. Most of the entries in the correlation matrix had low to moderate correlation, so re-centering variables likely has negligible effect on the correlation matrix.
 
 ## In-Depth Diagnostics to Verify Goodness of Model
 
