@@ -513,8 +513,13 @@ To show that a quadratic relationship for the final model is valid, the followin
 <!-- - the scatterplot of quiz 4 vs. covid1 for fitted model (with a quadratic term) displays random relationship DONE! -->
 
 Since the quiz 4 vs. covid1 scatterplot in figure X indicates a moderate quadratic relationship between the variable, and the residual vs. covid1 plot for the fitted model is random, the final model has a quadratic relationship. \newline
-(TODO: Reference quiz 4 vs. week 1 COVID scatterplot from earlier.) \newline
-(TODO: Display residual plot of covid1 has quadratic relationship.)
+
+<!-- (TODO: Reference quiz 4 vs. week 1 COVID scatterplot from earlier.) \newline -->
+
+```{r echo = FALSE}
+display_residual_plot(remaining_data_no_NAs, final_model, covid1, "covid1") + 
+  facet_zoom(xlim = c(0, 10))  # try upper limit = 30
+```
 
 ### Assumption 2. Independence of Errors
 
@@ -526,14 +531,41 @@ Since the quiz 4 vs. covid1 scatterplot in figure X indicates a moderate quadrat
 
 From above, the residual vs. covid1 plot for the fitted model show no discernible relationship, and neither do the residual plots for the other predictor variables (ingoring all outliers). The dataset comes from a random sample, so the error terms must be independent.
 
-(TODO: Show plot of residual vs. fitted quiz3.) \newline
-(TODO: Show plot of residual vs. fitted I(covid1 ^ 2).) \newline
-(TODO: Show plot of residual vs. fitted I(covid1 * covid2).) \newline
-(TODO: Show plot of residual vs. fitted I(covid2 * covid3).) \newline
-(TODO: Show plot of residual vs. fitted I(study1 * study2).) \newline
-(TODO: Show plot of residual vs. fitted I(study1 * study3).) \newline
-(TODO: Show plot of residual vs. fitted I(study2 * study3).) \newline
-(TODO: Show plot of residual vs. fitted I(study3 * study4).)
+```{r echo = FALSE}
+display_residual_plot(remaining_data_no_NAs, final_model, quiz3, "quiz3")
+```
+
+```{r echo = FALSE}
+display_residual_plot(remaining_data_no_NAs, final_model, covid1 ^ 2, "covid1 ^ 2") + 
+  facet_zoom(xlim = c(0, 10))  # try upper limit = 70
+```
+
+```{r echo = FALSE}
+display_residual_plot(remaining_data_no_NAs, final_model, covid1 * covid2, "covid1 * covid2") + 
+  facet_zoom(xlim = c(0, 50))  # try upper limit = 100
+```
+
+```{r echo = FALSE}
+display_residual_plot(remaining_data_no_NAs, final_model, covid2 * covid3, "covid2 * covid3")
+```
+
+```{r echo = FALSE}
+display_residual_plot(remaining_data_no_NAs, final_model, study1 * study2, "study1 * study2")
+```
+
+```{r echo = FALSE}
+display_residual_plot(remaining_data_no_NAs, final_model, study1 * study3, "study1 * study3")
+```
+
+```{r echo = FALSE}
+display_residual_plot(remaining_data_no_NAs, final_model, study2 * study3, "study2 * study3")
+```
+
+```{r echo = FALSE}
+display_residual_plot(remaining_data_no_NAs, final_model, study3 * study4, "study3 * study4")
+```
+
+\newpage
 
 ### Assumption 3. Homoscedasticity (constant variance)
 
@@ -545,6 +577,8 @@ The scale-location model appears to have a straight horizontal line with randoml
 
 (TODO: Show scale-location model has straight line with randomly spread points.) \newline
 (TODO: Show residual vs. fitted model show equally spread residuals around horizontal line.)
+
+\newpage
 
 ### Assumption 4. Normality of Error
 
@@ -560,6 +594,8 @@ Therefore, the error terms are approximately normal.
 (TODO: Show histogram of residuals for final model.)
 
 Hence, our model satisfies the assumptions for a quadratic model.
+
+\newpage
 
 ### Any Variable Transformation or Recentering Necessary?
 
