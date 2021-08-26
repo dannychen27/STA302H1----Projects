@@ -653,7 +653,7 @@ No variable transformations were performed on the final model because the error 
 
 No variable re-centering was required since only a few entries in the correlation matrix have high correlation. Most of the entries in the correlation matrix had low to moderate correlation, so re-centering variables likely has negligible effect on the correlation matrix.
 
-## In-Depth Diagnostics to Verify Goodness of Model
+# Model Diagnostics
 
 To validate my linear model, I decided to use a 55/45 training-testing strategy, as well as perform a t-test for significance.
 
