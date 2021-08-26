@@ -81,6 +81,15 @@ row_nums_of_NA_rows = function(data, num_NAs) {
 }
 ```
 
+```{R}
+get_row_nums_to_exclude <- function(data) {
+  row_nums_with_3_NAs = which(rows_with_num_NAs(data, 3))
+  row_nums_with_4_NAs = which(rows_with_num_NAs(data, 4))
+  row_nums_to_exclude <- union(row_nums_with_3_NAs, row_nums_with_4_NAs)
+  return (row_nums_to_exclude)
+}
+```
+
 ```{r}
 display_histogram <- function(data, predictor_variable, histogram_title, x_axis_label) {
   ggplot(data = tibble(data), mapping = aes(x = predictor_variable)) +
@@ -98,15 +107,6 @@ display_boxplot <- function(data, predictor_variable, boxplot_title, y_axis_labe
   ggplot(mapping = aes(x = Country, y = predictor_variable)) +
     geom_boxplot() +
     labs(title = boxplot_title, x = "Country", y = y_axis_label)
-}
-```
-
-```{R}
-get_row_nums_to_exclude <- function(data) {
-  row_nums_with_3_NAs = which(rows_with_num_NAs(data, 3))
-  row_nums_with_4_NAs = which(rows_with_num_NAs(data, 4))
-  row_nums_to_exclude <- union(row_nums_with_3_NAs, row_nums_with_4_NAs)
-  return (row_nums_to_exclude)
 }
 ```
 

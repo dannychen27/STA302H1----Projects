@@ -10,6 +10,81 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+```{r echo = FALSE, message = FALSE}
+library(dplyr)  # data cleaning
+library(tidyverse)  # ggplot
+library(GGally)  # ggcorr
+library(MASS)  # anova
+# library(janitor)  # use it to clean up data.
+library(gtsummary)  # for tbl_regression
+library(gridExtra)  # to use grid.arrange
+library(ggforce)  # zooming in on plots
+library(caTools)  # for sample.split
+```
+
+```{r echo = FALSE, message = FALSE}
+setwd("~/Desktop/sta302h1/STA302H1 -- Projects/final report")
+sta302_performance_data = read.csv("./data.csv", header = TRUE)
+attach(sta302_performance_data)
+```
+
+```{r echo = FALSE, message = FALSE}
+rows_with_num_NAs = function(data, num_NAs) {
+  return (rowSums(is.na(data)) == num_NAs)
+}
+```
+
+```{R echo = FALSE, message = FALSE}
+get_row_nums_to_exclude <- function(data) {
+  row_nums_with_3_NAs = which(rows_with_num_NAs(data, 3))
+  row_nums_with_4_NAs = which(rows_with_num_NAs(data, 4))
+  row_nums_to_exclude <- union(row_nums_with_3_NAs, row_nums_with_4_NAs)
+  return (row_nums_to_exclude)
+}
+```
+
+```{r echo = FALSE, message = FALSE}
+display_histogram <- function(data, predictor_variable, histogram_title, x_axis_label) {
+  ggplot(data = tibble(data), mapping = aes(x = predictor_variable)) +
+    geom_histogram(col = "black", fill = "red", bins = 30) +
+    labs(title = histogram_title, y = "Frequency", x = x_axis_label) + 
+    geom_vline(mapping = aes(xintercept = mean(predictor_variable, na.rm = TRUE)),
+               color = "blue", linetype = "solid") +
+    geom_vline(mapping = aes(xintercept = median(predictor_variable, na.rm = TRUE)),
+               color = "dark green", linetype = "dotted")
+}
+```
+
+```{r echo = FALSE, message = FALSE}
+display_boxplot <- function(data, predictor_variable, boxplot_title, y_axis_label) {
+  ggplot(mapping = aes(x = Country, y = predictor_variable)) +
+    geom_boxplot() +
+    labs(title = boxplot_title, x = "Country", y = y_axis_label)
+}
+```
+
+```{r echo = FALSE, message = FALSE}
+display_correlation_matrix <- function(data) {
+  colnames(data) <- c("W1COV", "W2COV", "W3COV", "W4COV",
+                      "W1302", "W2302", "W3302", "W4302",
+                      "Q1", "Q2", "Q3", "Q4")
+  correlation_matrix = cor(data, use = "pairwise.complete.obs", method = "pearson")
+  round(correlation_matrix, 2)
+}
+```
+
+```{r echo = FALSE, message = FALSE}
+display_residual_plot <- function(data, model, predictor_variable, predictor_variable_name) {
+  fit = fitted(model)
+  residuals = resid(model)
+  ggplot(data = data, aes(x = predictor_variable, y = residuals)) +
+    geom_point() + 
+    geom_hline(yintercept = 0) + 
+    labs(title = paste0("Residual Plot for Variable ", predictor_variable_name), 
+         x = predictor_variable_name, y = paste0("Residuals of ", predictor_variable_name))
+}
+```
+
 # Introduction
 
 The purpose of this report is to study the relationship between a student's country of origin, the time they spent studying for STA302H1 (weeks 1 - 4), the time they spent thinking about COVID-19 (weeks 1 - 4), and their interim STA302H1 quiz scores (quizzes 1 - 3) versus final STA302H1 quiz scores (quiz 4).
@@ -46,7 +121,34 @@ When current STA302H1 students understand the most important factors that contri
 The dataset contained a small number of typos, which were cleaned manually rather than programatically. This included removing the word "hours" to safely cast numeric parts of strings as integers, removing non-Unicode characters like "UTF-098”, and capitalizing "canada" and "china", so that they would be treated the same as the countries "Canada" and "China." 
 To finish off the data cleaning process, similar columns (i.e., COVID times, study times, and quiz scores) were grouped together to make further data analysis more convenient.
 
+```{r echo = FALSE, message = FALSE}
+rearranged_data <- sta302_performance_data %>%
+    # Create a new "country" column, which is just "Country" but whose entries are factors.
+    mutate(country = as.factor(Country)) %>%
+  
+    # TODO: Replace quiz grades, covid hours, and sta302h1 study hours with their
+    # TODO: median counterparts.
+
+    # Remove the "X" column: it's simply the row number, which isn't very useful.
+    # Remove the "Country" column: column "country" already exists
+    dplyr::select(-X, -Country) %>%
+    
+    # Rearrange similar columns side-by-side.
+    relocate(country,
+             COVID.hours..W1., COVID.hours..W2., COVID.hours..W3., COVID.hours..W4.,
+             STA302.hours..W1., STA302.hours..W2., STA302.hours..W3., STA302.hours..W4.,
+             Quiz_1_score, Quiz_2_score, Quiz_3_score, Quiz_4_score)
+```
+
 Although some entries in the dataset contained missing (NA) data, missing quiz grades were considered more problematic than rows with only missing number of COVID hours, number of STA302H1 study hours, or even missing countries of origin. To preserve as much of the original dataset as possible, NA countries were categorized as unknown, and NA COVID hours and STA302H1 hours were ignored.
+
+```{r echo = FALSE, message = FALSE}
+quiz_grades <- rearranged_data %>%
+  dplyr::select(Quiz_1_score, Quiz_2_score, Quiz_3_score, Quiz_4_score)
+
+row_nums_to_exclude <- get_row_nums_to_exclude(quiz_grades)
+remaining_data = rearranged_data[-row_nums_to_exclude,]
+```
 
 Students who miss 3 or more quizzes were removed from the original dataset, since they may not have quiz 4 scores available. Additionally, students without Quiz 4 scores were also removed.
 
@@ -120,14 +222,81 @@ The histograms for study hours during weeks 1 - 3 are approximately normal with 
 
 The histograms for quiz scores during weeks 1 - 4 are all left skewed (mean < median), as few students tend to underperform on quizzes. The median for weeks 1, 3, and 4 remain at 8/10 points, except for week 3 which had a median of 8.8/10. Week 1 had the smallest difference between mean and median quiz scores (about 0.26/10 points), while week 2 has the largest divide between mean and median quiz scores (about 1.38/10 points).
 
-(TODO: Display histogram of COVID times weeks 1 - 4 against quiz 4 score.) \newline
-(TODO: Display 5-number summaries of all COVID times weeks 1 - 4.) \newline
+\newpage
 
-(TODO: Display histogram of study times weeks 1 - 4 against quiz 4 score.) \newline
-(TODO: Display 5-number summaries of all study times weeks 1 - 4.) \newline
+<!-- (TODO: Display 5-number summaries of all COVID times weeks 1 - 4.) \newline -->
 
-(TODO: Display histogram of quiz scores 1 - 3 against quiz 4 score.) \newline
-(TODO: Display 5-number summaries of all quiz scores 1 - 3.)
+```{r warning = FALSE, echo = FALSE}
+week1_covid_histogram = display_histogram(
+  remaining_data, remaining_data$COVID.hours..W1.,
+  "Week 1 Time Spent on COVID-19",
+  "Hours Spent on COVID-19")
+week2_covid_histogram = display_histogram(
+  remaining_data, remaining_data$COVID.hours..W2.,
+  "Week 2 Time Spent on COVID-19",
+  "Hours Spent on COVID-19")
+grid.arrange(week1_covid_histogram, week2_covid_histogram)
+```
+
+```{r warning = FALSE, echo = FALSE}
+week3_covid_histogram = display_histogram(
+  remaining_data, remaining_data$COVID.hours..W3.,
+  "Week 3 Time Spent on COVID-19",
+  "Hours Spent on COVID-19")
+week4_covid_histogram = display_histogram(
+  remaining_data, remaining_data$COVID.hours..W4.,
+  "Week 4 Time Spent on COVID-19",
+  "Hours Spent on COVID-19")
+grid.arrange(week3_covid_histogram, week4_covid_histogram)
+```
+
+\newpage
+
+<!-- (TODO: Display 5-number summaries of all study times weeks 1 - 4.) \newline -->
+
+```{R warning = FALSE, echo = FALSE}
+week1_study_histogram = display_histogram(
+  remaining_data, remaining_data$STA302.hours..W1.,
+  "Week 1 Time Spent Studying for STA302H1", "Hours Spent Studying for STA302H1")
+week2_study_histogram = display_histogram(
+  remaining_data, remaining_data$STA302.hours..W2.,
+  "Week 2 Time Spent Studying for STA302H1", "Hours Spent Studying for STA302H1")
+grid.arrange(week1_study_histogram, week2_study_histogram)
+```
+
+```{R warning = FALSE, echo = FALSE}
+week3_study_histogram = display_histogram(
+  remaining_data, remaining_data$STA302.hours..W3.,
+  "Week 3 Time Spent Studying for STA302H1", "Hours Spent Studying for STA302H1")
+week4_study_histogram = display_histogram(
+  remaining_data, remaining_data$STA302.hours..W4.,
+  "Week 4 Time Spent Studying for STA302H1", "Hours Spent Studying for STA302H1")
+grid.arrange(week3_study_histogram, week4_study_histogram)
+```
+
+\newpage
+
+<!-- (TODO: Display 5-number summaries of all quiz scores 1 - 3.) -->
+
+```{R warning = FALSE, echo = FALSE}
+quiz1_histogram = display_histogram(
+  remaining_data, remaining_data$Quiz_1_score, 
+  "Quiz 1 Scores", "Quiz Score (out of 10)")
+quiz2_histogram = display_histogram(
+  remaining_data, remaining_data$Quiz_2_score, 
+  "Quiz 2 Scores", "Quiz Score (out of 10)")
+grid.arrange(quiz1_histogram, quiz2_histogram)
+```
+
+```{r warning = FALSE, echo = FALSE}
+quiz3_histogram = display_histogram(
+  remaining_data, remaining_data$Quiz_3_score, 
+  "Quiz 3 Scores", "Quiz Score (out of 10)")
+quiz4_histogram = display_histogram(
+  remaining_data, remaining_data$Quiz_4_score, 
+  "Quiz 4 Scores", "Quiz Score (out of 10)")
+grid.arrange(quiz3_histogram, quiz4_histogram)
+```
 
 ### Boxplots
 
