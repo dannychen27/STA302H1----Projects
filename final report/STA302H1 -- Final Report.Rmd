@@ -613,10 +613,90 @@ To validate my linear model, I decided to use a 55/45 training-testing strategy,
 
 Out of $n = 142$ data points, I want to use 55% of the data points to train my linear model, and the remaining 45% to try to predict new values and create a new distribution to see if the mean of this new distribution is close to 0.
 
-I found that the mean of this new distribution is $8.124 \times 10^{-15}$ (see figure X in appendix).
+```{r echo = FALSE}
+set.seed(888)
+sample = sample.split(remaining_data_no_NAs, SplitRatio = 0.55)
+training_data = subset(remaining_data_no_NAs, sample == TRUE)
+testing_data  = subset(remaining_data_no_NAs, sample == FALSE)
+```
 
-(TODO: Add histogram of residuals for trained model.) \newline
-(TODO: Add mean/median residual output.)
+```{r echo = FALSE}
+training_data_no_NAs = na.omit(training_data)
+
+quiz1 = training_data_no_NAs$Quiz_1_score
+quiz2 = training_data_no_NAs$Quiz_2_score
+quiz3 = training_data_no_NAs$Quiz_3_score
+quiz4 = training_data_no_NAs$Quiz_4_score
+
+covid1 = training_data_no_NAs$COVID.hours..W1.
+covid2 = training_data_no_NAs$COVID.hours..W2.
+covid3 = training_data_no_NAs$COVID.hours..W3.
+covid4 = training_data_no_NAs$COVID.hours..W4.
+
+study1 = training_data_no_NAs$STA302.hours..W1.
+study2 = training_data_no_NAs$STA302.hours..W2.
+study3 = training_data_no_NAs$STA302.hours..W3.
+study4 = training_data_no_NAs$STA302.hours..W4.
+
+country = training_data_no_NAs$country
+```
+
+```{r results = "hide"}
+final_model = lm(
+  quiz4 ~ quiz3
+  + I(covid1 ^ 2)   # don't remove, else all other terms become insignificant
+  + I(covid1 * covid2) 
+  + I(covid2 * covid3)  # don't remove, else all other terms become insignificant
+  + I(study1 * study2) 
+  + I(study1 * study3)  # maybe don't remove?
+  + I(study2 * study3) 
+  + I(study3 * study4)
+)
+```
+
+```{r echo = FALSE}
+testing_data_no_NAs = na.omit(testing_data)
+
+quiz1 = testing_data_no_NAs$Quiz_1_score
+quiz2 = testing_data_no_NAs$Quiz_2_score
+quiz3 = testing_data_no_NAs$Quiz_3_score
+quiz4 = testing_data_no_NAs$Quiz_4_score
+
+covid1 = testing_data_no_NAs$COVID.hours..W1.
+covid2 = testing_data_no_NAs$COVID.hours..W2.
+covid3 = testing_data_no_NAs$COVID.hours..W3.
+covid4 = testing_data_no_NAs$COVID.hours..W4.
+
+study1 = testing_data_no_NAs$STA302.hours..W1.
+study2 = testing_data_no_NAs$STA302.hours..W2.
+study3 = testing_data_no_NAs$STA302.hours..W3.
+study4 = testing_data_no_NAs$STA302.hours..W4.
+
+country = testing_data_no_NAs$country
+```
+
+```{r echo = FALSE}
+predicted_values = predict(final_model, testing_data_no_NAs)
+actual_values = testing_data$Quiz_4_score
+```
+
+```{r echo = FALSE}
+hist(predicted_values - actual_values,
+     main = "Histogram of Residuals of Trained Model",
+     xlab = "Observed Residual",
+     ylab = "Frequency")
+```
+
+```{r}
+mean(predicted_values - actual_values)
+```
+
+```{r}
+median(predicted_values - actual_values)
+```
+
+<!-- (TODO: Add histogram of residuals for trained model.) \newline -->
+<!-- (TODO: Add mean/median residual output.) -->
 
 Moreover, the histogram of residuals looks approximately symmetric, with the mean of this new distribution being $-0.2102$ (see figure X in appendix). To be sure, since there are $n = 142$ points, the central limit theorem states that the sample mean is approximately normally distributed.
 
@@ -629,8 +709,7 @@ For our t-test, we hypothesized that the mean of residuals was identically equal
 
 (TODO: Add t-test results in a nice table.)
 
-The t-test results showed that the $p$-value is 0.7938, which means that we fail to reject $H_0$, meaning that $\mu_{residuals} = 0$ holds. The 95% confidence interval for the mean of residuals is $(-0.4510668, 0.3462948)$, and since $0 \in (-0.4510668, 0.3462948)$, we again fail to reject $H_0$ and conclude that $\mu_{residuals} = 0$.
-
+The t-test results showed that the $p$-value is 0.7938, which means that we fail to reject $H_0$, meaning that $\mu_{residuals} = 0$ holds. The 95% confidence interval for the mean of residuals is $(-0.4510668, 0.3462948)$, and since $0 \in (-0.4510668, 0.3462948)$, we again fail to reject $H_0$ and conclude that $\mu_{residuals} = 0$. \newline
 (TODO: See figure X in appendix for t-test output.)
 
 Therefore, we've shown that our linear model is a reasonable model.
@@ -865,6 +944,33 @@ display_correlation_matrix(uae)
 display_correlation_matrix(usa)
 ```
 
+```{r warning = FALSE, echo = FALSE, message = FALSE}
+# single variable per term = additive model
+first_model = lm(
+  quiz4 ~ 
+    quiz1  # scatterplot seems to have no relationship
+  + quiz2  # scatterplot seems to have no relationship
+  + quiz3  # scatterplot looks more linear
+  + covid1 # must add this linear term b/c i have a quadratic term 
+  + I(covid1 ^ 2)  # scatterplot looks more quadratic
+  + covid2 # must add this linear term b/c i have a quadratic term 
+  + I(covid2 ^ 2)  # scatterplot looks more quadratic
+  + covid3
+  # + I(covid3 ^ 2) # scatterplot looks less quadratic
+  + covid4  # must add this linear term b/c i have a quadratic term 
+  + I(covid4 ^ 2) # scatterplot looks more quadratic
+  + I(covid1 * covid2) # first impressions from correlation matrix
+  + I(covid2 * covid3) # correlation = 0.67
+  + I(covid2 * covid4) # discard: correlation = 0.71
+  + I(covid3 * covid4) # correlation = 0.72
+  + I(study1 * study2)  # correlation = 0.61
+  + I(study1 * study3)  # correlation = 0.58
+  + I(study2 * study3)  # correlation = 0.70
+  + I(study3 * study4)  # correlation = 0.62
+  + country  # for simplicity, but backwards process shows this term is not significant
+)
+```
+
 ```{r}
 summary(first_model)
 ```
@@ -873,7 +979,23 @@ summary(first_model)
 stepAIC(first_model, direction = "both")$anova
 ```
 
+```{r warning = FALSE, echo = FALSE, message = FALSE}
+final_model = lm(
+  quiz4 ~ quiz3
+  + I(covid1 ^ 2)   # don't remove, else all other terms become insignificant
+  + I(covid1 * covid2) 
+  + I(covid2 * covid3)  # don't remove, else all other terms become insignificant
+  + I(study1 * study2) 
+  + I(study1 * study3)  # maybe don't remove?
+  + I(study2 * study3) 
+  + I(study3 * study4)
+)
+```
+
 ```{r}
 summary(final_model)
 ```
 
+```{R echo = FALSE}
+t.test(predicted_values - actual_values)
+```

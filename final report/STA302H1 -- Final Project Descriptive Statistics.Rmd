@@ -954,7 +954,10 @@ median(predicted_values - actual_values)
 ```
 
 ```{r echo = FALSE}
-hist(predicted_values - actual_values)
+hist(predicted_values - actual_values,
+     main = "Histogram of Residuals on Final Model",
+     xlab = "Observed Residual",
+     ylab = "Frequency")
 ```
 
 ```{r}
