@@ -237,43 +237,42 @@ The final model has \texttt{quiz4} as the response variable; \texttt{quiz3}, the
 
 \newpage
 
-## Statistical and Empirical Justifications for Model
+## Statistical and Empirical Justifications for Final Model
 
-To show that my model is linear, I'll show that the following assumptions hold.
+To show that a quadratic relationship for the final model is valid, the following assumptions must hold.
 
-### Assumption 1. Linearity
+### Assumption 1. Quadratic Relationship
 
-To verify A1, the scatterplot of the final model must exhibit a linear relationship.
+<!-- Want to show: -->
+<!-- - the residual plot of quiz 4 vs. covid1 displays quadratic relationship DONE!  -->
+<!-- - the scatterplot of quiz 4 vs. covid1 for fitted model (with a quadratic term) displays random relationship DONE! -->
 
-(TODO: Show scatterplot of final model, with line of best fit.)
-
-Since the final model contains only 1st order terms, we can conclude that our final model has a linear relationship.
+Since the quiz 4 vs. covid1 scatterplot in figure X indicates a moderate quadratic relationship between the variable, and the residual vs. covid1 plot for the fitted model is random, the final model has a quadratic relationship. \newline
+(TODO: Reference quiz 4 vs. week 1 COVID scatterplot from earlier.) \newline
+(TODO: Display residual plot of covid1 has quadratic relationship.)
 
 ### Assumption 2. Independence of Errors
 
-To verify A2, the scatterplot of residuals versus fits for all predictor variables must not have a discernible relationship.
+<!-- Want to show: -->
+<!-- - the scatterplot of quiz 4 vs. covid1 for fitted model (with a quadratic term) displays random relationship DONE! -->
+<!-- - the scatterplot of quiz 4 vs. all other predictor variables in fitted model 
+(with a quadratic term) displays random relationship DONE! -->
+<!-- - our data comes from a random sample -->
 
-The scatterplot of residuals versus fits for \texttt{quiz3} shows no pattern.
+From above, the residual vs. covid1 plot for the fitted model show no discernible relationship, and neither do the residual plots for the other predictor variables (ingoring all outliers). The dataset comes from a random sample, so the error terms must be independent.
 
-(TODO: Show plot of residual vs. fitted quiz3)
-
-The scatterplot of residuals versus fits for \texttt{I(study1 * study2} shows no pattern, ignoring all outliers.
-
-(TODO: Show plot of residual vs. fitted I(study1 * study2))
-
-The scatterplot of residuals versus fits for \texttt{I(study2 * study3} shows no pattern, ignoring all outliers.
-
-(TODO: Show plot of residual vs. fitted I(study2 * study3))
-
-The scatterplot of residuals versus fits for \texttt{I(study3 * study4} shows no pattern, ignoring all outliers.
-
-(TODO: Show plot of residual vs. fitted I(study3 * study4))
-
-Therefore, the errors are independent.
+(TODO: Show plot of residual vs. fitted quiz3.) \newline
+(TODO: Show plot of residual vs. fitted I(covid1 ^ 2).) \newline
+(TODO: Show plot of residual vs. fitted I(covid1 * covid2).) \newline
+(TODO: Show plot of residual vs. fitted I(covid2 * covid3).) \newline
+(TODO: Show plot of residual vs. fitted I(study1 * study2).) \newline
+(TODO: Show plot of residual vs. fitted I(study1 * study3).) \newline
+(TODO: Show plot of residual vs. fitted I(study2 * study3).) \newline
+(TODO: Show plot of residual vs. fitted I(study3 * study4).)
 
 ### Assumption 3. Homoscedasticity (constant variance)
 
-To verify A3, the scatterplot of residuals versus fits for all predictor variables must not have a "megaphone effect" or a "bowtie effect" where residuals tend to increase/decrease as fits increase.
+To verify assumption 3, the scatterplot of residuals versus fits for all predictor variables must not have a "megaphone effect" or a "bowtie effect" where residuals tend to increase/decrease as fits increase.
 
 (TODO: Show plot of residual vs. fitted for full model?)
 
@@ -281,7 +280,7 @@ Therefore, the error terms have constant variance.
 
 ### Assumption 4. Normality of Error
 
-To verify A4, we could either show that all points on a QQplot follow the QQline closely or show that the histogram of residuals is approximately normal.
+To verify assumption 4, we could either show that all points on a QQplot follow the QQline closely or show that the histogram of residuals is approximately normal.
 
 Notice that most of the points in the middle follow the QQplot line, and the left-tail points deviate slightly more from the QQplot line than the right-tail points, suggesting that our distribution of residuals is slightly more left-skeved than right skewed.
 
