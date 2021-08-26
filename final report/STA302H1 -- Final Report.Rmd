@@ -302,7 +302,7 @@ grid.arrange(quiz3_histogram, quiz4_histogram)
 
 Side-by-side boxplots were used to compare COVID-19 times, study times, and quiz scores among students from all countries.
 
-All 4 weeks contain some outliers, although week 1 had 2 students who thought about COVID-19 for 168 and 84 hours. Among all students, weeks 1 - 3 median COVID times were approximately 1 hour with a slightly increased median COVID time of around 1.5 hours from week 3 to week 4. The spread (IQR) of COVID times were both 1 hour for weeks 1 and 3, although there is more spread in week 3 (1.5 hours), and week 4 has the largest spread (2 hours).
+All 4 weeks contain outliers, although week 1 had the largest outliers: two students thought about COVID-19 for 168 and 84 hours. Among all students, weeks 1 - 3 median COVID times were approximately 1 hour with a slightly increased median COVID time of around 1.5 hours from week 3 to week 4. The spread (IQR) of COVID times were both 1 hour for weeks 1 and 3, although there is more spread in week 3 (1.5 hours), and week 4 has the largest spread (2 hours).
 
 <!-- - median COVID times are similarly low for weeks 1 - 3 -->
 <!-- - slight increase in median COVID time in week 4 -->
