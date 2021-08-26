@@ -319,6 +319,16 @@ Although all 4 weeks contained outliers, week 4 has outliers ranging from a medi
 <!-- - similar spreads (IQR) for weeks 1 - 2 -->
 <!-- - more spread in week 3, even larger spread in week 4 -->
 
+Median quiz 1 scores have the most outliers, although they are milder than the single quiz 2 outlier which displays the lowest quiz 2 score (1/10). Quizzes 1, 3, and 4 has similar median quiz scores of 8/10, with week 2 having the highest median quiz score of 8.8/10. Weeks 2 and 3 have similarly large spreads (IQRs of 3.6 and 4 point gaps), though week 1 has the smallest spread. Week 4 quiz scores are the least skewed.
+
+<!-- - quizzes 1, 2, 4 have outliers -->
+<!-- - quiz 1 has most outliers, but they are mild -->
+<!-- - quiz 2 only has 1 outlier, but it is the lowest (1/10) -->
+
+<!-- - median quiz scores for quiz 1, 3, and 4 were similar (8/10), with week 2 with highest median quiz score (8.8/10) -->
+<!-- - week 2 and 3 both have similarly large spreads, week 1 has smallest spread.  -->
+<!-- - week 4 quiz scores are the least skewed -->
+
 ```{r warning = FALSE}
 boxplot(remaining_data$COVID.hours..W1., remaining_data$COVID.hours..W2.,
         remaining_data$COVID.hours..W3., remaining_data$COVID.hours..W4.,
