@@ -8,11 +8,18 @@ output:
 
 ```{r setup, include = FALSE, message = FALSE, warning = FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+```
 
-library(dplyr)
-library(tidyverse)
-library(GGally)
-library(MASS)
+```{r echo = FALSE, message = FALSE}
+library(dplyr)  # data cleaning
+library(tidyverse)  # ggplot
+library(GGally)  # ggcorr
+library(MASS)  # anova
+# library(janitor)  # use it to clean up data.
+library(gtsummary)  # for tbl_regression
+library(gridExtra)  # to use grid.arrange
+library(ggforce)  # zooming in on plots
+library(caTools)  # for sample.split
 ```
 
 # Import STA302H1 Study Time and COVID Contemplation Time vs. Quiz Performance Dataset
@@ -281,11 +288,6 @@ rows_with_mistyped_columms = remaining_data[c(38, 83, 84, 117),]
 # row 117: STA302.hours..W4. -> 7.5 hours -- DONE
 ```
 
-```{r}
-# library(janitor)
-# use it to clean up data.
-```
-
 ## Rows Without Country Entry
 
 Taking out the country column can come in handy for functions like cor() where
@@ -375,7 +377,6 @@ t(countries)
 \break
 
 ```{r warning = FALSE, echo = FALSE, message = FALSE}
-library(gridExtra)  # to use grid.arrange
 week1_covid_histogram = display_histogram(
   remaining_data, remaining_data$COVID.hours..W1.,
   "Week 1 Time Spent on COVID-19",
@@ -736,7 +737,6 @@ summary(first_model)
 \newpage
 
 ```{r warning = FALSE, message = FALSE}
-library(gtsummary)  # for tbl_regression
 tbl_regression(first_model, exponentiate = FALSE)
 ```
 
@@ -883,7 +883,6 @@ stepAIC(additive_model, direction = "both")$anova
 <!-- ## Residual Plots -->
 
 ```{r echo = FALSE}
-library(ggforce)  # zooming in on plots
 display_residual_plot(remaining_data_no_NAs, final_model, covid1, "covid1") + 
   facet_zoom(xlim = c(0, 10))  # try upper limit = 30
 ```
@@ -972,7 +971,6 @@ t.test(predicted_values - actual_values)
 Source: https://stackoverflow.com/questions/17200114/how-to-split-data-into-training-testing-sets-using-sample-function
 
 ```{r}
-library(caTools)  # for sample.split
 set.seed(888)
 sample = sample.split(remaining_data_no_NAs, SplitRatio = 0.55)
 training_data = subset(remaining_data_no_NAs, sample == TRUE)
