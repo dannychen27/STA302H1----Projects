@@ -156,7 +156,10 @@ The median quiz scores for Canada, Pakistan, Singapore, Taiwan, and USA were all
 
 Pairwise scatterplots were created to observe the relationships between all combinations of variables, especially between the response variable and the explanatory variables. Since the pairs scatterplot were symmetric along its main diagonal, the bottom half of the pairs scatterplot could be safely omitted.
 
-Furthermore, a correlation matrix was constructed to determine the correlations of each pair of covariates along with the response variable and each covariate. A correlation between 0.0 - 0.3 is considered low, 0.3 - 0.5 is moderate, and 0.5 - 1.0 is high.
+Furthermore, a correlation matrix was constructed to determine the correlations of each pair of covariates along with the response variable and each covariate. 
+Since the correlation matrices for underrepresented countries (i.e. every country except Canada, China, and NA) contained a lot of NA or $\pm 1$ entries, it made more sense to use the correlation matrix for all countries.
+A correlation between 0.0 - 0.3 is considered low, 0.3 - 0.5 is moderate, and 0.5 - 1.0 is high. \newline
+(TODO: Change quiz variables to ordinal)
 
 (TODO: Display pair scatterplots of relationships between quiz 4 score and each predictor variable) \newline
 (TODO: Refer to the correlation matrix in Figure X in the appendix.) \newline
