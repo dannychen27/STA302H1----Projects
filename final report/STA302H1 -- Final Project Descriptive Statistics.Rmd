@@ -111,11 +111,12 @@ get_row_nums_to_exclude <- function(data) {
 ```
 
 ```{r}
-display_correlation_by_country <- function(country_data) {
-  colnames(country_data) <- c("W1COV", "W2COV", "W3COV", "W4COV",
-                              "W1302", "W2302", "W3302", "W4302",
-                              "Q1", "Q2", "Q3", "Q4")
-  round(cor(country_data, use = "pairwise.complete.obs", method = "pearson"), 2)
+display_correlation_matrix <- function(data) {
+  colnames(data) <- c("W1COV", "W2COV", "W3COV", "W4COV",
+                      "W1302", "W2302", "W3302", "W4302",
+                      "Q1", "Q2", "Q3", "Q4")
+  correlation_matrix = cor(data, use = "pairwise.complete.obs", method = "pearson")
+  round(correlation_matrix, 2)
 }
 ```
 
@@ -604,76 +605,73 @@ I wanted to group together all of the quiz scores, COVID times, and study times 
 ## Correlation Matrix
 
 ```{R echo = FALSE, include = FALSE}
-remaining_data_no_countries = remaining_data %>%
-  dplyr::select(-country)
-colnames(remaining_data_no_countries) <- c(
-  "W1COV", "W2COV", "W3COV", "W4COV",
-  "W1302", "W2302", "W3302", "W4302",
-  "Q1", "Q2", "Q3", "Q4")
+all_countries = remaining_data %>%
+  dplyr::select(-country)  # The dataset must only contain numeric values for cor() to work.
 ```
 
-```{R}
-round(cor(remaining_data_no_countries, use = "pairwise.complete.obs", method = "pearson"), 2)
+
+```{r}
+display_correlation_matrix(all_countries)
 ```
 
 ```{r include = FALSE, results = "hide"}
-# ggcorr(remaining_data_no_countries, label = TRUE, label_round = 2)
+# ggcorr(all_countries, label = TRUE, label_round = 2)
 ```
 
 We could also create separate correlation matrices for each country.
 
 ```{r warning = FALSE}
-display_correlation_by_country(canada)
+display_correlation_matrix(canada)
 ```
 
 ```{r warning = FALSE}
-display_correlation_by_country(china)
+display_correlation_matrix(china)
 ```
 
 ```{r warning = FALSE}
-display_correlation_by_country(india)
+display_correlation_matrix(india)
 ```
 
 ```{r warning = FALSE}
-display_correlation_by_country(japan)
+display_correlation_matrix(japan)
 ```
 
 ```{r warning = FALSE}
-display_correlation_by_country(mongolia)
-```
-
-\break
-
-```{r warning = FALSE}
-display_correlation_by_country(unknown)
-```
-
-```{r warning = FALSE}
-display_correlation_by_country(pakistan)
-```
-
-```{r warning = FALSE}
-display_correlation_by_country(singapore)
+display_correlation_matrix(mongolia)
 ```
 
 \break
 
 ```{r warning = FALSE}
-display_correlation_by_country(south_korea)
+display_correlation_matrix(unknown)
 ```
 
 ```{r warning = FALSE}
-display_correlation_by_country(taiwan)
+display_correlation_matrix(pakistan)
 ```
 
 ```{r warning = FALSE}
-display_correlation_by_country(uae)
+display_correlation_matrix(singapore)
 ```
 
 \break
 
 ```{r warning = FALSE}
-display_correlation_by_country(usa)
+display_correlation_matrix(south_korea)
+```
+
+```{r warning = FALSE}
+display_correlation_matrix(taiwan)
+```
+
+```{r warning = FALSE}
+display_correlation_matrix(uae)
+```
+
+\break
+
+```{r warning = FALSE}
+display_correlation_matrix(usa)
 ```
 
 Since every country other than China, Canada, or Unknown doesn't have enough entries, it does not make sense to look at the correlation of those countries individually.
