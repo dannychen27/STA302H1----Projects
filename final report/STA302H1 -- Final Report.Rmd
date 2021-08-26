@@ -91,11 +91,9 @@ The purpose of this report is to study the relationship between a student's coun
 
 Existing studies in pedagogy tend to focus on individual factors that affect course performance, such as the number of hours slept, or the number of hours spent studying for a course. However, this study intends to explore multiple covariates simultaneously to assess their collective effect on final quiz grades, as well as the effects of two covariates on each other.
 
-## Information about Our Popoulation
+## Information about Our Experiment
 
 The population of interest is a group of students from the online summer 2021 (July - August) STA302H1S cohort, which originally had 227 students at the start of the term, but has 198 students enrolled as of August 13, 2021.
-
-## Experiment Description
 
 For this study, students were surveyed on Quercus at the end of each week for the first 4 weeks of STA302H1. Each week is specified by a date range below:
 
@@ -210,9 +208,7 @@ The following table describes each variable, its meaning, and its type:
 
 Note that time spent studying for STA302H1 can include lecture time, review time, quiz time, or assignment time.
 
-## Relevant Tables and Figures for Noteworthy Variables
-
-### Histograms
+## Histograms
 
 Times spent thinking about COVID-19, study times, and quiz scores among all students were summarized using histograms. The green dotted vertical line represents the mean and the solid blue vertical line represents the median. Seven-number summaries were also included to display meaningful statistics such as the mean, median, minimum, maximum, 1st quartile, 3rd quartile, and the number of NAs.
 
@@ -298,7 +294,7 @@ quiz4_histogram = display_histogram(
 grid.arrange(quiz3_histogram, quiz4_histogram)
 ```
 
-### Boxplots
+## Boxplots
 
 Side-by-side boxplots were used to compare COVID-19 times, study times, and quiz scores among students from all countries.
 
@@ -371,7 +367,7 @@ boxplot(remaining_data$Quiz_1_score, remaining_data$Quiz_2_score,
 
 \newpage
 
-### Pairwise Scatterplots and Correlation Matrix
+## Pairwise Scatterplots and Correlation Matrix
 
 Pairwise scatterplots were created to observe the relationships between all combinations of variables, especially between the response variable and the explanatory variables. Since the pairs scatterplot were symmetric along its main diagonal, the bottom half of the pairs scatterplot could be safely omitted.
 
@@ -405,11 +401,9 @@ pairs(~ Quiz_4_score + STA302.hours..W1. + STA302.hours..W2.
 
 \newpage
 
-# Model Development Section
+# Model Development
 
-## Process Used to Determine Final Model
-
-### Checking for Influential Outliers
+## Checking for Influential Outliers
 
 First, influential outliers were identified in the original dataset using (what method?)
 
@@ -419,7 +413,7 @@ First, influential outliers were identified in the original dataset using (what 
 
 Notice that there are no influential outliers because no points outside of cook's distance in upper right and lower left quadrants of plot, so there are no points to remove.
 
-### Proposing an Initial Model
+## Proposing an Initial Model
 
 Simpler (e.g., linear, quadratic) relationships were prioritized over more complex relationships (e.g., higher order polynomial, logarithmic, square root) for the sake of straightforward analysis and intuitive interpretation. The pairs scatterplot and the correlation matrix were primarily used to derive most of the terms for the initial model.
 
@@ -520,7 +514,7 @@ tbl_regression(first_model, exponentiate = FALSE)
 
 <!-- (TODO: Show lm() results of original model in nice table.) -->
 
-### Improving the Original Model
+## Improving the Original Model
 
 To refine the original model, backwards selection was used to remove insignificant terms (terms whose $p$-values were > 0.05) and find the subset model with the lowest AIC value.
 
@@ -647,7 +641,7 @@ hist(lm(final_model)$residuals,
 
 \newpage
 
-### Any Variable Transformation or Recentering Necessary?
+## Any Variable Transformation or Recentering Necessary?
 
 No variable transformations were performed on the final model because the error terms are independent, homoscedastic, and approximately normal. 
 
@@ -657,7 +651,7 @@ No variable re-centering was required since only a few entries in the correlatio
 
 To validate my linear model, I decided to use a 55/45 training-testing strategy, as well as perform a t-test for significance.
 
-### 55/45 Training/Testing Split
+## 55/45 Training/Testing Split
 
 Out of $n = 142$ data points, I want to use 55% of the data points to train my linear model, and the remaining 45% to try to predict new values and create a new distribution to see if the mean of this new distribution is close to 0.
 
@@ -748,7 +742,7 @@ median(predicted_values - actual_values)
 
 Moreover, the histogram of residuals looks approximately symmetric, with the mean of this new distribution being $-0.2102$ (see figure X in appendix). To be sure, since there are $n = 142$ points, the central limit theorem states that the sample mean is approximately normally distributed.
 
-### T-test for significance 
+## T-test for significance 
 
 For our t-test, we hypothesized that the mean of residuals was identically equal to 0. More formally,
 
