@@ -180,22 +180,50 @@ Notice that there are no influential outliers because no points outside of cook'
 
 ### Proposing an Initial Model
 
-To derive the terms for the initial model, correlations of pairs of covariates 
-as well as between covariates and the response variable from the correlation matrix with high correlation served as a heuristic for determining potentially significant model terms.
+Simpler (e.g., linear, quadratic) relationships were prioritized over more complex relationships (e.g., higher order polynomial, logarithmic, square root) for the sake of straightforward analysis and intuitive interpretation. The pairs scatterplot and the correlation matrix were primarily used to derive most of the terms for the initial model.
 
-The top row of the pairs scatterplots for Quiz 1 - 3 scores, Weeks 1 - 4 COVID-19 times, and Weeks 1 - 4 STA302H1 study times were analyzed separately against Quiz 4 score to hypothesize a relationship between one's Quiz 4 score and each predictor variable.
+The non-interactive covariate terms were determined by examining the pairs scatterplots for quiz 4 scores regressed on quiz 1 - 3 scores, weeks 1 - 4 COVID-19 times, and weeks 1 - 4 STA302H1 study times to hypothesize a relationship between quiz 4 scores and each predictor variable.
 
-Simpler (eg., linear, quadratic) relationships were prioritized over more complex relationships (e.g., 3rd order model (or higher), logarithmic, square root) for the sake of straightforward analysis and intuitive interpretation (except for perhaps the interaction terms).
+The weeks 1 - 4 COVID times vs. quiz 4 scatterplots show a moderate quadratic relationship between quiz 4 scores and weeks 1 - 4 COVID times (except for week 3 COVID, which seems to have a stronger linear relationship than a quadratic relationship). Therefore, both the linear and quadratic terms for weeks 1, 2, and 4 COVID times (i.e., \texttt{covid1}, \texttt{covid1 ** 2}, 
+\texttt{covid2}, \texttt{covid2 ** 2}, \texttt{covid4}, and \texttt{covid4 ** 2} -- along with \texttt{covid3} only) were included in the initial model.
 
-I fitted the initial model using \texttt{quiz4} as the response variable; and \texttt{quiz1}, \texttt{quiz2}, \texttt{quiz3}, \texttt{covid1}, \texttt{covid2}, \texttt{covid3}, \texttt{covid4} (including 3 quadratic terms, since \texttt{covid1}, \texttt{covid2}, and \texttt{covid4} look more quadratic), 8 interaction terms (to see how consecutive COVID and study weeks change over 4 weeks), and \texttt{country} as predictor variables.
+Further analysis indicates that there is a possibly moderate linear relationship between quiz 4 scores and weeks 1 - 4 study times. Therefore, only the linear terms for weeks 1 - 4 study times (i.e., \texttt{study1}, \texttt{study2}, \texttt{study3}, and \texttt{study4}) were included in the model.
+
+Similarly, there might be a moderate linear relationship between quiz 4 scores and quiz 1 - 3 scores. Therefore, only the linear terms for quiz 1 - 3 scores (i.e., \texttt{quiz1}, \texttt{quiz2}, and \texttt{quiz3}) were included in the model.
+
+(TODO: Show scatterplot of covid1 vs. quiz4.) \newline
+(TODO: Display summary statistics for covid1 vs. quiz4 in appendix.) \newline
+(TODO: Show scatterplot of covid2 vs. quiz4.) \newline
+(TODO: Display summary statistics for covid2 vs. quiz4 in appendix.) \newline
+(TODO: Show scatterplot of covid3 vs. quiz4.) \newline
+(TODO: Display summary statistics for covid3 vs. quiz4 in appendix.) \newline
+(TODO: Show scatterplot of covid4 vs. quiz4.) \newline
+(TODO: Display summary statistics for covid4 vs. quiz4 in appendix.)
+
+(TODO: Show scatterplot of study1 vs. quiz4.) \newline
+(TODO: Display summary statistics for study1 vs. quiz4 in appendix.) \newline
+(TODO: Show scatterplot of study2 vs. quiz4.) \newline
+(TODO: Display summary statistics for study2 vs. quiz4 in appendix.) \newline
+(TODO: Show scatterplot of study3 vs. quiz4.) \newline
+(TODO: Display summary statistics for study3 vs. quiz4 in appendix.) \newline
+(TODO: Show scatterplot of study4 vs. quiz4.) \newline
+(TODO: Display summary statistics for study4 vs. quiz4 in appendix.)
+
+(TODO: Show scatterplot of quiz1 vs. quiz4.) \newline
+(TODO: Display summary statistics for quiz1 vs. quiz4 in appendix.) \newline
+(TODO: Show scatterplot of quiz2 vs. quiz4.) \newline
+(TODO: Display summary statistics for quiz2 vs. quiz4 in appendix.) \newline
+(TODO: Show scatterplot of quiz3 vs. quiz4.) \newline
+(TODO: Display summary statistics for quiz3 vs. quiz4 in appendix.)
+
+Pairs of covariates, as well as response variable-covariate combinations from the correlation matrix with high correlation were used as a heuristic for determining potentially significant interaction terms in the initial model.
+
+The initial model was fitted using \texttt{quiz4} as the response variable; and \texttt{quiz1}, \texttt{quiz2}, \texttt{quiz3}, \texttt{covid1}, \texttt{covid2}, \texttt{covid3}, \texttt{covid4}, (including 3 quadratic terms 8 interaction terms), and \texttt{country} as predictor variables. However, only the predictor variables \texttt{quiz3}, \texttt{I(covid1 ** 2)}, \texttt{I(covid2 ** 2)}, \texttt{I(covid1 * covid2)}, and \texttt{I(study1 * study2)} were significant at the 5% significance level. The global F-statistic value is 3.098, and the global p-value is approximately $1.436 \times 10^{-5}$. The residual standard error is 1.582. The multiple $R ^ 2$ value is 0.4211 and the adjusted $R ^ 2$ value of 0.2851. \newline
+(TODO: See figure X below for R ANOVA output of original model in appendix) \newline
+(TODO: See figure X below for R lm() output of original model in appendix)
 
 (TODO: Show lm() results of original model in nice table.) \newline
 (TODO: Show ANOVA results of original model in nice table.)
-
-In the original model, I found that only the predictor variables \texttt{quiz3}, \texttt{I(covid1 ** 2)}, \texttt{I(covid2 ** 2)}, \texttt{I(covid1 * covid2)}, and \texttt{I(study1 * study2)} were significant at the 5% significance level. The global F-statistic value is 3.098, and the global p-value is approximately $1.436 \times 10^{-5}$. The residual standard error is 1.582. The multiple $R ^ 2$ value is 0.4211 and the adjusted $R ^ 2$ value of 0.2851.
-
-(TODO: See figure X below for R ANOVA output of original model in appendix) \newline
-(TODO: See figure X below for R lm() output of original model in appendix)
 
 ### Improving the Original Model
 
