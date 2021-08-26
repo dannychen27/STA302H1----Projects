@@ -641,7 +641,7 @@ study4 = training_data_no_NAs$STA302.hours..W4.
 country = training_data_no_NAs$country
 ```
 
-```{r results = "hide"}
+```{r echo = FALSE}
 final_model = lm(
   quiz4 ~ quiz3
   + I(covid1 ^ 2)   # don't remove, else all other terms become insignificant
@@ -890,58 +890,8 @@ all_countries = remaining_data %>%
   dplyr::select(-country)  # The dataset must only contain numeric values for cor() to work.
 ```
 
-```{r warning = FALSE}
-display_correlation_matrix(canada)
-```
-
-```{r warning = FALSE}
-display_correlation_matrix(china)
-```
-
-```{r warning = FALSE}
-display_correlation_matrix(india)
-```
-
-\break
-
-```{r warning = FALSE}
-display_correlation_matrix(japan)
-```
-
-```{r warning = FALSE}
-display_correlation_matrix(mongolia)
-```
-
-```{r warning = FALSE}
-display_correlation_matrix(unknown)
-```
-
-\break
-
-```{r warning = FALSE}
-display_correlation_matrix(pakistan)
-```
-
-```{r warning = FALSE}
-display_correlation_matrix(singapore)
-```
-
-```{r warning = FALSE}
-display_correlation_matrix(south_korea)
-```
-
-\break
-
-```{r warning = FALSE}
-display_correlation_matrix(taiwan)
-```
-
-```{r warning = FALSE}
-display_correlation_matrix(uae)
-```
-
-```{r warning = FALSE}
-display_correlation_matrix(usa)
+```{r}
+display_correlation_matrix(all_countries)
 ```
 
 ```{r warning = FALSE, echo = FALSE, message = FALSE}
