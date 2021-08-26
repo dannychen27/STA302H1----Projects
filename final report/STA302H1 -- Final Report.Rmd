@@ -239,11 +239,11 @@ The final model has \texttt{quiz4} as the response variable; \texttt{quiz3}, the
 
 ### Any Variable Transformation Necessary?
 
-I chose not to perform any variable transformations on my final model because the residual plots showed that the errors were randomly distributed around 0. I also opted not to re-center my variables since only a few entries in the correlation matrix have high correlation (correlation $\geq$ 0.50).
+No variable transformations were performed on the final model because the residual plots showed that the errors were randomly distributed around 0. 
 
 ### Any Variable Re-centering Necessary?
 
-Since most of the entries in the correlation matrix had low (correlation between 0.0 - 0.3) to moderate (correlation between 0.3 - 0.5) correlation, re-centering variables likely has negligible effect on the correlation matrix.
+No variable re-centering was required since only a few entries in the correlation matrix have high correlation. Most of the entries in the correlation matrix had low to moderate correlation, so re-centering variables likely has negligible effect on the correlation matrix.
 
 \newpage
 
