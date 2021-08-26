@@ -96,7 +96,7 @@ display_histogram <- function(data, predictor_variable, histogram_title, x_axis_
 ```{r}
 display_boxplot <- function(data, predictor_variable, boxplot_title, y_axis_label) {
   ggplot(mapping = aes(x = Country, y = predictor_variable)) +
-    geom_boxplot(mapping = aes(x = Country, y = predictor_variable)) +
+    geom_boxplot() +
     labs(title = boxplot_title, x = "Country", y = y_axis_label)
 }
 ```
@@ -105,8 +105,7 @@ display_boxplot <- function(data, predictor_variable, boxplot_title, y_axis_labe
 get_row_nums_to_exclude <- function(data) {
   row_nums_with_3_NAs = which(rows_with_num_NAs(data, 3))
   row_nums_with_4_NAs = which(rows_with_num_NAs(data, 4))
-  row_nums_to_exclude <- union(row_nums_with_3_NAs,
-                               row_nums_with_4_NAs)
+  row_nums_to_exclude <- union(row_nums_with_3_NAs, row_nums_with_4_NAs)
   return (row_nums_to_exclude)
 }
 ```
@@ -807,7 +806,6 @@ summary(third_model)
 ```{r warning = FALSE, message = FALSE}
 tbl_regression(third_model, exponentiate = FALSE)
 ```
-
 
 ```{r results = "hide"}
 # Doing stepAIC on a well-fitted model produces the same model.
