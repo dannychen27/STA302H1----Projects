@@ -575,11 +575,6 @@ display_residual_plot(remaining_data_no_NAs, final_model, study3 * study4, "stud
 
 The scale-location model appears to have a straight horizontal line with randomly spread points, and the residual vs. fitted model show equally spread residuals around the horizontal line. Additionally, the residual plots for all predictor variables do not show any trend as fits increase. Therefore, the errors terms have constant variance.
 
-(TODO: Show scale-location model has straight line with randomly spread points.) \newline
-(TODO: Show residual vs. fitted model show equally spread residuals around horizontal line.)
-
-\newpage
-
 ### Assumption 4. Normality of Error
 
 <!-- Want to show: -->
@@ -587,13 +582,20 @@ The scale-location model appears to have a straight horizontal line with randoml
 <!-- - he histogram of residuals is approximately normal. -->
 
 Almost all of the points in the middle follow the QQplot line very closely, except for the last 2 points in the right-tail which is only a little bit right-skewed.
-By inspection, the histograms of residuals for the final model looks approximately normal.
-Therefore, the error terms are approximately normal.
-
-(TODO: Show QQplot of final model.) \newline
-(TODO: Show histogram of residuals for final model.)
+By inspection, the histograms of residuals for the final model looks approximately normal. Therefore, the error terms are approximately normal.
 
 Hence, our model satisfies the assumptions for a quadratic model.
+
+```{r echo = FALSE, warning = FALSE}
+plot(final_model)
+```
+
+```{r echo = FALSE, warning = FALSE}
+hist(lm(final_model)$residuals,
+     main = "Histogram of Residuals",
+     xlab = "Observed Residual",
+     ylab = "Frequency")
+```
 
 \newpage
 

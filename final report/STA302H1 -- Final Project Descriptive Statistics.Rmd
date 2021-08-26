@@ -922,7 +922,10 @@ plot(final_model)
 ## Goodness of Current Model
 
 ```{r echo = FALSE}
-hist(lm(final_model)$residuals)
+hist(lm(final_model)$residuals,
+     main = "Histogram of Residuals",
+     xlab = "Observed Residual",
+     ylab = "Frequency")
 ```
 
 ```{R}
