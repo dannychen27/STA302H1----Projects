@@ -272,35 +272,33 @@ From above, the residual vs. covid1 plot for the fitted model show no discernibl
 
 ### Assumption 3. Homoscedasticity (constant variance)
 
-To verify assumption 3, the scatterplot of residuals versus fits for all predictor variables must not have a "megaphone effect" or a "bowtie effect" where residuals tend to increase/decrease as fits increase.
+<!-- Want to show: -->
+<!-- - scale-location model has straight line with randomly spread points -->
+<!-- - residual vs. fitted model show equally spread residuals around horizontal line -->
 
-(TODO: Show plot of residual vs. fitted for full model?)
+The scale-location model appears to have a straight horizontal line with randomly spread points, and the residual vs. fitted model show equally spread residuals around the horizontal line. Additionally, the residual plots for all predictor variables do not show any trend as fits increase. Therefore, the errors terms have constant variance.
 
-Therefore, the error terms have constant variance.
+(TODO: Show scale-location model has straight line with randomly spread points.) \newline
+(TODO: Show residual vs. fitted model show equally spread residuals around horizontal line.)
 
 ### Assumption 4. Normality of Error
 
-To verify assumption 4, we could either show that all points on a QQplot follow the QQline closely or show that the histogram of residuals is approximately normal.
+<!-- Want to show: -->
+<!-- - all points on a QQplot follow the QQline closely -->
+<!-- - he histogram of residuals is approximately normal. -->
 
-Notice that most of the points in the middle follow the QQplot line, and the left-tail points deviate slightly more from the QQplot line than the right-tail points, suggesting that our distribution of residuals is slightly more left-skeved than right skewed.
-
-(TODO: Insert QQplot of final model.)
-
-Moreover, the histograms of residuals for the final model looks approximately normal since the mean looks very close to 0.
-
-(TODO: Insert histogram of residuals for final model.)
-
+Almost all of the points in the middle follow the QQplot line very closely, except for the last 2 points in the right-tail which is only a little bit right-skewed.
+By inspection, the histograms of residuals for the final model looks approximately normal.
 Therefore, the error terms are approximately normal.
 
-(TODO: Insert R code to produce residual plots in appendix.)
+(TODO: Show QQplot of final model.) \newline
+(TODO: Show histogram of residuals for final model.)
 
-Hence, our model satisfies the assumptions for a linear model.
+Hence, our model satisfies the assumptions for a quadratic model.
 
-### Any Variable Transformation Necessary?
+### Any Variable Transformation or Recentering Necessary?
 
-No variable transformations were performed on the final model because the residual plots showed that the errors were randomly distributed around 0. 
-
-### Any Variable Re-centering Necessary?
+No variable transformations were performed on the final model because the error terms are independent, homoscedastic, and approximately normal. 
 
 No variable re-centering was required since only a few entries in the correlation matrix have high correlation. Most of the entries in the correlation matrix had low to moderate correlation, so re-centering variables likely has negligible effect on the correlation matrix.
 
