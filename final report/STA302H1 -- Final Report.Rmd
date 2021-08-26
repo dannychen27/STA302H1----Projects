@@ -152,22 +152,12 @@ The median quiz scores for Canada, Pakistan, Singapore, Taiwan, and USA were all
 (TODO: Display boxplot of study times weeks 1 - 4.) \newline
 (TODO: Display boxplot of quiz scores 1 - 3.)
 
-### Pairwise Scatterplots
+### Pairwise Scatterplots and Correlation Matrix
 
-(TODO: Display pair scatterplots of relationships between quiz 4 score and each predictor variable)
+Pairwise scatterplots were created to observe the relationship between the response variable and the explanatory variables. Furthermore, a correlation matrix was constructed to determine the correlations of each pair of covariates along with the response variable and each covariate. A correlation between 0.0 - 0.3 is considered low, 0.3 - 0.5 is moderate, and 0.5 - 1.0 is high.
 
-Pairwise scatterplots were created to observe the relationship between the response variable and the explanatory variables.
-
-(TODO: See figure X in appendix)
-
-### Correlation Matrix
-
-Furthermore, a correlation matrix was constructed to determine the correlations of each pair of covariates along with the response variable and each covariate.
-
-(TODO: The results are displayed in Figure X in the appendix.) 
-
-A correlation between 0.0 - 0.3 is considered low, 0.3 - 0.5 is moderate, and 0.5 - 1.0 is high.
-
+(TODO: Display pair scatterplots of relationships between quiz 4 score and each predictor variable) \newline
+(TODO: Refer to the correlation matrix in Figure X in the appendix.) \newline
 (TODO: Consult 3 – 4 external sources to confirm your findings.)
 
 \newpage
