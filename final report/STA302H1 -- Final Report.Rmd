@@ -79,13 +79,13 @@ The following table describes each variable, its meaning, and its type:
         \hline
         \texttt{Country} & Student’s country of origin & Categorical/nominal \\
         \hline
-        \texttt{Quiz\_1\_Score} & Student’s quiz 1 score out of 10 & Continuous numeric \\
+        \texttt{Quiz\_1\_Score} & Student’s quiz 1 score out of 10 & Ordinal numeric \\
         \hline
-        \texttt{Quiz\_2\_Score} & Student’s quiz 2 score out of 10 & Continuous numeric \\
+        \texttt{Quiz\_2\_Score} & Student’s quiz 2 score out of 10 & Ordinal numeric \\
         \hline
-        \texttt{Quiz\_3\_Score} & Student’s quiz 3 score out of 10 & Continuous numeric \\
+        \texttt{Quiz\_3\_Score} & Student’s quiz 3 score out of 10 & Ordinal numeric \\
         \hline
-        \texttt{Quiz\_4\_Score} & Student’s quiz 4 score out of 10 & Continuous numeric \\
+        \texttt{Quiz\_4\_Score} & Student’s quiz 4 score out of 10 & Ordinal numeric \\
         \hline
         \texttt{COVID..hours.W1} & Time student spent thinking about COVID-19 during Week 1 in hours & Continuous numeric \\
         \hline
@@ -159,7 +159,6 @@ Pairwise scatterplots were created to observe the relationships between all comb
 Furthermore, a correlation matrix was constructed to determine the correlations of each pair of covariates along with the response variable and each covariate. 
 Since the correlation matrices for underrepresented countries (i.e. every country except Canada, China, and NA) contained a lot of NA or $\pm 1$ entries, it made more sense to use the correlation matrix for all countries.
 A correlation between 0.0 - 0.3 is considered low, 0.3 - 0.5 is moderate, and 0.5 - 1.0 is high. \newline
-(TODO: Change quiz variables to ordinal)
 
 (TODO: Display pair scatterplots of relationships between quiz 4 score and each predictor variable) \newline
 (TODO: Refer to the correlation matrix in Figure X in the appendix.) \newline
