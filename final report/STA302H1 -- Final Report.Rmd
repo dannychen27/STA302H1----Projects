@@ -367,13 +367,9 @@ boxplot(remaining_data$Quiz_1_score, remaining_data$Quiz_2_score,
 
 \newpage
 
-## Pairwise Scatterplots and Correlation Matrix
+## Pairwise Scatterplots
 
 Pairwise scatterplots were created to observe the relationships between all combinations of variables, especially between the response variable and the explanatory variables. Since the pairs scatterplot were symmetric along its main diagonal, the bottom half of the pairs scatterplot could be safely omitted.
-
-Furthermore, a correlation matrix was constructed to determine the correlations of each pair of covariates along with the response variable and each covariate. 
-Since the correlation matrices for underrepresented countries (i.e. every country except Canada, China, and NA) contained a lot of NA or $\pm 1$ entries, it made more sense to use the correlation matrix for all countries.
-A correlation between 0.0 - 0.3 is considered low, 0.3 - 0.5 is moderate, and 0.5 - 1.0 is high. <!-- (TODO: Refer to the correlation matrix in Figure X in the appendix.) \newline --> \newline
 
 ```{R echo = FALSE, warning = FALSE}
 pairs(~ COVID.hours..W1. + COVID.hours..W2. + COVID.hours..W3. + COVID.hours..W4. 
@@ -396,6 +392,12 @@ pairs(~ Quiz_4_score + COVID.hours..W1. + COVID.hours..W2.
 pairs(~ Quiz_4_score + STA302.hours..W1. + STA302.hours..W2. 
       + STA302.hours..W3. + STA302.hours..W4., lower.panel = NULL)
 ```
+
+## Correlation Matrix
+
+A correlation matrix was constructed to determine the correlations of each pair of variables in the dataset.
+Since the correlation matrices for underrepresented countries (i.e. every country except Canada, China, and NA) contained a lot of NA or $\pm 1$ entries, it made more sense to use the correlation matrix for all countries.
+A correlation between 0.0 - 0.3 is considered low, 0.3 - 0.5 is moderate, and 0.5 - 1.0 is high. <!-- (TODO: Refer to the correlation matrix in Figure X in the appendix.) \newline -->
 
 <!-- (TODO: Consult 3 – 4 external sources to confirm your findings.) -->
 
@@ -443,7 +445,7 @@ Similarly, there might be a moderate linear relationship between quiz 4 scores a
 
 Pairs of covariates, as well as response variable-covariate combinations from the correlation matrix with high correlation were used as a heuristic for determining potentially significant interaction terms in the initial model.
 
-The initial model was fitted using \texttt{quiz4} as the response variable; and \texttt{quiz1}, \texttt{quiz2}, \texttt{quiz3}, \texttt{covid1}, \texttt{covid2}, \texttt{covid3}, \texttt{covid4}, (including 3 quadratic terms 8 interaction terms), and \texttt{country} as predictor variables. However, only the predictor variables \texttt{quiz3}, \texttt{I(covid1 ** 2)}, \texttt{I(covid2 ** 2)}, \texttt{I(covid1 * covid2)}, and \texttt{I(study1 * study2)} were significant at the 5% significance level. The global F-statistic value is 3.098, and the global p-value is approximately $1.436 \times 10^{-5}$. The residual standard error is 1.582. The multiple $R ^ 2$ value is 0.4211 and the adjusted $R ^ 2$ value of 0.2851. \newline
+The initial model was fitted using \texttt{quiz4} as the response variable; and \texttt{quiz1}, \texttt{quiz2}, \texttt{quiz3}, \texttt{covid1}, \texttt{covid2}, \texttt{covid3}, \texttt{covid4}, (including 3 quadratic terms 8 interaction terms), and \texttt{country} as predictor variables. However, only the predictor variables \texttt{quiz3}, \texttt{I(covid1 ** 2)}, \texttt{I(covid2 ** 2)}, \texttt{I(covid1 * covid2)}, and \texttt{I(study1 * study2)} were significant at the 5% significance level. The global F-statistic value is 3.098, and the global p-value is approximately $1.436 \times 10^{-5}$. The residual standard error is 1.582. The multiple $R ^ 2$ value is 0.4211 and the adjusted $R ^ 2$ value of 0.2851.
 
 ```{r warning = FALSE, echo = FALSE, message = FALSE}
 remaining_data_no_NAs = na.omit(remaining_data)
@@ -493,8 +495,6 @@ first_model = lm(
 )
 ```
 
-\newpage
-
 ```{r warning = FALSE, message = FALSE, echo = FALSE}
 tbl_regression(first_model, exponentiate = FALSE)
 ```
@@ -503,6 +503,8 @@ tbl_regression(first_model, exponentiate = FALSE)
 <!-- (TODO: See figure X below for R lm() output of original model in appendix) -->
 
 <!-- (TODO: Show lm() results of original model in nice table.) -->
+
+\newpage
 
 ## Improving the Original Model
 
