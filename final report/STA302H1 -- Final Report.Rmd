@@ -403,16 +403,6 @@ pairs(~ Quiz_4_score + STA302.hours..W1. + STA302.hours..W2.
 
 # Model Development
 
-## Checking for Influential Outliers
-
-First, influential outliers were identified in the original dataset using (what method?)
-
-(TODO: Use Cook’s distance and leverage points to find influential outliers?) \newline
-(TODO: Use VIF method to find influential outliers?) \newline
-(TODO: Use DDFITS, DDBETA to find influential outliers?)
-
-Notice that there are no influential outliers because no points outside of cook's distance in upper right and lower left quadrants of plot, so there are no points to remove.
-
 ## Proposing an Initial Model
 
 Simpler (e.g., linear, quadratic) relationships were prioritized over more complex relationships (e.g., higher order polynomial, logarithmic, square root) for the sake of straightforward analysis and intuitive interpretation. The pairs scatterplot and the correlation matrix were primarily used to derive most of the terms for the initial model.
@@ -544,7 +534,9 @@ tbl_regression(final_model, exponentiate = FALSE)
 
 \newpage
 
-## Statistical and Empirical Justifications for Final Model
+# Model Diagnostics
+
+## Checking for Proper Functional Form of Model
 
 To show that a quadratic relationship for the final model is valid, the following assumptions must hold.
 
@@ -641,15 +633,25 @@ hist(lm(final_model)$residuals,
 
 \newpage
 
-## Any Variable Transformation or Recentering Necessary?
+To validate my linear model, I decided to use a 55/45 training-testing strategy, as well as perform a t-test for significance.
+
+## Checking for Influential Outliers
+
+First, influential outliers were identified in the original dataset using (what method?)
+
+(TODO: Use Cook’s distance and leverage points to find influential outliers?) \newline
+(TODO: Use VIF method to find influential outliers?) \newline
+(TODO: Use DDFITS, DDBETA to find influential outliers?)
+
+Notice that there are no influential outliers because no points outside of cook's distance in upper right and lower left quadrants of plot, so there are no points to remove.
+
+## Any Variable Transformation?
 
 No variable transformations were performed on the final model because the error terms are independent, homoscedastic, and approximately normal. 
 
+## Any or Recentering Necessary?
+
 No variable re-centering was required since only a few entries in the correlation matrix have high correlation. Most of the entries in the correlation matrix had low to moderate correlation, so re-centering variables likely has negligible effect on the correlation matrix.
-
-# Model Diagnostics
-
-To validate my linear model, I decided to use a 55/45 training-testing strategy, as well as perform a t-test for significance.
 
 ## 55/45 Training/Testing Split
 
