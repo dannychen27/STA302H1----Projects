@@ -412,21 +412,93 @@ Similarly, there might be a moderate linear relationship between quiz 4 scores a
 Pairs of covariates, as well as response variable-covariate combinations from the correlation matrix with high correlation were used as a heuristic for determining potentially significant interaction terms in the initial model.
 
 The initial model was fitted using \texttt{quiz4} as the response variable; and \texttt{quiz1}, \texttt{quiz2}, \texttt{quiz3}, \texttt{covid1}, \texttt{covid2}, \texttt{covid3}, \texttt{covid4}, (including 3 quadratic terms 8 interaction terms), and \texttt{country} as predictor variables. However, only the predictor variables \texttt{quiz3}, \texttt{I(covid1 ** 2)}, \texttt{I(covid2 ** 2)}, \texttt{I(covid1 * covid2)}, and \texttt{I(study1 * study2)} were significant at the 5% significance level. The global F-statistic value is 3.098, and the global p-value is approximately $1.436 \times 10^{-5}$. The residual standard error is 1.582. The multiple $R ^ 2$ value is 0.4211 and the adjusted $R ^ 2$ value of 0.2851. \newline
-(TODO: See figure X below for R ANOVA output of original model in appendix) \newline
-(TODO: See figure X below for R lm() output of original model in appendix)
 
-(TODO: Show lm() results of original model in nice table.)
+```{r warning = FALSE, echo = FALSE, message = FALSE}
+remaining_data_no_NAs = na.omit(remaining_data)
+
+quiz1 = remaining_data_no_NAs$Quiz_1_score
+quiz2 = remaining_data_no_NAs$Quiz_2_score
+quiz3 = remaining_data_no_NAs$Quiz_3_score
+quiz4 = remaining_data_no_NAs$Quiz_4_score
+
+covid1 = remaining_data_no_NAs$COVID.hours..W1.
+covid2 = remaining_data_no_NAs$COVID.hours..W2.
+covid3 = remaining_data_no_NAs$COVID.hours..W3.
+covid4 = remaining_data_no_NAs$COVID.hours..W4.
+
+study1 = remaining_data_no_NAs$STA302.hours..W1.
+study2 = remaining_data_no_NAs$STA302.hours..W2.
+study3 = remaining_data_no_NAs$STA302.hours..W3.
+study4 = remaining_data_no_NAs$STA302.hours..W4.
+
+country = remaining_data_no_NAs$country
+```
+
+```{r warning = FALSE, echo = FALSE, message = FALSE}
+# single variable per term = additive model
+first_model = lm(
+  quiz4 ~ 
+    quiz1  # scatterplot seems to have no relationship
+  + quiz2  # scatterplot seems to have no relationship
+  + quiz3  # scatterplot looks more linear
+  + covid1 # must add this linear term b/c i have a quadratic term 
+  + I(covid1 ^ 2)  # scatterplot looks more quadratic
+  + covid2 # must add this linear term b/c i have a quadratic term 
+  + I(covid2 ^ 2)  # scatterplot looks more quadratic
+  + covid3
+  # + I(covid3 ^ 2) # scatterplot looks less quadratic
+  + covid4  # must add this linear term b/c i have a quadratic term 
+  + I(covid4 ^ 2) # scatterplot looks more quadratic
+  + I(covid1 * covid2) # first impressions from correlation matrix
+  + I(covid2 * covid3) # correlation = 0.67
+  + I(covid2 * covid4) # discard: correlation = 0.71
+  + I(covid3 * covid4) # correlation = 0.72
+  + I(study1 * study2)  # correlation = 0.61
+  + I(study1 * study3)  # correlation = 0.58
+  + I(study2 * study3)  # correlation = 0.70
+  + I(study3 * study4)  # correlation = 0.62
+  + country  # for simplicity, but backwards process shows this term is not significant
+)
+```
+
+\newpage
+
+```{r warning = FALSE, message = FALSE, echo = FALSE}
+tbl_regression(first_model, exponentiate = FALSE)
+```
+
+<!-- (TODO: See figure X below for R ANOVA output of original model in appendix) \newline -->
+<!-- (TODO: See figure X below for R lm() output of original model in appendix) -->
+
+<!-- (TODO: Show lm() results of original model in nice table.) -->
 
 ### Improving the Original Model
 
 To refine the original model, backwards selection was used to remove insignificant terms (terms whose $p$-values were > 0.05) and find the subset model with the lowest AIC value.
 
 The final model has \texttt{quiz4} as the response variable; \texttt{quiz3}, the quadratic term \texttt{I(covid1 ** 2)}, and the interaction terms \texttt{I(covid1 * covid2)}, \texttt{I(covid2 * covid3)}, \texttt{study1 * study2}, \texttt{study1 * study3}, \texttt{study2 * study3}, \texttt{study3 * study4} as the predictor variables. Out of all of the predictors variables in the final model, only the predictor variables \texttt{quiz3}, \texttt{I(covid1 ** 2}, \texttt{I(covid1 * covid2)}, \texttt{I(study1 * study2)}, \texttt{I(study2 * study3)}, and \texttt{I(study3 * study4)} are significant at the 5% significance level. The global F-statistic value increased to 8.764, the global $p$-value increased to $1.374 \times 10^{-9}$. The residual standard error decreased marginally to 1.561. Even though the multiple $R ^ 2$ value dropped significantly to 0.3435, the adjusted $R ^ 2$ value increase slightly to 0.3043 -- there is a smaller difference between the $R ^ 2$ value and the adjusted $R ^ 2$ value in the final model than the original model. The coefficient of 0.499110 for \texttt{quiz3} suggests that for every 1 point increase in quiz 3, there is an increase in quiz 4 grades by about 0.50/10 points. There also exists a quadratic relationship between variables \texttt{covid1} and \texttt{quiz4}, as well as an interaction effect between \texttt{covid1} and \texttt{covid2}, \texttt{study1} and \texttt{study2}, \texttt{study2} and \texttt{study3}, and \texttt{study3} and \texttt{study4}. I perform all further analyses on the final model. \newline
-(TODO: See figure X below for R ANOVA output of final model in appendix) \newline
-(TODO: See figure X below for R lm() output of final model in appendix)
+<!-- (TODO: See figure X below for R ANOVA output of final model in appendix) \newline -->
+<!-- (TODO: See figure X below for R lm() output of final model in appendix) -->
 
-(TODO: Show ANOVA results of original model in nice table.) \newline
-(TODO: Show lm() results of final model in nice table.)
+<!-- (TODO: Show ANOVA results of original model in nice table.) \newline -->
+<!-- (TODO: Show lm() results of final model in nice table.) -->
+
+```{r warning = FALSE, echo = FALSE, message = FALSE}
+final_model = lm(
+  quiz4 ~ quiz3
+  + I(covid1 ^ 2)   # don't remove, else all other terms become insignificant
+  + I(covid1 * covid2) 
+  + I(covid2 * covid3)  # don't remove, else all other terms become insignificant
+  + I(study1 * study2) 
+  + I(study1 * study3)  # maybe don't remove?
+  + I(study2 * study3) 
+  + I(study3 * study4)
+)
+```
+
+```{r warning = FALSE, message = FALSE, echo = FALSE}
+tbl_regression(final_model, exponentiate = FALSE)
+```
 
 \newpage
 
@@ -754,3 +826,16 @@ display_correlation_matrix(uae)
 ```{r warning = FALSE}
 display_correlation_matrix(usa)
 ```
+
+```{r}
+summary(first_model)
+```
+
+```{r warning = FALSE, echo = FALSE, message = FALSE}
+stepAIC(first_model, direction = "both")$anova
+```
+
+```{r}
+summary(final_model)
+```
+
