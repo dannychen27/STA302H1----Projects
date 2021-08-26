@@ -300,6 +300,47 @@ grid.arrange(quiz3_histogram, quiz4_histogram)
 
 ### Boxplots
 
+```{r warning = FALSE}
+boxplot(remaining_data$COVID.hours..W1., remaining_data$COVID.hours..W2.,
+        remaining_data$COVID.hours..W3., remaining_data$COVID.hours..W4.,
+        names = c("Week 1", "Week 2", "Week 3", "Week 4"),
+        yscale = 50,
+        ylab = "Hours Spent Thinking about COVID-19", 
+        main = "Time Spent Thinking about COVID-19")
+
+boxplot(remaining_data$COVID.hours..W1., remaining_data$COVID.hours..W2.,
+        remaining_data$COVID.hours..W3., remaining_data$COVID.hours..W4.,
+        names = c("Week 1", "Week 2", "Week 3", "Week 4"),
+        ylim = c(0, 50),
+        yscale = 10,
+        ylab = "Hours Spent Thinking about COVID-19", 
+        main = "Time Spent Thinking about COVID-19 (Extreme Outliers Removed)")
+
+boxplot(remaining_data$COVID.hours..W1., remaining_data$COVID.hours..W2.,
+        remaining_data$COVID.hours..W3., remaining_data$COVID.hours..W4.,
+        names = c("Week 1", "Week 2", "Week 3", "Week 4"), 
+        ylim = c(0, 10),
+        yscale = 10,
+        ylab = "Hours Spent Thinking about COVID-19", 
+        main = "Time Spent Thinking about COVID-19 (Moderate Outliers Removed)")
+```
+
+```{r warning = FALSE}
+boxplot(remaining_data$STA302.hours..W1., remaining_data$STA302.hours..W2.,
+        remaining_data$STA302.hours..W3., remaining_data$STA302.hours..W4.,
+        names = c("Week 1", "Week 2", "Week 3", "Week 4"), 
+        ylab = "Hours Spent Studying for STA302H1", 
+        main = "Time Spent Studying for STA302H1")
+```
+
+```{r warning = FALSE}
+boxplot(remaining_data$Quiz_1_score, remaining_data$Quiz_2_score,
+        remaining_data$Quiz_3_score, remaining_data$Quiz_4_score,
+        names = c("Quiz 1", "Quiz 2", "Quiz 3", "Quiz 4"), 
+        ylab = "Quiz Score out of 10", main = "Quiz Scores")
+```
+
+
 Side-by-side boxplots were used to compare COVID-19 times, study times, and quiz scores among students from various countries.
 
 In week 1, most students from all countries spent a small amount of time thinking about COVID-19. Japan has the highest median COVID times, whereas India and USA have the lowest median COVID times. Clear outliers for Canada and China in all 4 weeks indicate that some Canadian and Chinese STA302H1 students were spending an above average amount of time thinking about COVID-19. Among all countries, Mongolia had the highest median COVID time during weeks 2 - 4. Pakistan and Singapore students also showed increased median and IQR COVID times between week 1 and week 2. Additionally, China and USA have the lowest median COVID times in week 2. In week 4, all countries returned to low median COVID-19 times, except for Mongolia which increased by approximately 150% from about 20 hours to about 50 hours).
