@@ -91,7 +91,7 @@ The purpose of this report is to study the relationship between a student's coun
 
 Existing studies in pedagogy tend to focus on individual factors that affect course performance, such as the number of hours slept, or the number of hours spent studying for a course. However, this study intends to explore multiple covariates simultaneously to assess their collective effect on final quiz grades, as well as the effects of two covariates on each other.
 
-## Information about Our Experiment
+## Experiment Information
 
 The population of interest is a group of students from the online summer 2021 (July - August) STA302H1S cohort, which originally had 227 students at the start of the term, but has 198 students enrolled as of August 13, 2021.
 
@@ -104,7 +104,7 @@ For this study, students were surveyed on Quercus at the end of each week for th
 
 The survey asked about their country of origin (first week only), the number of hours they spent thinking about COVID-19, and the number of hours they spent studying for STA302H1. Quiz scores were also collected and combined into a dataset, where student names were anonymized before the dataset was made available to all STA302H1 students on Quercus for analysis during the STA302H1 final report.
 
-## Purpose of Developing A Model
+## Purpose of Developing Model
 
 The purpose of developing a model is to try to understand the relationship between quiz 4 scores and the other predictor variables (interim STA302H1 quiz scores, study time, COVID contemplation time, country, or some combination of these factors) in explaining the variability among quiz 4 marks.
 
