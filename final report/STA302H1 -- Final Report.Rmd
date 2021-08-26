@@ -311,6 +311,14 @@ All 4 weeks contain some outliers, although week 1 had 2 students who thought ab
 <!-- - similar spreads (IQR) for weeks 1 - 2  -->
 <!-- - more spread in week 3, even larger spread in week 4 -->
 
+Although all 4 weeks contained outliers, week 4 has outliers ranging from a median study time of 30 - 70 hours. The median amount of study time steadily increased from 7 hours to 9 hours in weeks 1 - 3, with a noticeable increase in median study time from 9 hours to 11 hours from week 3 to week 4. Median study times had similar spreads (IQR) of 4 hours for weeks 1 and 2, but there is more spread in week 3 (6 hours), and even larger spread in week 4 (9 hours).
+
+<!-- - all 4 weeks contain outliers -->
+<!-- - week 4 has largest outliers, ranging from 30 - 70 hours of studying -->
+<!-- - median amount of studying steadily increasing from 7 hours to 9 hours in weeks 1 - 3, and noticeable increase from week 3 to week 4 (9 hours to 11 hours)  -->
+<!-- - similar spreads (IQR) for weeks 1 - 2 -->
+<!-- - more spread in week 3, even larger spread in week 4 -->
+
 ```{r warning = FALSE}
 boxplot(remaining_data$COVID.hours..W1., remaining_data$COVID.hours..W2.,
         remaining_data$COVID.hours..W3., remaining_data$COVID.hours..W4.,
