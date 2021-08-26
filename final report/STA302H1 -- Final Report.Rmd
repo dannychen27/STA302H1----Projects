@@ -235,8 +235,6 @@ The final model has \texttt{quiz4} as the response variable; \texttt{quiz3}, the
 (TODO: Show ANOVA results of original model in nice table.) \newline
 (TODO: Show lm() results of final model in nice table.)
 
-<!-- From the second model, I decided to remove a few more terms. The \texttt{I(covid1 ** 2)} term is the only quadratic term in my final model which added a lot of complexity to my model for a negligible change in $R ^ 2$ and adjusted $R ^ 2$ value. Also, the \texttt{I(covid1 * covid2)} + \texttt{I(covid2 * covid3)} terms alone made it slightly more difficult to interpret the model since it was difficult to explain how COVID-19 changes between consecutive weeks, or whether it would affect the overall significance of the final model.  -->
-
 ### Any Variable Transformation Necessary?
 
 No variable transformations were performed on the final model because the residual plots showed that the errors were randomly distributed around 0. 
