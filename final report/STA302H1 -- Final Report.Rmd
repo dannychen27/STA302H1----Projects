@@ -329,7 +329,7 @@ Median quiz 1 scores have the most outliers, although they are milder than the s
 <!-- - week 2 and 3 both have similarly large spreads, week 1 has smallest spread.  -->
 <!-- - week 4 quiz scores are the least skewed -->
 
-```{r warning = FALSE}
+```{r echo = FALSE, warning = FALSE}
 boxplot(remaining_data$COVID.hours..W1., remaining_data$COVID.hours..W2.,
         remaining_data$COVID.hours..W3., remaining_data$COVID.hours..W4.,
         names = c("Week 1", "Week 2", "Week 3", "Week 4"),
@@ -354,7 +354,7 @@ boxplot(remaining_data$COVID.hours..W1., remaining_data$COVID.hours..W2.,
         main = "Time Spent Thinking about COVID-19 (Moderate Outliers Removed)")
 ```
 
-```{r warning = FALSE}
+```{r echo = FALSE, warning = FALSE}
 boxplot(remaining_data$STA302.hours..W1., remaining_data$STA302.hours..W2.,
         remaining_data$STA302.hours..W3., remaining_data$STA302.hours..W4.,
         names = c("Week 1", "Week 2", "Week 3", "Week 4"), 
@@ -362,7 +362,7 @@ boxplot(remaining_data$STA302.hours..W1., remaining_data$STA302.hours..W2.,
         main = "Time Spent Studying for STA302H1")
 ```
 
-```{r warning = FALSE}
+```{r echo = FALSE, warning = FALSE}
 boxplot(remaining_data$Quiz_1_score, remaining_data$Quiz_2_score,
         remaining_data$Quiz_3_score, remaining_data$Quiz_4_score,
         names = c("Quiz 1", "Quiz 2", "Quiz 3", "Quiz 4"), 
