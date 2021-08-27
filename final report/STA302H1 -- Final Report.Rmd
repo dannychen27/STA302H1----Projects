@@ -362,8 +362,9 @@ pairs(~ Quiz_4_score + STA302.hours..W1. + STA302.hours..W2.
 ## Correlation Matrix
 
 A correlation matrix was constructed to determine the correlations of each pair of variables in the dataset.
-Since the correlation matrices for underrepresented countries (e.g., India, Japan) contained a lot of NA or $\pm 1$ entries, only the correlation matrix for all countries was used.
-A correlation between 0.0 - 0.3 is considered low, 0.3 - 0.5 is moderate, and 0.5 - 1.0 is high. The correlation matrix can be found on pages 28 - 29 in the appendix.
+Since the correlation matrices for underrepresented countries (e.g., every country except for Canada, China, and NA) contained a lot of NA or $\pm 1$ entries, only the correlation matrix for all countries was used.
+The table on page 29 in the appendix showing the sample size of every country in this study also suggests that the correlation matrices for individual countries should not be used, as the correlation matrix of all countries is based on more data than the correlation matrices of individual countries combined.
+A correlation between 0.0 - 0.3 is considered low, 0.3 - 0.5 is moderate, and 0.5 - 1.0 is high. The correlation matrix of all countries can be found on pages 28 - 29 in the appendix.
 
 \newpage
 
@@ -383,6 +384,8 @@ Further analysis indicates that there is a possibly moderate linear relationship
 Similarly, there might be a moderate linear relationship between quiz 4 scores and quiz 1 - 3 scores. Therefore, only the linear terms for quiz 1 - 3 scores (i.e., \texttt{quiz1}, \texttt{quiz2}, and \texttt{quiz3}) were included in the model.
 
 Pairs of covariates, as well as response variable-covariate combinations from the correlation matrix with high correlation were used as a heuristic for determining potentially significant interaction terms in the initial model.
+
+\newpage
 
 The initial model was fitted using \texttt{quiz4} as the response variable; and \texttt{quiz1}, \texttt{quiz2}, \texttt{quiz3}, \texttt{covid1}, \texttt{covid2}, \texttt{covid3}, \texttt{covid4}, (including 3 quadratic terms 8 interaction terms), and \texttt{country} as predictor variables. However, only the predictor variables \texttt{quiz3}, \texttt{I(covid1 ** 2)}, \texttt{I(covid2 ** 2)}, \texttt{I(covid1 * covid2)}, and \texttt{I(study1 * study2)} were significant at the 5% significance level. The global F-statistic value is 3.098, and the global p-value is approximately $1.436 \times 10^{-5}$. The residual standard error is 1.582. The multiple $R ^ 2$ value is 0.4211 and the adjusted $R ^ 2$ value of 0.2851. The R output of the initial model can be found on page 29 of the appendix.
 
