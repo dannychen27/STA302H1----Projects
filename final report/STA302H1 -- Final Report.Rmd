@@ -558,16 +558,16 @@ hist(lm(final_model)$residuals,
 
 \newpage
 
-### 55/45 Training/Testing Split
+### 50/50 Training/Testing Split
 
-Obtaining an independent dataset is infeasible, and the existing dataset has sufficiently many data points ($n = 143$ after removing all NAs). Therefore, it is possible to use 55% of the dataset to develop a regression model and the remaining 45% of the dataset to validate the trained model.
+Obtaining an independent dataset is infeasible, and the existing dataset has sufficiently many data points ($n = 143$ after removing all NAs). Therefore, it is possible to use 50% of the dataset to develop a regression model and the remaining 50% of the dataset to validate the trained model.
 
-The mean of the residuals of the test model was $-3.715 \times 10 ^ {-17}$, which is approximately 0. See page 32 in the appendix for the corresponding R output.
+The mean of the residuals of the test model was $5.026 \times 10 ^ {-17}$, which is approximately 0. See page 32 in the appendix for the corresponding R output.
 This indicates that the final model has high predictive power.
 
 ```{r echo = FALSE}
 set.seed(888)
-sample = sample.split(remaining_data_no_NAs, SplitRatio = 0.55)
+sample = sample.split(remaining_data_no_NAs, SplitRatio = 0.50)
 training_data = subset(remaining_data_no_NAs, sample == TRUE)
 testing_data  = subset(remaining_data_no_NAs, sample == FALSE)
 ```
@@ -653,7 +653,7 @@ For our $t$-test, the mean of the residuals was hypothesized to be identically e
 - $H_0: \mu_{residuals} = 0$
 - $H_1: \mu_{residuals} \neq 0$
 
-The $t$-test results showed that the $p$-value is 1, which means $H_0$ fails to be rejected, meaning that $\mu_{residuals} = 0$ holds. Since 0 falls inside the 95% confidence interval for the mean of residuals of $(-0.3887752, 0.3887752)$, the $H_0$ fails to be rejected. Therefore, $\mu_{residuals} = 0$. See page 32 for $t$-test output.
+The $t$-test results showed that the $p$-value is 1, which means $H_0$ fails to be rejected, meaning that $\mu_{residuals} = 0$ holds. Since 0 falls inside the 95% confidence interval for the mean of residuals of $(-0.357787, 0.357787)$, the $H_0$ fails to be rejected. Therefore, $\mu_{residuals} = 0$. See page 32 for $t$-test output.
 
 Therefore, it is sensible to use a quadratic model.
 
