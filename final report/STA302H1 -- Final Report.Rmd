@@ -10,51 +10,150 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+```{r echo = FALSE, message = FALSE}
+library(dplyr)  # data cleaning
+library(tidyverse)  # ggplot
+library(GGally)  # ggcorr
+library(MASS)  # anova
+# library(janitor)  # use it to clean up data.
+library(gtsummary)  # for tbl_regression
+library(gridExtra)  # to use grid.arrange
+library(ggforce)  # zooming in on plots
+library(caTools)  # for sample.split
+```
+
+```{r echo = FALSE, message = FALSE}
+setwd("~/Desktop/sta302h1/STA302H1 -- Projects/final report")
+sta302_performance_data = read.csv("./data.csv", header = TRUE)
+attach(sta302_performance_data)
+```
+
+```{r echo = FALSE, message = FALSE}
+rows_with_num_NAs = function(data, num_NAs) {
+  return (rowSums(is.na(data)) == num_NAs)
+}
+```
+
+```{R echo = FALSE, message = FALSE}
+get_row_nums_to_exclude <- function(data) {
+  row_nums_with_3_NAs = which(rows_with_num_NAs(data, 3))
+  row_nums_with_4_NAs = which(rows_with_num_NAs(data, 4))
+  row_nums_to_exclude <- union(row_nums_with_3_NAs, row_nums_with_4_NAs)
+  return (row_nums_to_exclude)
+}
+```
+
+```{r echo = FALSE, message = FALSE}
+display_histogram <- function(data, predictor_variable, histogram_title, x_axis_label) {
+  ggplot(data = tibble(data), mapping = aes(x = predictor_variable)) +
+    geom_histogram(col = "black", fill = "red", bins = 30) +
+    labs(title = histogram_title, y = "Frequency", x = x_axis_label) + 
+    geom_vline(mapping = aes(xintercept = mean(predictor_variable, na.rm = TRUE)),
+               color = "blue", linetype = "solid") +
+    geom_vline(mapping = aes(xintercept = median(predictor_variable, na.rm = TRUE)),
+               color = "dark green", linetype = "dotted")
+}
+```
+
+```{r echo = FALSE, message = FALSE}
+display_boxplot <- function(data, predictor_variable, boxplot_title, y_axis_label) {
+  ggplot(mapping = aes(x = Country, y = predictor_variable)) +
+    geom_boxplot() +
+    labs(title = boxplot_title, x = "Country", y = y_axis_label)
+}
+```
+
+```{r echo = FALSE, message = FALSE}
+display_correlation_matrix <- function(data) {
+  colnames(data) <- c("W1COV", "W2COV", "W3COV", "W4COV",
+                      "W1302", "W2302", "W3302", "W4302",
+                      "Q1", "Q2", "Q3", "Q4")
+  correlation_matrix = cor(data, use = "pairwise.complete.obs", method = "pearson")
+  round(correlation_matrix, 2)
+}
+```
+
+```{r echo = FALSE, message = FALSE}
+display_residual_plot <- function(data, model, predictor_variable, predictor_variable_name) {
+  fit = fitted(model)
+  residuals = resid(model)
+  ggplot(data = data, aes(x = predictor_variable, y = residuals)) +
+    geom_point() + 
+    geom_hline(yintercept = 0) + 
+    labs(title = paste0("Residual Plot for Variable ", predictor_variable_name), 
+         x = predictor_variable_name, y = paste0("Residuals of ", predictor_variable_name))
+}
+```
+
 # Introduction
 
 The purpose of this report is to study the relationship between a student's country of origin, the time they spent studying for STA302H1 (weeks 1 - 4), the time they spent thinking about COVID-19 (weeks 1 - 4), and their interim STA302H1 quiz scores (quizzes 1 - 3) versus final STA302H1 quiz scores (quiz 4).
 
-Existing studies in pedagogy tend to focus on individual factors that affect course performance, such as the number of hours slept, or the number of hours spent studying for a course. However, my paper intends to explore multiple covariates simultaneously to assess their collective effect on final quiz grades, as well as the effects of two covariates on each other.
+Existing studies in pedagogy tend to focus on individual factors that affect course performance, such as the number of hours slept, or the number of hours spent studying for a course. However, this study intends to explore multiple covariates simultaneously to assess their collective effect on final quiz grades, as well as the effects of two covariates on each other.
 
-## Information about Our Popoulation
+## Experiment Information
 
-Our population of interest is a group of students from the online summer 2021 (July - August) STA302H1S cohort, which originally had 227 students at the start of the term, but has 198 students enrolled as of August 13, 2021.
+The population of interest is a group of students from the online summer 2021 (July - August) STA302H1S cohort, which originally had 227 students at the start of the term, but has 198 students enrolled as of August 13, 2021.
 
-## Experiment Description
+For this study, students were surveyed on Quercus at the end of each week for the first 4 weeks of STA302H1. Each week is specified by a date range below:
 
-The professor announced at the beginning of the term and in the syllabus that she would survey students on Quercus, and collect information about their quiz scores at the end of each week for the first 4 weeks of STA302H1. Each week is specified by a date range below:
+- Week 1 (July 5 – July 9)
+- Week 2 (July 12 – July 16)
+- Week 3 (July 19 – July 23)
+- Week 4 (July 26 – July 30)
 
-- End of Week 1 (July 5 – July 9)
-- End of Week 2 (July 12 – July 16)
-- End of Week 3 (July 19 – July 23)
-- End of Week 4 (July 26 – July 30)
+The survey asked about their country of origin (first week only), the number of hours they spent thinking about COVID-19, and the number of hours they spent studying for STA302H1. Quiz scores were also collected and combined into a dataset, where student names were anonymized before the dataset was made available to all STA302H1 students on Quercus for analysis during the STA302H1 final report.
 
-After 4 weeks, students received Quercus access to the anonymous STA302H1 performance dataset to develop a model for analysis during the STA302H1 final project.
+## Purpose of Developing Model
 
-## Purpose of Developing A Model
+The purpose of developing a model is to try to understand the relationship between quiz 4 scores and the other predictor variables (interim STA302H1 quiz scores, study time, COVID-19 contemplation time, country, or some combination of these factors) in explaining the variability among quiz 4 marks.
 
-The purpose of developing a model is to determine what the strongest predictors for Quiz 4 grades are: interim STA302H1 quiz scores, study time, COVID contemplation time, country, or some combination of these factors.
+If the model shows some relationship, it may be possible to use the regression model to determine which of the variables are strong predictors of Quiz 4 grades, and estimate unknown values for quiz 4 scores whenever the values of the independent variables are known.
 
-Developing this model primarily benefits professors and students. Current professors can identify possible weak topics by identifying topics that yield the lowest quiz scores, reflect on things they did/did not help students, and then devote resources to improving lectures or creating carefully curated tutorials that address topics that students find challenging. Teaching stream professors and future STA302H1 professors would inherit these resources so they can establish reasonable STA302H1 learning goals, thoroughly prepare for more formative lectures, and address common student conceptual pitfalls that undermine student quiz scores.
+Developing this model primarily benefits professors and students. Current professors can identify possible weak topics by identifying topics that yield the lowest quiz scores, reflect on things that help students and things that don't, and then devote resources to improving lectures or creating carefully curated tutorials that address topics that students find challenging. Teaching stream professors and future STA302H1 professors would inherit these resources so they can establish reasonable STA302H1 learning goals, and prepare thoroughly for more formative lectures to target common student conceptual pitfalls that undermine student quiz scores.
 
-When current STA302H1 students can quickly understand which factors really contribute to a high final STA302H1 grade, they have more cognitive resources available to focus on key material to getting high grades on hard quizzes and adapt to the pace of STA302H1, and they have time to implement their current study strategies or improve flawed ones in time for final assessments. Moreover, future students can establish reasonable expectations about workload and develop strategies to maximize their time and success in STA302H1 with available resources.
+Current STA302H1 students who understand the most important factors that contribute to high quiz 4 grades can develop informed strategies that can help them effectively learn key material and maximize their grades on major quizzes. Future students can establish reasonable expectations about workload to guide their course enrollment decisions or develop strategies to maximize their time and success in STA302H1 with available resources.
 
 ## Plan for Developing Model
 
-The dataset contained a small number of typos, so I opted to clean my data manually rather than programmatically. This included removing the word "hours" to safely cast numeric parts of strings as integers, removing non-Unicode characters like "UTF-098”, and capitalizing "canada" and "china", so that they would be treated the same as the countries "Canada" and "China." To finish off the data cleaning process, I decided to group similar columns (i.e., COVID times, study times, and quiz scores) together.
+The dataset contained a small number of typos, which were cleaned manually rather than programatically. This included removing the word "hours" to safely cast numeric parts of strings as integers, removing non-Unicode characters like "U+00A0”, and capitalizing "canada" and "china" so that they would be treated as the same country as "Canada" and "China."
+To finish off the data cleaning process, similar columns (i.e., COVID-19 times, study times, and quiz scores) were grouped together to make further data analysis more convenient.
 
-Although some entries in the dataset contained missing (NA) data, I treated missing quiz grades as more problematic than rows with only missing number of COVID hours, number of STA302H1 study hours, or even missing countries of origin. Students may forget to, or abstain from sharing countries of origin, the number of COVID hours, or number of STA302H1 study hours -- yet continue to write STA302H1 quizzes. To preserve as much of the original dataset as possible, I decide to categorize NA countries as unknown, and leave NA COVID hours and STA302H1 hours alone. Students may occasionally miss 1 - 2 quizzes by accident due to incompatible timezones with Toronto, or because they have recently exited the STA302H1 waitlist. The best "3 out of 5" quiz marking scheme is designed to accommodate these students. However, students who miss 3 or more quizzes usually drop STA302H1 because they may fall too far behind in STA302H1 lectures to catch up in time for quizzes, or are otherwise not in a good position to commit to completing STA302H1, unless they are experiencing extenuating circumstances that warrant a petition for additional missed quizzes.
-With the accelerated pace of summer STA302H1, it is much easier to fall behind and much harder to catch up if one does not commit to spending enough time with STA302H1.
+```{r echo = FALSE, message = FALSE}
+rearranged_data <- sta302_performance_data %>%
+    # Create a new "country" column, which is just "Country" but whose entries are factors.
+    mutate(country = as.factor(Country)) %>%
 
-First, I'll exclude dropped students from my final dataset since are unlikely to contribute available quiz 4 scores. I plan to identify any influential outliers to remove, as no amount of variable transformations or variable re-centering can effectively correct them. \newline
-(TODO: Add influential outlier checks later on.) \newline
-(TODO: Also remove students without Quiz 4 scores?)
+    # Remove the "X" column: it's simply the row number, which isn't very useful.
+    # Remove the "Country" column: column "country" already exists
+    dplyr::select(-X, -Country) %>%
+    
+    # Rearrange similar columns side-by-side for convenience.
+    relocate(country,
+             COVID.hours..W1., COVID.hours..W2., COVID.hours..W3., COVID.hours..W4.,
+             STA302.hours..W1., STA302.hours..W2., STA302.hours..W3., STA302.hours..W4.,
+             Quiz_1_score, Quiz_2_score, Quiz_3_score, Quiz_4_score)
+```
 
-Then I will create descriptive statistics such as histograms, boxplots, 5-number summaries, and pairs scatterplots to reveal useful relationships that will help me determine a reasonably informed, yet simple model. 
+Although some entries in the dataset contained missing (NA) data, missing quiz grades were considered more problematic than rows with only missing number of COVID-19 hours, number of STA302H1 study hours, or even missing countries of origin. To preserve as much of the original dataset as possible, NA countries were categorized as unknown, and NA COVID-19 hours and STA302H1 hours were ignored.
 
-I will use model diagnostics to verify assumptions of my final model, and address whether or not any variable transformation or a variable re-centering is necessary.
+```{r echo = FALSE, message = FALSE}
+quiz_grades <- rearranged_data %>%
+  dplyr::select(Quiz_1_score, Quiz_2_score, Quiz_3_score, Quiz_4_score)
 
-Lastly, I will also consult empirical research and scholarly research to  confirm my findings and propose ways to improve my model.
+row_nums_to_exclude <- get_row_nums_to_exclude(quiz_grades)
+remaining_data = rearranged_data[-row_nums_to_exclude,]
+```
+
+Students who miss 3 or more quizzes were removed from the original dataset, since they may not have quiz 4 scores available.
+
+Due to the fact that influential outliers tend to have high residuals, they will be removed to prevent them from influencing the magnitude and direction of the regression coefficients, as well as the power of the overall power.
+
+Descriptive statistics such as histograms, boxplots, 5-number summaries, and pairs scatterplots will be created to reveal useful relationships that will help to inform the model selection.
+
+Model diagnostics will be used to verify assumptions of the final model, and address whether or not any variable transformation or variable re-centering is necessary.
+
+Lastly, scholarly research will be consulted to confirm this study's results and propose ways to improve the final model.
 
 \newpage
 
@@ -71,13 +170,13 @@ The following table describes each variable, its meaning, and its type:
         \hline
         \texttt{Country} & Student’s country of origin & Categorical/nominal \\
         \hline
-        \texttt{Quiz\_1\_Score} & Student’s quiz 1 score out of 10 & Continuous numeric \\
+        \texttt{Quiz\_1\_Score} & Student’s quiz 1 score out of 10 & Ordinal numeric \\
         \hline
-        \texttt{Quiz\_2\_Score} & Student’s quiz 2 score out of 10 & Continuous numeric \\
+        \texttt{Quiz\_2\_Score} & Student’s quiz 2 score out of 10 & Ordinal numeric \\
         \hline
-        \texttt{Quiz\_3\_Score} & Student’s quiz 3 score out of 10 & Continuous numeric \\
+        \texttt{Quiz\_3\_Score} & Student’s quiz 3 score out of 10 & Ordinal numeric \\
         \hline
-        \texttt{Quiz\_4\_Score} & Student’s quiz 4 score out of 10 & Continuous numeric \\
+        \texttt{Quiz\_4\_Score} & Student’s quiz 4 score out of 10 & Ordinal numeric \\
         \hline
         \texttt{COVID..hours.W1} & Time student spent thinking about COVID-19 during Week 1 in hours & Continuous numeric \\
         \hline
@@ -98,219 +197,471 @@ The following table describes each variable, its meaning, and its type:
     \end{tabular}
 \end{center}
 
-Note that time spent studying for STA302H1 can include lecture time, review time, quiz time, or assignment time.
+Note that time spent studying for STA302H1 can also include the number of hours spent in lecture, writing quizzes, completing assignments, and attending office hours.
 
-## Relevant Tables and Figures for Noteworthy Variables
+## Histograms
 
-### Histograms
+Times spent thinking about COVID-19, study times, and quiz scores among all students were summarized using histograms. The green dotted vertical line represents the mean and the solid blue vertical line represents the median. Seven-number summaries were also included to display meaningful statistics such as the mean, median, minimum, maximum, 1st quartile, 3rd quartile, and the number of NAs for each variable. All relevant 7-number summaries can be found in pages 28 - 29 in the appendix.
 
-Times spent thinking about COVID-19, study times, and quiz scores among all students were summarized using histograms. The green dotted vertical line represents the mean and the solid blue vertical line represents the median.
+The histograms for time spent thinking about COVID-19 during weeks 1 - 4 are all right skewed (mean > median), indicating that a few students tend to spend a lot of time thinking about COVID-19 during the week. The median times spent thinking about COVID-19 remained constant at 1 hour/week across all 4 weeks, however the mean time spent thinking about COVID-19 decreased for the first 3 weeks from a maximum of 3.7 hours in week 1 to a minimum of 2.227 hours in week 3, and increased from week 3 to week 4.
 
-(TODO: Display histogram of COVID times weeks 1 - 4 against quiz 4 score.)
+The histograms for study hours during weeks 1 - 3 are approximately normal with a few outliers in the right tail. However, week 4 study hours exhibit a right skewed distribution. In fact, the mean study time increased by approximately 23%, and the median study time increased by approximately 44% from week 3 to week 4.
 
-The histograms for COVID hours during weeks 1 - 4 are all right skewed (mean > median), indicating that a few students tend to spend a lot of time thinking about COVID-19 during the week. The median times spent thinking about COVID-19 remained constant at 1 hour/week across all 4 weeks, however the mean time spent thinking about COVID-19 decreased for the first 3 weeks from a maximum of 3.7 hours in week 1 to a minimum of 2.227 hours in week 3, and increased from week 3 to week 4.
-
-(TODO: Display histogram of study times weeks 1 - 4 against quiz 4 score.)
-
-The histograms for study hours during weeks 1 - 3 are approximately normal with a few outliers in the right tail. However, study hours week 4 exhibits a right skewed distribution. In fact, the mean study time increased by approximately 23%, and the median study time increased by approximately 44% from week 3 to week 4.
-
-(TODO: Display histogram of quiz scores 1 - 3 against quiz 4 score.)
-
-The histograms for quiz scores during weeks 1 - 4 are all left skewed (mean < median), as few students tend to underperform on quizzes. The median for weeks 1, 3, and 4 remain at 8/10 points, except for week 3 which had a median of 8.8/10. Week 1 had the smallest difference between mean and median quiz scores (about 0.26/10 points), while week 2 has the largest divide between mean and median quiz scores (about 1.38/10 points).
-
-### Boxplots
-
-Side-by-side boxplots were used to compare COVID-19 times, study times, and quiz scores among students from various countries.
-
-(TODO: Display boxplot of COVID times weeks 1 - 4 against quiz 4 score.) \newline
-(TODO: Display 5-number summaries of all COVID times weeks 1 - 4.)
-
-In week 1, most students from all countries spent a small amount of time thinking about COVID-19. Japan has the highest median COVID times, whereas India and USA have the lowest median COVID times. Clear outliers for Canada and China in all 4 weeks indicate that some Canadian and Chinese STA302H1 students were spending an above average amount of time thinking about COVID-19. Among all countries, Mongolia had the highest median COVID time during weeks 2 - 4. Pakistan and Singapore students also showed increased median and IQR COVID times between week 1 and week 2. Additionally, China and USA have the lowest median COVID times in week 2. In week 4, all countries returned to low median COVID-19 times, except for Mongolia which increased by approximately 150% from about 20 hours to about 50 hours).
-
-(TODO: Display boxplot of study times weeks 1 - 4.) \newline
-(TODO: Display 5-number summaries of all study times weeks 1 - 4.)
-
-Clear outliers exist for Canada in weeks 1 - 4, and China in weeks 1, 2, and 4. South Korea has the lowest median study time, wheras Japan has the highest median study time in week 1. Median study times in week 1 for a given country seem to fall within the IQR of  other countries. This may indicate that median week 1 study times might not be statistically different from each other. More specifically, median study times for all countries fall between 0 - 10 hours. 
-
-In week 2, all countries have higher median study times compated to week 1, with 
-Canada and China both having median study times of approximately 8 hours. The majority of median study times cluster between 5 - 10 hours, except for USA which has a median study time of approximately 20 hours -- 300% more than week 1.
-
-Roughly half of the countries saw a decrease in median study time, and other half saw an increase median study times in week 3. The boxplots for 7 out of 12 countries (China, India, Pakistan, Singapore, South Korea, UAE, and USA) all display approximately normally distributed study times. From week 3 to week 4, students from some countries increased their median study times from a range of 5 - 10 hours, to a range of 10 - 20 hours.
-
-(TODO: Display boxplot of quiz scores 1 - 3.) \newline
-(TODO: Display 5-number summaries of all quiz scores 1 - 3.)
-
-During week 1, the quiz scores for India, Singapore, Taiwan, and UAE students are all approximately normally distributed. Mongolia, Pakistan, and South Korea all had the highest median quiz scores roughly equal to the 75th percentile of Canada, China, and Singapore: around 9/10.
-
-There were clear outliers for quiz scores among Chinese students in week 2. UAE has lowest median quiz score among all countries (1.25/10), while China and Taiwan have the highest median quiz scores among all countries (9.375/10). Among all countries, Canada and NA have the largest spread of quiz scores. Additionally, UAE decreased median quiz score from 4/10 to 1.25/10 (-68.75%), while Mongolia decreased median quiz score from 9/10 to 2/10 (-77.78%).
-
-The median quiz scores for Canada, Pakistan, Singapore, Taiwan, and USA were all 7/10, whereas Japan and Mongolia have median quiz scores of 9/10 for week 4. The median quiz scores for most countries was between 7/10 and 9/10, with Japan, Mongolia, Singapore, South Korea, Taiwan, and USA having the smallest spread of quiz 4 scores.
+The histograms for quiz scores during weeks 1 - 4 are all left skewed (mean < median), as few students tend to underperform on quizzes. The median for weeks 1, 3, and 4 remain at 8/10 points, except for week 3 which had a median of 8.8/10 points. Week 1 had the smallest difference between mean and median quiz scores (about 0.26/10 points), while week 2 has the largest divide between mean and median quiz scores (about 1.38/10 points).
 
 \newpage
 
-### Pairwise Scatterplots
+```{r warning = FALSE, echo = FALSE}
+week1_covid_histogram = display_histogram(
+  remaining_data, remaining_data$COVID.hours..W1.,
+  "Week 1 Time Spent on COVID-19",
+  "Hours Spent on COVID-19")
+week2_covid_histogram = display_histogram(
+  remaining_data, remaining_data$COVID.hours..W2.,
+  "Week 2 Time Spent on COVID-19",
+  "Hours Spent on COVID-19")
+grid.arrange(week1_covid_histogram, week2_covid_histogram)
+```
 
-(TODO: Display pair scatterplots of relationships between quiz 4 score and each predictor variable)
-
-Pairwise scatterplots were created to observe the relationship between the response variable and the explanatory variables.
-
-(TODO: See figure X in appendix)
-
-### Correlation Matrix
-
-Furthermore, a correlation matrix was constructed to determine the correlations of each pair of covariates along with the response variable and each covariate.
-
-(TODO: The results are displayed in Figure X in the appendix.) 
-
-A correlation between 0.0 - 0.3 is considered low, 0.3 - 0.5 is moderate, and 0.5 - 1.0 is high.
-
-(TODO: Consult 3 – 4 external sources to confirm your findings.)
-
-\newpage
-
-# Model Development Section
-
-## Process Used to Determine Final Model
-
-### Checking for Influential Outliers
-
-I begin by identifying influential outliers in the original dataset.
-
-(TODO: Use Cook’s distance and leverage points to find influential outliers?) \newline
-(TODO: Use VIF method to find influential outliers?) \newline
-(TODO: Use DDFITS, DDBETA to find influential outliers?)
-
-Notice that there are no influential outliers because no points outside of cook's distance in upper right and lower left quadrants of plot, so there are no points to remove.
-
-### Proposing an Initial Model
-
-To derive the terms in my model, I first decide to construct a correlation matrix to find the correlation between covariates and the response variable. I use highly correlated (correlation $\geq$ 0.50 are considered) combinations of predictor variables as a heuristic for determining potentially significant terms in my model.
-
-Next, I create a pairs scatterplot to get an overview of relationships between all combinations of variables. Since the pairs scatterplot is symmetric along its main diagonal, I could safely omit the bottom half of my pairs scatterplot. I then decided to analyze Quiz 1 - 3 scores, Weeks 1 - 4 COVID-19 times, and Weeks 1 - 4 STA302H1 study times separately against Quiz 4 score. I only inspect the the first row where the quiz 4 score was the response variable to hypothesize a relationship between one's Quiz 4 score and each predictor variable. 
-
-For simplicity's sake, I wanted to stick to using a simple model such as a linear relationship or a quadratic relationship, rather than a more complex model such as a 3rd order model (or higher), a logarithmic, or even a square root relationship. I fitted the initial model using \texttt{quiz4} as the response variable; and \texttt{quiz1}, \texttt{quiz2}, \texttt{quiz3}, \texttt{covid1}, \texttt{covid2}, \texttt{covid3}, \texttt{covid4} (including 3 quadratic terms, since \texttt{covid1}, \texttt{covid2}, and \texttt{covid4} look more quadratic), 8 interaction terms (to see how consecutive COVID and study weeks change over 4 weeks), and \texttt{country} as predictor variables.
-
-(TODO: Show lm() results of original model in nice table.) \newline
-(TODO: Show ANOVA results of original model in nice table.)
-
-In the original model, I found that only the predictor variables \texttt{quiz3}, \texttt{I(covid1 ** 2)}, \texttt{I(covid2 ** 2)}, \texttt{I(covid1 * covid2)}, and \texttt{I(study1 * study2)} were significant at the 5% significance level. The global F-statistic value is 3.098, and the global p-value is approximately $1.436 \times 10^{-5}$. The residual standard error is 1.582. The multiple $R ^ 2$ value is 0.4211 and the adjusted $R ^ 2$ value of 0.2851.
-
-(TODO: See figure X below for R ANOVA output of original model in appendix) \newline
-(TODO: See figure X below for R lm() output of original model in appendix)
-
-### Improving the Original Model
-
-To refine the original model, I use backwards selection to remove insignificant terms (terms whose $p$-values were > 0.05) and find the subset model with the lowest AIC value.
-
-(TODO: Show lm() results of final model in nice table.) \newline
-(TODO: Show ANOVA results of final model in nice table.)
-
-The final model has \texttt{quiz4} as the response variable; \texttt{quiz3}, the quadratic term \texttt{I(covid1 ** 2)}, and the interaction terms \texttt{I(covid1 * covid2)}, \texttt{I(covid2 * covid3)}, \texttt{study1 * study2}, \texttt{study1 * study3}, \texttt{study2 * study3}, \texttt{study3 * study4} as the predictor variables. Out of all of the predictors variables in the final model, only the predictor variables \texttt{quiz3}, \texttt{I(covid1 ** 2}, \texttt{I(covid1 * covid2)}, \texttt{I(study1 * study2)}, \texttt{I(study2 * study3)}, and \texttt{I(study3 * study4)} are significant at the 5% significance level. The global F-statistic value increased to 8.764, the global $p$-value increased to $1.374 \times 10^{-9}$. The residual standard error decreased marginally to 1.561. Even though the multiple $R ^ 2$ value dropped significantly to 0.3435, the adjusted $R ^ 2$ value increase slightly to 0.3043 -- there is a smaller difference between the $R ^ 2$ value and the adjusted $R ^ 2$ value in the final model than the original model. The coefficient of 0.499110 for \texttt{quiz3} suggests that for every 1 point increase in quiz 3, there is an increase in quiz 4 grades by about 0.50/10 points. There also exists a quadratic relationship between variables \texttt{covid1} and \texttt{quiz4}, as well as an interaction effect between \texttt{covid1} and \texttt{covid2}, \texttt{study1} and \texttt{study2}, \texttt{study2} and \texttt{study3}, and \texttt{study3} and \texttt{study4}. I perform all further analyses on the final model.
-
-(TODO: See figure X below for R ANOVA output of final model in appendix) \newline
-(TODO: See figure X below for R lm() output of final model in appendix) 
-
-<!-- From the second model, I decided to remove a few more terms. The \texttt{I(covid1 ** 2)} term is the only quadratic term in my final model which added a lot of complexity to my model for a negligible change in $R ^ 2$ and adjusted $R ^ 2$ value. Also, the \texttt{I(covid1 * covid2)} + \texttt{I(covid2 * covid3)} terms alone made it slightly more difficult to interpret the model since it was difficult to explain how COVID-19 changes between consecutive weeks, or whether it would affect the overall significance of the final model.  -->
-
-### Any Variable Transformation Necessary?
-
-I chose not to perform any variable transformations on my final model because the residual plots showed that the errors were randomly distributed around 0. I also opted not to re-center my variables since only a few entries in the correlation matrix have high correlation (correlation $\geq$ 0.50).
-
-### Any Variable Re-centering Necessary?
-
-Since most of the entries in the correlation matrix had low (correlation between 0.0 - 0.3) to moderate (correlation between 0.3 - 0.5) correlation, re-centering variables likely has negligible effect on the correlation matrix.
+```{r warning = FALSE, echo = FALSE}
+week3_covid_histogram = display_histogram(
+  remaining_data, remaining_data$COVID.hours..W3.,
+  "Week 3 Time Spent on COVID-19",
+  "Hours Spent on COVID-19")
+week4_covid_histogram = display_histogram(
+  remaining_data, remaining_data$COVID.hours..W4.,
+  "Week 4 Time Spent on COVID-19",
+  "Hours Spent on COVID-19")
+grid.arrange(week3_covid_histogram, week4_covid_histogram)
+```
 
 \newpage
 
-## Statistical and Empirical Justifications for Model
+```{R warning = FALSE, echo = FALSE}
+week1_study_histogram = display_histogram(
+  remaining_data, remaining_data$STA302.hours..W1.,
+  "Week 1 Time Spent Studying for STA302H1", "Hours Spent Studying for STA302H1")
+week2_study_histogram = display_histogram(
+  remaining_data, remaining_data$STA302.hours..W2.,
+  "Week 2 Time Spent Studying for STA302H1", "Hours Spent Studying for STA302H1")
+grid.arrange(week1_study_histogram, week2_study_histogram)
+```
 
-To show that my model is linear, I'll show that the following assumptions hold.
+```{R warning = FALSE, echo = FALSE}
+week3_study_histogram = display_histogram(
+  remaining_data, remaining_data$STA302.hours..W3.,
+  "Week 3 Time Spent Studying for STA302H1", "Hours Spent Studying for STA302H1")
+week4_study_histogram = display_histogram(
+  remaining_data, remaining_data$STA302.hours..W4.,
+  "Week 4 Time Spent Studying for STA302H1", "Hours Spent Studying for STA302H1")
+grid.arrange(week3_study_histogram, week4_study_histogram)
+```
 
-### Assumption 1. Linearity
+\newpage
 
-To verify A1, the scatterplot of the final model must exhibit a linear relationship.
+```{R warning = FALSE, echo = FALSE}
+quiz1_histogram = display_histogram(
+  remaining_data, remaining_data$Quiz_1_score, 
+  "Quiz 1 Scores", "Quiz Score (out of 10)")
+quiz2_histogram = display_histogram(
+  remaining_data, remaining_data$Quiz_2_score, 
+  "Quiz 2 Scores", "Quiz Score (out of 10)")
+grid.arrange(quiz1_histogram, quiz2_histogram)
+```
 
-(TODO: Show scatterplot of final model, with line of best fit.)
+```{r warning = FALSE, echo = FALSE}
+quiz3_histogram = display_histogram(
+  remaining_data, remaining_data$Quiz_3_score, 
+  "Quiz 3 Scores", "Quiz Score (out of 10)")
+quiz4_histogram = display_histogram(
+  remaining_data, remaining_data$Quiz_4_score, 
+  "Quiz 4 Scores", "Quiz Score (out of 10)")
+grid.arrange(quiz3_histogram, quiz4_histogram)
+```
 
-Since the final model contains only 1st order terms, we can conclude that our final model has a linear relationship.
+## Boxplots
+
+Side-by-side boxplots were used to compare time spent thinking about COVID-19, time spent studying for STA302H1, and quiz scores among students from all countries across 4 weeks. Because the boxplots representing times spent thinking about COVID-19 contain extreme outliers, 2 additional boxplots were provided to view both the extreme outliers and the moderate outliers.
+
+All 4 weeks of times spent thinking about COVID-19 contain outliers, although week 1 had the largest outliers: two students thought about COVID-19 for 168 and 84 hours. Among all students, week 1 - 3 median COVID times were approximately 1 hour with a slightly increased median COVID time of around 1.5 hours from week 3 to week 4. The spread (IQR) of COVID-19 times were both 1 hour for weeks 1 and 3, although there is more spread in week 3 (1.5 hours), and week 4 has the largest spread (2 hours).
+
+Although all 4 weeks contained outliers, week 4 STA302H1 study times have outliers ranging from a median STA302H1 study time of 30 - 70 hours. The median amount of STA302H1 study time steadily increased from 7 hours to 9 hours in weeks 1 - 3, with a noticeable increase in median study time from 9 hours to 11 hours from week 3 to week 4. Median study times had similar spreads (IQR) of 4 hours for weeks 1 and 2, but there is more spread in week 3 (6 hours), and even larger spread in week 4 (9 hours).
+
+Median quiz 1 scores have the most outliers, although they are milder than the single quiz 2 outlier which displays the lowest quiz 2 score (1/10). Quizzes 1, 3, and 4 has similar median quiz scores of 8/10, with quiz 2 having the highest median quiz score of 8.8/10. Quizzes 2 and 3 have similarly large spreads (IQRs of 3.6 and 4 point gaps), though quiz 1 has the smallest spread (2 point gap). Week 4 quiz scores are the least skewed.
+
+```{r echo = FALSE, warning = FALSE}
+boxplot(remaining_data$COVID.hours..W1., remaining_data$COVID.hours..W2.,
+        remaining_data$COVID.hours..W3., remaining_data$COVID.hours..W4.,
+        names = c("Week 1", "Week 2", "Week 3", "Week 4"),
+        yscale = 50,
+        ylab = "Hours Spent Thinking about COVID-19", 
+        main = "Time Spent Thinking about COVID-19")
+
+boxplot(remaining_data$COVID.hours..W1., remaining_data$COVID.hours..W2.,
+        remaining_data$COVID.hours..W3., remaining_data$COVID.hours..W4.,
+        names = c("Week 1", "Week 2", "Week 3", "Week 4"),
+        ylim = c(0, 50),
+        yscale = 10,
+        ylab = "Hours Spent Thinking about COVID-19", 
+        main = "Time Spent Thinking about COVID-19 (Extreme Outliers Removed)")
+
+boxplot(remaining_data$COVID.hours..W1., remaining_data$COVID.hours..W2.,
+        remaining_data$COVID.hours..W3., remaining_data$COVID.hours..W4.,
+        names = c("Week 1", "Week 2", "Week 3", "Week 4"), 
+        ylim = c(0, 10),
+        yscale = 10,
+        ylab = "Hours Spent Thinking about COVID-19", 
+        main = "Time Spent Thinking about COVID-19 (Moderate Outliers Removed)")
+```
+
+```{r echo = FALSE, warning = FALSE}
+boxplot(remaining_data$STA302.hours..W1., remaining_data$STA302.hours..W2.,
+        remaining_data$STA302.hours..W3., remaining_data$STA302.hours..W4.,
+        names = c("Week 1", "Week 2", "Week 3", "Week 4"), 
+        ylab = "Hours Spent Studying for STA302H1", 
+        main = "Time Spent Studying for STA302H1")
+```
+
+```{r echo = FALSE, warning = FALSE}
+boxplot(remaining_data$Quiz_1_score, remaining_data$Quiz_2_score,
+        remaining_data$Quiz_3_score, remaining_data$Quiz_4_score,
+        names = c("Quiz 1", "Quiz 2", "Quiz 3", "Quiz 4"), 
+        ylab = "Quiz Score out of 10", main = "Quiz Scores")
+```
+
+\newpage
+
+## Pairwise Scatterplots
+
+Pairwise scatterplots were created to observe the relationships between all combinations of variables, especially between the response variable (quiz 4 scores) and the explanatory variables.
+
+```{R echo = FALSE, warning = FALSE}
+pairs(~ COVID.hours..W1. + COVID.hours..W2. + COVID.hours..W3. + COVID.hours..W4. 
+      + STA302.hours..W1. + STA302.hours..W2. + STA302.hours..W3. + STA302.hours..W4. 
+      + Quiz_1_score + Quiz_2_score + Quiz_3_score + Quiz_4_score,
+      data = remaining_data, upper.panel = NULL)
+```
+
+```{R echo = FALSE, warning = FALSE}
+pairs(~ Quiz_4_score + Quiz_1_score + Quiz_2_score 
+      + Quiz_3_score, lower.panel = NULL)
+```
+
+```{r echo = FALSE, warning = FALSE}
+pairs(~ Quiz_4_score + COVID.hours..W1. + COVID.hours..W2. 
+      + COVID.hours..W3. + COVID.hours..W4., lower.panel = NULL)
+```
+
+```{r echo = FALSE, warning = FALSE}
+pairs(~ Quiz_4_score + STA302.hours..W1. + STA302.hours..W2. 
+      + STA302.hours..W3. + STA302.hours..W4., lower.panel = NULL)
+```
+
+\newpage
+
+## Correlation Matrix
+
+A correlation matrix was constructed to determine the correlations of each pair of variables in the dataset.
+Since the correlation matrices for underrepresented countries (e.g., every country except for Canada, China, and NA) contained a lot of NA or $\pm 1$ entries, only the correlation matrix for all countries was used.
+The table on page 30 in the appendix showing the sample size of every country in this study also suggests that the correlation matrices for individual countries should not be used, as the correlation matrix of all countries is based on more data than the correlation matrices of individual countries combined.
+A correlation between 0.0 - 0.3 is considered low, 0.3 - 0.5 is moderate, and 0.5 - 1.0 is high. The correlation matrix of all countries can be found on pages 28 - 29 in the appendix.
+
+\newpage
+
+# Model Development
+
+## Proposing an Initial Model
+
+Simpler (e.g., linear, quadratic) relationships were prioritized over more complex relationships (e.g., higher order polynomial, logarithmic, square root) for the sake of straightforward analysis and intuitive interpretation. The pairs scatterplot and the correlation matrix were primarily used to derive most of the terms for the initial model.
+
+The non-interactive covariate terms were determined by examining the pairs scatterplots for quiz 4 scores regressed on quiz 1 - 3 scores, weeks 1 - 4 COVID-19 times, and weeks 1 - 4 STA302H1 study times to hypothesize a relationship between quiz 4 scores and each predictor variable.
+The weeks 1 - 4 COVID-19 times vs. quiz 4 scatterplots show a moderate quadratic relationship between quiz 4 scores and weeks 1 - 4 COVID-19 times (except for week 3 COVID-19, which seems to have a stronger linear relationship than a quadratic relationship). Therefore, both the linear and quadratic terms for weeks 1, 2, and 4 COVID-19 times (i.e., \texttt{covid1}, \texttt{covid1 ** 2}, \texttt{covid2}, \texttt{covid2 ** 2}, \texttt{covid4}, and \texttt{covid4 ** 2}) and only the linear \texttt{covid3} term were included in the initial model.
+Further analysis indicates that there is a possibly moderate linear relationship between quiz 4 scores and weeks 1 - 4 study times. Therefore, only the linear terms for weeks 1 - 4 study times (i.e., \texttt{study1}, \texttt{study2}, \texttt{study3}, and \texttt{study4}) were included in the model. 
+Similarly, there might be a moderate linear relationship between quiz 4 scores and quiz 1 - 3 scores. Therefore, only the linear terms for quiz 1 - 3 scores (i.e., \texttt{quiz1}, \texttt{quiz2}, and \texttt{quiz3}) were included in the model.
+
+Pairs of covariates, as well as response variable-covariate combinations from the correlation matrix with high correlation, were used as a heuristic for determining potentially significant interaction terms in the initial model.
+
+\newpage
+
+### Summary Statistics of Initial Model
+
+The initial model was fitted using \texttt{quiz4} as the response variable; and \texttt{quiz1}, \texttt{quiz2}, \texttt{quiz3}, \texttt{covid1}, \texttt{covid2}, \texttt{covid3}, \texttt{covid4}, (including 3 quadratic terms 8 interaction terms), and \texttt{country} as predictor variables. However, only the predictor variables \texttt{quiz3}, \texttt{I(covid1 ** 2)}, \texttt{I(covid2 ** 2)}, \texttt{I(covid1 * covid2)}, and \texttt{I(study1 * study2)} were significant at the 5% significance level. The global $F$-statistic value is 3.098, and the global $p$-value is approximately $1.436 \times 10 ^ {-5}$. The residual standard error is 1.582. The multiple $R ^ 2$ value is 0.4211 and the adjusted $R ^ 2$ value of 0.2851. The R output of the initial model can be found on page 31 of the appendix.
+
+```{r warning = FALSE, echo = FALSE, message = FALSE}
+remaining_data_no_NAs = na.exclude(remaining_data)
+
+quiz1 = remaining_data_no_NAs$Quiz_1_score
+quiz2 = remaining_data_no_NAs$Quiz_2_score
+quiz3 = remaining_data_no_NAs$Quiz_3_score
+quiz4 = remaining_data_no_NAs$Quiz_4_score
+
+covid1 = remaining_data_no_NAs$COVID.hours..W1.
+covid2 = remaining_data_no_NAs$COVID.hours..W2.
+covid3 = remaining_data_no_NAs$COVID.hours..W3.
+covid4 = remaining_data_no_NAs$COVID.hours..W4.
+
+study1 = remaining_data_no_NAs$STA302.hours..W1.
+study2 = remaining_data_no_NAs$STA302.hours..W2.
+study3 = remaining_data_no_NAs$STA302.hours..W3.
+study4 = remaining_data_no_NAs$STA302.hours..W4.
+
+country = remaining_data_no_NAs$country
+```
+
+```{r warning = FALSE, echo = FALSE, message = FALSE}
+# single variable per term = additive model
+first_model = lm(
+  quiz4 ~ 
+    quiz1  # scatterplot seems to have weak linear relationship
+  + quiz2  # scatterplot seems to have weak linear relationship
+  + quiz3  # scatterplot seems to have moderate linear relationship
+  + covid1 # must add this linear term because of quadratic term 
+  + I(covid1 ^ 2)  # scatterplot seems to have moderate quadratic relationship
+  + covid2 # must add this linear term because of quadratic term 
+  + I(covid2 ^ 2)  # scatterplot seems to have moderate quadratic relationship
+  + covid3
+  # + I(covid3 ^ 2) # scatterplot seems to have less of a quadratic relationship, and more of a linear relationship
+  + covid4  # must add this linear term b/c of quadratic term 
+  + I(covid4 ^ 2)  # scatterplot seems to have moderate quadratic relationship
+  + I(covid1 * covid2)  # correlation = 0.56
+  + I(covid2 * covid3)  # correlation = 0.67
+  + I(covid2 * covid4)  # correlation = 0.71
+  + I(covid3 * covid4)  # correlation = 0.72
+  + I(study1 * study2)  # correlation = 0.61
+  + I(study1 * study3)  # correlation = 0.58
+  + I(study2 * study3)  # correlation = 0.70
+  + I(study3 * study4)  # correlation = 0.62
+  + country  # for simplicity, but backwards process shows this term is not significant
+)
+```
+
+```{r warning = FALSE, message = FALSE, echo = FALSE}
+tbl_regression(first_model, exponentiate = FALSE)
+```
+
+\newpage
+
+## Improving the Original Model
+
+To refine the original model, a combination of backward selection and forward selection was used to remove insignificant terms (terms whose $p$-values were > 0.05) and find the subset model with the lowest AIC value. All further analyses will be performed on the final model.
+
+### Summary Statistics of Final Model
+
+The final model has \texttt{quiz4} as the response variable; \texttt{quiz3}, the quadratic term \texttt{I(covid1 ** 2)}, and the interaction terms \texttt{I(covid1 * covid2)}, \texttt{I(covid2 * covid3)}, \texttt{study1 * study2}, \texttt{study1 * study3}, \texttt{study2 * study3}, \texttt{study3 * study4} as the predictor variables. Out of all of the predictors variables in the final model, only the predictor variables \texttt{quiz3}, \texttt{I(covid1 ** 2}, \texttt{I(covid1 * covid2)}, \texttt{I(study1 * study2)}, \texttt{I(study2 * study3)}, and \texttt{I(study3 * study4)} are significant at the 5% significance level. The global $F$-statistic value increased to 8.764, the global $p$-value increased to $1.374 \times 10^{-9}$. The residual standard error decreased marginally to 1.561. Even though the multiple $R ^ 2$ value dropped significantly to 0.3435, the adjusted $R ^ 2$ value increase slightly to 0.3043: there is a smaller difference between the $R ^ 2$ value and the adjusted $R ^ 2$ value in the final model than the original model. 
+
+### Interpretation of the Final Model
+
+The coefficient of 0.499110 for \texttt{quiz3} suggests that for every 1 point increase in quiz 3, there is an increase in quiz 4 grades by about 0.50/10 points. There also exists a quadratic relationship between variables \texttt{covid1} and \texttt{quiz4}, as well as an interaction effect between \texttt{covid1} and \texttt{covid2}, \texttt{study1} and \texttt{study2}, \texttt{study2} and \texttt{study3}, and \texttt{study3} and \texttt{study4}. 
+The R output of running the hybrid forward-backward selection algorithm using the stepAIC() function can be found in a code snippet directly below inside the R markdown file only, whereas the R output of the final model can be found on page 32 of the appendix.
+
+```{r warning = FALSE, echo = FALSE, message = FALSE, results = 'hide'}
+stepAIC(first_model, direction = "both")$anova
+```
+
+```{r warning = FALSE, echo = FALSE, message = FALSE}
+final_model = lm(
+  quiz4 ~ quiz3  # don't remove, else all other terms become insignificant
+  + I(covid1 ^ 2)   # don't remove, else all other terms become insignificant
+  + I(covid1 * covid2)  # don't remove, else all other terms become insignificant
+  + I(covid2 * covid3)  # don't remove, else all other terms become insignificant
+  + I(study1 * study2)  # don't remove, else all other terms become insignificant
+  + I(study1 * study3)  # don't remove, else all other terms become insignificant
+  + I(study2 * study3)  # don't remove, else all other terms become insignificant
+  + I(study3 * study4)  # don't remove, else all other terms become insignificant
+)
+```
+
+```{r warning = FALSE, message = FALSE, echo = FALSE}
+tbl_regression(final_model, exponentiate = FALSE)
+```
+
+\newpage
+
+# Model Diagnostics
+
+## Model Validity
+
+To show that a quadratic relationship for the final model is valid, the 4 model assumptions will be verified, the dataset will be divided into a training and testing set, and a $t$-test for the residual will be performed.
+
+### Assumption 1. Quadratic Functional Form
+
+Since the quiz 4 score vs. week 1 COVID-19 scatterplot on page 11 indicates a moderate quadratic relationship between the variable, and the residual vs. week 1 COVID-19 plot for the fitted model is random, the proper functional form for the final model is indeed quadratic.
+
+```{r echo = FALSE}
+display_residual_plot(remaining_data_no_NAs, final_model, covid1, "covid1") + 
+  facet_zoom(xlim = c(0, 10))  # true upper limit = 30
+```
+
+\newpage
 
 ### Assumption 2. Independence of Errors
 
-To verify A2, the scatterplot of residuals versus fits for all predictor variables must not have a discernible relationship.
+From above, the residual plot for week 1 COVID-19 times for the fitted model show no discernible relationship, and neither do the residual plots for the other predictor variables (ignoring all outliers). Additionally, the dataset comes from a random sample, so the error terms must be independent.
 
-The scatterplot of residuals versus fits for \texttt{quiz3} shows no pattern.
+```{r echo = FALSE}
+display_residual_plot(remaining_data_no_NAs, final_model, quiz3, "quiz3")
+```
 
-(TODO: Show plot of residual vs. fitted quiz3)
+```{r echo = FALSE}
+display_residual_plot(remaining_data_no_NAs, final_model, covid1 ^ 2, "covid1 ^ 2") + 
+  facet_zoom(xlim = c(0, 10))  # true upper limit = 70
+```
 
-The scatterplot of residuals versus fits for \texttt{I(study1 * study2} shows no pattern, ignoring all outliers.
+```{r echo = FALSE}
+display_residual_plot(remaining_data_no_NAs, final_model, covid1 * covid2, "covid1 * covid2") + 
+  facet_zoom(xlim = c(0, 50))  # true upper limit = 100
+```
 
-(TODO: Show plot of residual vs. fitted I(study1 * study2))
+```{r echo = FALSE}
+display_residual_plot(remaining_data_no_NAs, final_model, covid2 * covid3, "covid2 * covid3")
+```
 
-The scatterplot of residuals versus fits for \texttt{I(study2 * study3} shows no pattern, ignoring all outliers.
+```{r echo = FALSE}
+display_residual_plot(remaining_data_no_NAs, final_model, study1 * study2, "study1 * study2")
+```
 
-(TODO: Show plot of residual vs. fitted I(study2 * study3))
+```{r echo = FALSE}
+display_residual_plot(remaining_data_no_NAs, final_model, study1 * study3, "study1 * study3")
+```
 
-The scatterplot of residuals versus fits for \texttt{I(study3 * study4} shows no pattern, ignoring all outliers.
+```{r echo = FALSE}
+display_residual_plot(remaining_data_no_NAs, final_model, study2 * study3, "study2 * study3")
+```
 
-(TODO: Show plot of residual vs. fitted I(study3 * study4))
+```{r echo = FALSE}
+display_residual_plot(remaining_data_no_NAs, final_model, study3 * study4, "study3 * study4")
+```
 
-Therefore, the errors are independent.
+\newpage
 
 ### Assumption 3. Homoscedasticity (constant variance)
 
-To verify A3, the scatterplot of residuals versus fits for all predictor variables must not have a "megaphone effect" or a "bowtie effect" where residuals tend to increase/decrease as fits increase.
-
-(TODO: Show plot of residual vs. fitted for full model?)
-
-Therefore, the error terms have constant variance.
+The scale-location model on page 23 appears to have a straight horizontal line with randomly spread points, and the residual vs. fitted model show equally spread residuals around the horizontal line. Additionally, the residual plots for all predictor variables on pages 17 - 21 do not show any trend as fits increase. Therefore, the errors terms have constant variance.
 
 ### Assumption 4. Normality of Error
 
-To verify A4, we could either show that all points on a QQplot follow the QQline closely or show that the histogram of residuals is approximately normal.
+Almost all of the points in the middle follow the QQplot line very closely in the QQplot on page 23, except for the last 2 points in the right-tail which is only a little bit right-skewed.
+By inspection, the histograms of residuals for the final model on page 24 looks approximately normal. Therefore, the error terms are approximately normal.
 
-Notice that most of the points in the middle follow the QQplot line, and the left-tail points deviate slightly more from the QQplot line than the right-tail points, suggesting that our distribution of residuals is slightly more left-skeved than right skewed.
+Hence, the final model satisfies the assumptions for a quadratic model.
 
-(TODO: Insert QQplot of final model.)
+```{r echo = FALSE, warning = FALSE}
+plot(final_model)
+```
 
-Moreover, the histograms of residuals for the final model looks approximately normal since the mean looks very close to 0.
+```{r echo = FALSE, warning = FALSE}
+hist(lm(final_model)$residuals,
+     main = "Histogram of Residuals",
+     xlab = "Observed Residual",
+     ylab = "Frequency")
+```
 
-(TODO: Insert histogram of residuals for final model.)
+\newpage
 
-Therefore, the error terms are approximately normal.
+### 50/50 Training/Testing Split
 
-(TODO: Insert R code to produce residual plots in appendix.)
+Obtaining an independent dataset is infeasible, and the existing dataset has sufficiently many data points ($n = 143$ after removing all NAs). Therefore, it is possible to use 50% of the dataset to develop a regression model and the remaining 50% of the dataset to validate the trained model. The R summary statistics output for the training model can be found on page 33, whereas the R summary statistics output for the testing model is located on page 34.
 
-Hence, our model satisfies the assumptions for a linear model.
+The mean of the residuals of the test model was $5.026 \times 10 ^ {-17}$, which is approximately 0. See page 33 in the appendix for the corresponding R output.
+This indicates that the final model has high predictive power.
 
-## In-Depth Diagnostics to Verify Goodness of Model
+```{r echo = FALSE}
+set.seed(888)
+sample = sample.split(remaining_data_no_NAs, SplitRatio = 0.50)
+training_data = subset(remaining_data_no_NAs, sample == TRUE)
+testing_data  = subset(remaining_data_no_NAs, sample == FALSE)
+```
 
-To validate my linear model, I decided to use a 55/45 training-testing strategy, as well as perform a t-test for significance.
+```{r echo = FALSE}
+training_data_no_NAs = na.exclude(training_data)
 
-### 55/45 Training/Testing Split
+quiz1 = training_data_no_NAs$Quiz_1_score
+quiz2 = training_data_no_NAs$Quiz_2_score
+quiz3 = training_data_no_NAs$Quiz_3_score
+quiz4 = training_data_no_NAs$Quiz_4_score
 
-Out of $n = 142$ data points, I want to use 55% of the data points to train my linear model, and the remaining 45% to try to predict new values and create a new distribution to see if the mean of this new distribution is close to 0.
+covid1 = training_data_no_NAs$COVID.hours..W1.
+covid2 = training_data_no_NAs$COVID.hours..W2.
+covid3 = training_data_no_NAs$COVID.hours..W3.
+covid4 = training_data_no_NAs$COVID.hours..W4.
 
-I found that the mean of this new distribution is $8.124 \times 10^{-15}$ (see figure X in appendix).
+study1 = training_data_no_NAs$STA302.hours..W1.
+study2 = training_data_no_NAs$STA302.hours..W2.
+study3 = training_data_no_NAs$STA302.hours..W3.
+study4 = training_data_no_NAs$STA302.hours..W4.
 
-(TODO: Add histogram of residuals for trained model.) \newline
-(TODO: Add mean/median residual output.)
+country = training_data_no_NAs$country
+```
 
-Moreover, the histogram of residuals looks approximately symmetric, with the mean of this new distribution being $-0.2102$ (see figure X in appendix). To be sure, since there are $n = 142$ points, the central limit theorem states that the sample mean is approximately normally distributed.
+```{r echo = FALSE, results = "hide"}
+training_model = lm(
+  quiz4 ~ quiz3  # don't remove, else all other terms become insignificant
+  + I(covid1 ^ 2)   # don't remove, else all other terms become insignificant
+  + I(covid1 * covid2)  # don't remove, else all other terms become insignificant
+  + I(covid2 * covid3)  # don't remove, else all other terms become insignificant
+  + I(study1 * study2)  # don't remove, else all other terms become insignificant
+  + I(study1 * study3)  # don't remove, else all other terms become insignificant
+  + I(study2 * study3)  # don't remove, else all other terms become insignificant
+  + I(study3 * study4)  # don't remove, else all other terms become insignificant
+)
+```
 
-### T-test for significance 
+```{r echo = FALSE, results = "hide"}
+testing_data_no_NAs = na.exclude(testing_data)
 
-For our t-test, we hypothesized that the mean of residuals was identically equal to 0. More formally,
+quiz1 = testing_data_no_NAs$Quiz_1_score
+quiz2 = testing_data_no_NAs$Quiz_2_score
+quiz3 = testing_data_no_NAs$Quiz_3_score
+quiz4 = testing_data_no_NAs$Quiz_4_score
+
+covid1 = testing_data_no_NAs$COVID.hours..W1.
+covid2 = testing_data_no_NAs$COVID.hours..W2.
+covid3 = testing_data_no_NAs$COVID.hours..W3.
+covid4 = testing_data_no_NAs$COVID.hours..W4.
+
+study1 = testing_data_no_NAs$STA302.hours..W1.
+study2 = testing_data_no_NAs$STA302.hours..W2.
+study3 = testing_data_no_NAs$STA302.hours..W3.
+study4 = testing_data_no_NAs$STA302.hours..W4.
+
+country = testing_data_no_NAs$country
+```
+
+```{r echo = FALSE, results = "hide"}
+test_model = lm(
+  quiz4 ~ quiz3  # don't remove, else all other terms become insignificant
+  + I(covid1 ^ 2)   # don't remove, else all other terms become insignificant
+  + I(covid1 * covid2)  # don't remove, else all other terms become insignificant
+  + I(covid2 * covid3)  # don't remove, else all other terms become insignificant
+  + I(study1 * study2)  # don't remove, else all other terms become insignificant
+  + I(study1 * study3)  # don't remove, else all other terms become insignificant
+  + I(study2 * study3)  # don't remove, else all other terms become insignificant
+  + I(study3 * study4)  # don't remove, else all other terms become insignificant
+)
+```
+
+### $t$-test for significance 
+
+For the $t$-test, the mean of the residuals was hypothesized to be identically equal to 0. More formally,
 
 - $H_0: \mu_{residuals} = 0$
 - $H_1: \mu_{residuals} \neq 0$
 
-(TODO: Add t-test results in a nice table.)
+The $t$-test results showed that the $p$-value is 1, which means $H_0$ fails to be rejected, meaning that $\mu_{residuals} = 0$ holds. Since 0 falls inside the 95% confidence interval for the mean of residuals of $(-0.357787, 0.357787)$, the $H_0$ fails to be rejected. Therefore, $\mu_{residuals} = 0$. See page 34 for $t$-test output.
 
-The t-test results showed that the $p$-value is 0.7938, which means that we fail to reject $H_0$, meaning that $\mu_{residuals} = 0$ holds. The 95% confidence interval for the mean of residuals is $(-0.4510668, 0.3462948)$, and since $0 \in (-0.4510668, 0.3462948)$, we again fail to reject $H_0$ and conclude that $\mu_{residuals} = 0$.
+Therefore, it is sensible to use a quadratic model.
 
-(TODO: See figure X in appendix for t-test output.)
+## Checking for Influential Outliers
 
-Therefore, we've shown that our linear model is a reasonable model.
+The residuals vs. leverage plot on page 24 was used to check for the presence of influential data points. There are no points in the upper right and lower right quadrants of the residuals vs. leverage plot. Even though there is a point sitting directly on the Cook's distance boundary but not too far away from the Cook's distance boundary, no influential outliers exist that could undermine the predictability of the final model.
+
+## Any Variable Transformation Necessary?
+
+No variable transformations were performed on the final model because the error terms are independent, homoscedastic, and approximately normal.
+
+## Any Variable Recentering Necessary?
+
+No variable re-centering was required because informal diagnostics revealed significant $t$-values for important predictor variables (e.g., \texttt{quiz3}, \texttt{covid1 * covid2}, \texttt{covid3 * covid4}) in the final model's summary statistics, shown on page 32 in the appendix. All regression coefficients had small standard errors, and the signs of all regression coefficients agreed with the intuition formalized about quiz scores, COVID-19 times, and study times in the exploratory data analysis section: the 2nd last quiz most closely resembles the difficulty and style of the final quiz, an initial downward trend in time spent thinking about COVID-19 in weeks 2 and 3 followed by an upward trend from week 3 to week 4, and studying consecutive weeks is beneficial.
 
 \newpage
 
@@ -318,42 +669,224 @@ Therefore, we've shown that our linear model is a reasonable model.
 
 ## Purpose of Final Model
 
-Recall that the purpose of the model is to see whether previous quiz scores, time spent thinking about COVID, and study time can predict future quiz scores.
+Recall that the purpose of the model is to see whether previous quiz scores, time spent thinking about COVID-19, and study time can predict future quiz scores.
 
 ## Interpretation of Final Model
 
-The final model suggests a strong evidence of a positive relationship between quiz 3 scores and quiz 4 scores, as well as study times between consecutive weeks (i.e., (STA302W1, STA302W2), (STA302W2, STA302W3), (STA302W3, STA302W4)), keeping all other variables constant.
+The final model suggests a strong evidence of a statistically significant positive relationship between quiz 3 scores and quiz 4 scores. However, week 1 COVID-19 times have a statistically significant positive quadratic relationship with quiz 4 scores. Also, there is an significant negative interaction effect between weeks 1 - 2 COVID-19 times and quiz 4 performance.
 
-Quiz 3 is much closer in difficulty to Quiz 4 because students are used to the online Quercus quiz format. Students better understood how many decimal places they should round their final answers to from Quizzes 1 and 2, and the style of Quiz 3 questions are very similar to Quiz 4. Students also ramped up their study efforts as they anticipated more challenging quizzes as the semester progressed.
+Gonzalez et al. (2020) conducts a similar study that shows taking an online course during COVID-19 can boost overall quiz performance at the beginning of the term, which is consistent with the results of this study.
 
-Although STA302H1 studying increased throughout the semester, the final model suggests that students who made a consistent effort to start studying during the 1st week of classes tend to score higher than students who started studying during the 2nd or 3rd week of classes. (TODO: Insert author here) shows that studying many hours last minute (mass learning) is less effective than studying a few hours a day throughout the term (spaced learning). By studying frequently throughout the semester, students have more opportunities to review STA302H1 material and their STA302H1 knowledge has more time to "compound" throughout the semester.
+This study finds that if students were to study for consecutive weeks, 
+all else being equal, the effect of studying for the first 2 weeks (week 1 to week 2) would negatively influence their quiz 4 grades. But the effect of studying for the next two weeks (week 2 to week 3) benefits their quiz 4 performance. However, when students study in the last 2 weeks (week 3 to week 4), their quiz 4 performance tends to drops off. 
 
-(TODO: Insert scholarly source about how far students start studying for quizzes in advance vs. test scores.) \newline
-(TODO: Insert scholarly source about how far students start studying for quizzes in advance improves material retention.)
+Usually quizzes increase in difficulty as the semester progresses. Therefore, quiz 3 is more likely to be closer in difficulty and style to quiz 4. Students were better informed about how many decimal places they should round their final answers to from Quizzes 1 and 2, so they are less likely to make mistakes on numerical questions. Students might expect more challenging quizzes in later weeks and decide to ramp up their study efforts.
+
+Although STA302H1 studying increases throughout the semester, the final model suggests that students who made a consistent effort to start studying during the 1st week of classes tend to score higher than students who start studying during the 2nd or 3rd week of classes. According to Kornell (2009) research, studying many hours last minute (mass learning) is less effective than studying a few hours a day throughout the term (spaced learning). By studying frequently throughout the semester, students have more opportunities to review STA302H1 material and strengthen their retention of STA302H1 knowledge throughout the semester (de Jonge et al., 2012).
 
 ## Generalizability of Model
 
-This model is only generalizable to online courses rather than in-person courses. Students may enroll in online courses from various time zones, as opposed to a standardized time zone for in person courses. STA302H1 is also a 3rd year course, so naturally 3rd year students tend to study more for their courses and score higher on average on quizzes than 1st year students.
+This model is not generalizable since the study applies to online courses only. Students may enroll in online courses from various time zones, as opposed to a standardized time zone for in-person courses.
 
 ## Remaining Limitations and Problems with Model
 
-This model fails to capture variables such as weekly anxiety levels, the weekly number of hours students sleep, and the weekly number of hours students participate in physical activity.
+This model does not include variables such as anxiety levels, the number of hours students sleep, and the number of hours students participate in physical activity.
 
-(TODO: Studies show high anxiety impairs course performance) \newline
-(TODO: Studies show high anxiety and more COVID think time) \newline
-(TODO: Studies show moderate sleep improves course performance) \newline
-(TODO: Studies show moderate exercise improves course performance)
+The final dataset excluded 28 STA302H1 dropped students, and some blank entries remained for missing survey responses, and missing quiz scores remained due to some students missing quizzes.
 
-The final dataset excluded 28 STA302H1 dropped students, and some blank entries remained for missing survey responses, and missing quiz scores remained due to some students skipping quizzes.
+Quiz scores are ordinal (and not continuous), and therefore not amenable to simple linear regression. Instead, generalized linear models are required to a perform proper statistical analysis.
 
-Some students may have underreported the number of study hours under the assumption that it only involves the number of hours spent attending lectures and the number of hours spend reviewing lecture notes, when in fact some students included hours spent doing assignments, writing quizzes, and even hours spent attending office hours -- overall the number of hours spent doing any kind of coursework for STA302H1. 
+The survey assumed the common definition of "study" which involves only time reviewing lectures, instead of using the expanded definition of "study" which involves engaging in STA302H1-related activities such as the number of hours spent completing assignments, writing quizzes, attending office hours, or even listening to statistics-related podcasts. This oversight may have resulted in some students under-reporting the number of hours spent studying for STA302H1.
 
-Despite these limitations, further research may help inform us on benefits of study and COVID think times vs. quiz scores.
+Despite these limitations, further research may help inform us on the benefits of study and COVID-19 contemplation times vs. quiz scores.
 
 ## Proposed Improvements with Model
 
-One way to improve the model is to introduce composite variables in the model, such as a student happiness index as a function of a student's anxiety levels, COVID, and physical activity.
+One way to improve the model is to introduce composite variables in the model, such as a student happiness index as a function of a student's anxiety levels, COVID-19 contemplation time, and physical activity.
 
-Another improvement is to use empirical research to propose some more new terms to improve model.
+Another improvement is to use empirical research to propose some more new terms to improve model. Various studies have shown that these variables have an impact on final performance, so including them in the model would provide more insight and potentially improve the predictive power of the existing model. For example, Taras et al. (2009) demonstrates a moderate positive relationship between short-term physical activity and quiz performance.
 
-Another improvement to this model is to take the median of a student's 1 - 3 quizzes that they wrote, the median of a student's 1 - 4 COVID hours they report, and the median of a student's 1 - 4 study hours they report. Using the median as opposed to the mean makes these values less prone to skewness, and even smaller residuals since medians are more reliable statistic than mean.
+Because quiz scores are known to be left skewed; times spent studying for STA302H1, and thinking about COVID-19 are known to be right skewed, the median of all available quiz scores, COVID-19 times, and study times can be used instead of the mean to make them less prone to the effects of the skewness.
+This could further reduce the residuals, as the median are more reliable statistic than mean.
+
+\newpage
+
+# Appendix
+
+```{r}
+summary(remaining_data$COVID.hours..W1.)
+```
+
+```{r}
+summary(remaining_data$COVID.hours..W2.)
+```
+
+```{r}
+summary(remaining_data$COVID.hours..W3.)
+```
+
+```{r}
+summary(remaining_data$COVID.hours..W4.)
+```
+
+```{r}
+summary(remaining_data$STA302.hours..W1.)
+```
+
+```{r}
+summary(remaining_data$STA302.hours..W2.)
+```
+
+```{r}
+summary(remaining_data$STA302.hours..W3.)
+```
+
+```{r}
+summary(remaining_data$STA302.hours..W4.)
+```
+
+\break
+
+```{r}
+summary(remaining_data$Quiz_1_score)
+```
+
+```{r}
+summary(remaining_data$Quiz_2_score)
+```
+
+```{r}
+summary(remaining_data$Quiz_3_score)
+```
+
+```{r}
+summary(remaining_data$Quiz_4_score)
+```
+
+```{r echo = FALSE}
+canada <- remaining_data %>%
+  filter(as.character(country) == "Canada") %>%
+  dplyr::select(-country)
+
+unknown <- remaining_data %>%
+  filter(is.na(as.character(country))) %>%
+  dplyr::select(-country)
+
+china <- remaining_data %>%
+  filter(as.character(country) == "China") %>%
+  dplyr::select(-country)
+
+india <- remaining_data %>%
+  filter(as.character(country) == "India") %>%
+  dplyr::select(-country)
+
+japan <- remaining_data %>%
+  filter(as.character(country) == "Japan") %>%
+  dplyr::select(-country)
+
+mongolia <- remaining_data %>%
+  filter(as.character(country) == "Mongolia") %>%
+  dplyr::select(-country)
+
+pakistan <- remaining_data %>%
+  filter(as.character(country) == "Pakistan") %>%
+  dplyr::select(-country)
+
+singapore <- remaining_data %>%
+  filter(as.character(country) == "Singapore") %>%
+  dplyr::select(-country)
+
+south_korea <- remaining_data %>%
+  filter(as.character(country) == "South Korea") %>%
+  dplyr::select(-country)
+
+taiwan <- remaining_data %>%
+  filter(as.character(country) == "Taiwan") %>%
+  dplyr::select(-country)
+
+uae <- remaining_data %>%
+  filter(as.character(country) == "UAE") %>%
+  dplyr::select(-country)
+
+usa <- remaining_data %>%
+  filter(as.character(country) == "USA") %>%
+  dplyr::select(-country)
+```
+
+```{r}
+countries = data.frame(
+  Canada = nrow(canada),
+  China = nrow(china),
+  India = nrow(india),
+  Japan = nrow(japan),
+  Mongolia = nrow(mongolia),
+  Pakistan = nrow(pakistan),
+  Singapore = nrow(singapore),
+  South_Korea = nrow(south_korea),
+  Taiwan = nrow(taiwan),
+  UAE = nrow(uae),
+  USA = nrow(usa),
+  Unknown = nrow(unknown)
+)
+rownames(countries) = "Country"
+t(countries)
+```
+
+\newpage
+
+```{R echo = FALSE, include = FALSE}
+all_countries = remaining_data %>%
+  dplyr::select(-country)  # The dataset must only contain numeric values for cor() to work.
+```
+
+```{r}
+display_correlation_matrix(all_countries)
+```
+
+\newpage
+
+```{r}
+summary(first_model)
+```
+
+\newpage
+
+```{r}
+summary(final_model)
+```
+
+\newpage
+
+```{r}
+summary(training_model)
+```
+
+```{R}
+mean(training_model$residuals)
+```
+
+\newpage
+
+```{r}
+summary(test_model)
+```
+
+```{R}
+mean(test_model$residuals)
+```
+
+```{R}
+t.test(test_model$residuals)
+```
+
+\newpage
+
+# Bibliography
+
+De Jonge, M., Tabbers, H. K., & Diane, Z. (2012, March). APA PsycNet. Retrieved from https://psycnet.apa.org/buy/2011-23778-001 \newline
+
+Gonzalez, T., Rubia, M. A., Hincz, K. P., Comas-Lopez, M., Subirats, L., Fort, S., & Sacha, G. M. (2020, October 9). Influence of COVID-19 confinement on students' performance in higher education. Retrieved from https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0239490#sec030 \newline
+
+Kornell, N. (2009, January 19). Optimising learning using flashcards: Spacing is more effective than cramming. Retrieved from https://onlinelibrary.wiley.com/doi/epdf/10.1002/acp.1537 \newline
+
+Taras, H. (2009, October 09). Physical Activity and Student Performance at School. Retrieved from https://onlinelibrary.wiley.com/doi/epdf/10.1111/j.1746-1561.2005.tb06675.x

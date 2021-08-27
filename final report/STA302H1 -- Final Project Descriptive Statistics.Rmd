@@ -8,11 +8,18 @@ output:
 
 ```{r setup, include = FALSE, message = FALSE, warning = FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+```
 
-library(dplyr)
-library(tidyverse)
-library(GGally)
-library(MASS)
+```{r echo = FALSE, message = FALSE}
+library(dplyr)  # data cleaning
+library(tidyverse)  # ggplot
+library(GGally)  # ggcorr
+library(MASS)  # anova
+# library(janitor)  # use it to clean up data.
+library(gtsummary)  # for tbl_regression
+library(gridExtra)  # to use grid.arrange
+library(ggforce)  # zooming in on plots
+library(caTools)  # for sample.split
 ```
 
 # Import STA302H1 Study Time and COVID Contemplation Time vs. Quiz Performance Dataset
@@ -74,6 +81,15 @@ row_nums_of_NA_rows = function(data, num_NAs) {
 }
 ```
 
+```{R}
+get_row_nums_to_exclude <- function(data) {
+  row_nums_with_3_NAs = which(rows_with_num_NAs(data, 3))
+  row_nums_with_4_NAs = which(rows_with_num_NAs(data, 4))
+  row_nums_to_exclude <- union(row_nums_with_3_NAs, row_nums_with_4_NAs)
+  return (row_nums_to_exclude)
+}
+```
+
 ```{r}
 display_histogram <- function(data, predictor_variable, histogram_title, x_axis_label) {
   ggplot(data = tibble(data), mapping = aes(x = predictor_variable)) +
@@ -89,27 +105,18 @@ display_histogram <- function(data, predictor_variable, histogram_title, x_axis_
 ```{r}
 display_boxplot <- function(data, predictor_variable, boxplot_title, y_axis_label) {
   ggplot(mapping = aes(x = Country, y = predictor_variable)) +
-    geom_boxplot(mapping = aes(x = Country, y = predictor_variable)) +
+    geom_boxplot() +
     labs(title = boxplot_title, x = "Country", y = y_axis_label)
 }
 ```
 
-```{R}
-get_row_nums_to_exclude <- function(data) {
-  row_nums_with_3_NAs = which(rows_with_num_NAs(data, 3))
-  row_nums_with_4_NAs = which(rows_with_num_NAs(data, 4))
-  row_nums_to_exclude <- union(row_nums_with_3_NAs,
-                               row_nums_with_4_NAs)
-  return (row_nums_to_exclude)
-}
-```
-
 ```{r}
-display_correlation_by_country <- function(country_data) {
-  colnames(country_data) <- c("W1COV", "W2COV", "W3COV", "W4COV",
-                              "W1302", "W2302", "W3302", "W4302",
-                              "Q1", "Q2", "Q3", "Q4")
-  round(cor(country_data, use = "pairwise.complete.obs", method = "pearson"), 2)
+display_correlation_matrix <- function(data) {
+  colnames(data) <- c("W1COV", "W2COV", "W3COV", "W4COV",
+                      "W1302", "W2302", "W3302", "W4302",
+                      "Q1", "Q2", "Q3", "Q4")
+  correlation_matrix = cor(data, use = "pairwise.complete.obs", method = "pearson")
+  round(correlation_matrix, 2)
 }
 ```
 
@@ -281,11 +288,6 @@ rows_with_mistyped_columms = remaining_data[c(38, 83, 84, 117),]
 # row 117: STA302.hours..W4. -> 7.5 hours -- DONE
 ```
 
-```{r}
-# library(janitor)
-# use it to clean up data.
-```
-
 ## Rows Without Country Entry
 
 Taking out the country column can come in handy for functions like cor() where
@@ -375,7 +377,6 @@ t(countries)
 \break
 
 ```{r warning = FALSE, echo = FALSE, message = FALSE}
-library(gridExtra)  # to use grid.arrange
 week1_covid_histogram = display_histogram(
   remaining_data, remaining_data$COVID.hours..W1.,
   "Week 1 Time Spent on COVID-19",
@@ -604,76 +605,73 @@ I wanted to group together all of the quiz scores, COVID times, and study times 
 ## Correlation Matrix
 
 ```{R echo = FALSE, include = FALSE}
-remaining_data_no_countries = remaining_data %>%
-  dplyr::select(-country)
-colnames(remaining_data_no_countries) <- c(
-  "W1COV", "W2COV", "W3COV", "W4COV",
-  "W1302", "W2302", "W3302", "W4302",
-  "Q1", "Q2", "Q3", "Q4")
+all_countries = remaining_data %>%
+  dplyr::select(-country)  # The dataset must only contain numeric values for cor() to work.
 ```
 
-```{R}
-round(cor(remaining_data_no_countries, use = "pairwise.complete.obs", method = "pearson"), 2)
+
+```{r}
+display_correlation_matrix(all_countries)
 ```
 
 ```{r include = FALSE, results = "hide"}
-# ggcorr(remaining_data_no_countries, label = TRUE, label_round = 2)
+# ggcorr(all_countries, label = TRUE, label_round = 2)
 ```
 
 We could also create separate correlation matrices for each country.
 
 ```{r warning = FALSE}
-display_correlation_by_country(canada)
+display_correlation_matrix(canada)
 ```
 
 ```{r warning = FALSE}
-display_correlation_by_country(china)
+display_correlation_matrix(china)
 ```
 
 ```{r warning = FALSE}
-display_correlation_by_country(india)
+display_correlation_matrix(india)
 ```
 
 ```{r warning = FALSE}
-display_correlation_by_country(japan)
+display_correlation_matrix(japan)
 ```
 
 ```{r warning = FALSE}
-display_correlation_by_country(mongolia)
-```
-
-\break
-
-```{r warning = FALSE}
-display_correlation_by_country(unknown)
-```
-
-```{r warning = FALSE}
-display_correlation_by_country(pakistan)
-```
-
-```{r warning = FALSE}
-display_correlation_by_country(singapore)
+display_correlation_matrix(mongolia)
 ```
 
 \break
 
 ```{r warning = FALSE}
-display_correlation_by_country(south_korea)
+display_correlation_matrix(unknown)
 ```
 
 ```{r warning = FALSE}
-display_correlation_by_country(taiwan)
+display_correlation_matrix(pakistan)
 ```
 
 ```{r warning = FALSE}
-display_correlation_by_country(uae)
+display_correlation_matrix(singapore)
 ```
 
 \break
 
 ```{r warning = FALSE}
-display_correlation_by_country(usa)
+display_correlation_matrix(south_korea)
+```
+
+```{r warning = FALSE}
+display_correlation_matrix(taiwan)
+```
+
+```{r warning = FALSE}
+display_correlation_matrix(uae)
+```
+
+\break
+
+```{r warning = FALSE}
+display_correlation_matrix(usa)
 ```
 
 Since every country other than China, Canada, or Unknown doesn't have enough entries, it does not make sense to look at the correlation of those countries individually.
@@ -736,7 +734,6 @@ summary(first_model)
 \newpage
 
 ```{r warning = FALSE, message = FALSE}
-library(gtsummary)  # for tbl_regression
 tbl_regression(first_model, exponentiate = FALSE)
 ```
 
@@ -807,7 +804,6 @@ summary(third_model)
 ```{r warning = FALSE, message = FALSE}
 tbl_regression(third_model, exponentiate = FALSE)
 ```
-
 
 ```{r results = "hide"}
 # Doing stepAIC on a well-fitted model produces the same model.
@@ -883,9 +879,13 @@ stepAIC(additive_model, direction = "both")$anova
 <!-- ## Residual Plots -->
 
 ```{r echo = FALSE}
-library(ggforce)  # zooming in on plots
+display_residual_plot(remaining_data_no_NAs, final_model, covid1, "covid1") + 
+  facet_zoom(xlim = c(0, 10))  # try upper limit = 30
+```
+
+```{r echo = FALSE}
 display_residual_plot(remaining_data_no_NAs, final_model, covid1 ^ 2, "covid1 ^ 2") + 
-  facet_zoom(xlim = c(0, 40))  # try upper limit = 70
+  facet_zoom(xlim = c(0, 10))  # try upper limit = 70
 ```
 
 ```{r echo = FALSE}
@@ -922,7 +922,10 @@ plot(final_model)
 ## Goodness of Current Model
 
 ```{r echo = FALSE}
-hist(lm(final_model)$residuals)
+hist(lm(final_model)$residuals,
+     main = "Histogram of Residuals",
+     xlab = "Observed Residual",
+     ylab = "Frequency")
 ```
 
 ```{R}
@@ -951,7 +954,10 @@ median(predicted_values - actual_values)
 ```
 
 ```{r echo = FALSE}
-hist(predicted_values - actual_values)
+hist(predicted_values - actual_values,
+     main = "Histogram of Residuals on Final Model",
+     xlab = "Observed Residual",
+     ylab = "Frequency")
 ```
 
 ```{r}
@@ -967,7 +973,6 @@ t.test(predicted_values - actual_values)
 Source: https://stackoverflow.com/questions/17200114/how-to-split-data-into-training-testing-sets-using-sample-function
 
 ```{r}
-library(caTools)  # for sample.split
 set.seed(888)
 sample = sample.split(remaining_data_no_NAs, SplitRatio = 0.55)
 training_data = subset(remaining_data_no_NAs, sample == TRUE)
