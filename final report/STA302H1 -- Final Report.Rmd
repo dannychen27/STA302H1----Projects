@@ -123,9 +123,6 @@ To finish off the data cleaning process, similar columns (i.e., COVID times, stu
 rearranged_data <- sta302_performance_data %>%
     # Create a new "country" column, which is just "Country" but whose entries are factors.
     mutate(country = as.factor(Country)) %>%
-  
-    # TODO: Replace quiz grades, covid hours, and sta302h1 study hours with their
-    # TODO: median counterparts.
 
     # Remove the "X" column: it's simply the row number, which isn't very useful.
     # Remove the "Country" column: column "country" already exists
@@ -149,8 +146,6 @@ remaining_data = rearranged_data[-row_nums_to_exclude,]
 ```
 
 Students who miss 3 or more quizzes were removed from the original dataset, since they may not have quiz 4 scores available. Additionally, students without Quiz 4 scores were also removed.
-
-(TODO: Also remove students without Quiz 4 scores either way?)
 
 Due to the fact that influential outliers tend to have high residuals, they will be removed to prevent them from influencing the magnitude and direction of the regression coefficients, as well as the power of the overall power.
 
@@ -206,7 +201,7 @@ Note that time spent studying for STA302H1 can include lecture time, review time
 
 ## Histograms
 
-Times spent thinking about COVID-19, study times, and quiz scores among all students were summarized using histograms. The green dotted vertical line represents the mean and the solid blue vertical line represents the median. Seven-number summaries were also included to display meaningful statistics such as the mean, median, minimum, maximum, 1st quartile, 3rd quartile, and the number of NAs.
+Times spent thinking about COVID-19, study times, and quiz scores among all students were summarized using histograms. The green dotted vertical line represents the mean and the solid blue vertical line represents the median. Seven-number summaries were also included to display meaningful statistics such as the mean, median, minimum, maximum, 1st quartile, 3rd quartile, and the number of NAs. All relevant 7-number summaries can be found in pages 27 - 28 in the appendix.
 
 The histograms for COVID hours during weeks 1 - 4 are all right skewed (mean > median), indicating that a few students tend to spend a lot of time thinking about COVID-19 during the week. The median times spent thinking about COVID-19 remained constant at 1 hour/week across all 4 weeks, however the mean time spent thinking about COVID-19 decreased for the first 3 weeks from a maximum of 3.7 hours in week 1 to a minimum of 2.227 hours in week 3, and increased from week 3 to week 4.
 
@@ -215,8 +210,6 @@ The histograms for study hours during weeks 1 - 3 are approximately normal with 
 The histograms for quiz scores during weeks 1 - 4 are all left skewed (mean < median), as few students tend to underperform on quizzes. The median for weeks 1, 3, and 4 remain at 8/10 points, except for week 3 which had a median of 8.8/10. Week 1 had the smallest difference between mean and median quiz scores (about 0.26/10 points), while week 2 has the largest divide between mean and median quiz scores (about 1.38/10 points).
 
 \newpage
-
-<!-- (TODO: Display 5-number summaries of all COVID times weeks 1 - 4.) \newline -->
 
 ```{r warning = FALSE, echo = FALSE}
 week1_covid_histogram = display_histogram(
@@ -244,8 +237,6 @@ grid.arrange(week3_covid_histogram, week4_covid_histogram)
 
 \newpage
 
-<!-- (TODO: Display 5-number summaries of all study times weeks 1 - 4.) \newline -->
-
 ```{R warning = FALSE, echo = FALSE}
 week1_study_histogram = display_histogram(
   remaining_data, remaining_data$STA302.hours..W1.,
@@ -267,8 +258,6 @@ grid.arrange(week3_study_histogram, week4_study_histogram)
 ```
 
 \newpage
-
-<!-- (TODO: Display 5-number summaries of all quiz scores 1 - 3.) -->
 
 ```{R warning = FALSE, echo = FALSE}
 quiz1_histogram = display_histogram(
@@ -296,30 +285,9 @@ Side-by-side boxplots were used to compare COVID-19 times, study times, and quiz
 
 All 4 weeks contain outliers, although week 1 had the largest outliers: two students thought about COVID-19 for 168 and 84 hours. Among all students, weeks 1 - 3 median COVID times were approximately 1 hour with a slightly increased median COVID time of around 1.5 hours from week 3 to week 4. The spread (IQR) of COVID times were both 1 hour for weeks 1 and 3, although there is more spread in week 3 (1.5 hours), and week 4 has the largest spread (2 hours).
 
-<!-- - median COVID times are similarly low for weeks 1 - 3 -->
-<!-- - slight increase in median COVID time in week 4 -->
-<!-- - all 4 weeks contain outliers -->
-
-<!-- - similar spreads (IQR) for weeks 1 - 2  -->
-<!-- - more spread in week 3, even larger spread in week 4 -->
-
 Although all 4 weeks contained outliers, week 4 has outliers ranging from a median study time of 30 - 70 hours. The median amount of study time steadily increased from 7 hours to 9 hours in weeks 1 - 3, with a noticeable increase in median study time from 9 hours to 11 hours from week 3 to week 4. Median study times had similar spreads (IQR) of 4 hours for weeks 1 and 2, but there is more spread in week 3 (6 hours), and even larger spread in week 4 (9 hours).
 
-<!-- - all 4 weeks contain outliers -->
-<!-- - week 4 has largest outliers, ranging from 30 - 70 hours of studying -->
-<!-- - median amount of studying steadily increasing from 7 hours to 9 hours in weeks 1 - 3, and noticeable increase from week 3 to week 4 (9 hours to 11 hours)  -->
-<!-- - similar spreads (IQR) for weeks 1 - 2 -->
-<!-- - more spread in week 3, even larger spread in week 4 -->
-
 Median quiz 1 scores have the most outliers, although they are milder than the single quiz 2 outlier which displays the lowest quiz 2 score (1/10). Quizzes 1, 3, and 4 has similar median quiz scores of 8/10, with week 2 having the highest median quiz score of 8.8/10. Weeks 2 and 3 have similarly large spreads (IQRs of 3.6 and 4 point gaps), though week 1 has the smallest spread. Week 4 quiz scores are the least skewed.
-
-<!-- - quizzes 1, 2, 4 have outliers -->
-<!-- - quiz 1 has most outliers, but they are mild -->
-<!-- - quiz 2 only has 1 outlier, but it is the lowest (1/10) -->
-
-<!-- - median quiz scores for quiz 1, 3, and 4 were similar (8/10), with week 2 with highest median quiz score (8.8/10) -->
-<!-- - week 2 and 3 both have similarly large spreads, week 1 has smallest spread.  -->
-<!-- - week 4 quiz scores are the least skewed -->
 
 ```{r echo = FALSE, warning = FALSE}
 boxplot(remaining_data$COVID.hours..W1., remaining_data$COVID.hours..W2.,
@@ -393,9 +361,7 @@ pairs(~ Quiz_4_score + STA302.hours..W1. + STA302.hours..W2.
 
 A correlation matrix was constructed to determine the correlations of each pair of variables in the dataset.
 Since the correlation matrices for underrepresented countries (i.e. every country except Canada, China, and NA) contained a lot of NA or $\pm 1$ entries, it made more sense to use the correlation matrix for all countries.
-A correlation between 0.0 - 0.3 is considered low, 0.3 - 0.5 is moderate, and 0.5 - 1.0 is high. <!-- (TODO: Refer to the correlation matrix in Figure X in the appendix.) \newline -->
-
-<!-- (TODO: Consult 3 – 4 external sources to confirm your findings.) -->
+A correlation between 0.0 - 0.3 is considered low, 0.3 - 0.5 is moderate, and 0.5 - 1.0 is high. The correlation matrix can be found on pages 28 - 29 in the appendix.
 
 \newpage
 
@@ -414,34 +380,9 @@ Further analysis indicates that there is a possibly moderate linear relationship
 
 Similarly, there might be a moderate linear relationship between quiz 4 scores and quiz 1 - 3 scores. Therefore, only the linear terms for quiz 1 - 3 scores (i.e., \texttt{quiz1}, \texttt{quiz2}, and \texttt{quiz3}) were included in the model.
 
-(TODO: Show scatterplot of covid1 vs. quiz4.) \newline
-(TODO: Display summary statistics for covid1 vs. quiz4 in appendix.) \newline
-(TODO: Show scatterplot of covid2 vs. quiz4.) \newline
-(TODO: Display summary statistics for covid2 vs. quiz4 in appendix.) \newline
-(TODO: Show scatterplot of covid3 vs. quiz4.) \newline
-(TODO: Display summary statistics for covid3 vs. quiz4 in appendix.) \newline
-(TODO: Show scatterplot of covid4 vs. quiz4.) \newline
-(TODO: Display summary statistics for covid4 vs. quiz4 in appendix.)
-
-(TODO: Show scatterplot of study1 vs. quiz4.) \newline
-(TODO: Display summary statistics for study1 vs. quiz4 in appendix.) \newline
-(TODO: Show scatterplot of study2 vs. quiz4.) \newline
-(TODO: Display summary statistics for study2 vs. quiz4 in appendix.) \newline
-(TODO: Show scatterplot of study3 vs. quiz4.) \newline
-(TODO: Display summary statistics for study3 vs. quiz4 in appendix.) \newline
-(TODO: Show scatterplot of study4 vs. quiz4.) \newline
-(TODO: Display summary statistics for study4 vs. quiz4 in appendix.)
-
-(TODO: Show scatterplot of quiz1 vs. quiz4.) \newline
-(TODO: Display summary statistics for quiz1 vs. quiz4 in appendix.) \newline
-(TODO: Show scatterplot of quiz2 vs. quiz4.) \newline
-(TODO: Display summary statistics for quiz2 vs. quiz4 in appendix.) \newline
-(TODO: Show scatterplot of quiz3 vs. quiz4.) \newline
-(TODO: Display summary statistics for quiz3 vs. quiz4 in appendix.)
-
 Pairs of covariates, as well as response variable-covariate combinations from the correlation matrix with high correlation were used as a heuristic for determining potentially significant interaction terms in the initial model.
 
-The initial model was fitted using \texttt{quiz4} as the response variable; and \texttt{quiz1}, \texttt{quiz2}, \texttt{quiz3}, \texttt{covid1}, \texttt{covid2}, \texttt{covid3}, \texttt{covid4}, (including 3 quadratic terms 8 interaction terms), and \texttt{country} as predictor variables. However, only the predictor variables \texttt{quiz3}, \texttt{I(covid1 ** 2)}, \texttt{I(covid2 ** 2)}, \texttt{I(covid1 * covid2)}, and \texttt{I(study1 * study2)} were significant at the 5% significance level. The global F-statistic value is 3.098, and the global p-value is approximately $1.436 \times 10^{-5}$. The residual standard error is 1.582. The multiple $R ^ 2$ value is 0.4211 and the adjusted $R ^ 2$ value of 0.2851.
+The initial model was fitted using \texttt{quiz4} as the response variable; and \texttt{quiz1}, \texttt{quiz2}, \texttt{quiz3}, \texttt{covid1}, \texttt{covid2}, \texttt{covid3}, \texttt{covid4}, (including 3 quadratic terms 8 interaction terms), and \texttt{country} as predictor variables. However, only the predictor variables \texttt{quiz3}, \texttt{I(covid1 ** 2)}, \texttt{I(covid2 ** 2)}, \texttt{I(covid1 * covid2)}, and \texttt{I(study1 * study2)} were significant at the 5% significance level. The global F-statistic value is 3.098, and the global p-value is approximately $1.436 \times 10^{-5}$. The residual standard error is 1.582. The multiple $R ^ 2$ value is 0.4211 and the adjusted $R ^ 2$ value of 0.2851. The R output of the initial model can be found on page 29 of the appendix.
 
 ```{r warning = FALSE, echo = FALSE, message = FALSE}
 remaining_data_no_NAs = na.omit(remaining_data)
@@ -495,11 +436,6 @@ first_model = lm(
 tbl_regression(first_model, exponentiate = FALSE)
 ```
 
-<!-- (TODO: See figure X below for R ANOVA output of original model in appendix) \newline -->
-<!-- (TODO: See figure X below for R lm() output of original model in appendix) -->
-
-<!-- (TODO: Show lm() results of original model in nice table.) -->
-
 \newpage
 
 ## Improving the Original Model
@@ -508,11 +444,7 @@ To refine the original model, backwards selection was used to remove insignifica
 
 The final model has \texttt{quiz4} as the response variable; \texttt{quiz3}, the quadratic term \texttt{I(covid1 ** 2)}, and the interaction terms \texttt{I(covid1 * covid2)}, \texttt{I(covid2 * covid3)}, \texttt{study1 * study2}, \texttt{study1 * study3}, \texttt{study2 * study3}, \texttt{study3 * study4} as the predictor variables. Out of all of the predictors variables in the final model, only the predictor variables \texttt{quiz3}, \texttt{I(covid1 ** 2}, \texttt{I(covid1 * covid2)}, \texttt{I(study1 * study2)}, \texttt{I(study2 * study3)}, and \texttt{I(study3 * study4)} are significant at the 5% significance level. The global F-statistic value increased to 8.764, the global $p$-value increased to $1.374 \times 10^{-9}$. The residual standard error decreased marginally to 1.561. Even though the multiple $R ^ 2$ value dropped significantly to 0.3435, the adjusted $R ^ 2$ value increase slightly to 0.3043 -- there is a smaller difference between the $R ^ 2$ value and the adjusted $R ^ 2$ value in the final model than the original model. The coefficient of 0.499110 for \texttt{quiz3} suggests that for every 1 point increase in quiz 3, there is an increase in quiz 4 grades by about 0.50/10 points. There also exists a quadratic relationship between variables \texttt{covid1} and \texttt{quiz4}, as well as an interaction effect between \texttt{covid1} and \texttt{covid2}, \texttt{study1} and \texttt{study2}, \texttt{study2} and \texttt{study3}, and \texttt{study3} and \texttt{study4}. All further analyses will be performed on the final model.
 
-<!-- (TODO: See figure X below for R ANOVA output of final model in appendix) \newline -->
-<!-- (TODO: See figure X below for R lm() output of final model in appendix) -->
-
-<!-- (TODO: Show ANOVA results of original model in nice table.) \newline -->
-<!-- (TODO: Show lm() results of final model in nice table.) -->
+The R output of running the backwards algorithm using the stepAIC function can be found in the R markdown file only, whereas the R output of the final model can be found on page 30 of the appendix.
 
 ```{r warning = FALSE, echo = FALSE, message = FALSE, results = 'hide'}
 stepAIC(first_model, direction = "both")$anova
@@ -545,26 +477,16 @@ To show that a quadratic relationship for the final model is valid, the followin
 
 ### Assumption 1. Quadratic Functional Form
 
-<!-- Want to show: -->
-<!-- - the residual plot of quiz 4 vs. covid1 displays quadratic relationship DONE!  -->
-<!-- - the scatterplot of quiz 4 vs. covid1 for fitted model (with a quadratic term) displays random relationship DONE! -->
-
-Since the quiz 4 vs. covid1 scatterplot in figure X indicates a moderate quadratic relationship between the variable, and the residual vs. covid1 plot for the fitted model is random, the final model has a quadratic relationship. \newline
-
-<!-- (TODO: Reference quiz 4 vs. week 1 COVID scatterplot from earlier.) \newline -->
+Since the quiz 4 vs. covid1 scatterplot on page 11 indicates a moderate quadratic relationship between the variable, and the residual vs. covid1 plot for the fitted model is random, the final model has a quadratic relationship.
 
 ```{r echo = FALSE}
 display_residual_plot(remaining_data_no_NAs, final_model, covid1, "covid1") + 
   facet_zoom(xlim = c(0, 10))  # try upper limit = 30
 ```
 
-### Assumption 2. Independence of Errors
+\newpage
 
-<!-- Want to show: -->
-<!-- - the scatterplot of quiz 4 vs. covid1 for fitted model (with a quadratic term) displays random relationship DONE! -->
-<!-- - the scatterplot of quiz 4 vs. all other predictor variables in fitted model 
-(with a quadratic term) displays random relationship DONE! -->
-<!-- - our data comes from a random sample -->
+### Assumption 2. Independence of Errors
 
 From above, the residual vs. covid1 plot for the fitted model show no discernible relationship, and neither do the residual plots for the other predictor variables (ingoring all outliers). The dataset comes from a random sample, so the error terms must be independent.
 
@@ -613,10 +535,6 @@ display_residual_plot(remaining_data_no_NAs, final_model, study3 * study4, "stud
 The scale-location model appears to have a straight horizontal line with randomly spread points, and the residual vs. fitted model show equally spread residuals around the horizontal line. Additionally, the residual plots for all predictor variables do not show any trend as fits increase. Therefore, the errors terms have constant variance.
 
 ### Assumption 4. Normality of Error
-
-<!-- Want to show: -->
-<!-- - all points on a QQplot follow the QQline closely -->
-<!-- - he histogram of residuals is approximately normal. -->
 
 Almost all of the points in the middle follow the QQplot line very closely, except for the last 2 points in the right-tail which is only a little bit right-skewed.
 By inspection, the histograms of residuals for the final model looks approximately normal. Therefore, the error terms are approximately normal.
@@ -727,18 +645,6 @@ summary(test_model)
 mean(test_model$residuals)
 ```
 
-```{r echo = FALSE}
-hist(test_model$residuals,
-     main = "Histogram of Residuals of Testing Model",
-     xlab = "Observed Residual",
-     ylab = "Frequency")
-```
-
-<!-- (TODO: Add histogram of residuals for trained model.) \newline -->
-<!-- (TODO: Add mean/median residual output.) -->
-
-Moreover, the histogram of residuals looks approximately symmetric, with the mean of this new distribution being $-0.2102$ (see figure X in appendix). To be sure, since there are $n = 142$ points, the central limit theorem states that the sample mean is approximately normally distributed.
-
 ### T-test for significance 
 
 For our t-test, we hypothesized that the mean of residuals was identically equal to 0. More formally,
@@ -746,16 +652,11 @@ For our t-test, we hypothesized that the mean of residuals was identically equal
 - $H_0: \mu_{residuals} = 0$
 - $H_1: \mu_{residuals} \neq 0$
 
-The t-test results showed that the $p$-value is 0.7938, which means that we fail to reject $H_0$, meaning that $\mu_{residuals} = 0$ holds. The 95% confidence interval for the mean of residuals is $(-0.4510668, 0.3462948)$, and since $0 \in (-0.4510668, 0.3462948)$, we again fail to reject $H_0$ and conclude that $\mu_{residuals} = 0$. \newline
-(TODO: See figure X in appendix for t-test output.)
+The t-test results showed that the $p$-value is 0.7938, which means that we fail to reject $H_0$, meaning that $\mu_{residuals} = 0$ holds. The 95% confidence interval for the mean of residuals is $(-0.4510668, 0.3462948)$, and since $0 \in (-0.4510668, 0.3462948)$, we again fail to reject $H_0$ and conclude that $\mu_{residuals} = 0$. See page 30 for t-test output.
 
 Therefore, we've shown that our linear model is a reasonable model.
 
 ## Checking for Influential Outliers
-
-<!-- Equivalent: -->
-<!-- (TODO: Use Cook’s distance and leverage points to find influential outliers?) \newline -->
-<!-- (TODO: Use DDFITS, DDBETA to find influential outliers?) -->
 
 The residuals vs. leverage plot was used to check for the presence of influential data points. There are no points in the upper right and lower right quadrants of the residuals vs. leverage plot. Even though there is a point sitting directly on the Cook's distance boundary but not too far away from the Cook's distance boundary, no influential outliers exist that could undermine the predictability of the final model.
 
@@ -766,51 +667,6 @@ No variable transformations were performed on the final model because the error 
 ## Any Variable Recentering Necessary?
 
 No variable re-centering was required because informal diagnostics revealed significant t-values for important predictor variables (e.g., \texttt{quiz3}, \texttt{covid1 * covid2}, \texttt{covid3 * covid4}). All regression coefficients had small standard errors, and the signs of all regression coefficients agreed with the intuition formalized about quiz scores, COVID-19 times, and study times: the 2nd last quiz is the most reflective of final quiz scores, an initial downward trend in time spent thinking about COVID-19 in weeks 2 and 3 followed by an upward trend from week 3 to week 4, and studying consecutive weeks is beneficial.
-
-<!-- - significant t-values for important predictor variables -->
-<!-- - Small standard error of the regression coefficients -->
-<!-- - No estimated regression coefficients had an opposite sign of that expected from theoretical considerations or prior experience, for instance -->
-<!-- - agrees with our intuition about initial COVID shock + downward trend followed up upward trend. -->
-
-<!-- (TODO: VIF for multicollinearity.) -->
-
-<!-- ```{R results = "hide", echo = FALSE, message = FALSE, warning = FALSE} -->
-<!-- VIF = vif(final_model) -->
-<!-- VIF -->
-<!-- ``` -->
-
-<!-- - I(covid1 ^ 2) -->
-<!-- - I(covid1 * covid2) -->
-<!-- - I(study1 * study2) -->
-<!-- - I(study1 * study3) -->
-
-<!-- ```{r} -->
-<!-- VIFbar <- mean(VIF) -->
-<!-- VIFbar -->
-<!-- ``` -->
-
-<!-- ```{R} -->
-<!-- simple_model = lm( -->
-<!--   quiz4 ~ quiz3 + I(covid2 * covid3) + I(study2 * study3) + I(study3 * study4) -->
-<!-- ) -->
-<!-- VIF <- vif(simple_model) -->
-<!-- VIF -->
-<!-- mean(VIF) -->
-<!-- ``` -->
-
-<!-- ```{r} -->
-<!-- summary(simple_model) -->
-<!-- ``` -->
-
-<!-- ```{r} -->
-<!-- # variable recentering -->
-<!-- ``` -->
-
-<!-- (TODO: Correlation matrix of final model.) -->
-
-<!-- ```{r} -->
-<!-- # correlation matrix of recentered model -->
-<!-- ``` -->
 
 \newpage
 
