@@ -106,7 +106,7 @@ The survey asked about their country of origin (first week only), the number of 
 
 ## Purpose of Developing Model
 
-The purpose of developing a model is to try to understand the relationship between quiz 4 scores and the other predictor variables (interim STA302H1 quiz scores, study time, COVID contemplation time, country, or some combination of these factors) in explaining the variability among quiz 4 marks.
+The purpose of developing a model is to try to understand the relationship between quiz 4 scores and the other predictor variables (interim STA302H1 quiz scores, study time, COVID-19 contemplation time, country, or some combination of these factors) in explaining the variability among quiz 4 marks.
 
 If the model shows some relationship, it may be possible to use the regression model to determine which of the variables are strong predictors of Quiz 4 grades, and estimate unknown values for quiz 4 scores whenever the values of the independent variables are known.
 
@@ -117,7 +117,7 @@ Current STA302H1 students who understand the most important factors that contrib
 ## Plan for Developing Model
 
 The dataset contained a small number of typos, which were cleaned manually rather than programatically. This included removing the word "hours" to safely cast numeric parts of strings as integers, removing non-Unicode characters like "U+00A0”, and capitalizing "canada" and "china" so that they would be treated as the same country as "Canada" and "China."
-To finish off the data cleaning process, similar columns (i.e., COVID times, study times, and quiz scores) were grouped together to make further data analysis more convenient.
+To finish off the data cleaning process, similar columns (i.e., COVID-19 times, study times, and quiz scores) were grouped together to make further data analysis more convenient.
 
 ```{r echo = FALSE, message = FALSE}
 rearranged_data <- sta302_performance_data %>%
@@ -135,7 +135,7 @@ rearranged_data <- sta302_performance_data %>%
              Quiz_1_score, Quiz_2_score, Quiz_3_score, Quiz_4_score)
 ```
 
-Although some entries in the dataset contained missing (NA) data, missing quiz grades were considered more problematic than rows with only missing number of COVID hours, number of STA302H1 study hours, or even missing countries of origin. To preserve as much of the original dataset as possible, NA countries were categorized as unknown, and NA COVID hours and STA302H1 hours were ignored.
+Although some entries in the dataset contained missing (NA) data, missing quiz grades were considered more problematic than rows with only missing number of COVID-19 hours, number of STA302H1 study hours, or even missing countries of origin. To preserve as much of the original dataset as possible, NA countries were categorized as unknown, and NA COVID-19 hours and STA302H1 hours were ignored.
 
 ```{r echo = FALSE, message = FALSE}
 quiz_grades <- rearranged_data %>%
@@ -283,7 +283,7 @@ grid.arrange(quiz3_histogram, quiz4_histogram)
 
 Side-by-side boxplots were used to compare time spent thinking about COVID-19, time spent studying for STA302H1, and quiz scores among students from all countries across 4 weeks. Because the boxplots representing times spent thinking about COVID-19 contain extreme outliers, 2 additional boxplots were provided to view both the extreme outliers and the moderate outliers.
 
-All 4 weeks of times spent thinking about COVID-19 contain outliers, although week 1 had the largest outliers: two students thought about COVID-19 for 168 and 84 hours. Among all students, week 1 - 3 median COVID times were approximately 1 hour with a slightly increased median COVID time of around 1.5 hours from week 3 to week 4. The spread (IQR) of COVID times were both 1 hour for weeks 1 and 3, although there is more spread in week 3 (1.5 hours), and week 4 has the largest spread (2 hours).
+All 4 weeks of times spent thinking about COVID-19 contain outliers, although week 1 had the largest outliers: two students thought about COVID-19 for 168 and 84 hours. Among all students, week 1 - 3 median COVID times were approximately 1 hour with a slightly increased median COVID time of around 1.5 hours from week 3 to week 4. The spread (IQR) of COVID-19 times were both 1 hour for weeks 1 and 3, although there is more spread in week 3 (1.5 hours), and week 4 has the largest spread (2 hours).
 
 Although all 4 weeks contained outliers, week 4 STA302H1 study times have outliers ranging from a median STA302H1 study time of 30 - 70 hours. The median amount of STA302H1 study time steadily increased from 7 hours to 9 hours in weeks 1 - 3, with a noticeable increase in median study time from 9 hours to 11 hours from week 3 to week 4. Median study times had similar spreads (IQR) of 4 hours for weeks 1 and 2, but there is more spread in week 3 (6 hours), and even larger spread in week 4 (9 hours).
 
@@ -669,11 +669,11 @@ No variable re-centering was required because informal diagnostics revealed sign
 
 ## Purpose of Final Model
 
-Recall that the purpose of the model is to see whether previous quiz scores, time spent thinking about COVID, and study time can predict future quiz scores.
+Recall that the purpose of the model is to see whether previous quiz scores, time spent thinking about COVID-19, and study time can predict future quiz scores.
 
 ## Interpretation of Final Model
 
-The final model suggests a strong evidence of a statistically significant positive relationship between quiz 3 scores and quiz 4 scores. However, week 1 COVID times have a statistically significant positive quadratic relationship with quiz 4 scores. Also, there is an significant negative interaction effect between weeks 1 - 2 COVID times and quiz 4 performance.
+The final model suggests a strong evidence of a statistically significant positive relationship between quiz 3 scores and quiz 4 scores. However, week 1 COVID-19 times have a statistically significant positive quadratic relationship with quiz 4 scores. Also, there is an significant negative interaction effect between weeks 1 - 2 COVID-19 times and quiz 4 performance.
 
 Gonzalez et al. (2020) conducts a similar study that shows taking an online course during COVID-19 can boost overall quiz performance at the beginning of the term, which are consistent with this study.
 
@@ -702,11 +702,11 @@ Another limitation is that quiz scores are ordinal (and not continuous), and the
 
 The survey assumed the common definition of "study" which involves only time reviewing lectures, instead of using the expanded definition of "study" which involves engaging in STA302H1-related activities such as the number of hours spent completing assignments, writing quizzes, attending office hours, or even listening to statistics-related podcasts. This oversight may have resulted in some students underreporting the number of hours spent studying for STA302H1.
 
-Despite these limitations, further research may help inform us on benefits of study and COVID think times vs. quiz scores.
+Despite these limitations, further research may help inform us on benefits of study and COVID-19 contemplation times vs. quiz scores.
 
 ## Proposed Improvements with Model
 
-One way to improve the model is to introduce composite variables in the model, such as a student happiness index as a function of a student's anxiety levels, COVID, and physical activity.
+One way to improve the model is to introduce composite variables in the model, such as a student happiness index as a function of a student's anxiety levels, COVID-19 contemplation time, and physical activity.
 
 Another improvement is to use empirical research to propose some more new terms to improve model.
 
