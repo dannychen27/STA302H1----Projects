@@ -560,9 +560,9 @@ hist(lm(final_model)$residuals,
 
 ### 50/50 Training/Testing Split
 
-Obtaining an independent dataset is infeasible, and the existing dataset has sufficiently many data points ($n = 143$ after removing all NAs). Therefore, it is possible to use 50% of the dataset to develop a regression model and the remaining 50% of the dataset to validate the trained model.
+Obtaining an independent dataset is infeasible, and the existing dataset has sufficiently many data points ($n = 143$ after removing all NAs). Therefore, it is possible to use 50% of the dataset to develop a regression model and the remaining 50% of the dataset to validate the trained model. The R summary statistics output for the training model can be found on page 33, whereas the R summary statistics output for the testing model is located on page 34.
 
-The mean of the residuals of the test model was $5.026 \times 10 ^ {-17}$, which is approximately 0. See page 32 in the appendix for the corresponding R output.
+The mean of the residuals of the test model was $5.026 \times 10 ^ {-17}$, which is approximately 0. See page 33 in the appendix for the corresponding R output.
 This indicates that the final model has high predictive power.
 
 ```{r echo = FALSE}
@@ -604,11 +604,6 @@ training_model = lm(
   + I(study2 * study3)  # don't remove, else all other terms become insignificant
   + I(study3 * study4)  # don't remove, else all other terms become insignificant
 )
-summary(training_model)
-```
-
-```{R echo = FALSE, results = "hide"}
-mean(training_model$residuals)
 ```
 
 ```{r echo = FALSE, results = "hide"}
@@ -643,17 +638,16 @@ test_model = lm(
   + I(study2 * study3)  # don't remove, else all other terms become insignificant
   + I(study3 * study4)  # don't remove, else all other terms become insignificant
 )
-summary(test_model)
 ```
 
 ### $t$-test for significance 
 
-For our $t$-test, the mean of the residuals was hypothesized to be identically equal to 0. More formally,
+For the $t$-test, the mean of the residuals was hypothesized to be identically equal to 0. More formally,
 
 - $H_0: \mu_{residuals} = 0$
 - $H_1: \mu_{residuals} \neq 0$
 
-The $t$-test results showed that the $p$-value is 1, which means $H_0$ fails to be rejected, meaning that $\mu_{residuals} = 0$ holds. Since 0 falls inside the 95% confidence interval for the mean of residuals of $(-0.357787, 0.357787)$, the $H_0$ fails to be rejected. Therefore, $\mu_{residuals} = 0$. See page 32 for $t$-test output.
+The $t$-test results showed that the $p$-value is 1, which means $H_0$ fails to be rejected, meaning that $\mu_{residuals} = 0$ holds. Since 0 falls inside the 95% confidence interval for the mean of residuals of $(-0.357787, 0.357787)$, the $H_0$ fails to be rejected. Therefore, $\mu_{residuals} = 0$. See page 34 for $t$-test output.
 
 Therefore, it is sensible to use a quadratic model.
 
@@ -667,7 +661,7 @@ No variable transformations were performed on the final model because the error 
 
 ## Any Variable Recentering Necessary?
 
-No variable re-centering was required because informal diagnostics revealed significant $t$-values for important predictor variables (e.g., \texttt{quiz3}, \texttt{covid1 * covid2}, \texttt{covid3 * covid4}) in the final model's summary statistics, shown on page 32 in the appendix. All regression coefficients had small standard errors, and the signs of all regression coefficients agreed with the intuition formalized about quiz scores, COVID-19 times, and study times in the exploratory data analysis section: the 2nd last quiz is the most reflective of final quiz scores, an initial downward trend in time spent thinking about COVID-19 in weeks 2 and 3 followed by an upward trend from week 3 to week 4, and studying consecutive weeks is beneficial.
+No variable re-centering was required because informal diagnostics revealed significant $t$-values for important predictor variables (e.g., \texttt{quiz3}, \texttt{covid1 * covid2}, \texttt{covid3 * covid4}) in the final model's summary statistics, shown on page 32 in the appendix. All regression coefficients had small standard errors, and the signs of all regression coefficients agreed with the intuition formalized about quiz scores, COVID-19 times, and study times in the exploratory data analysis section: the 2nd last quiz most closely resembles the difficulty and style of the final quiz, an initial downward trend in time spent thinking about COVID-19 in weeks 2 and 3 followed by an upward trend from week 3 to week 4, and studying consecutive weeks is beneficial.
 
 \newpage
 
@@ -862,6 +856,22 @@ summary(first_model)
 
 ```{r}
 summary(final_model)
+```
+
+\newpage
+
+```{r}
+summary(training_model)
+```
+
+```{R}
+mean(training_model$residuals)
+```
+
+\newpage
+
+```{r}
+summary(test_model)
 ```
 
 ```{R}
