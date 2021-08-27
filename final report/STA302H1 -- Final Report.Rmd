@@ -514,6 +514,10 @@ The final model has \texttt{quiz4} as the response variable; \texttt{quiz3}, the
 <!-- (TODO: Show ANOVA results of original model in nice table.) \newline -->
 <!-- (TODO: Show lm() results of final model in nice table.) -->
 
+```{r warning = FALSE, echo = FALSE, message = FALSE, results = 'hide'}
+stepAIC(first_model, direction = "both")$anova
+```
+
 ```{r warning = FALSE, echo = FALSE, message = FALSE}
 final_model = lm(
   quiz4 ~ quiz3
@@ -665,7 +669,7 @@ country = training_data_no_NAs$country
 ```
 
 ```{r echo = FALSE}
-final_model = lm(
+last_model = lm(
   quiz4 ~ quiz3
   + I(covid1 ^ 2)   # don't remove, else all other terms become insignificant
   + I(covid1 * covid2) 
@@ -699,7 +703,7 @@ country = testing_data_no_NAs$country
 ```
 
 ```{r echo = FALSE}
-predicted_values = predict(final_model, testing_data_no_NAs)
+predicted_values = predict(last_model, testing_data_no_NAs)
 actual_values = testing_data$Quiz_4_score
 ```
 
@@ -938,52 +942,8 @@ all_countries = remaining_data %>%
 display_correlation_matrix(all_countries)
 ```
 
-```{r warning = FALSE, echo = FALSE, message = FALSE}
-# single variable per term = additive model
-first_model = lm(
-  quiz4 ~ 
-    quiz1  # scatterplot seems to have no relationship
-  + quiz2  # scatterplot seems to have no relationship
-  + quiz3  # scatterplot looks more linear
-  + covid1 # must add this linear term b/c i have a quadratic term 
-  + I(covid1 ^ 2)  # scatterplot looks more quadratic
-  + covid2 # must add this linear term b/c i have a quadratic term 
-  + I(covid2 ^ 2)  # scatterplot looks more quadratic
-  + covid3
-  # + I(covid3 ^ 2) # scatterplot looks less quadratic
-  + covid4  # must add this linear term b/c i have a quadratic term 
-  + I(covid4 ^ 2) # scatterplot looks more quadratic
-  + I(covid1 * covid2) # first impressions from correlation matrix
-  + I(covid2 * covid3) # correlation = 0.67
-  + I(covid2 * covid4) # discard: correlation = 0.71
-  + I(covid3 * covid4) # correlation = 0.72
-  + I(study1 * study2)  # correlation = 0.61
-  + I(study1 * study3)  # correlation = 0.58
-  + I(study2 * study3)  # correlation = 0.70
-  + I(study3 * study4)  # correlation = 0.62
-  + country  # for simplicity, but backwards process shows this term is not significant
-)
-```
-
 ```{r}
 summary(first_model)
-```
-
-```{r warning = FALSE, echo = FALSE, message = FALSE}
-stepAIC(first_model, direction = "both")$anova
-```
-
-```{r warning = FALSE, echo = FALSE, message = FALSE}
-final_model = lm(
-  quiz4 ~ quiz3
-  + I(covid1 ^ 2)   # don't remove, else all other terms become insignificant
-  + I(covid1 * covid2) 
-  + I(covid2 * covid3)  # don't remove, else all other terms become insignificant
-  + I(study1 * study2) 
-  + I(study1 * study3)  # maybe don't remove?
-  + I(study2 * study3) 
-  + I(study3 * study4)
-)
 ```
 
 ```{r}
