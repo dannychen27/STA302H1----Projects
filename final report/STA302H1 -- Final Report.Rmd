@@ -745,15 +745,11 @@ Therefore, we've shown that our linear model is a reasonable model.
 
 ## Checking for Influential Outliers
 
-First, influential outliers were identified in the original dataset using (what method?)
+<!-- Equivalent: -->
+<!-- (TODO: Use Cook’s distance and leverage points to find influential outliers?) \newline -->
+<!-- (TODO: Use DDFITS, DDBETA to find influential outliers?) -->
 
-(TODO: Use Cook’s distance and leverage points to find influential outliers?) \newline
-(TODO: Use VIF method to find influential outliers?) \newline
-(TODO: Use DDFITS, DDBETA to find influential outliers?)
-
-Notice that there are no influential outliers because no points outside of cook's distance in upper right and lower left quadrants of plot, so there are no points to remove.
-
-
+The residuals vs. leverage plot was used to check for the presence of influential data points. There are no points in the upper right and lower right quadrants of the residuals vs. leverage plot. Even though there is a point sitting directly on the Cook's distance boundary but not too far away from the Cook's distance boundary, no influential outliers exist that could undermine the predictability of the final model.
 
 ## Any Variable Transformation?
 
