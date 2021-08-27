@@ -867,10 +867,10 @@ t.test(test_model$residuals)
 
 # Bibliography
 
-De Jonge, M., Tabbers, H. K., & Diane, Z. (2012, March). APA PsycNet. Retrieved from https://psycnet.apa.org/buy/2011-23778-001
+De Jonge, M., Tabbers, H. K., & Diane, Z. (2012, March). APA PsycNet. Retrieved from https://psycnet.apa.org/buy/2011-23778-001 \newline
 
-Gonzalez, T., Rubia, M. A., Hincz, K. P., Comas-Lopez, M., Subirats, L., Fort, S., & Sacha, G. M. (2020, October 9). Influence of COVID-19 confinement on students' performance in higher education. Retrieved from https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0239490#sec030
+Gonzalez, T., Rubia, M. A., Hincz, K. P., Comas-Lopez, M., Subirats, L., Fort, S., & Sacha, G. M. (2020, October 9). Influence of COVID-19 confinement on students' performance in higher education. Retrieved from https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0239490#sec030 \newline
 
-Kornell, N. (2009, January 19). Optimising learning using flashcards: Spacing is more effective than cramming. Retrieved from https://onlinelibrary.wiley.com/doi/epdf/10.1002/acp.1537
+Kornell, N. (2009, January 19). Optimising learning using flashcards: Spacing is more effective than cramming. Retrieved from https://onlinelibrary.wiley.com/doi/epdf/10.1002/acp.1537 \newline
 
 Taras, H. (2009, October 09). Physical Activity and Student Performance at School. Retrieved from https://onlinelibrary.wiley.com/doi/epdf/10.1111/j.1746-1561.2005.tb06675.x
