@@ -97,10 +97,10 @@ The population of interest is a group of students from the online summer 2021 (J
 
 For this study, students were surveyed on Quercus at the end of each week for the first 4 weeks of STA302H1. Each week is specified by a date range below:
 
-- End of Week 1 (July 5 – July 9)
-- End of Week 2 (July 12 – July 16)
-- End of Week 3 (July 19 – July 23)
-- End of Week 4 (July 26 – July 30)
+- Week 1 (July 5 – July 9)
+- Week 2 (July 12 – July 16)
+- Week 3 (July 19 – July 23)
+- Week 4 (July 26 – July 30)
 
 The survey asked about their country of origin (first week only), the number of hours they spent thinking about COVID-19, and the number of hours they spent studying for STA302H1. Quiz scores were also collected and combined into a dataset, where student names were anonymized before the dataset was made available to all STA302H1 students on Quercus for analysis during the STA302H1 final report.
 
@@ -110,13 +110,13 @@ The purpose of developing a model is to try to understand the relationship betwe
 
 If the model shows some relationship, it may be possible to use the regression model to determine which of the variables are strong predictors of Quiz 4 grades, and estimate unknown values for quiz 4 scores whenever the values of the independent variables are known.
 
-Developing this model primarily benefits professors and students. Current professors can identify possible weak topics by identifying topics that yield the lowest quiz scores, reflect on things they did/did not help students, and then devote resources to improving lectures or creating carefully curated tutorials that address topics that students find challenging. Teaching stream professors and future STA302H1 professors would inherit these resources so they can establish reasonable STA302H1 learning goals, thoroughly prepare for more formative lectures, and address common student conceptual pitfalls that undermine student quiz scores.
+Developing this model primarily benefits professors and students. Current professors can identify possible weak topics by identifying topics that yield the lowest quiz scores, reflect on things that help students and things that don't, and then devote resources to improving lectures or creating carefully curated tutorials that address topics that students find challenging. Teaching stream professors and future STA302H1 professors would inherit these resources so they can establish reasonable STA302H1 learning goals, and prepare thoroughly for more formative lectures to target common student conceptual pitfalls that undermine student quiz scores.
 
-When current STA302H1 students understand the most important factors that contribute to high quiz 4 grades, they can develop informed strategies that can help them effectively learn key material and maximize their grades on formative quizzes. Future students can establish reasonable expectations about workload and develop strategies to maximize their time and success in STA302H1 with available resources.
+Current STA302H1 students who understand the most important factors that contribute to high quiz 4 grades can develop informed strategies that can help them effectively learn key material and maximize their grades on major quizzes. Future students can establish reasonable expectations about workload to guide their course enrollment decisions or develop strategies to maximize their time and success in STA302H1 with available resources.
 
 ## Plan for Developing Model
 
-The dataset contained a small number of typos, which were cleaned manually rather than programatically. This included removing the word "hours" to safely cast numeric parts of strings as integers, removing non-Unicode characters like "UTF-098”, and capitalizing "canada" and "china", so that they would be treated the same as the countries "Canada" and "China." 
+The dataset contained a small number of typos, which were cleaned manually rather than programatically. This included removing the word "hours" to safely cast numeric parts of strings as integers, removing non-Unicode characters like "U+00A0”, and capitalizing "canada" and "china" so that they would be treated as the same country as "Canada" and "China."
 To finish off the data cleaning process, similar columns (i.e., COVID times, study times, and quiz scores) were grouped together to make further data analysis more convenient.
 
 ```{r echo = FALSE, message = FALSE}
@@ -128,7 +128,7 @@ rearranged_data <- sta302_performance_data %>%
     # Remove the "Country" column: column "country" already exists
     dplyr::select(-X, -Country) %>%
     
-    # Rearrange similar columns side-by-side.
+    # Rearrange similar columns side-by-side for convenience.
     relocate(country,
              COVID.hours..W1., COVID.hours..W2., COVID.hours..W3., COVID.hours..W4.,
              STA302.hours..W1., STA302.hours..W2., STA302.hours..W3., STA302.hours..W4.,
@@ -145,7 +145,7 @@ row_nums_to_exclude <- get_row_nums_to_exclude(quiz_grades)
 remaining_data = rearranged_data[-row_nums_to_exclude,]
 ```
 
-Students who miss 3 or more quizzes were removed from the original dataset, since they may not have quiz 4 scores available. Additionally, students without Quiz 4 scores were also removed.
+Students who miss 3 or more quizzes were removed from the original dataset, since they may not have quiz 4 scores available.
 
 Due to the fact that influential outliers tend to have high residuals, they will be removed to prevent them from influencing the magnitude and direction of the regression coefficients, as well as the power of the overall power.
 
@@ -153,7 +153,7 @@ Descriptive statistics such as histograms, boxplots, 5-number summaries, and pai
 
 Model diagnostics will be used to verify assumptions of the final model, and address whether or not any variable transformation or variable re-centering is necessary.
 
-Lastly, scholarly research will be consulted to confirm the results and propose ways to improve the final model.
+Lastly, scholarly research will be consulted to confirm this study's results and propose ways to improve the final model.
 
 \newpage
 
