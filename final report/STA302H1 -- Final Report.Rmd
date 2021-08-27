@@ -197,17 +197,17 @@ The following table describes each variable, its meaning, and its type:
     \end{tabular}
 \end{center}
 
-Note that time spent studying for STA302H1 can include lecture time, review time, quiz time, or assignment time.
+Note that time spent studying for STA302H1 can also include the number of hours spent in lecture, writing quizzes, completing assignments, and attending office hours.
 
 ## Histograms
 
-Times spent thinking about COVID-19, study times, and quiz scores among all students were summarized using histograms. The green dotted vertical line represents the mean and the solid blue vertical line represents the median. Seven-number summaries were also included to display meaningful statistics such as the mean, median, minimum, maximum, 1st quartile, 3rd quartile, and the number of NAs. All relevant 7-number summaries can be found in pages 27 - 28 in the appendix.
+Times spent thinking about COVID-19, study times, and quiz scores among all students were summarized using histograms. The green dotted vertical line represents the mean and the solid blue vertical line represents the median. Seven-number summaries were also included to display meaningful statistics such as the mean, median, minimum, maximum, 1st quartile, 3rd quartile, and the number of NAs for each variable. All relevant 7-number summaries can be found in pages 28 - 29 in the appendix.
 
-The histograms for COVID hours during weeks 1 - 4 are all right skewed (mean > median), indicating that a few students tend to spend a lot of time thinking about COVID-19 during the week. The median times spent thinking about COVID-19 remained constant at 1 hour/week across all 4 weeks, however the mean time spent thinking about COVID-19 decreased for the first 3 weeks from a maximum of 3.7 hours in week 1 to a minimum of 2.227 hours in week 3, and increased from week 3 to week 4.
+The histograms for time spent thinking about COVID-19 during weeks 1 - 4 are all right skewed (mean > median), indicating that a few students tend to spend a lot of time thinking about COVID-19 during the week. The median times spent thinking about COVID-19 remained constant at 1 hour/week across all 4 weeks, however the mean time spent thinking about COVID-19 decreased for the first 3 weeks from a maximum of 3.7 hours in week 1 to a minimum of 2.227 hours in week 3, and increased from week 3 to week 4.
 
-The histograms for study hours during weeks 1 - 3 are approximately normal with a few outliers in the right tail. However, study hours week 4 exhibits a right skewed distribution. In fact, the mean study time increased by approximately 23%, and the median study time increased by approximately 44% from week 3 to week 4.
+The histograms for study hours during weeks 1 - 3 are approximately normal with a few outliers in the right tail. However, week 4 study hours exhibit a right skewed distribution. In fact, the mean study time increased by approximately 23%, and the median study time increased by approximately 44% from week 3 to week 4.
 
-The histograms for quiz scores during weeks 1 - 4 are all left skewed (mean < median), as few students tend to underperform on quizzes. The median for weeks 1, 3, and 4 remain at 8/10 points, except for week 3 which had a median of 8.8/10. Week 1 had the smallest difference between mean and median quiz scores (about 0.26/10 points), while week 2 has the largest divide between mean and median quiz scores (about 1.38/10 points).
+The histograms for quiz scores during weeks 1 - 4 are all left skewed (mean < median), as few students tend to underperform on quizzes. The median for weeks 1, 3, and 4 remain at 8/10 points, except for week 3 which had a median of 8.8/10 points. Week 1 had the smallest difference between mean and median quiz scores (about 0.26/10 points), while week 2 has the largest divide between mean and median quiz scores (about 1.38/10 points).
 
 \newpage
 
@@ -281,13 +281,13 @@ grid.arrange(quiz3_histogram, quiz4_histogram)
 
 ## Boxplots
 
-Side-by-side boxplots were used to compare COVID-19 times, study times, and quiz scores among students from all countries.
+Side-by-side boxplots were used to compare time spent thinking about COVID-19, time spent studying for STA302H1, and quiz scores among students from all countries across 4 weeks. Because the boxplots representing times spent thinking about COVID-19 contain extreme outliers, 2 additional boxplots were provided to view both the extreme outliers and the moderate outliers.
 
-All 4 weeks contain outliers, although week 1 had the largest outliers: two students thought about COVID-19 for 168 and 84 hours. Among all students, weeks 1 - 3 median COVID times were approximately 1 hour with a slightly increased median COVID time of around 1.5 hours from week 3 to week 4. The spread (IQR) of COVID times were both 1 hour for weeks 1 and 3, although there is more spread in week 3 (1.5 hours), and week 4 has the largest spread (2 hours).
+All 4 weeks of times spent thinking about COVID-19 contain outliers, although week 1 had the largest outliers: two students thought about COVID-19 for 168 and 84 hours. Among all students, week 1 - 3 median COVID times were approximately 1 hour with a slightly increased median COVID time of around 1.5 hours from week 3 to week 4. The spread (IQR) of COVID times were both 1 hour for weeks 1 and 3, although there is more spread in week 3 (1.5 hours), and week 4 has the largest spread (2 hours).
 
-Although all 4 weeks contained outliers, week 4 has outliers ranging from a median study time of 30 - 70 hours. The median amount of study time steadily increased from 7 hours to 9 hours in weeks 1 - 3, with a noticeable increase in median study time from 9 hours to 11 hours from week 3 to week 4. Median study times had similar spreads (IQR) of 4 hours for weeks 1 and 2, but there is more spread in week 3 (6 hours), and even larger spread in week 4 (9 hours).
+Although all 4 weeks contained outliers, week 4 STA302H1 study times have outliers ranging from a median STA302H1 study time of 30 - 70 hours. The median amount of STA302H1 study time steadily increased from 7 hours to 9 hours in weeks 1 - 3, with a noticeable increase in median study time from 9 hours to 11 hours from week 3 to week 4. Median study times had similar spreads (IQR) of 4 hours for weeks 1 and 2, but there is more spread in week 3 (6 hours), and even larger spread in week 4 (9 hours).
 
-Median quiz 1 scores have the most outliers, although they are milder than the single quiz 2 outlier which displays the lowest quiz 2 score (1/10). Quizzes 1, 3, and 4 has similar median quiz scores of 8/10, with week 2 having the highest median quiz score of 8.8/10. Weeks 2 and 3 have similarly large spreads (IQRs of 3.6 and 4 point gaps), though week 1 has the smallest spread. Week 4 quiz scores are the least skewed.
+Median quiz 1 scores have the most outliers, although they are milder than the single quiz 2 outlier which displays the lowest quiz 2 score (1/10). Quizzes 1, 3, and 4 has similar median quiz scores of 8/10, with quiz 2 having the highest median quiz score of 8.8/10. Quizzes 2 and 3 have similarly large spreads (IQRs of 3.6 and 4 point gaps), though quiz 1 has the smallest spread (2 point gap). Week 4 quiz scores are the least skewed.
 
 ```{r echo = FALSE, warning = FALSE}
 boxplot(remaining_data$COVID.hours..W1., remaining_data$COVID.hours..W2.,
@@ -333,13 +333,13 @@ boxplot(remaining_data$Quiz_1_score, remaining_data$Quiz_2_score,
 
 ## Pairwise Scatterplots
 
-Pairwise scatterplots were created to observe the relationships between all combinations of variables, especially between the response variable and the explanatory variables. Since the pairs scatterplot were symmetric along its main diagonal, the bottom half of the pairs scatterplot could be safely omitted.
+Pairwise scatterplots were created to observe the relationships between all combinations of variables, especially between the response variable (quiz 4 scores) and the explanatory variables.
 
 ```{R echo = FALSE, warning = FALSE}
 pairs(~ COVID.hours..W1. + COVID.hours..W2. + COVID.hours..W3. + COVID.hours..W4. 
       + STA302.hours..W1. + STA302.hours..W2. + STA302.hours..W3. + STA302.hours..W4. 
       + Quiz_1_score + Quiz_2_score + Quiz_3_score + Quiz_4_score,
-      data = remaining_data, lower.panel = NULL)
+      data = remaining_data, upper.panel = NULL)
 ```
 
 ```{R echo = FALSE, warning = FALSE}
@@ -357,10 +357,12 @@ pairs(~ Quiz_4_score + STA302.hours..W1. + STA302.hours..W2.
       + STA302.hours..W3. + STA302.hours..W4., lower.panel = NULL)
 ```
 
+\newpage
+
 ## Correlation Matrix
 
 A correlation matrix was constructed to determine the correlations of each pair of variables in the dataset.
-Since the correlation matrices for underrepresented countries (i.e. every country except Canada, China, and NA) contained a lot of NA or $\pm 1$ entries, it made more sense to use the correlation matrix for all countries.
+Since the correlation matrices for underrepresented countries (e.g., India, Japan) contained a lot of NA or $\pm 1$ entries, only the correlation matrix for all countries was used.
 A correlation between 0.0 - 0.3 is considered low, 0.3 - 0.5 is moderate, and 0.5 - 1.0 is high. The correlation matrix can be found on pages 28 - 29 in the appendix.
 
 \newpage
