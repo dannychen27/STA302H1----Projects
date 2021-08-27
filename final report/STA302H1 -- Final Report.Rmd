@@ -741,8 +741,6 @@ The t-test results showed that the $p$-value is 0.7938, which means that we fail
 
 Therefore, we've shown that our linear model is a reasonable model.
 
-\newpage
-
 ## Checking for Influential Outliers
 
 <!-- Equivalent: -->
@@ -751,16 +749,58 @@ Therefore, we've shown that our linear model is a reasonable model.
 
 The residuals vs. leverage plot was used to check for the presence of influential data points. There are no points in the upper right and lower right quadrants of the residuals vs. leverage plot. Even though there is a point sitting directly on the Cook's distance boundary but not too far away from the Cook's distance boundary, no influential outliers exist that could undermine the predictability of the final model.
 
-## Any Variable Transformation?
+## Any Variable Transformation Necessary?
 
 No variable transformations were performed on the final model because the error terms are independent, homoscedastic, and approximately normal.
 
-## Any or Recentering Necessary?
+## Any Variable Recentering Necessary?
 
-No variable re-centering was required since only a few entries in the correlation matrix have high correlation. Most of the entries in the correlation matrix had low to moderate correlation, so re-centering variables likely has negligible effect on the correlation matrix.
+No variable re-centering was required because informal diagnostics revealed significant t-values for important predictor variables (e.g., \texttt{quiz3}, \texttt{covid1 * covid2}, \texttt{covid3 * covid4}). All regression coefficients had small standard errors, and the signs of all regression coefficients agreed with the intuition formalized about quiz scores, COVID-19 times, and study times: the 2nd last quiz is the most reflective of final quiz scores, an initial downward trend in time spent thinking about COVID-19 in weeks 2 and 3 followed by an upward trend from week 3 to week 4, and studying consecutive weeks is beneficial.
 
-(TODO: Correlation matrix of final model.)
-(TODO: VIF for multicollinearity.)
+<!-- - significant t-values for important predictor variables -->
+<!-- - Small standard error of the regression coefficients -->
+<!-- - No estimated regression coefficients had an opposite sign of that expected from theoretical considerations or prior experience, for instance -->
+<!-- - agrees with our intuition about initial COVID shock + downward trend followed up upward trend. -->
+
+<!-- (TODO: VIF for multicollinearity.) -->
+
+<!-- ```{R results = "hide", echo = FALSE, message = FALSE, warning = FALSE} -->
+<!-- VIF = vif(final_model) -->
+<!-- VIF -->
+<!-- ``` -->
+
+<!-- - I(covid1 ^ 2) -->
+<!-- - I(covid1 * covid2) -->
+<!-- - I(study1 * study2) -->
+<!-- - I(study1 * study3) -->
+
+<!-- ```{r} -->
+<!-- VIFbar <- mean(VIF) -->
+<!-- VIFbar -->
+<!-- ``` -->
+
+<!-- ```{R} -->
+<!-- simple_model = lm( -->
+<!--   quiz4 ~ quiz3 + I(covid2 * covid3) + I(study2 * study3) + I(study3 * study4) -->
+<!-- ) -->
+<!-- VIF <- vif(simple_model) -->
+<!-- VIF -->
+<!-- mean(VIF) -->
+<!-- ``` -->
+
+<!-- ```{r} -->
+<!-- summary(simple_model) -->
+<!-- ``` -->
+
+<!-- ```{r} -->
+<!-- # variable recentering -->
+<!-- ``` -->
+
+<!-- (TODO: Correlation matrix of final model.) -->
+
+<!-- ```{r} -->
+<!-- # correlation matrix of recentered model -->
+<!-- ``` -->
 
 \newpage
 
