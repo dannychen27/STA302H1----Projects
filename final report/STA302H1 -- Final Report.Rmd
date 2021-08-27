@@ -638,7 +638,7 @@ hist(lm(final_model)$residuals,
 
 ### 55/45 Training/Testing Split
 
-Out of $n = 142$ data points, I want to use 55% of the data points to train my linear model, and the remaining 45% to try to predict new values and create a new distribution to see if the mean of this new distribution is close to 0.
+Obtaining an independent dataset is infeasible, and the existing dataset has sufficiently many data points ($n = 143$ after removing all NAs). Therefore, it is possible to use 55% of the dataset to develop a regression model and the remaining 45% of the dataset to validate the trained model.
 
 ```{r echo = FALSE}
 set.seed(888)
