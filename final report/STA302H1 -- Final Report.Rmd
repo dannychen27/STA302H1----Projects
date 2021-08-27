@@ -154,15 +154,11 @@ Students who miss 3 or more quizzes were removed from the original dataset, sinc
 
 Due to the fact that influential outliers tend to have high residuals, they will be removed to prevent them from influencing the magnitude and direction of the regression coefficients, as well as the power of the overall power.
 
-(TODO: Add influential outlier checks later on.)
-
 Descriptive statistics such as histograms, boxplots, 5-number summaries, and pairs scatterplots will be created to reveal useful relationships that will help to inform the model selection.
 
 Model diagnostics will be used to verify assumptions of the final model, and address whether or not any variable transformation or variable re-centering is necessary.
 
 Lastly, scholarly research will be consulted to confirm the results and propose ways to improve the final model.
-
-(TODO: Consult scholarly research.)
 
 \newpage
 
