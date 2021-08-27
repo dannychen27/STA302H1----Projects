@@ -538,11 +538,11 @@ tbl_regression(final_model, exponentiate = FALSE)
 
 # Model Diagnostics
 
-## Checking for Proper Functional Form of Model
+## Model Validity
 
 To show that a quadratic relationship for the final model is valid, the following assumptions must hold.
 
-### Assumption 1. Quadratic Relationship
+### Assumption 1. Quadratic Functional Form
 
 <!-- Want to show: -->
 <!-- - the residual plot of quiz 4 vs. covid1 displays quadratic relationship DONE!  -->
@@ -635,27 +635,7 @@ hist(lm(final_model)$residuals,
 
 \newpage
 
-To validate my linear model, I decided to use a 55/45 training-testing strategy, as well as perform a t-test for significance.
-
-## Checking for Influential Outliers
-
-First, influential outliers were identified in the original dataset using (what method?)
-
-(TODO: Use Cook’s distance and leverage points to find influential outliers?) \newline
-(TODO: Use VIF method to find influential outliers?) \newline
-(TODO: Use DDFITS, DDBETA to find influential outliers?)
-
-Notice that there are no influential outliers because no points outside of cook's distance in upper right and lower left quadrants of plot, so there are no points to remove.
-
-## Any Variable Transformation?
-
-No variable transformations were performed on the final model because the error terms are independent, homoscedastic, and approximately normal. 
-
-## Any or Recentering Necessary?
-
-No variable re-centering was required since only a few entries in the correlation matrix have high correlation. Most of the entries in the correlation matrix had low to moderate correlation, so re-centering variables likely has negligible effect on the correlation matrix.
-
-## 55/45 Training/Testing Split
+### 55/45 Training/Testing Split
 
 Out of $n = 142$ data points, I want to use 55% of the data points to train my linear model, and the remaining 45% to try to predict new values and create a new distribution to see if the mean of this new distribution is close to 0.
 
@@ -746,7 +726,7 @@ median(predicted_values - actual_values)
 
 Moreover, the histogram of residuals looks approximately symmetric, with the mean of this new distribution being $-0.2102$ (see figure X in appendix). To be sure, since there are $n = 142$ points, the central limit theorem states that the sample mean is approximately normally distributed.
 
-## T-test for significance 
+### T-test for significance 
 
 For our t-test, we hypothesized that the mean of residuals was identically equal to 0. More formally,
 
@@ -759,6 +739,33 @@ The t-test results showed that the $p$-value is 0.7938, which means that we fail
 (TODO: See figure X in appendix for t-test output.)
 
 Therefore, we've shown that our linear model is a reasonable model.
+
+\newpage
+
+To validate my linear model, I decided to use a 55/45 training-testing strategy, as well as perform a t-test for significance.
+
+## Checking for Influential Outliers
+
+First, influential outliers were identified in the original dataset using (what method?)
+
+(TODO: Use Cook’s distance and leverage points to find influential outliers?) \newline
+(TODO: Use VIF method to find influential outliers?) \newline
+(TODO: Use DDFITS, DDBETA to find influential outliers?)
+
+Notice that there are no influential outliers because no points outside of cook's distance in upper right and lower left quadrants of plot, so there are no points to remove.
+
+
+
+## Any Variable Transformation?
+
+No variable transformations were performed on the final model because the error terms are independent, homoscedastic, and approximately normal.
+
+## Any or Recentering Necessary?
+
+No variable re-centering was required since only a few entries in the correlation matrix have high correlation. Most of the entries in the correlation matrix had low to moderate correlation, so re-centering variables likely has negligible effect on the correlation matrix.
+
+(TODO: Correlation matrix of final model.)
+(TODO: VIF for multicollinearity.)
 
 \newpage
 
