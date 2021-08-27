@@ -675,12 +675,10 @@ Recall that the purpose of the model is to see whether previous quiz scores, tim
 
 The final model suggests a strong evidence of a statistically significant positive relationship between quiz 3 scores and quiz 4 scores. However, week 1 COVID-19 times have a statistically significant positive quadratic relationship with quiz 4 scores. Also, there is an significant negative interaction effect between weeks 1 - 2 COVID-19 times and quiz 4 performance.
 
-Gonzalez et al. (2020) conducts a similar study that shows taking an online course during COVID-19 can boost overall quiz performance at the beginning of the term, which are consistent with this study.
+Gonzalez et al. (2020) conducts a similar study that shows taking an online course during COVID-19 can boost overall quiz performance at the beginning of the term, which is consistent with the results of this study.
 
 This study finds that if students were to study for consecutive weeks, 
 all else being equal, the effect of studying for the first 2 weeks (week 1 to week 2) would negatively influence their quiz 4 grades. But the effect of studying for the next two weeks (week 2 to week 3) benefits their quiz 4 performance. However, when students study in the last 2 weeks (week 3 to week 4), their quiz 4 performance tends to drops off. 
-
-
 
 Usually quizzes increase in difficulty as the semester progresses. Therefore, quiz 3 is more likely to be closer in difficulty and style to quiz 4. Students were better informed about how many decimal places they should round their final answers to from Quizzes 1 and 2, so they are less likely to make mistakes on numerical questions. Students might expect more challenging quizzes in later weeks and decide to ramp up their study efforts.
 
@@ -688,29 +686,28 @@ Although STA302H1 studying increases throughout the semester, the final model su
 
 ## Generalizability of Model
 
-This model is not generalizable since the study applies to online courses only. Students may enroll in online courses from various time zones, as opposed to a standardized time zone for in person courses.
+This model is not generalizable since the study applies to online courses only. Students may enroll in online courses from various time zones, as opposed to a standardized time zone for in-person courses.
 
 ## Remaining Limitations and Problems with Model
 
 This model does not include variables such as anxiety levels, the number of hours students sleep, and the number of hours students participate in physical activity.
 
-Various studies have shown that these variables have an impact on final performance, so including them in the model would provide more insight and potentially help improve the predictive power of the existing model. For example, Taras et al. (2009) demonstrates a moderate positive relationship between short-term physical activity and quiz performance.
-
 The final dataset excluded 28 STA302H1 dropped students, and some blank entries remained for missing survey responses, and missing quiz scores remained due to some students missing quizzes.
 
-Another limitation is that quiz scores are ordinal (and not continuous), and therefore not amenable to simple linear regression. Instead, generalized linear models are required to a perform proper statistical analysis.
+Quiz scores are ordinal (and not continuous), and therefore not amenable to simple linear regression. Instead, generalized linear models are required to a perform proper statistical analysis.
 
-The survey assumed the common definition of "study" which involves only time reviewing lectures, instead of using the expanded definition of "study" which involves engaging in STA302H1-related activities such as the number of hours spent completing assignments, writing quizzes, attending office hours, or even listening to statistics-related podcasts. This oversight may have resulted in some students underreporting the number of hours spent studying for STA302H1.
+The survey assumed the common definition of "study" which involves only time reviewing lectures, instead of using the expanded definition of "study" which involves engaging in STA302H1-related activities such as the number of hours spent completing assignments, writing quizzes, attending office hours, or even listening to statistics-related podcasts. This oversight may have resulted in some students under-reporting the number of hours spent studying for STA302H1.
 
-Despite these limitations, further research may help inform us on benefits of study and COVID-19 contemplation times vs. quiz scores.
+Despite these limitations, further research may help inform us on the benefits of study and COVID-19 contemplation times vs. quiz scores.
 
 ## Proposed Improvements with Model
 
 One way to improve the model is to introduce composite variables in the model, such as a student happiness index as a function of a student's anxiety levels, COVID-19 contemplation time, and physical activity.
 
-Another improvement is to use empirical research to propose some more new terms to improve model.
+Another improvement is to use empirical research to propose some more new terms to improve model. Various studies have shown that these variables have an impact on final performance, so including them in the model would provide more insight and potentially improve the predictive power of the existing model. For example, Taras et al. (2009) demonstrates a moderate positive relationship between short-term physical activity and quiz performance.
 
-Another improvement to this model is to take the median of a student's 1 - 3 quizzes that they wrote, the median of a student's 1 - 4 COVID hours they report, and the median of a student's 1 - 4 study hours they report. Using the median as opposed to the mean makes these values less prone to skewness, and even smaller residuals since medians are more reliable statistic than mean.
+Because quiz scores are known to be left skewed; times spent studying for STA302H1, and thinking about COVID-19 are known to be right skewed, the median of all available quiz scores, COVID-19 times, and study times can be used instead of the mean to make them less prone to the effects of the skewness.
+This could further reduce the residuals, as the median are more reliable statistic than mean.
 
 \newpage
 
