@@ -388,7 +388,7 @@ Pairs of covariates, as well as response variable-covariate combinations from th
 The initial model was fitted using \texttt{quiz4} as the response variable; and \texttt{quiz1}, \texttt{quiz2}, \texttt{quiz3}, \texttt{covid1}, \texttt{covid2}, \texttt{covid3}, \texttt{covid4}, (including 3 quadratic terms 8 interaction terms), and \texttt{country} as predictor variables. However, only the predictor variables \texttt{quiz3}, \texttt{I(covid1 ** 2)}, \texttt{I(covid2 ** 2)}, \texttt{I(covid1 * covid2)}, and \texttt{I(study1 * study2)} were significant at the 5% significance level. The global $F$-statistic value is 3.098, and the global $p$-value is approximately $1.436 \times 10 ^ {-5}$. The residual standard error is 1.582. The multiple $R ^ 2$ value is 0.4211 and the adjusted $R ^ 2$ value of 0.2851. The R output of the initial model can be found on page 31 of the appendix.
 
 ```{r warning = FALSE, echo = FALSE, message = FALSE}
-remaining_data_no_NAs = na.omit(remaining_data)
+remaining_data_no_NAs = na.exclude(remaining_data)
 
 quiz1 = remaining_data_no_NAs$Quiz_1_score
 quiz2 = remaining_data_no_NAs$Quiz_2_score
@@ -481,22 +481,22 @@ tbl_regression(final_model, exponentiate = FALSE)
 
 ## Model Validity
 
-To show that a quadratic relationship for the final model is valid, the following assumptions must hold.
+To show that a quadratic relationship for the final model is valid, the 4 model assumptions will be verified, the dataset will be divided into a training and testing set, and a $t$-test for the residual will be performed.
 
 ### Assumption 1. Quadratic Functional Form
 
-Since the quiz 4 vs. covid1 scatterplot on page 11 indicates a moderate quadratic relationship between the variable, and the residual vs. covid1 plot for the fitted model is random, the final model has a quadratic relationship.
+Since the quiz 4 score vs. week 1 COVID-19 scatterplot on page 11 indicates a moderate quadratic relationship between the variable, and the residual vs. week 1 COVID-19 plot for the fitted model is random, the proper functional form for the final model is indeed quadratic.
 
 ```{r echo = FALSE}
 display_residual_plot(remaining_data_no_NAs, final_model, covid1, "covid1") + 
-  facet_zoom(xlim = c(0, 10))  # try upper limit = 30
+  facet_zoom(xlim = c(0, 10))  # true upper limit = 30
 ```
 
 \newpage
 
 ### Assumption 2. Independence of Errors
 
-From above, the residual vs. covid1 plot for the fitted model show no discernible relationship, and neither do the residual plots for the other predictor variables (ingoring all outliers). The dataset comes from a random sample, so the error terms must be independent.
+From above, the residual plot for week 1 COVID-19 times for the fitted model show no discernible relationship, and neither do the residual plots for the other predictor variables (ignoring all outliers). Additionally, the dataset comes from a random sample, so the error terms must be independent.
 
 ```{r echo = FALSE}
 display_residual_plot(remaining_data_no_NAs, final_model, quiz3, "quiz3")
@@ -504,12 +504,12 @@ display_residual_plot(remaining_data_no_NAs, final_model, quiz3, "quiz3")
 
 ```{r echo = FALSE}
 display_residual_plot(remaining_data_no_NAs, final_model, covid1 ^ 2, "covid1 ^ 2") + 
-  facet_zoom(xlim = c(0, 10))  # try upper limit = 70
+  facet_zoom(xlim = c(0, 10))  # true upper limit = 70
 ```
 
 ```{r echo = FALSE}
 display_residual_plot(remaining_data_no_NAs, final_model, covid1 * covid2, "covid1 * covid2") + 
-  facet_zoom(xlim = c(0, 50))  # try upper limit = 100
+  facet_zoom(xlim = c(0, 50))  # true upper limit = 100
 ```
 
 ```{r echo = FALSE}
@@ -536,18 +536,14 @@ display_residual_plot(remaining_data_no_NAs, final_model, study3 * study4, "stud
 
 ### Assumption 3. Homoscedasticity (constant variance)
 
-<!-- Want to show: -->
-<!-- - scale-location model has straight line with randomly spread points -->
-<!-- - residual vs. fitted model show equally spread residuals around horizontal line -->
-
-The scale-location model appears to have a straight horizontal line with randomly spread points, and the residual vs. fitted model show equally spread residuals around the horizontal line. Additionally, the residual plots for all predictor variables do not show any trend as fits increase. Therefore, the errors terms have constant variance.
+The scale-location model on page 23 appears to have a straight horizontal line with randomly spread points, and the residual vs. fitted model show equally spread residuals around the horizontal line. Additionally, the residual plots for all predictor variables on pages 17 - 21 do not show any trend as fits increase. Therefore, the errors terms have constant variance.
 
 ### Assumption 4. Normality of Error
 
-Almost all of the points in the middle follow the QQplot line very closely, except for the last 2 points in the right-tail which is only a little bit right-skewed.
-By inspection, the histograms of residuals for the final model looks approximately normal. Therefore, the error terms are approximately normal.
+Almost all of the points in the middle follow the QQplot line very closely in the QQplot on page 23, except for the last 2 points in the right-tail which is only a little bit right-skewed.
+By inspection, the histograms of residuals for the final model on page 24 looks approximately normal. Therefore, the error terms are approximately normal.
 
-Hence, our model satisfies the assumptions for a quadratic model.
+Hence, the final model satisfies the assumptions for a quadratic model.
 
 ```{r echo = FALSE, warning = FALSE}
 plot(final_model)
@@ -566,7 +562,8 @@ hist(lm(final_model)$residuals,
 
 Obtaining an independent dataset is infeasible, and the existing dataset has sufficiently many data points ($n = 143$ after removing all NAs). Therefore, it is possible to use 55% of the dataset to develop a regression model and the remaining 45% of the dataset to validate the trained model.
 
-The mean of the residuals of the trained dataset was $-3.7153 \times 10^{-17}$, which is approximately 0. This indicates that the model has high predictive power.
+The mean of the residuals of the test model was $-3.715 \times 10 ^ {-17}$, which is approximately 0. See page 32 in the appendix for the corresponding R output.
+This indicates that the final model has high predictive power.
 
 ```{r echo = FALSE}
 set.seed(888)
@@ -576,7 +573,7 @@ testing_data  = subset(remaining_data_no_NAs, sample == FALSE)
 ```
 
 ```{r echo = FALSE}
-training_data_no_NAs = na.omit(training_data)
+training_data_no_NAs = na.exclude(training_data)
 
 quiz1 = training_data_no_NAs$Quiz_1_score
 quiz2 = training_data_no_NAs$Quiz_2_score
@@ -598,14 +595,14 @@ country = training_data_no_NAs$country
 
 ```{r echo = FALSE, results = "hide"}
 training_model = lm(
-  quiz4 ~ quiz3
+  quiz4 ~ quiz3  # don't remove, else all other terms become insignificant
   + I(covid1 ^ 2)   # don't remove, else all other terms become insignificant
-  + I(covid1 * covid2) 
+  + I(covid1 * covid2)  # don't remove, else all other terms become insignificant
   + I(covid2 * covid3)  # don't remove, else all other terms become insignificant
-  + I(study1 * study2) 
-  + I(study1 * study3)  # maybe don't remove?
-  + I(study2 * study3) 
-  + I(study3 * study4)
+  + I(study1 * study2)  # don't remove, else all other terms become insignificant
+  + I(study1 * study3)  # don't remove, else all other terms become insignificant
+  + I(study2 * study3)  # don't remove, else all other terms become insignificant
+  + I(study3 * study4)  # don't remove, else all other terms become insignificant
 )
 summary(training_model)
 ```
@@ -615,7 +612,7 @@ mean(training_model$residuals)
 ```
 
 ```{r echo = FALSE, results = "hide"}
-testing_data_no_NAs = na.omit(testing_data)
+testing_data_no_NAs = na.exclude(testing_data)
 
 quiz1 = testing_data_no_NAs$Quiz_1_score
 quiz2 = testing_data_no_NAs$Quiz_2_score
@@ -637,36 +634,32 @@ country = testing_data_no_NAs$country
 
 ```{r echo = FALSE, results = "hide"}
 test_model = lm(
-  quiz4 ~ quiz3
+  quiz4 ~ quiz3  # don't remove, else all other terms become insignificant
   + I(covid1 ^ 2)   # don't remove, else all other terms become insignificant
-  + I(covid1 * covid2) 
+  + I(covid1 * covid2)  # don't remove, else all other terms become insignificant
   + I(covid2 * covid3)  # don't remove, else all other terms become insignificant
-  + I(study1 * study2) 
-  + I(study1 * study3)  # maybe don't remove?
-  + I(study2 * study3) 
-  + I(study3 * study4)
+  + I(study1 * study2)  # don't remove, else all other terms become insignificant
+  + I(study1 * study3)  # don't remove, else all other terms become insignificant
+  + I(study2 * study3)  # don't remove, else all other terms become insignificant
+  + I(study3 * study4)  # don't remove, else all other terms become insignificant
 )
 summary(test_model)
 ```
 
-```{R echo = FALSE, results = "hide"}
-mean(test_model$residuals)
-```
+### $t$-test for significance 
 
-### T-test for significance 
-
-For our t-test, we hypothesized that the mean of residuals was identically equal to 0. More formally,
+For our $t$-test, the mean of the residuals was hypothesized to be identically equal to 0. More formally,
 
 - $H_0: \mu_{residuals} = 0$
 - $H_1: \mu_{residuals} \neq 0$
 
-The t-test results showed that the $p$-value is 0.7938, which means that we fail to reject $H_0$, meaning that $\mu_{residuals} = 0$ holds. The 95% confidence interval for the mean of residuals is $(-0.4510668, 0.3462948)$, and since $0 \in (-0.4510668, 0.3462948)$, we again fail to reject $H_0$ and conclude that $\mu_{residuals} = 0$. See page 30 for t-test output.
+The $t$-test results showed that the $p$-value is 1, which means $H_0$ fails to be rejected, meaning that $\mu_{residuals} = 0$ holds. Since 0 falls inside the 95% confidence interval for the mean of residuals of $(-0.3887752, 0.3887752)$, the $H_0$ fails to be rejected. Therefore, $\mu_{residuals} = 0$. See page 32 for $t$-test output.
 
-Therefore, we've shown that our linear model is a reasonable model.
+Therefore, it is sensible to use a quadratic model.
 
 ## Checking for Influential Outliers
 
-The residuals vs. leverage plot was used to check for the presence of influential data points. There are no points in the upper right and lower right quadrants of the residuals vs. leverage plot. Even though there is a point sitting directly on the Cook's distance boundary but not too far away from the Cook's distance boundary, no influential outliers exist that could undermine the predictability of the final model.
+The residuals vs. leverage plot on page 24 was used to check for the presence of influential data points. There are no points in the upper right and lower right quadrants of the residuals vs. leverage plot. Even though there is a point sitting directly on the Cook's distance boundary but not too far away from the Cook's distance boundary, no influential outliers exist that could undermine the predictability of the final model.
 
 ## Any Variable Transformation Necessary?
 
@@ -674,7 +667,7 @@ No variable transformations were performed on the final model because the error 
 
 ## Any Variable Recentering Necessary?
 
-No variable re-centering was required because informal diagnostics revealed significant t-values for important predictor variables (e.g., \texttt{quiz3}, \texttt{covid1 * covid2}, \texttt{covid3 * covid4}). All regression coefficients had small standard errors, and the signs of all regression coefficients agreed with the intuition formalized about quiz scores, COVID-19 times, and study times: the 2nd last quiz is the most reflective of final quiz scores, an initial downward trend in time spent thinking about COVID-19 in weeks 2 and 3 followed by an upward trend from week 3 to week 4, and studying consecutive weeks is beneficial.
+No variable re-centering was required because informal diagnostics revealed significant $t$-values for important predictor variables (e.g., \texttt{quiz3}, \texttt{covid1 * covid2}, \texttt{covid3 * covid4}) in the final model's summary statistics, shown on page 32 in the appendix. All regression coefficients had small standard errors, and the signs of all regression coefficients agreed with the intuition formalized about quiz scores, COVID-19 times, and study times in the exploratory data analysis section: the 2nd last quiz is the most reflective of final quiz scores, an initial downward trend in time spent thinking about COVID-19 in weeks 2 and 3 followed by an upward trend from week 3 to week 4, and studying consecutive weeks is beneficial.
 
 \newpage
 
@@ -869,6 +862,10 @@ summary(first_model)
 
 ```{r}
 summary(final_model)
+```
+
+```{R}
+mean(test_model$residuals)
 ```
 
 ```{R}
