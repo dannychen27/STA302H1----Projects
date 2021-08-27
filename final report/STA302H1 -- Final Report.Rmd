@@ -363,7 +363,7 @@ pairs(~ Quiz_4_score + STA302.hours..W1. + STA302.hours..W2.
 
 A correlation matrix was constructed to determine the correlations of each pair of variables in the dataset.
 Since the correlation matrices for underrepresented countries (e.g., every country except for Canada, China, and NA) contained a lot of NA or $\pm 1$ entries, only the correlation matrix for all countries was used.
-The table on page 29 in the appendix showing the sample size of every country in this study also suggests that the correlation matrices for individual countries should not be used, as the correlation matrix of all countries is based on more data than the correlation matrices of individual countries combined.
+The table on page 30 in the appendix showing the sample size of every country in this study also suggests that the correlation matrices for individual countries should not be used, as the correlation matrix of all countries is based on more data than the correlation matrices of individual countries combined.
 A correlation between 0.0 - 0.3 is considered low, 0.3 - 0.5 is moderate, and 0.5 - 1.0 is high. The correlation matrix of all countries can be found on pages 28 - 29 in the appendix.
 
 \newpage
@@ -376,8 +376,7 @@ Simpler (e.g., linear, quadratic) relationships were prioritized over more compl
 
 The non-interactive covariate terms were determined by examining the pairs scatterplots for quiz 4 scores regressed on quiz 1 - 3 scores, weeks 1 - 4 COVID-19 times, and weeks 1 - 4 STA302H1 study times to hypothesize a relationship between quiz 4 scores and each predictor variable.
 
-The weeks 1 - 4 COVID times vs. quiz 4 scatterplots show a moderate quadratic relationship between quiz 4 scores and weeks 1 - 4 COVID times (except for week 3 COVID, which seems to have a stronger linear relationship than a quadratic relationship). Therefore, both the linear and quadratic terms for weeks 1, 2, and 4 COVID times (i.e., \texttt{covid1}, \texttt{covid1 ** 2}, 
-\texttt{covid2}, \texttt{covid2 ** 2}, \texttt{covid4}, and \texttt{covid4 ** 2} -- along with \texttt{covid3} only) were included in the initial model.
+The weeks 1 - 4 COVID-19 times vs. quiz 4 scatterplots show a moderate quadratic relationship between quiz 4 scores and weeks 1 - 4 COVID-19 times (except for week 3 COVID-19, which seems to have a stronger linear relationship than a quadratic relationship). Therefore, both the linear and quadratic terms for weeks 1, 2, and 4 COVID-19 times (i.e., \texttt{covid1}, \texttt{covid1 ** 2}, \texttt{covid2}, \texttt{covid2 ** 2}, \texttt{covid4}, and \texttt{covid4 ** 2} -- along with \texttt{covid3} only) were included in the initial model.
 
 Further analysis indicates that there is a possibly moderate linear relationship between quiz 4 scores and weeks 1 - 4 study times. Therefore, only the linear terms for weeks 1 - 4 study times (i.e., \texttt{study1}, \texttt{study2}, \texttt{study3}, and \texttt{study4}) were included in the model.
 
@@ -387,7 +386,7 @@ Pairs of covariates, as well as response variable-covariate combinations from th
 
 \newpage
 
-The initial model was fitted using \texttt{quiz4} as the response variable; and \texttt{quiz1}, \texttt{quiz2}, \texttt{quiz3}, \texttt{covid1}, \texttt{covid2}, \texttt{covid3}, \texttt{covid4}, (including 3 quadratic terms 8 interaction terms), and \texttt{country} as predictor variables. However, only the predictor variables \texttt{quiz3}, \texttt{I(covid1 ** 2)}, \texttt{I(covid2 ** 2)}, \texttt{I(covid1 * covid2)}, and \texttt{I(study1 * study2)} were significant at the 5% significance level. The global F-statistic value is 3.098, and the global p-value is approximately $1.436 \times 10^{-5}$. The residual standard error is 1.582. The multiple $R ^ 2$ value is 0.4211 and the adjusted $R ^ 2$ value of 0.2851. The R output of the initial model can be found on page 29 of the appendix.
+The initial model was fitted using \texttt{quiz4} as the response variable; and \texttt{quiz1}, \texttt{quiz2}, \texttt{quiz3}, \texttt{covid1}, \texttt{covid2}, \texttt{covid3}, \texttt{covid4}, (including 3 quadratic terms 8 interaction terms), and \texttt{country} as predictor variables. However, only the predictor variables \texttt{quiz3}, \texttt{I(covid1 ** 2)}, \texttt{I(covid2 ** 2)}, \texttt{I(covid1 * covid2)}, and \texttt{I(study1 * study2)} were significant at the 5% significance level. The global $F$-statistic value is 3.098, and the global $p$-value is approximately $1.436 \times 10^{-5}$. The residual standard error is 1.582. The multiple $R ^ 2$ value is 0.4211 and the adjusted $R ^ 2$ value of 0.2851. The R output of the initial model can be found on page 31 of the appendix.
 
 ```{r warning = FALSE, echo = FALSE, message = FALSE}
 remaining_data_no_NAs = na.omit(remaining_data)
@@ -449,7 +448,7 @@ To refine the original model, backwards selection was used to remove insignifica
 
 The final model has \texttt{quiz4} as the response variable; \texttt{quiz3}, the quadratic term \texttt{I(covid1 ** 2)}, and the interaction terms \texttt{I(covid1 * covid2)}, \texttt{I(covid2 * covid3)}, \texttt{study1 * study2}, \texttt{study1 * study3}, \texttt{study2 * study3}, \texttt{study3 * study4} as the predictor variables. Out of all of the predictors variables in the final model, only the predictor variables \texttt{quiz3}, \texttt{I(covid1 ** 2}, \texttt{I(covid1 * covid2)}, \texttt{I(study1 * study2)}, \texttt{I(study2 * study3)}, and \texttt{I(study3 * study4)} are significant at the 5% significance level. The global F-statistic value increased to 8.764, the global $p$-value increased to $1.374 \times 10^{-9}$. The residual standard error decreased marginally to 1.561. Even though the multiple $R ^ 2$ value dropped significantly to 0.3435, the adjusted $R ^ 2$ value increase slightly to 0.3043 -- there is a smaller difference between the $R ^ 2$ value and the adjusted $R ^ 2$ value in the final model than the original model. The coefficient of 0.499110 for \texttt{quiz3} suggests that for every 1 point increase in quiz 3, there is an increase in quiz 4 grades by about 0.50/10 points. There also exists a quadratic relationship between variables \texttt{covid1} and \texttt{quiz4}, as well as an interaction effect between \texttt{covid1} and \texttt{covid2}, \texttt{study1} and \texttt{study2}, \texttt{study2} and \texttt{study3}, and \texttt{study3} and \texttt{study4}. All further analyses will be performed on the final model.
 
-The R output of running the backwards algorithm using the stepAIC function can be found in the R markdown file only, whereas the R output of the final model can be found on page 30 of the appendix.
+The R output of running the backwards algorithm using the stepAIC function can be found in the R markdown file only, whereas the R output of the final model can be found on page 32 of the appendix.
 
 ```{r warning = FALSE, echo = FALSE, message = FALSE, results = 'hide'}
 stepAIC(first_model, direction = "both")$anova
@@ -776,7 +775,7 @@ summary(remaining_data$Quiz_3_score)
 summary(remaining_data$Quiz_4_score)
 ```
 
-```{r}
+```{r echo = FALSE}
 canada <- remaining_data %>%
   filter(as.character(country) == "Canada") %>%
   dplyr::select(-country)
@@ -784,9 +783,7 @@ canada <- remaining_data %>%
 unknown <- remaining_data %>%
   filter(is.na(as.character(country))) %>%
   dplyr::select(-country)
-```
 
-```{r echo = FALSE}
 china <- remaining_data %>%
   filter(as.character(country) == "China") %>%
   dplyr::select(-country)
@@ -828,7 +825,7 @@ usa <- remaining_data %>%
   dplyr::select(-country)
 ```
 
-```{r echo = FALSE}
+```{r}
 countries = data.frame(
   Canada = nrow(canada),
   China = nrow(china),
@@ -847,6 +844,8 @@ rownames(countries) = "Country"
 t(countries)
 ```
 
+\newpage
+
 ```{R echo = FALSE, include = FALSE}
 all_countries = remaining_data %>%
   dplyr::select(-country)  # The dataset must only contain numeric values for cor() to work.
@@ -856,9 +855,13 @@ all_countries = remaining_data %>%
 display_correlation_matrix(all_countries)
 ```
 
+\newpage
+
 ```{r}
 summary(first_model)
 ```
+
+\newpage
 
 ```{r}
 summary(final_model)
