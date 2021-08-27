@@ -678,31 +678,34 @@ Recall that the purpose of the model is to see whether previous quiz scores, tim
 
 ## Interpretation of Final Model
 
-The final model suggests a strong evidence of a positive relationship between quiz 3 scores and quiz 4 scores, as well as study times between consecutive weeks (i.e., (STA302W1, STA302W2), (STA302W2, STA302W3), (STA302W3, STA302W4)), keeping all other variables constant.
+The final model suggests a strong evidence of a statistically significant positive relationship between quiz 3 scores and quiz 4 scores. However, week 1 COVID times have a statistically significant positive quadratic relationship with quiz 4 scores. Also, there is an significant negative interaction effect between weeks 1 - 2 COVID times and quiz 4 performance.
 
-Quiz 3 is much closer in difficulty to Quiz 4 because students are used to the online Quercus quiz format. Students better understood how many decimal places they should round their final answers to from Quizzes 1 and 2, and the style of Quiz 3 questions are very similar to Quiz 4. Students also ramped up their study efforts as they anticipated more challenging quizzes as the semester progressed.
+Gonzalez et al. (2020) conducts a similar study that shows taking an online course during COVID-19 can boost overall quiz performance at the beginning of the term, which are consistent with this study.
 
-Although STA302H1 studying increased throughout the semester, the final model suggests that students who made a consistent effort to start studying during the 1st week of classes tend to score higher than students who started studying during the 2nd or 3rd week of classes. (TODO: Insert author here) shows that studying many hours last minute (mass learning) is less effective than studying a few hours a day throughout the term (spaced learning). By studying frequently throughout the semester, students have more opportunities to review STA302H1 material and their STA302H1 knowledge has more time to "compound" throughout the semester.
+This study finds that if students were to study for consecutive weeks, 
+all else being equal, the effect of studying for the first 2 weeks (week 1 to week 2) would negatively influence their quiz 4 grades. But the effect of studying for the next two weeks (week 2 to week 3) benefits their quiz 4 performance. However, when students study in the last 2 weeks (week 3 to week 4), their quiz 4 performance tends to drops off. 
 
-(TODO: Insert scholarly source about how far students start studying for quizzes in advance vs. test scores.) \newline
-(TODO: Insert scholarly source about how far students start studying for quizzes in advance improves material retention.)
+
+
+Usually quizzes increase in difficulty as the semester progresses. Therefore, quiz 3 is more likely to be closer in difficulty and style to quiz 4. Students were better informed about how many decimal places they should round their final answers to from Quizzes 1 and 2, so they are less likely to make mistakes on numerical questions. Students might expect more challenging quizzes in later weeks and decide to ramp up their study efforts.
+
+Although STA302H1 studying increases throughout the semester, the final model suggests that students who made a consistent effort to start studying during the 1st week of classes tend to score higher than students who start studying during the 2nd or 3rd week of classes. According to Kornell (2009) research, studying many hours last minute (mass learning) is less effective than studying a few hours a day throughout the term (spaced learning). By studying frequently throughout the semester, students have more opportunities to review STA302H1 material and strengthen their retention of STA302H1 knowledge throughout the semester (de Jonge et al., 2012).
 
 ## Generalizability of Model
 
-This model is only generalizable to online courses rather than in-person courses. Students may enroll in online courses from various time zones, as opposed to a standardized time zone for in person courses. STA302H1 is also a 3rd year course, so naturally 3rd year students tend to study more for their courses and score higher on average on quizzes than 1st year students.
+This model is not generalizable since the study applies to online courses only. Students may enroll in online courses from various time zones, as opposed to a standardized time zone for in person courses.
 
 ## Remaining Limitations and Problems with Model
 
-This model fails to capture variables such as weekly anxiety levels, the weekly number of hours students sleep, and the weekly number of hours students participate in physical activity.
+This model does not include variables such as anxiety levels, the number of hours students sleep, and the number of hours students participate in physical activity.
 
-(TODO: Studies show high anxiety impairs course performance) \newline
-(TODO: Studies show high anxiety and more COVID think time) \newline
-(TODO: Studies show moderate sleep improves course performance) \newline
-(TODO: Studies show moderate exercise improves course performance)
+Various studies have shown that these variables have an impact on final performance, so including them in the model would provide more insight and potentially help improve the predictive power of the existing model. For example, Taras et al. (2009) demonstrates a moderate positive relationship between short-term physical activity and quiz performance.
 
-The final dataset excluded 28 STA302H1 dropped students, and some blank entries remained for missing survey responses, and missing quiz scores remained due to some students skipping quizzes.
+The final dataset excluded 28 STA302H1 dropped students, and some blank entries remained for missing survey responses, and missing quiz scores remained due to some students missing quizzes.
 
-Some students may have underreported the number of study hours under the assumption that it only involves the number of hours spent attending lectures and the number of hours spend reviewing lecture notes, when in fact some students included hours spent doing assignments, writing quizzes, and even hours spent attending office hours -- overall the number of hours spent doing any kind of coursework for STA302H1. 
+Another limitation is that quiz scores are ordinal (and not continuous), and therefore not amenable to simple linear regression. Instead, generalized linear models are required to a perform proper statistical analysis.
+
+The survey assumed the common definition of "study" which involves only time reviewing lectures, instead of using the expanded definition of "study" which involves engaging in STA302H1-related activities such as the number of hours spent completing assignments, writing quizzes, attending office hours, or even listening to statistics-related podcasts. This oversight may have resulted in some students underreporting the number of hours spent studying for STA302H1.
 
 Despite these limitations, further research may help inform us on benefits of study and COVID think times vs. quiz scores.
 
@@ -864,13 +867,11 @@ t.test(test_model$residuals)
 
 # Bibliography
 
-Clark, A. E., Nong, H., Zhu, H., & Zhu, R. (2021, May 02). Compensating for academic loss: Online learning and student performance during the COVID-19 pandemic. Retrieved from https://www.sciencedirect.com/science/article/abs/pii/S1043951X2100047X?casa_token=7y-rRjmZuZQAAAAA:AOMdYJEzrwR3WRp-IhLbqgJQx8Bjcv3DK5MYGFg46cDci1UM5kEA_Te17unzi0c2B1RDdUFHLMg
-
 De Jonge, M., Tabbers, H. K., & Diane, Z. (2012, March). APA PsycNet. Retrieved from https://psycnet.apa.org/buy/2011-23778-001
 
-Kornell, N. (2009, January 19). Optimising learning using flashcards: Spacing is more effective than cramming. Retrieved from https://onlinelibrary.wiley.com/doi/epdf/10.1002/acp.1537
+Gonzalez, T., Rubia, M. A., Hincz, K. P., Comas-Lopez, M., Subirats, L., Fort, S., & Sacha, G. M. (2020, October 9). Influence of COVID-19 confinement on students' performance in higher education. Retrieved from https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0239490#sec030
 
-Mahdy, M. A. (0001, January 01). The Impact of COVID-19 Pandemic on the Academic Performance of Veterinary Medical Students. Retrieved from https://internal-journal.frontiersin.org/articles/10.3389/fvets.2020.594261/full
+Kornell, N. (2009, January 19). Optimising learning using flashcards: Spacing is more effective than cramming. Retrieved from https://onlinelibrary.wiley.com/doi/epdf/10.1002/acp.1537
 
 Taras, H. (2009, October 09). Physical Activity and Student Performance at School. Retrieved from https://onlinelibrary.wiley.com/doi/epdf/10.1111/j.1746-1561.2005.tb06675.x
 
