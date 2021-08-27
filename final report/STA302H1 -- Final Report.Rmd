@@ -640,6 +640,8 @@ hist(lm(final_model)$residuals,
 
 Obtaining an independent dataset is infeasible, and the existing dataset has sufficiently many data points ($n = 143$ after removing all NAs). Therefore, it is possible to use 55% of the dataset to develop a regression model and the remaining 45% of the dataset to validate the trained model.
 
+The mean of the residuals of the trained dataset was $-3.7153 \times 10^{-17}$, which is approximately 0. This indicates that the model has high predictive power.
+
 ```{r echo = FALSE}
 set.seed(888)
 sample = sample.split(remaining_data_no_NAs, SplitRatio = 0.55)
@@ -668,8 +670,8 @@ study4 = training_data_no_NAs$STA302.hours..W4.
 country = training_data_no_NAs$country
 ```
 
-```{r echo = FALSE}
-last_model = lm(
+```{r echo = FALSE, results = "hide"}
+training_model = lm(
   quiz4 ~ quiz3
   + I(covid1 ^ 2)   # don't remove, else all other terms become insignificant
   + I(covid1 * covid2) 
@@ -679,9 +681,14 @@ last_model = lm(
   + I(study2 * study3) 
   + I(study3 * study4)
 )
+summary(training_model)
 ```
 
-```{r echo = FALSE}
+```{R echo = FALSE, results = "hide"}
+mean(training_model$residuals)
+```
+
+```{r echo = FALSE, results = "hide"}
 testing_data_no_NAs = na.omit(testing_data)
 
 quiz1 = testing_data_no_NAs$Quiz_1_score
@@ -702,24 +709,29 @@ study4 = testing_data_no_NAs$STA302.hours..W4.
 country = testing_data_no_NAs$country
 ```
 
-```{r echo = FALSE}
-predicted_values = predict(last_model, testing_data_no_NAs)
-actual_values = testing_data$Quiz_4_score
+```{r echo = FALSE, results = "hide"}
+test_model = lm(
+  quiz4 ~ quiz3
+  + I(covid1 ^ 2)   # don't remove, else all other terms become insignificant
+  + I(covid1 * covid2) 
+  + I(covid2 * covid3)  # don't remove, else all other terms become insignificant
+  + I(study1 * study2) 
+  + I(study1 * study3)  # maybe don't remove?
+  + I(study2 * study3) 
+  + I(study3 * study4)
+)
+summary(test_model)
+```
+
+```{R echo = FALSE, results = "hide"}
+mean(test_model$residuals)
 ```
 
 ```{r echo = FALSE}
-hist(predicted_values - actual_values,
-     main = "Histogram of Residuals of Trained Model",
+hist(test_model$residuals,
+     main = "Histogram of Residuals of Testing Model",
      xlab = "Observed Residual",
      ylab = "Frequency")
-```
-
-```{r}
-mean(predicted_values - actual_values)
-```
-
-```{r}
-median(predicted_values - actual_values)
 ```
 
 <!-- (TODO: Add histogram of residuals for trained model.) \newline -->
@@ -733,8 +745,6 @@ For our t-test, we hypothesized that the mean of residuals was identically equal
 
 - $H_0: \mu_{residuals} = 0$
 - $H_1: \mu_{residuals} \neq 0$
-
-(TODO: Add t-test results in a nice table.)
 
 The t-test results showed that the $p$-value is 0.7938, which means that we fail to reject $H_0$, meaning that $\mu_{residuals} = 0$ holds. The 95% confidence interval for the mean of residuals is $(-0.4510668, 0.3462948)$, and since $0 \in (-0.4510668, 0.3462948)$, we again fail to reject $H_0$ and conclude that $\mu_{residuals} = 0$. \newline
 (TODO: See figure X in appendix for t-test output.)
@@ -990,6 +1000,6 @@ summary(first_model)
 summary(final_model)
 ```
 
-```{R echo = FALSE}
-t.test(predicted_values - actual_values)
+```{R}
+t.test(test_model$residuals)
 ```
